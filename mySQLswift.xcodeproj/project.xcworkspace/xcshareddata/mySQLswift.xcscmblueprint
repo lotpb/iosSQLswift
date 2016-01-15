@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "F57CDA18CAC9B304787FD31A9C23206D85B6B83E",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "F57CDA18CAC9B304787FD31A9C23206D85B6B83E" : 0,
+    "18C37EC6845993809288129D9E5BC9B6BBAE326E" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "F1C9C475-80EF-4EB3-BED3-8071C7FDF5AF",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "F57CDA18CAC9B304787FD31A9C23206D85B6B83E" : "iosSQLswift\/",
+    "18C37EC6845993809288129D9E5BC9B6BBAE326E" : "iosSQLswift\/mySQLswift\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "mySQLswift",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "mySQLswift.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/lotpb\/mySQLswift.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "18C37EC6845993809288129D9E5BC9B6BBAE326E"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/lotpb\/iosSQLswift.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "F57CDA18CAC9B304787FD31A9C23206D85B6B83E"
+    }
+  ]
+}
