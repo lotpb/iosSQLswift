@@ -81,18 +81,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         // MARK: - Register login
         // FIXME:
         
-        //if !(defaults.valueForKey("registerKey") != nil) || !(defaults.valueForKey("loginKey") != nil) {
-        if PFUser.currentUser() == nil{
-            // show main screen
+        if (defaults.valueForKey("registerKey") == nil) || (defaults.valueForKey("loginKey") != nil) {
+        //if PFUser.currentUser() == nil{
             
+            // show main screen
             let storyboard :UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let LoginScreen = storyboard.instantiateViewControllerWithIdentifier("loginViewController")
             UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(LoginScreen, animated: true, completion: nil)
+            
         } else {
+            
             //show login screen
             let storyboard :UIStoryboard = UIStoryboard(name: "Main", bundle: nil)
             let MainScreenNavigation = storyboard.instantiateViewControllerWithIdentifier("MasterViewController")
-            UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(MainScreenNavigation, animated: false, completion: nil)
+            UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(MainScreenNavigation, animated: true, completion: nil)
             
         }
         

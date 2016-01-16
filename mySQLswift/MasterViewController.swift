@@ -339,6 +339,27 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         self.resultsController.tableView.reloadData()
     }
     
+    // MARK: - Rate App
+    
+    @IBAction func alertPressed(sender: UIButton) {
+        // 5
+        let alert = UIAlertController(title: "Default Style", message: "A Standard Alert", preferredStyle: UIAlertControllerStyle.Alert)
+        
+        let oneAction = UIAlertAction(title: "One", style: UIAlertActionStyle.Default, handler: nil)
+        
+        let twoAction = UIAlertAction(title: "Two", style: UIAlertActionStyle.Default, handler: nil)
+        
+        let threeAction = UIAlertAction(title: "Three", style: UIAlertActionStyle.Default, handler: nil)
+        
+        alert.addAction(oneAction)
+        alert.addAction(twoAction)
+        alert.addAction(threeAction)
+        
+        presentViewController(alert, animated: true, completion: nil)
+        
+    }
+
+    
     // MARK: - Segues
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

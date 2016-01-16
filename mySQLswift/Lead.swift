@@ -406,6 +406,7 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
                     
                     self.foundUsers.append(fullName)
                     print(fullName)
+                    //self.filteredString = self.foundUsers
                     //self.filteredString = self.foundUsers.mutableCopy() as! NSMutableArray
                 }
                 

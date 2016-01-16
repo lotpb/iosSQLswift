@@ -26,10 +26,11 @@ class Customer: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     var searchController = UISearchController!()
     var resultsController: UITableViewController!
     var users:[[String:AnyObject]]!
-    var foundUsers = [String]()
+    var foundUsers:[String] = []
+
     var userDetails:[String:AnyObject]!
     
-    var refreshControl: UIRefreshControl!
+    var refreshControl:UIRefreshControl!
     
     var objectIdLabel = String()
     var titleLabel = String()
@@ -412,14 +413,14 @@ class Customer: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         
         self.foundUsers.removeAll(keepCapacity: false)
         
-        let searchPredicate = NSPredicate(format: "SELF CONTAINS[c] %@", searchController.searchBar.text!)
+        let searchPredicate = NSPredicate(format: "SELF CONTAINS[cd] %@", searchController.searchBar.text!)
         
-        let array = (filteredString as NSArray).filteredArrayUsingPredicate(searchPredicate)
+        let array = (_feedItems as NSArray).filteredArrayUsingPredicate(searchPredicate)
         
         self.foundUsers = array as! [String]
-        
+        //print(self.foundUsers)
         dispatch_async(dispatch_get_main_queue()) {
-            self.resultsController.tableView.reloadData()
+            //self.resultsController.tableView.reloadData()
             self.searchController.resignFirstResponder()
         }
     }

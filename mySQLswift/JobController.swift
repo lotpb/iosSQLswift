@@ -316,12 +316,7 @@ class JobController: UIViewController, UITableViewDelegate, UITableViewDataSourc
     
     
     func updateSearchResultsForSearchController(searchController: UISearchController) {
-        
-        self.foundUsers.removeAll(keepCapacity: false)
-        let searchPredicate = NSPredicate(format: "SELF CONTAINS[c] %@", searchController.searchBar.text!)
-        let array = (self._feedItems as NSArray).filteredArrayUsingPredicate(searchPredicate)
-        self.foundUsers = array as! [String]
-        self.resultsController.tableView.reloadData()
+
     }
     
     // MARK: - Parse

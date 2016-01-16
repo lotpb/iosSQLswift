@@ -20,6 +20,7 @@ class MapView: UIViewController, MKMapViewDelegate,  CLLocationManagerDelegate {
     @IBOutlet weak var routView: UIView!
     @IBOutlet weak var mapTypeSegmentedControl: UISegmentedControl!
     
+    var activityIndicator: UIActivityIndicatorView?
     var mapaddress : NSString?
     var mapcity : NSString?
     var mapstate : NSString?
@@ -59,9 +60,28 @@ class MapView: UIViewController, MKMapViewDelegate,  CLLocationManagerDelegate {
         let buttons:NSArray = [actionButton]
         self.navigationItem.rightBarButtonItems = buttons as? [UIBarButtonItem]
         
+        addActivityIndicator()
+        
+    }
+    
+    func addActivityIndicator() {
+        activityIndicator = UIActivityIndicatorView(frame: UIScreen.mainScreen().bounds)
+        activityIndicator?.activityIndicatorViewStyle = .WhiteLarge
+        activityIndicator?.backgroundColor = UIColor(red:0.0, green:122.0/255.0, blue:1.0, alpha: 1.0) //view.backgroundColor
+        activityIndicator?.startAnimating()
+        view.addSubview(activityIndicator!)
+    }
+    
+    func hideActivityIndicator() {
+        if activityIndicator != nil {
+            activityIndicator?.removeFromSuperview()
+            activityIndicator = nil
+        }
     }
     
     override func viewWillAppear(animated: Bool) {
+        //navigationController?.navigationBarHidden = false
+        //automaticallyAdjustsScrollViewInsets = false
         //locationManager.startUpdatingHeading()
         //locationManager.startUpdatingLocation()
     }
@@ -135,7 +155,7 @@ class MapView: UIViewController, MKMapViewDelegate,  CLLocationManagerDelegate {
                 request.destination = MKMapItem(placemark: MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: placemark.location!.coordinate.latitude, longitude: placemark.location!.coordinate.longitude), addressDictionary: nil))
                 
         // MARK:  AlternateRoutes
-                request.requestsAlternateRoutes = false
+                request.requestsAlternateRoutes = true
         // MARK:  transportType
                 request.transportType = .Automobile
                 
@@ -148,6 +168,7 @@ class MapView: UIViewController, MKMapViewDelegate,  CLLocationManagerDelegate {
                         //self.mapView.addOverlay(route.polyline)
                         self.mapView.setVisibleMapRect(route.polyline.boundingMapRect, animated: true)
                         self.showRoute(response!)
+                        self.hideActivityIndicator()
                     }
                 }
             }
@@ -158,17 +179,31 @@ class MapView: UIViewController, MKMapViewDelegate,  CLLocationManagerDelegate {
     
     func showRoute(response: MKDirectionsResponse) {
         
+        
         let temp:MKRoute = response.routes.first! as MKRoute
         self.route = temp
         self.travelTime.text = NSString(format:"Time %0.1f minutes", route.expectedTravelTime/60) as String
         self.travelDistance.text = String(format:"Distance %0.1f Miles", route.distance/1609.344) as String
         self.mapView.addOverlay(route.polyline, level: MKOverlayLevel.AboveRoads)
         
+        /*
+        if mapView.overlays.count == 1 {
+        mapView.setVisibleMapRect(route.polyline.boundingMapRect,
+        edgePadding: UIEdgeInsetsMake(10.0, 10.0, 10.0, 10.0),
+        animated: false)
+        } else {
+        let polylineBoundingRect =  MKMapRectUnion(mapView.visibleMapRect,
+        route.polyline.boundingMapRect)
+        mapView.setVisibleMapRect(polylineBoundingRect,
+        edgePadding: UIEdgeInsetsMake(10.0, 10.0, 10.0, 10.0),
+        animated: false)
+        } */
+        
         for (var i = 0; i < self.route.steps.count; i++)
         {
             let step:MKRouteStep = self.route.steps[i] as MKRouteStep;
             let newStep:NSString = step.instructions
-            let distStep:NSString = String(format:"%0.2f Miles", step.distance/1609.344) as String
+            let distStep:NSString = String(format:"%0.2f miles", step.distance/1609.344) as String
             self.allSteps = self.allSteps!.stringByAppendingString( "\(i+1). ")
             self.allSteps = self.allSteps!.stringByAppendingString(newStep as String)
             self.allSteps = self.allSteps!.stringByAppendingString("  ");
@@ -196,7 +231,19 @@ class MapView: UIViewController, MKMapViewDelegate,  CLLocationManagerDelegate {
     
     func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
         let renderer = MKPolylineRenderer(polyline: overlay as! MKPolyline)
-        renderer.strokeColor = UIColor.blueColor()
+        
+        if mapView.overlays.count == 1 {
+            renderer.strokeColor =
+                UIColor.blueColor().colorWithAlphaComponent(0.75)
+        } else if mapView.overlays.count == 2 {
+            renderer.strokeColor =
+                UIColor.greenColor().colorWithAlphaComponent(0.75)
+        } else if mapView.overlays.count == 3 {
+            renderer.strokeColor =
+                UIColor.redColor().colorWithAlphaComponent(0.75)
+        }
+  
+        //renderer.strokeColor = UIColor.blueColor()
         renderer.lineWidth = 3
         return renderer
     }

@@ -22,7 +22,6 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var listTableView2: UITableView!
     @IBOutlet weak var newsTableView: UITableView!
     
-    
     @IBOutlet weak var mainView: UIView!
     
     @IBOutlet weak var labelNo: UILabel!

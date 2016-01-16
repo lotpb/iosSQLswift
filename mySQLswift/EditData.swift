@@ -9,7 +9,7 @@
 import UIKit
 import Parse
 
-class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
+class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate {
 
     
     @IBOutlet weak var tableView: UITableView?
@@ -17,11 +17,14 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     @IBOutlet weak var first: UITextField!
     @IBOutlet weak var last: UITextField!
     @IBOutlet weak var company: UITextField!
-    //@IBOutlet weak var photo: UITextField?
+  //@IBOutlet weak var photo: UITextField?
     
     @IBOutlet weak var following: UILabel!
     @IBOutlet weak var activebutton: UIButton!
     @IBOutlet weak var profileImageView: UIImageView?
+    
+    var DatePickerView : UIDatePicker = UIDatePicker()
+    var pickOption = ["one", "two", "three", "seven", "fifteen"]
     
     var salesArray : NSMutableArray = NSMutableArray()
     var callbackArray : NSMutableArray = NSMutableArray()
@@ -90,16 +93,11 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     var frm31 : NSString? //start
     var frm32 : NSString? //completion
     
-    //var _feedItems : NSMutableArray = NSMutableArray()
-    //var _feedheadItems : NSMutableArray = NSMutableArray()
-    //var filteredString : NSMutableArray = NSMutableArray()
-    //var objects = [AnyObject]()
     var pasteBoard = UIPasteboard.generalPasteboard()
     var refreshControl: UIRefreshControl!
     
     //var searchController = UISearchController!()
     //var resultsController: UITableViewController!
-    //
     //var foundUsers = [String]()
     
     
@@ -145,6 +143,10 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                 self.activebutton.setImage(replyimage, forState: .Normal)
             }
         }
+        
+        let pickerView = UIPickerView()
+        pickerView.delegate = self
+        self.callback?.inputView = pickerView
         
         passFieldData()
         if (self.statis == "Edit") {
@@ -276,6 +278,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             
             self.date = textframe
             self.date!.tag = 0
+            
             if self.frm18 == nil {
                 self.date!.text = ""
             } else {
@@ -283,7 +286,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             }
             
             if (self.formController == "Leads" || self.formController == "Customer") {
-                self.date?.inputView = nil //[self datePicker:0]
+                self.date?.inputView = DatePickerView
                 if (self.statis == "New") {
                     self.date?.text = dateString
                 }
@@ -664,11 +667,64 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
 
     }
     
+    
     // MARK: - TextField
     
     func textFieldShouldReturn(textField: UITextField) -> Bool {   //delegate method
         textField.resignFirstResponder()
         return true
+    }
+    
+    
+    // MARK: - PickView
+    
+    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return pickOption.count
+    }
+    
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return pickOption[row]
+    }
+    
+    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        self.callback.text = pickOption[row]
+    }
+    
+    
+    // MARK: - DatePicker
+    
+    func textFieldEditing(sender: UITextField) {
+        
+        /*
+        let DatePickerView : UIDatePicker = UIDatePicker()
+        DatePickerView.datePickerMode = UIDatePickerMode.Date
+        self.date.inputView = DatePickerView */
+        
+        //let datePickerView:UIDatePicker = UIDatePicker()
+        DatePickerView.datePickerMode = UIDatePickerMode.Date
+        //sender.inputView = DatePickerView
+        DatePickerView.addTarget(self, action: Selector("datePickerValueChanged:"), forControlEvents: UIControlEvents.ValueChanged)
+        
+    }
+    
+    func datePickerValueChanged(sender:UIDatePicker) {
+        
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        dateFormatter.timeStyle = NSDateFormatterStyle.NoStyle
+        if (sender.tag == 0) {
+            self.date?.text = dateFormatter.stringFromDate(sender.date)
+        } else if (sender.tag == 4) {
+            self.aptDate?.text = dateFormatter.stringFromDate(sender.date)
+        } else if (sender.tag == 14) {
+            self.start?.text = dateFormatter.stringFromDate(sender.date)
+        } else if (sender.tag == 15) {
+            self.complete?.text = dateFormatter.stringFromDate(sender.date)
+        }
     }
     
     // MARK: - Field Header
