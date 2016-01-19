@@ -32,23 +32,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
             
         }
         
-        // MARK: - SplitViewController
-        
-        // Override point for customization after application launch.
-        /*     let splitViewController = self.window!.rootViewController as! UISplitViewController
-        let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
-        navigationController.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem()
-        splitViewController.delegate = self */
-        
-        // MARK: - Reg Settings
-        
-        /*
-        let prefs = NSBundle.mainBundle().pathForResource("Settings", ofType: "plist")
-        let dict = NSDictionary(contentsOfFile: prefs!)
-        defaults.setObject(dict, forKey: "defaults")                // without this code doesn't work
-        defaults.registerDefaults(["areacodeKey": "(516)", "parsedataKey": "YES"])  // with or without this code works... do I need this?
-        defaults.synchronize() */
-        
 
         // MARK: - prevent Autolock
         
@@ -97,6 +80,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
             UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(MainScreenNavigation, animated: true, completion: nil)
             
         }
+        
+        
+        
+        // MARK: - SplitViewController
+        
+        // Override point for customization after application launch.
+        /*     let splitViewController = self.window!.rootViewController as! UISplitViewController
+        let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
+        navigationController.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem()
+        splitViewController.delegate = self */
+        
+        
+        
+        // MARK: - Reg Settings
+        
+        /*
+        let prefs = NSBundle.mainBundle().pathForResource("Settings", ofType: "plist")
+        let dict = NSDictionary(contentsOfFile: prefs!)
+        defaults.setObject(dict, forKey: "defaults")                // without this code doesn't work
+        defaults.registerDefaults(["areacodeKey": "(516)", "parsedataKey": "YES"])  // with or without this code works... do I need this?
+        defaults.synchronize() */
+        
         
         customizeAppearance()
         return true

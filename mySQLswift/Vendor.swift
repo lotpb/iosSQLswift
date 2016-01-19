@@ -16,9 +16,10 @@ class Vendor: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
     let searchScope = ["name","city","phone","department"]
     
     @IBOutlet weak var tableView: UITableView?
-    var _feedItems : NSMutableArray = NSMutableArray()
-    var _feedheadItems : NSMutableArray = NSMutableArray()
-    var filteredString : NSMutableArray = NSMutableArray()
+    
+    var _feedItems = NSMutableArray()
+    var _feedheadItems = NSMutableArray()
+    var filteredString = NSMutableArray()
  
     var pasteBoard = UIPasteboard.generalPasteboard()
     var refreshControl: UIRefreshControl!
@@ -353,15 +354,45 @@ class Vendor: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
     
     
     func updateSearchResultsForSearchController(searchController: UISearchController) {
+        /*
         
-        foundUsers.removeAll()
-        for user in users {
-            let userName:String! = user["name"] as? String
-            if userName.localizedCaseInsensitiveContainsString(searchController.searchBar.text!) {
-                foundUsers.append(user)
-                self.resultsController.tableView.reloadData()
+        let searchString = searchController.searchBar.text!
+        
+        filteredString.removeAllObjects()
+       
+        if !searchString.isEmpty {
+            
+            for string in _feedItems {
+            let stringRange = String!.objectForKey("Vendor") as? String
+            
+           // for college in collegeArray as! NSArray {
+           // let stringRange = college["collegeName"] as! String
+            
+            
+            
+            if (stringRange.rangeOfString(searchString!,
+                options: .CaseInsensitiveSearch, range: nil, locale: nil) != nil) {
+                filteredString.addObject(String)
+            }
+            
             }
         }
+        tableView!.reloadData()
+        */
+        
+        
+        
+        
+        
+        /*
+        foundUsers.removeAll()
+        for user in users {
+        let userName:String! = user["name"] as? String
+        if userName.localizedCaseInsensitiveContainsString(searchController.searchBar.text!) {
+        foundUsers.append(user)
+        self.resultsController.tableView.reloadData()
+        }
+        } */
     }
     
     // MARK: - Segues

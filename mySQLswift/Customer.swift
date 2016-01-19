@@ -11,8 +11,8 @@ import Parse
 
 class Customer: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating {
     
-    let navColor = UIColor.blueColor()
-    let labelColor = UIColor(red: 1.0, green: 0.61, blue: 0.47, alpha: 1.0)
+    let navColor = UIColor(red: 0.21, green: 0.60, blue: 0.86, alpha: 1.0)
+    let labelColor = UIColor(red: 0.20, green: 0.29, blue: 0.37, alpha: 1.0)
     let labelColor1 = UIColor(white:0.45, alpha:1.0)
     let buttonColor = UIColor.blueColor()
     let buttonColor1 = UIColor.blueColor()
@@ -274,7 +274,7 @@ class Customer: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         myLabel1.font = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
         myLabel1.layer.cornerRadius = 25.0
         myLabel1.userInteractionEnabled = true
-        myLabel1.layer.borderColor = UIColor.blackColor().CGColor
+        myLabel1.layer.borderColor = UIColor.lightGrayColor().CGColor
         myLabel1.layer.borderWidth = 1
         vw.addSubview(myLabel1)
         
@@ -292,7 +292,7 @@ class Customer: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         myLabel2.font = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
         myLabel2.layer.cornerRadius = 25.0
         myLabel2.userInteractionEnabled = true
-        myLabel2.layer.borderColor = UIColor.blackColor().CGColor
+        myLabel2.layer.borderColor = UIColor.lightGrayColor().CGColor
         myLabel2.layer.borderWidth = 1
         vw.addSubview(myLabel2)
         
@@ -310,7 +310,7 @@ class Customer: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         myLabel3.font = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
         myLabel3.layer.cornerRadius = 25.0
         myLabel3.userInteractionEnabled = true
-        myLabel3.layer.borderColor = UIColor.blackColor().CGColor
+        myLabel3.layer.borderColor = UIColor.lightGrayColor().CGColor
         myLabel3.layer.borderWidth = 1
         vw.addSubview(myLabel3)
         

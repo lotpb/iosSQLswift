@@ -87,51 +87,6 @@ class CustomTableCell: UITableViewCell {
     @IBOutlet weak var buttonView: UIView!
     @IBOutlet weak var blog2ImageView: UIImageView!
     
-    var parseObject:PFObject? //  Copyright (c) 2015 AppCoda. example from Paws.
-    
-    
-    override func awakeFromNib() {
-        let gesture = UITapGestureRecognizer(target: self, action:Selector("onDoubleTap:"))
-        gesture.numberOfTapsRequired = 2
-        contentView.addGestureRecognizer(gesture)
-        
-        //catPawIcon?.hidden = true
-        super.awakeFromNib()
-
-    }
-    
-    func onDoubleTap(sender:AnyObject) {
-        
-        if(parseObject != nil) {
-            if var likedNum:Int? = parseObject!.objectForKey("Liked") as? Int {
-                likedNum!++
-                
-                parseObject!.setObject(likedNum!, forKey: "Liked");
-                parseObject!.saveInBackground();
-                
-                
-                numLabel?.text = "\(likedNum!) Liked";
-            }
-        }
-        
-        //catPawIcon?.hidden = false
-        //catPawIcon?.alpha = 1.0
-        
-        UIView.animateWithDuration(1.0, delay: 1.0, options:[], animations: {
-            
-            //self.catPawIcon?.alpha = 0
-            
-            }, completion: {
-                (value:Bool) in
-                
-                //self.catPawIcon?.hidden = true
-        })
-    }
-
-    override func setSelected(selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
 
 }
+

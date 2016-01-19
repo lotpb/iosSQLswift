@@ -229,15 +229,7 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell") as! CustomTableCell!
-        
-        /*
-        if cell == nil {
-        cell = CustomTableCell(style: UITableViewCellStyle.Default, reuseIdentifier: "Cell")
-        } */
-        
-        /*
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! CustomTableCell */
+        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! CustomTableCell
         
         /*
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
@@ -258,12 +250,10 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
         maintitle.text = nil
         maintitle.backgroundColor = UIColor.whiteColor()
         maintitle.textColor = UIColor.blackColor()
-        //maintitle.hidden = true
         
         datetitle.text = nil
         datetitle.backgroundColor = UIColor.whiteColor()
         datetitle.textColor = UIColor.lightGrayColor()
-        //datetitle.hidden = true
         
         if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
             cell.textLabel!.font = UIFont (name: "HelveticaNeue-Medium", size: 18)

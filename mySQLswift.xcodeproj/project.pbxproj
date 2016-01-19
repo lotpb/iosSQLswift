@@ -20,6 +20,8 @@
 		AF0369C71C173DDC00137D7E /* mySQLswiftUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0369C61C173DDC00137D7E /* mySQLswiftUITests.swift */; };
 		AF0754861C4336E200B03D38 /* LookupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0754851C4336E200B03D38 /* LookupData.swift */; };
 		AF0C77A31C2245BA0055DDE4 /* CustomNewsTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0C77A21C2245BA0055DDE4 /* CustomNewsTableCell.swift */; };
+		AF0D6B311C4AC5E900334D03 /* YQL.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0D6B301C4AC5E900334D03 /* YQL.swift */; };
+		AF0D6B331C4C554300334D03 /* YouTubeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0D6B321C4C554300334D03 /* YouTubeController.swift */; };
 		AF0DACA11C1F43DB00B23CE5 /* BlogEditController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0DACA01C1F43DB00B23CE5 /* BlogEditController.swift */; };
 		AF0DACA41C1F47A500B23CE5 /* BlogNewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0DACA31C1F47A500B23CE5 /* BlogNewController.swift */; };
 		AF1DE4B11C19CDBC002B24C5 /* LeadDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1DE4B01C19CDBC002B24C5 /* LeadDetail.swift */; };
@@ -119,6 +121,8 @@
 		AFE264311C17DC11007BBB90 /* Thumb Up.png in Resources */ = {isa = PBXBuildFile; fileRef = AFE264081C17DC11007BBB90 /* Thumb Up.png */; };
 		AFE264321C17DC11007BBB90 /* Upload50.png in Resources */ = {isa = PBXBuildFile; fileRef = AFE264091C17DC11007BBB90 /* Upload50.png */; };
 		AFE264331C17DC11007BBB90 /* user_male-128.png in Resources */ = {isa = PBXBuildFile; fileRef = AFE2640A1C17DC11007BBB90 /* user_male-128.png */; };
+		AFF3C8ED1C4E86B000D9B7BD /* SpotBeaconController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF3C8EC1C4E86B000D9B7BD /* SpotBeaconController.swift */; };
+		AFF3C8EF1C4E8A0100D9B7BD /* TransmitBeaconController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF3C8EE1C4E8A0100D9B7BD /* TransmitBeaconController.swift */; };
 		AFF7BCE51C3230EA0051DDCB /* CodeGenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF7BCE41C3230EA0051DDCB /* CodeGenController.swift */; };
 /* End PBXBuildFile section */
 
@@ -159,6 +163,8 @@
 		AF0369C81C173DDC00137D7E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AF0754851C4336E200B03D38 /* LookupData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LookupData.swift; sourceTree = "<group>"; };
 		AF0C77A21C2245BA0055DDE4 /* CustomNewsTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNewsTableCell.swift; sourceTree = "<group>"; };
+		AF0D6B301C4AC5E900334D03 /* YQL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YQL.swift; sourceTree = "<group>"; };
+		AF0D6B321C4C554300334D03 /* YouTubeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YouTubeController.swift; sourceTree = "<group>"; };
 		AF0DACA01C1F43DB00B23CE5 /* BlogEditController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlogEditController.swift; sourceTree = "<group>"; };
 		AF0DACA31C1F47A500B23CE5 /* BlogNewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlogNewController.swift; sourceTree = "<group>"; };
 		AF1DE4B01C19CDBC002B24C5 /* LeadDetail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeadDetail.swift; sourceTree = "<group>"; };
@@ -259,6 +265,8 @@
 		AFE264081C17DC11007BBB90 /* Thumb Up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Thumb Up.png"; path = "images/Thumb Up.png"; sourceTree = "<group>"; };
 		AFE264091C17DC11007BBB90 /* Upload50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Upload50.png; path = images/Upload50.png; sourceTree = "<group>"; };
 		AFE2640A1C17DC11007BBB90 /* user_male-128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "user_male-128.png"; path = "images/user_male-128.png"; sourceTree = "<group>"; };
+		AFF3C8EC1C4E86B000D9B7BD /* SpotBeaconController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotBeaconController.swift; sourceTree = "<group>"; };
+		AFF3C8EE1C4E8A0100D9B7BD /* TransmitBeaconController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransmitBeaconController.swift; sourceTree = "<group>"; };
 		AFF7BCE41C3230EA0051DDCB /* CodeGenController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodeGenController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -335,7 +343,10 @@
 				AF0369A41C173DDC00137D7E /* AppDelegate.swift */,
 				AF0369A61C173DDC00137D7E /* MasterViewController.swift */,
 				AF0369A81C173DDC00137D7E /* DetailViewController.swift */,
+				AF0D6B301C4AC5E900334D03 /* YQL.swift */,
 				AF0369AA1C173DDC00137D7E /* Main.storyboard */,
+				AFF3C8EE1C4E8A0100D9B7BD /* TransmitBeaconController.swift */,
+				AFF3C8EC1C4E86B000D9B7BD /* SpotBeaconController.swift */,
 				AF8CC3A91C41B34E004147F3 /* Main Tables */,
 				AF8CC3A81C41B317004147F3 /* Tables */,
 				AF0DACA21C1F45D400B23CE5 /* Blog */,
@@ -473,6 +484,7 @@
 		AFD1A3101C1E367B00580F10 /* Accessory Tables */ = {
 			isa = PBXGroup;
 			children = (
+				AF0D6B321C4C554300334D03 /* YouTubeController.swift */,
 				AF5C01E51C493245009BB817 /* Music */,
 				AFD1A2FF1C1CCFCF00580F10 /* SocialController.swift */,
 				AFF7BCE41C3230EA0051DDCB /* CodeGenController.swift */,
@@ -760,6 +772,7 @@
 				AF5C01E41C49320E009BB817 /* Download.swift in Sources */,
 				AFF7BCE51C3230EA0051DDCB /* CodeGenController.swift in Sources */,
 				AF0C77A31C2245BA0055DDE4 /* CustomNewsTableCell.swift in Sources */,
+				AF0D6B311C4AC5E900334D03 /* YQL.swift in Sources */,
 				AF9A87841C18645C0091B0E3 /* Web.swift in Sources */,
 				AF8CC3AB1C42B9FB004147F3 /* StatisticController.swift in Sources */,
 				AF0369A91C173DDC00137D7E /* DetailViewController.swift in Sources */,
@@ -768,8 +781,11 @@
 				AF46FA861C2322B200C27445 /* JobViewCell.swift in Sources */,
 				AFE263A41C178830007BBB90 /* Blog.swift in Sources */,
 				AF5BF9E91C18C3720072B997 /* News.swift in Sources */,
+				AF0D6B331C4C554300334D03 /* YouTubeController.swift in Sources */,
 				AF9EE4C71C2771D70057B7DB /* NotificationController.swift in Sources */,
+				AFF3C8EF1C4E8A0100D9B7BD /* TransmitBeaconController.swift in Sources */,
 				AFD1A30B1C1E224600580F10 /* Customer.swift in Sources */,
+				AFF3C8ED1C4E86B000D9B7BD /* SpotBeaconController.swift in Sources */,
 				AF0DACA41C1F47A500B23CE5 /* BlogNewController.swift in Sources */,
 				AF0369A51C173DDC00137D7E /* AppDelegate.swift in Sources */,
 				AF5C01E21C493204009BB817 /* Track.swift in Sources */,

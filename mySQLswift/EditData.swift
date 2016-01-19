@@ -286,10 +286,12 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             }
             
             if (self.formController == "Leads" || self.formController == "Customer") {
+                
                 self.date?.inputView = DatePickerView
                 if (self.statis == "New") {
                     self.date?.text = dateString
                 }
+                //DatePickerView.addTarget(self, action: Selector("datePickerValueChanged:"), forControlEvents: UIControlEvents.ValueChanged)
             }
             
             if (self.formController == "Vendor") {
@@ -696,7 +698,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     
     
     // MARK: - DatePicker
-    
+    /*
     func textFieldEditing(sender: UITextField) {
         
         /*
@@ -709,7 +711,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         //sender.inputView = DatePickerView
         DatePickerView.addTarget(self, action: Selector("datePickerValueChanged:"), forControlEvents: UIControlEvents.ValueChanged)
         
-    }
+    } */
     
     func datePickerValueChanged(sender:UIDatePicker) {
         

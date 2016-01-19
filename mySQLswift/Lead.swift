@@ -11,16 +11,16 @@ import Parse
 
 class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating {
     
-    let navColor = UIColor(red: 0.09, green: 0.62, blue: 0.93, alpha: 1.0)
-    let labelColor = UIColor(red: 0.02, green: 0.36, blue: 0.53, alpha: 1.0)
+    let navColor = UIColor(red: 0.16, green: 0.69, blue: 0.38, alpha: 1.0)
+    let labelColor = UIColor(red: 0.75, green: 0.36, blue: 0.53, alpha: 1.0)
     let labelColor1 = UIColor(white:0.45, alpha:1.0)
     let searchScope = ["name","city","phone","date", "active"]
     
     @IBOutlet weak var tableView: UITableView?
     
-    var _feedItems : NSMutableArray = NSMutableArray()
-    var _feedheadItems : NSMutableArray = NSMutableArray()
-    var filteredString : NSMutableArray = NSMutableArray()
+    var _feedItems = NSMutableArray()
+    var _feedheadItems = NSMutableArray()
+    var filteredString = NSMutableArray()
   
     var pasteBoard = UIPasteboard.generalPasteboard()
     var refreshControl: UIRefreshControl!

@@ -18,9 +18,9 @@ class Employee: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     
     @IBOutlet weak var tableView: UITableView?
 
-    var _feedItems : NSMutableArray = NSMutableArray()
-    var _feedheadItems : NSMutableArray = NSMutableArray()
-    var filteredString : NSMutableArray = NSMutableArray()
+    var _feedItems = NSMutableArray()
+    var _feedheadItems = NSMutableArray()
+    var filteredString = NSMutableArray()
 
     var pasteBoard = UIPasteboard.generalPasteboard()
     var refreshControl: UIRefreshControl!
@@ -28,7 +28,7 @@ class Employee: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     var searchController = UISearchController!()
     var resultsController: UITableViewController!
     var users:[[String:AnyObject]]!
-    var foundUsers:[[String:AnyObject]]!
+    var foundUsers = [String]()
     var userDetails:[String:AnyObject]!
     
     
@@ -346,13 +346,36 @@ class Employee: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     
     func updateSearchResultsForSearchController(searchController: UISearchController) {
         
-        foundUsers.removeAll()
-        for user in users {
-            let userName:String! = user["name"] as? String
-            if userName.localizedCaseInsensitiveContainsString(searchController.searchBar.text!) {
-                foundUsers.append(user)
-                self.resultsController.tableView.reloadData()
+        let firstNameQuery = PFQuery(className:"Leads")
+        firstNameQuery.whereKey("Last", containsString: searchController.searchBar.text)
+        
+       // let lastNameQuery = PFQuery(className:"Leads")
+       // lastNameQuery.whereKey("LastName", matchesRegex: "(?i)\(searchController.searchBar.text)")
+        
+        let query = PFQuery.orQueryWithSubqueries([firstNameQuery])
+        
+        query.findObjectsInBackgroundWithBlock { (results:[PFObject]?, error:NSError?) -> Void in
+            
+            if error != nil {
+                
+                let myAlert = UIAlertController(title:"Alert", message:error?.localizedDescription, preferredStyle:UIAlertControllerStyle.Alert)
+                
+                let okAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil)
+                
+                myAlert.addAction(okAction)
+                
+                self.presentViewController(myAlert, animated: true, completion: nil)
+                
+                return
             }
+            
+            if let objects = results {
+
+                let temp: NSArray = objects as NSArray
+                self.filteredString = temp.mutableCopy() as! NSMutableArray
+                print(self.filteredString)
+                self.tableView!.reloadData()
+                }
         }
     }
     
@@ -392,7 +415,7 @@ class Employee: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         if tableView == resultsController.tableView {
-            userDetails = foundUsers[indexPath.row]
+            //userDetails = foundUsers[indexPath.row]
             //self.performSegueWithIdentifier("PushDetailsVC", sender: self)
         } else {
             self.performSegueWithIdentifier("employdetailSegue", sender: self)

@@ -13,7 +13,7 @@ import AVFoundation
 class MasterViewController: UITableViewController, UISplitViewControllerDelegate, UISearchResultsUpdating {
 
   //var detailViewController: DetailViewController? = nil
-    var menuItems:NSMutableArray = ["Leads","Customers","Vendors","Employee","Advertising","Product","Job","Salesman", "Show Detail", "Music"]
+    var menuItems:NSMutableArray = ["Leads","Customers","Vendors","Employee","Advertising","Product","Job","Salesman", "Show Detail", "Music", "YouTube", "Spot Beacon", "Transmit Beacon"]
     var currentItem = "Leads"
     
     var player : AVAudioPlayer! = nil
@@ -110,6 +110,9 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         let buttonFour = UIAlertAction(title: "Membership Card", style: .Default, handler: { (action) -> Void in
             self.performSegueWithIdentifier("codegenSegue", sender: self)
         })
+        let buttonSocial = UIAlertAction(title: "Social", style: .Default, handler: { (action) -> Void in
+            self.performSegueWithIdentifier("socialSegue", sender: self)
+        })
         let buttonFive = UIAlertAction(title: "Logout", style: .Default, handler: { (action) -> Void in
             PFUser.logOut()
             self.performSegueWithIdentifier("showLogin", sender: self)
@@ -122,6 +125,7 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         alertController.addAction(buttonTwo)
         alertController.addAction(buttonThree)
         alertController.addAction(buttonFour)
+        alertController.addAction(buttonSocial)
         alertController.addAction(buttonFive)
         alertController.addAction(buttonCancel)
         
@@ -393,6 +397,12 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
                 self.performSegueWithIdentifier("showDetail", sender: self)
             } else if (currentItem == "Music") {
                 self.performSegueWithIdentifier("musicSegue", sender: self)
+            } else if (currentItem == "YouTube") {
+                self.performSegueWithIdentifier("youtubeSegue", sender: self)
+            } else if (currentItem == "Spot Beacon") {
+                self.performSegueWithIdentifier("spotbeaconSegue", sender: self)
+            } else if (currentItem == "Transmit Beacon") {
+                self.performSegueWithIdentifier("transmitbeaconSegue", sender: self)
             }
         }
     }

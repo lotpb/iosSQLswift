@@ -13,15 +13,16 @@ import UIKit
 import CoreLocation
 import iAd //added iAd
 import CoreSpotlight //added CoreSpotlight
+import CoreBluetooth
 import MobileCoreServices //added CoreSpotlight
 
-class DetailViewController: UIViewController, RPPreviewViewControllerDelegate, AVSpeechSynthesizerDelegate, CLLocationManagerDelegate, UIPickerViewDelegate, UIPickerViewDataSource
- {
+class DetailViewController: UIViewController, RPPreviewViewControllerDelegate, AVSpeechSynthesizerDelegate, CLLocationManagerDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
     
     let session = AVAudioSession.sharedInstance()
     var recorder: AVAudioRecorder?
     
-    var manager = CLLocationManager()
+    private var locationManager = CLLocationManager()
+    
     let identifier = "MyIdentifier" //added CoreSpotlight
 
     @IBOutlet weak var latitudeText: UILabel!
@@ -41,12 +42,13 @@ class DetailViewController: UIViewController, RPPreviewViewControllerDelegate, A
     
     var defaults = NSUserDefaults.standardUserDefaults()
 
-    var detailItem: AnyObject? {
+    var detailItem: AnyObject? { //dont delete for splitview
         didSet {
             // Update the view.
             //self.configureView()
         }
     }
+    
 /*
     func configureView() {
         // Update the user interface for the detail item.
@@ -75,13 +77,25 @@ class DetailViewController: UIViewController, RPPreviewViewControllerDelegate, A
         self.navigationItem.rightBarButtonItems = buttons as? [UIBarButtonItem]
         
         // MARK: - locationManager
+
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.requestLocation()
+
         
-        //manager.delegate = self
-        //manager.requestLocation()
-        
-        manager = CLLocationManager()
-        manager.delegate = self
-        manager.requestWhenInUseAuthorization()
+        let myLabel:UILabel = UILabel(frame: CGRectMake(20, 70, 60, 60))
+        myLabel.backgroundColor = UIColor.orangeColor() //UIColor(red: 0.02, green: 0.36, blue: 0.53, alpha: 1.0)
+        myLabel.textColor = UIColor.whiteColor()
+        myLabel.textAlignment = NSTextAlignment.Center
+        myLabel.layer.masksToBounds = true
+        myLabel.text = "Speak"
+        myLabel.font = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
+        myLabel.layer.cornerRadius = 30.0
+        myLabel.userInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action:Selector("speak:"))
+        myLabel.addGestureRecognizer(tap)
+        view.addSubview(myLabel)
+
         
         // MARK: - iAd
 
@@ -109,8 +123,8 @@ class DetailViewController: UIViewController, RPPreviewViewControllerDelegate, A
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 
+    
     // MARK: - CoreSpotlight
     
     @IBAction func AddItemToCoreSpotlight(sender: AnyObject) {
@@ -118,7 +132,7 @@ class DetailViewController: UIViewController, RPPreviewViewControllerDelegate, A
         attributeSet.title = "mySQLtest"
         attributeSet.contentDescription = "CoreSpotLight tutorial"
         
-        let item = CSSearchableItem(uniqueIdentifier: identifier, domainIdentifier: "com.eunitedws", attributeSet: attributeSet)
+        let item = CSSearchableItem(uniqueIdentifier: identifier, domainIdentifier: "com.lotpb.github.io/UnitedWebPage/index.html", attributeSet: attributeSet)
         CSSearchableIndex.defaultSearchableIndex().indexSearchableItems([item]) { (error: NSError?) -> Void in
             if let error =  error {
                 print("Indexing error: \(error.localizedDescription)")
@@ -248,17 +262,17 @@ class DetailViewController: UIViewController, RPPreviewViewControllerDelegate, A
     // MARK: - locationManager
     
     
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+    func locationManager(locationManager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
 
         if let location = locations.first {
             //print("Found user's location: \(location)")
-            latitudeText!.text = "\(location.coordinate.latitude)"
-            longitudeText!.text = "\(location.coordinate.longitude)"
+            latitudeText!.text = "Lat \(location.coordinate.latitude)"
+            longitudeText!.text = "Long \(location.coordinate.longitude)"
             
         }
     }
     
-    func locationManager(manager: CLLocationManager, didFailWithError error: NSError) {
+    func locationManager(locationManager: CLLocationManager, didFailWithError error: NSError) {
         print("Failed to find user's location: \(error.localizedDescription)")
     }
     
@@ -299,55 +313,7 @@ class DetailViewController: UIViewController, RPPreviewViewControllerDelegate, A
         selectedVoiceLanguage = row
     }
     
-    // MARK: iBeacons
-    
-    func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-        if status == .AuthorizedAlways {
-            if CLLocationManager.isMonitoringAvailableForClass(CLBeaconRegion.self) {
-                if CLLocationManager.isRangingAvailable() {
-                    startScanning()
-                }
-            }
-        }
-    }
-    
-    func startScanning() {
-        let uuid = NSUUID(UUIDString: "5A4BCFCE-174E-4BAC-A814-092E77F6B7E5")
-        let beaconRegion = CLBeaconRegion(proximityUUID: uuid!, major: 123, minor: 456, identifier: "MyBeacon")
-        
-        manager.startMonitoringForRegion(beaconRegion)
-        manager.startRangingBeaconsInRegion(beaconRegion)
-    }
-    
-    func manager(manager: CLLocationManager!, didRangeBeacons beacons: [AnyObject]!, inRegion region: CLBeaconRegion!) {
-        if beacons.count > 0 {
-            let beacon = beacons[0] as! CLBeacon
-            updateDistance(beacon.proximity)
-        } else {
-            updateDistance(.Unknown)
-        }
-    }
-    
-    func updateDistance(distance: CLProximity) {
-        UIView.animateWithDuration(0.8) {
-            switch distance {
-            case .Unknown:
-                self.view.backgroundColor = UIColor.grayColor()
-                
-            case .Far:
-                self.view.backgroundColor = UIColor.blueColor()
-                
-            case .Near:
-                self.view.backgroundColor = UIColor.orangeColor()
-                
-            case .Immediate:
-                self.view.backgroundColor = UIColor.redColor()
-            }
-        }
-    }
-
-    
-    
+ 
     
 }
 
