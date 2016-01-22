@@ -16,14 +16,21 @@ import CoreSpotlight //added CoreSpotlight
 import CoreBluetooth
 import MobileCoreServices //added CoreSpotlight
 
-class DetailViewController: UIViewController, RPPreviewViewControllerDelegate, AVSpeechSynthesizerDelegate, CLLocationManagerDelegate, UIPickerViewDelegate, UIPickerViewDataSource {
+class DetailViewController: UIViewController, RPPreviewViewControllerDelegate, AVSpeechSynthesizerDelegate, CLLocationManagerDelegate, UIPickerViewDelegate, UIPickerViewDataSource, RPScreenRecorderDelegate {
     
-    let session = AVAudioSession.sharedInstance()
-    var recorder: AVAudioRecorder?
+    @IBOutlet weak private var startRecordingButton: UIButton!
+    @IBOutlet weak private var stopRecordingButton: UIButton!
+    @IBOutlet weak private var processingView: UIActivityIndicatorView!
+    private let recorder = RPScreenRecorder.sharedRecorder()
+    
+    //let session = AVAudioSession.sharedInstance()
+    //var recorder: AVAudioRecorder?
     
     private var locationManager = CLLocationManager()
     
-    let identifier = "MyIdentifier" //added CoreSpotlight
+    private let identifier = "com.mySQL" //added CoreSpotlight
+    private let domainIdentifier = "com.lotpb.github.io/UnitedWebPage/index.html"
+    private var activity: NSUserActivity!
 
     @IBOutlet weak var latitudeText: UILabel!
     @IBOutlet weak var longitudeText: UILabel!
@@ -71,9 +78,8 @@ class DetailViewController: UIViewController, RPPreviewViewControllerDelegate, A
         titleButton.addTarget(self, action: Selector(), forControlEvents: UIControlEvents.TouchUpInside)
         self.navigationItem.titleView = titleButton
         
-        let addButton = UIBarButtonItem(title: "Start", style: .Plain, target: self, action: "startRecording")
         let searchButton = UIBarButtonItem(title: "Light", style: .Plain, target: self, action: "lightcamera")
-        let buttons:NSArray = [addButton,searchButton]
+        let buttons:NSArray = [searchButton]
         self.navigationItem.rightBarButtonItems = buttons as? [UIBarButtonItem]
         
         // MARK: - locationManager
@@ -81,6 +87,10 @@ class DetailViewController: UIViewController, RPPreviewViewControllerDelegate, A
         locationManager.delegate = self
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestLocation()
+        
+        recorder.delegate = self
+        processingView.hidden = true
+        buttonEnabledControl(recorder.recording)
 
         
         let myLabel:UILabel = UILabel(frame: CGRectMake(20, 70, 60, 60))
@@ -128,11 +138,27 @@ class DetailViewController: UIViewController, RPPreviewViewControllerDelegate, A
     // MARK: - CoreSpotlight
     
     @IBAction func AddItemToCoreSpotlight(sender: AnyObject) {
-        let attributeSet = CSSearchableItemAttributeSet(itemContentType: kUTTypeText as String)
-        attributeSet.title = "mySQLtest"
-        attributeSet.contentDescription = "CoreSpotLight tutorial"
         
-        let item = CSSearchableItem(uniqueIdentifier: identifier, domainIdentifier: "com.lotpb.github.io/UnitedWebPage/index.html", attributeSet: attributeSet)
+        let activityType = String(format: "%@.%@", identifier, domainIdentifier)
+        activity = NSUserActivity(activityType: activityType)
+        activity.title = "mySQL"
+        activity.keywords = Set<String>(arrayLiteral: "window", "door", "siding", "roof")
+        activity.eligibleForSearch = true
+        activity.becomeCurrent()
+        
+        let attributeSet = CSSearchableItemAttributeSet(itemContentType: kUTTypeText as String)
+        attributeSet.title = "mySQL"
+        attributeSet.contentDescription = "CoreSpotLight tutorial"
+        attributeSet.keywords = ["window", "door", "siding", "roof"]
+        //let image = UIImage(named: "m7")!
+        //let data = UIImagePNGRepresentation(image)
+        //attributeSet.thumbnailData = data
+        
+        let item = CSSearchableItem(
+            uniqueIdentifier: identifier,
+            domainIdentifier: domainIdentifier,
+            attributeSet: attributeSet)
+        
         CSSearchableIndex.defaultSearchableIndex().indexSearchableItems([item]) { (error: NSError?) -> Void in
             if let error =  error {
                 print("Indexing error: \(error.localizedDescription)")
@@ -154,36 +180,93 @@ class DetailViewController: UIViewController, RPPreviewViewControllerDelegate, A
     }
     
     
-     // MARK: - RPScreenRecorder
+    // MARK: - ScreenRecorderDelegate
     
-    func startRecording() {
-        let recorder = RPScreenRecorder.sharedRecorder()
-        
-        recorder.startRecordingWithMicrophoneEnabled(true) { [unowned self] (error) in
-            if let unwrappedError = error {
-                print(unwrappedError.localizedDescription)
-            } else {
-                self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Stop", style: .Plain, target: self, action: "stopRecording")
-            }
-        }
+    // called after stopping the recording
+    func screenRecorder(screenRecorder: RPScreenRecorder, didStopRecordingWithError error: NSError, previewViewController: RPPreviewViewController?) {
+        NSLog("Stop recording")
     }
     
-    
-    func stopRecording() {
-        let recorder = RPScreenRecorder.sharedRecorder()
-        
-        recorder.stopRecordingWithHandler { [unowned self] (preview, error) in
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Start", style: .Plain, target: self, action: "startRecording")
-            
-            if let unwrappedPreview = preview {
-                unwrappedPreview.previewControllerDelegate = self
-                self.presentViewController(unwrappedPreview, animated: true, completion: nil)
-            }
-        }
+    // called when the recorder availability has changed
+    func screenRecorderDidChangeAvailability(screenRecorder: RPScreenRecorder) {
+        let availability = screenRecorder.available
+        NSLog("Availablility: \(availability)")
     }
+    
     
     func previewControllerDidFinish(previewController: RPPreviewViewController) {
-        dismissViewControllerAnimated(true, completion: nil)
+        NSLog("Preview finish")
+        
+        dispatch_async(dispatch_get_main_queue()) { [unowned previewController] in
+            // close preview window
+            previewController.dismissViewControllerAnimated(true, completion: nil)
+        }
+    }
+    
+    @IBAction func startRecordingButtonTapped(sender: AnyObject) {
+        processingView.hidden = false
+        
+        // start recording
+        recorder.startRecordingWithMicrophoneEnabled(true) { [unowned self] error in
+            dispatch_async(dispatch_get_main_queue()) { [unowned self] in
+                self.processingView.hidden = true
+            }
+            
+            if let error = error {
+                NSLog("Failed start recording: \(error.localizedDescription)")
+                return
+            }
+            
+            NSLog("Start recording")
+            self.buttonEnabledControl(true)
+        }
+    }
+    
+    @IBAction func stopRecordingButtonTapped(sender: AnyObject) {
+        processingView.hidden = false
+        
+        // end recording
+        recorder.stopRecordingWithHandler({ [unowned self] (previewViewController, error) in
+            dispatch_async(dispatch_get_main_queue()) { [unowned self] in
+                self.processingView.hidden = true
+            }
+            
+            self.buttonEnabledControl(false)
+            
+            if let error = error {
+                NSLog("Failed stop recording: \(error.localizedDescription)")
+                return
+            }
+            
+            NSLog("Stop recording")
+            previewViewController?.previewControllerDelegate = self
+            
+            dispatch_async(dispatch_get_main_queue()) { [unowned self] in
+                // show preview window
+                self.presentViewController(previewViewController!, animated: true, completion: nil)
+            }
+            })
+    }
+    
+    private func buttonEnabledControl(isRecording: Bool) {
+        dispatch_async(dispatch_get_main_queue()) { [unowned self] in
+            let enebledColor = UIColor(red: 0.0, green: 122.0/255.0, blue:1.0, alpha: 1.0)
+            let disabledColor = UIColor.lightGrayColor()
+            
+            if !self.recorder.available {
+                self.startRecordingButton.enabled = false
+                self.startRecordingButton.backgroundColor = disabledColor
+                self.stopRecordingButton.enabled = false
+                self.stopRecordingButton.backgroundColor = disabledColor
+                
+                return
+            }
+            
+            self.startRecordingButton.enabled = !isRecording
+            self.startRecordingButton.backgroundColor = isRecording ? disabledColor : enebledColor
+            self.stopRecordingButton.enabled = isRecording
+            self.stopRecordingButton.backgroundColor = isRecording ? enebledColor : disabledColor
+        }
     }
 
 

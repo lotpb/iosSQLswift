@@ -159,4 +159,5 @@ class SpotBeaconController: UIViewController, CLLocationManagerDelegate {
     func locationManager(manager: CLLocationManager, rangingBeaconsDidFailForRegion region: CLBeaconRegion, withError error: NSError) {
         print(error)
     }
+    
 }

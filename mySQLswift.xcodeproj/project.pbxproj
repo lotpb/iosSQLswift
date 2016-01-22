@@ -19,7 +19,7 @@
 		AF0369BC1C173DDC00137D7E /* mySQLswiftTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0369BB1C173DDC00137D7E /* mySQLswiftTests.swift */; };
 		AF0369C71C173DDC00137D7E /* mySQLswiftUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0369C61C173DDC00137D7E /* mySQLswiftUITests.swift */; };
 		AF0754861C4336E200B03D38 /* LookupData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0754851C4336E200B03D38 /* LookupData.swift */; };
-		AF0C77A31C2245BA0055DDE4 /* CustomNewsTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0C77A21C2245BA0055DDE4 /* CustomNewsTableCell.swift */; };
+		AF0C77A31C2245BA0055DDE4 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0C77A21C2245BA0055DDE4 /* CollectionViewCell.swift */; };
 		AF0D6B311C4AC5E900334D03 /* YQL.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0D6B301C4AC5E900334D03 /* YQL.swift */; };
 		AF0D6B331C4C554300334D03 /* YouTubeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0D6B321C4C554300334D03 /* YouTubeController.swift */; };
 		AF0DACA11C1F43DB00B23CE5 /* BlogEditController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0DACA01C1F43DB00B23CE5 /* BlogEditController.swift */; };
@@ -61,6 +61,8 @@
 		AFD1A3081C1DB85D00580F10 /* hideSections.js in Resources */ = {isa = PBXBuildFile; fileRef = AFD1A3071C1DB85D00580F10 /* hideSections.js */; };
 		AFD1A30B1C1E224600580F10 /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD1A30A1C1E224600580F10 /* Customer.swift */; };
 		AFD1A30F1C1E32A500580F10 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD1A30E1C1E32A500580F10 /* LoginController.swift */; };
+		AFD754F21C4FCBF200021F97 /* ContactController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD754F11C4FCBF200021F97 /* ContactController.swift */; };
+		AFD754F41C4FFEB200021F97 /* UploadController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD754F31C4FFEB200021F97 /* UploadController.swift */; };
 		AFD7AED81C2EFA6D00A4DA14 /* ParseFacebookUtilsV4.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFD7AED71C2EFA6D00A4DA14 /* ParseFacebookUtilsV4.framework */; };
 		AFDFCBB91C3EA4EA00F02E7B /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFDFCBB81C3EA4EA00F02E7B /* MapView.swift */; };
 		AFE2637D1C1740FA007BBB90 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFE263761C1740FA007BBB90 /* Bolts.framework */; };
@@ -123,6 +125,7 @@
 		AFE264331C17DC11007BBB90 /* user_male-128.png in Resources */ = {isa = PBXBuildFile; fileRef = AFE2640A1C17DC11007BBB90 /* user_male-128.png */; };
 		AFF3C8ED1C4E86B000D9B7BD /* SpotBeaconController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF3C8EC1C4E86B000D9B7BD /* SpotBeaconController.swift */; };
 		AFF3C8EF1C4E8A0100D9B7BD /* TransmitBeaconController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF3C8EE1C4E8A0100D9B7BD /* TransmitBeaconController.swift */; };
+		AFF3C8F21C4F38D500D9B7BD /* NewsDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF3C8F11C4F38D500D9B7BD /* NewsDetailController.swift */; };
 		AFF7BCE51C3230EA0051DDCB /* CodeGenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF7BCE41C3230EA0051DDCB /* CodeGenController.swift */; };
 /* End PBXBuildFile section */
 
@@ -162,7 +165,7 @@
 		AF0369C61C173DDC00137D7E /* mySQLswiftUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mySQLswiftUITests.swift; sourceTree = "<group>"; };
 		AF0369C81C173DDC00137D7E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AF0754851C4336E200B03D38 /* LookupData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LookupData.swift; sourceTree = "<group>"; };
-		AF0C77A21C2245BA0055DDE4 /* CustomNewsTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomNewsTableCell.swift; sourceTree = "<group>"; };
+		AF0C77A21C2245BA0055DDE4 /* CollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		AF0D6B301C4AC5E900334D03 /* YQL.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YQL.swift; sourceTree = "<group>"; };
 		AF0D6B321C4C554300334D03 /* YouTubeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = YouTubeController.swift; sourceTree = "<group>"; };
 		AF0DACA01C1F43DB00B23CE5 /* BlogEditController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlogEditController.swift; sourceTree = "<group>"; };
@@ -204,6 +207,8 @@
 		AFD1A3071C1DB85D00580F10 /* hideSections.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = hideSections.js; sourceTree = "<group>"; };
 		AFD1A30A1C1E224600580F10 /* Customer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Customer.swift; sourceTree = "<group>"; };
 		AFD1A30E1C1E32A500580F10 /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
+		AFD754F11C4FCBF200021F97 /* ContactController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactController.swift; sourceTree = "<group>"; };
+		AFD754F31C4FFEB200021F97 /* UploadController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UploadController.swift; sourceTree = "<group>"; };
 		AFD7AED71C2EFA6D00A4DA14 /* ParseFacebookUtilsV4.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseFacebookUtilsV4.framework; path = Parse/ParseFacebookUtilsV4.framework; sourceTree = "<group>"; };
 		AFDFCBB81C3EA4EA00F02E7B /* MapView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 		AFE263761C1740FA007BBB90 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = Parse/Bolts.framework; sourceTree = "<group>"; };
@@ -267,6 +272,7 @@
 		AFE2640A1C17DC11007BBB90 /* user_male-128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "user_male-128.png"; path = "images/user_male-128.png"; sourceTree = "<group>"; };
 		AFF3C8EC1C4E86B000D9B7BD /* SpotBeaconController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotBeaconController.swift; sourceTree = "<group>"; };
 		AFF3C8EE1C4E8A0100D9B7BD /* TransmitBeaconController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransmitBeaconController.swift; sourceTree = "<group>"; };
+		AFF3C8F11C4F38D500D9B7BD /* NewsDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsDetailController.swift; sourceTree = "<group>"; };
 		AFF7BCE41C3230EA0051DDCB /* CodeGenController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodeGenController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -345,12 +351,11 @@
 				AF0369A81C173DDC00137D7E /* DetailViewController.swift */,
 				AF0D6B301C4AC5E900334D03 /* YQL.swift */,
 				AF0369AA1C173DDC00137D7E /* Main.storyboard */,
-				AFF3C8EE1C4E8A0100D9B7BD /* TransmitBeaconController.swift */,
-				AFF3C8EC1C4E86B000D9B7BD /* SpotBeaconController.swift */,
+				AFD754F11C4FCBF200021F97 /* ContactController.swift */,
 				AF8CC3A91C41B34E004147F3 /* Main Tables */,
 				AF8CC3A81C41B317004147F3 /* Tables */,
 				AF0DACA21C1F45D400B23CE5 /* Blog */,
-				AF0754871C4344F400B03D38 /* lookup */,
+				AFA156391C514203000C3EB7 /* News */,
 				AFD1A3101C1E367B00580F10 /* Accessory Tables */,
 				AF98E41D1C1E3DD200ED8DC5 /* Settings */,
 				AF5CF02A1C1A43FE00347E6F /* Supporting Files */,
@@ -421,7 +426,7 @@
 			children = (
 				AF206E021C1B1F6A00EA60D6 /* Sounds */,
 				AF1E6D551C1920FC0009230E /* CustomTableCell.swift */,
-				AF0C77A21C2245BA0055DDE4 /* CustomNewsTableCell.swift */,
+				AF0C77A21C2245BA0055DDE4 /* CollectionViewCell.swift */,
 				AF46FA851C2322B200C27445 /* JobViewCell.swift */,
 				AF0369AD1C173DDC00137D7E /* Assets.xcassets */,
 				AF0369AF1C173DDC00137D7E /* LaunchScreen.storyboard */,
@@ -451,7 +456,6 @@
 				AFD1A30A1C1E224600580F10 /* Customer.swift */,
 				AFB5A71D1C2C499200F8BC56 /* Vendor.swift */,
 				AFB5A71F1C2C4C7700F8BC56 /* Employee.swift */,
-				AF5BF9E81C18C3720072B997 /* News.swift */,
 				AF011A731C40AAE2000EAF5D /* JobController.swift */,
 				AF011A751C40AB2F000EAF5D /* SalesmanController.swift */,
 				AF011A711C40A798000EAF5D /* ProductController.swift */,
@@ -469,6 +473,16 @@
 			name = Settings;
 			sourceTree = "<group>";
 		};
+		AFA156391C514203000C3EB7 /* News */ = {
+			isa = PBXGroup;
+			children = (
+				AF5BF9E81C18C3720072B997 /* News.swift */,
+				AFF3C8F11C4F38D500D9B7BD /* NewsDetailController.swift */,
+				AFD754F31C4FFEB200021F97 /* UploadController.swift */,
+			);
+			name = News;
+			sourceTree = "<group>";
+		};
 		AFD1A3091C1DB88200580F10 /* Web */ = {
 			isa = PBXGroup;
 			children = (
@@ -484,8 +498,10 @@
 		AFD1A3101C1E367B00580F10 /* Accessory Tables */ = {
 			isa = PBXGroup;
 			children = (
-				AF0D6B321C4C554300334D03 /* YouTubeController.swift */,
+				AFF3C8F01C4EC45100D9B7BD /* Beacons */,
 				AF5C01E51C493245009BB817 /* Music */,
+				AF0754871C4344F400B03D38 /* lookup */,
+				AF0D6B321C4C554300334D03 /* YouTubeController.swift */,
 				AFD1A2FF1C1CCFCF00580F10 /* SocialController.swift */,
 				AFF7BCE41C3230EA0051DDCB /* CodeGenController.swift */,
 				AF9EE4C61C2771D70057B7DB /* NotificationController.swift */,
@@ -573,6 +589,15 @@
 				AFE2640A1C17DC11007BBB90 /* user_male-128.png */,
 			);
 			name = images;
+			sourceTree = "<group>";
+		};
+		AFF3C8F01C4EC45100D9B7BD /* Beacons */ = {
+			isa = PBXGroup;
+			children = (
+				AFF3C8EC1C4E86B000D9B7BD /* SpotBeaconController.swift */,
+				AFF3C8EE1C4E8A0100D9B7BD /* TransmitBeaconController.swift */,
+			);
+			name = Beacons;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -771,7 +796,7 @@
 				AFDFCBB91C3EA4EA00F02E7B /* MapView.swift in Sources */,
 				AF5C01E41C49320E009BB817 /* Download.swift in Sources */,
 				AFF7BCE51C3230EA0051DDCB /* CodeGenController.swift in Sources */,
-				AF0C77A31C2245BA0055DDE4 /* CustomNewsTableCell.swift in Sources */,
+				AF0C77A31C2245BA0055DDE4 /* CollectionViewCell.swift in Sources */,
 				AF0D6B311C4AC5E900334D03 /* YQL.swift in Sources */,
 				AF9A87841C18645C0091B0E3 /* Web.swift in Sources */,
 				AF8CC3AB1C42B9FB004147F3 /* StatisticController.swift in Sources */,
@@ -781,12 +806,14 @@
 				AF46FA861C2322B200C27445 /* JobViewCell.swift in Sources */,
 				AFE263A41C178830007BBB90 /* Blog.swift in Sources */,
 				AF5BF9E91C18C3720072B997 /* News.swift in Sources */,
+				AFF3C8F21C4F38D500D9B7BD /* NewsDetailController.swift in Sources */,
 				AF0D6B331C4C554300334D03 /* YouTubeController.swift in Sources */,
 				AF9EE4C71C2771D70057B7DB /* NotificationController.swift in Sources */,
 				AFF3C8EF1C4E8A0100D9B7BD /* TransmitBeaconController.swift in Sources */,
 				AFD1A30B1C1E224600580F10 /* Customer.swift in Sources */,
 				AFF3C8ED1C4E86B000D9B7BD /* SpotBeaconController.swift in Sources */,
 				AF0DACA41C1F47A500B23CE5 /* BlogNewController.swift in Sources */,
+				AFD754F21C4FCBF200021F97 /* ContactController.swift in Sources */,
 				AF0369A51C173DDC00137D7E /* AppDelegate.swift in Sources */,
 				AF5C01E21C493204009BB817 /* Track.swift in Sources */,
 				AFB5A7201C2C4C7700F8BC56 /* Employee.swift in Sources */,
@@ -799,6 +826,7 @@
 				AF5C01DE1C493199009BB817 /* MusicController.swift in Sources */,
 				AF011A721C40A798000EAF5D /* ProductController.swift in Sources */,
 				AFB5A71E1C2C499200F8BC56 /* Vendor.swift in Sources */,
+				AFD754F41C4FFEB200021F97 /* UploadController.swift in Sources */,
 				AF1E6D561C1920FC0009230E /* CustomTableCell.swift in Sources */,
 				AF46FA841C2313EE00C27445 /* UserViewController.swift in Sources */,
 				AF5C01E01C4931EE009BB817 /* TrackCell.swift in Sources */,

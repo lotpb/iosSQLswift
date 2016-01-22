@@ -120,10 +120,10 @@ class MapView: UIViewController, MKMapViewDelegate,  CLLocationManagerDelegate {
         self.mapView.scrollEnabled = true
         self.mapView.rotateEnabled = true
         self.mapView.showsPointsOfInterest = true
-        self.mapView.showsBuildings = true
         self.mapView.showsCompass = true
         self.mapView.showsScale = true
-        self.mapView.showsTraffic = true
+        //self.mapView.showsTraffic = true
+        //self.mapView.showsBuildings = true
         
         let location: String = String(format: "%@ %@ %@ %@", self.mapaddress!, self.mapcity!, self.mapstate!, self.mapzip!)
         
@@ -165,8 +165,8 @@ class MapView: UIViewController, MKMapViewDelegate,  CLLocationManagerDelegate {
                     guard let unwrappedResponse = response else { return }
                     
                     for route in unwrappedResponse.routes {
-                        //self.mapView.addOverlay(route.polyline)
                         self.mapView.setVisibleMapRect(route.polyline.boundingMapRect, animated: true)
+                        //self.mapView.addOverlay(route.polyline)
                         self.showRoute(response!)
                         self.hideActivityIndicator()
                     }
@@ -179,7 +179,6 @@ class MapView: UIViewController, MKMapViewDelegate,  CLLocationManagerDelegate {
     
     func showRoute(response: MKDirectionsResponse) {
         
-        
         let temp:MKRoute = response.routes.first! as MKRoute
         self.route = temp
         self.travelTime.text = NSString(format:"Time %0.1f minutes", route.expectedTravelTime/60) as String
@@ -188,15 +187,10 @@ class MapView: UIViewController, MKMapViewDelegate,  CLLocationManagerDelegate {
         
         /*
         if mapView.overlays.count == 1 {
-        mapView.setVisibleMapRect(route.polyline.boundingMapRect,
-        edgePadding: UIEdgeInsetsMake(10.0, 10.0, 10.0, 10.0),
-        animated: false)
+        mapView.setVisibleMapRect(route.polyline.boundingMapRect, edgePadding: UIEdgeInsetsMake(10.0, 10.0, 10.0, 10.0), animated: false)
         } else {
-        let polylineBoundingRect =  MKMapRectUnion(mapView.visibleMapRect,
-        route.polyline.boundingMapRect)
-        mapView.setVisibleMapRect(polylineBoundingRect,
-        edgePadding: UIEdgeInsetsMake(10.0, 10.0, 10.0, 10.0),
-        animated: false)
+        let polylineBoundingRect =  MKMapRectUnion(mapView.visibleMapRect, route.polyline.boundingMapRect)
+        mapView.setVisibleMapRect(polylineBoundingRect, edgePadding: UIEdgeInsetsMake(10.0, 10.0, 10.0, 10.0), animated: false)
         } */
         
         for (var i = 0; i < self.route.steps.count; i++)
@@ -268,28 +262,93 @@ class MapView: UIViewController, MKMapViewDelegate,  CLLocationManagerDelegate {
     
     // MARK: - Button
     
+    func trafficBtnTapped() {
+        
+        mapView.showsTraffic = !mapView.showsTraffic
+        
+        // shown
+        if mapView.showsTraffic {
+            //sender.setTitle("Hide Traffic", forState: UIControlState.Normal)
+        }
+            // hidden
+        else {
+            //sender.setTitle("Show Traffic", forState: UIControlState.Normal)
+        }
+    }
+    
+    func scaleBtnTapped() {
+        
+        mapView.showsScale = !mapView.showsScale
+        
+        // shown
+        if mapView.showsScale {
+            //sender.setTitle("Hide Scale", forState: UIControlState.Normal)
+        }
+            // hidden
+        else {
+            //sender.setTitle("Show Scale", forState: UIControlState.Normal)
+        }
+    }
+    
+    func compassBtnTapped() {
+        
+        mapView.showsCompass = !mapView.showsCompass
+        
+        //self.updateCompassBtn()
+    }
+    
+    func buildingBtnTapped() {
+        
+        mapView.showsBuildings = !mapView.showsBuildings
+        
+        //self.updateCompassBtn()
+    }
+    
+    func userlocationBtnTapped() {
+        
+        mapView.showsUserLocation = !mapView.showsUserLocation
+        
+        //self.updateCompassBtn()
+    }
+    
+    func pointsofinterestBtnTapped() {
+        
+        mapView.showsPointsOfInterest = !mapView.showsPointsOfInterest
+        
+        //self.updateCompassBtn()
+    }
+    
+    func requestsAlternateRoutesBtnTapped() {
+        
+        //mapView.requestsAlternateRoutes = !mapView.requestsAlternateRoutes
+        
+        //self.updateCompassBtn()
+    }
+    
     func shareButton() {
         
         let alertController = UIAlertController(title:"Map Options", message:"", preferredStyle: .ActionSheet)
         
         let buttonOne = UIAlertAction(title: "Show Traffic", style: .Default, handler: { (action) -> Void in
-            self.routView.hidden = true
-            //self.performSegueWithIdentifier("snapshotSegue", sender: self)
+            self.trafficBtnTapped()
         })
         let buttonTwo = UIAlertAction(title: "Show Scale", style: .Default, handler: { (action) -> Void in
-            //self.performSegueWithIdentifier("userSegue", sender: self)
+            self.scaleBtnTapped()
         })
         let buttonThree = UIAlertAction(title: "Show Compass", style: .Default, handler: { (action) -> Void in
-            //self.performSegueWithIdentifier("notificationSegue", sender: self)
+            self.compassBtnTapped()
         })
         let buttonFour = UIAlertAction(title: "Show Buildings", style: .Default, handler: { (action) -> Void in
-            //self.performSegueWithIdentifier("showLogin", sender: self)
+            self.buildingBtnTapped()
         })
         let buttonFive = UIAlertAction(title: "Show User Location", style: .Default, handler: { (action) -> Void in
-            //self.performSegueWithIdentifier("codegenSegue", sender: self)
+            self.userlocationBtnTapped()
         })
         let buttonSix = UIAlertAction(title: "Show Points of Interest", style: .Default, handler: { (action) -> Void in
-            //self.performSegueWithIdentifier("showLogin", sender: self)
+            self.pointsofinterestBtnTapped()
+        })
+        let buttonSeven = UIAlertAction(title: "Alternate Routes", style: .Default, handler: { (action) -> Void in
+            self.requestsAlternateRoutesBtnTapped()
         })
         let buttonCancel = UIAlertAction(title: "Cancel", style: .Cancel) { (action) -> Void in
         }
@@ -300,6 +359,7 @@ class MapView: UIViewController, MKMapViewDelegate,  CLLocationManagerDelegate {
         alertController.addAction(buttonFour)
         alertController.addAction(buttonFive)
         alertController.addAction(buttonSix)
+        alertController.addAction(buttonSeven)
         alertController.addAction(buttonCancel)
         /*
         if let popoverController = alertController.popoverPresentationController {

@@ -13,7 +13,7 @@ import AVFoundation
 class MasterViewController: UITableViewController, UISplitViewControllerDelegate, UISearchResultsUpdating {
 
   //var detailViewController: DetailViewController? = nil
-    var menuItems:NSMutableArray = ["Leads","Customers","Vendors","Employee","Advertising","Product","Job","Salesman", "Show Detail", "Music", "YouTube", "Spot Beacon", "Transmit Beacon"]
+    var menuItems:NSMutableArray = ["Leads","Customers","Vendors","Employee","Advertising","Product","Job","Salesman", "Show Detail", "Music", "YouTube", "Spot Beacon", "Transmit Beacon", "Contacts"]
     var currentItem = "Leads"
     
     var player : AVAudioPlayer! = nil
@@ -403,6 +403,8 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
                 self.performSegueWithIdentifier("spotbeaconSegue", sender: self)
             } else if (currentItem == "Transmit Beacon") {
                 self.performSegueWithIdentifier("transmitbeaconSegue", sender: self)
+            } else if (currentItem == "Contacts") {
+                self.performSegueWithIdentifier("contactSegue", sender: self)
             }
         }
     }

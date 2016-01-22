@@ -8,6 +8,8 @@
 
 import UIKit
 import Parse
+import Contacts
+import ContactsUI
 
 class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -592,7 +594,7 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource {
         let alertController = UIAlertController(title:nil, message:nil, preferredStyle: .ActionSheet)
         
         let addr = UIAlertAction(title: "Add Contact", style: .Default, handler: { (action) -> Void in
-            //self.performSegueWithIdentifier("snapshotSegue", sender: self)
+            self.createContact()
         })
         let cal = UIAlertAction(title: "Add Calender Event", style: .Default, handler: { (action) -> Void in
             //self.performSegueWithIdentifier("userSegue", sender: self)
@@ -694,6 +696,151 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource {
             
             self.presentViewController(controller, animated: true, completion: nil)
         }
+    }
+    
+    func createContact() {
+        
+        let newContact = CNMutableContact()
+        
+        if (formController == "Leads") {
+            
+            newContact.givenName = self.tbl13! as String
+            newContact.familyName = self.name!
+            
+            let homeAddress = CNMutablePostalAddress()
+            homeAddress.street = self.address!
+            homeAddress.city = self.city!
+            homeAddress.state = self.state!
+            homeAddress.postalCode = self.zip!
+            homeAddress.country = "US"
+            newContact.postalAddresses = [CNLabeledValue(label:CNLabelHome, value:homeAddress)]
+            
+            let homephone = CNLabeledValue(label: CNLabelHome, value: self.tbl12!)
+            newContact.phoneNumbers = [homephone]
+            
+            let homeEmail = CNLabeledValue(label: CNLabelHome, value: self.tbl15!)
+            newContact.emailAddresses = [homeEmail]
+            
+            newContact.note = self.comments as! String
+            
+        }
+        
+        if (formController == "Customer") {
+            
+            newContact.givenName = self.tbl13! as String
+            newContact.familyName = self.name!
+            
+            let homeAddress = CNMutablePostalAddress()
+            homeAddress.street = self.address!
+            homeAddress.city = self.city!
+            homeAddress.state = self.state!
+            homeAddress.postalCode = self.zip!
+            homeAddress.country = "US"
+            newContact.postalAddresses = [CNLabeledValue(label:CNLabelHome, value:homeAddress)]
+            
+            let homephone = CNLabeledValue(label: CNLabelHome, value: self.tbl12!)
+            newContact.phoneNumbers = [homephone]
+            
+            let homeEmail = CNLabeledValue(label: CNLabelHome, value: self.tbl15!)
+            newContact.emailAddresses = [homeEmail]
+            
+            newContact.organizationName = self.tbl11 as! String
+            newContact.note = self.comments as! String
+            
+        }
+        
+        if (formController == "Vendor") {
+            
+            newContact.jobTitle = (self.tbl25 as? String)!
+            newContact.organizationName = (self.name! as String)
+            
+            let homeAddress = CNMutablePostalAddress()
+            homeAddress.street = self.address!
+            homeAddress.city = self.city!
+            homeAddress.state = self.state!
+            homeAddress.postalCode = self.zip!
+            homeAddress.country = "US"
+            newContact.postalAddresses = [CNLabeledValue(label:CNLabelHome, value:homeAddress)]
+            
+            let workphone1 = CNLabeledValue(label: CNLabelWork, value: self.tbl11!)
+            let workphone2 = CNLabeledValue(label: CNLabelWork, value: self.tbl12!)
+            let workphone3 = CNLabeledValue(label: CNLabelWork, value: self.tbl13!)
+            let workphone4 = CNLabeledValue(label: CNLabelWork, value: self.tbl14!)
+            newContact.phoneNumbers = [workphone1, workphone2, workphone3, workphone4]
+            
+            let homeEmail = CNLabeledValue(label: CNLabelHome, value: self.tbl21!)
+            newContact.emailAddresses = [homeEmail]
+            
+            newContact.note = self.comments as! String
+            
+        }
+        
+        if (formController == "Employee") {
+            
+            newContact.givenName = self.tbl26! as String
+            newContact.middleName = self.tbl15! as String
+            newContact.familyName = self.custNo!
+            
+            newContact.jobTitle = (self.tbl23 as String)
+            newContact.organizationName = (self.tbl27! as String)
+            
+            let homeAddress = CNMutablePostalAddress()
+            homeAddress.street = self.address!
+            homeAddress.city = self.city!
+            homeAddress.state = self.state!
+            homeAddress.postalCode = self.zip!
+            homeAddress.country = self.tbl25 as! String
+            newContact.postalAddresses = [CNLabeledValue(label:CNLabelHome, value:homeAddress)]
+            
+            let workphone1 = CNLabeledValue(label: CNLabelHome, value: self.tbl11!)
+            let workphone2 = CNLabeledValue(label: CNLabelWork, value: self.tbl12!)
+            let workphone3 = CNLabeledValue(label: CNLabelPhoneNumberMobile, value: self.tbl13!)
+            newContact.phoneNumbers = [workphone1, workphone2, workphone3]
+            
+            let homeEmail = CNLabeledValue(label: CNLabelHome, value: self.tbl21!)
+            //let workEmail = CNLabeledValue(label: CNLabelWork,value: "liam@workemail.com")
+            newContact.emailAddresses = [homeEmail]
+            
+            //newContact.departmentName = "Food and Beverages"
+            
+            /*
+            let facebookProfile = CNLabeledValue(label: "FaceBook", value:
+            CNSocialProfile(urlString: nil, username: "ios_blog",
+            userIdentifier: nil, service: CNSocialProfileServiceFacebook))
+            
+            let twitterProfile = CNLabeledValue(label: "Twitter", value:
+            CNSocialProfile(urlString: nil, username: "ios_blog",
+            userIdentifier: nil, service: CNSocialProfileServiceTwitter))
+            
+            newContact.socialProfiles = [facebookProfile, twitterProfile]
+            
+            let birthday = NSDateComponents()
+            birthday.year = 1988
+            birthday.month = 12
+            birthday.day = 05
+            newContact.birthday = birthday */
+            
+            newContact.note = self.comments as! String
+            
+            /*
+            if let img = UIImage(named: "contactface"),
+            let imgData = UIImagePNGRepresentation(img){
+            newContact.imageData = imgData
+            } */
+            
+        }
+        
+        do {
+            let saveRequest = CNSaveRequest()
+            saveRequest.updateContact(newContact)
+            let contactStore = CNContactStore()
+            try contactStore.executeSaveRequest(saveRequest)
+            print("Contact Added Successfully")
+        }
+        catch {
+            print("Unable to Add the New Contact.")
+        }
+        
     }
     
     // MARK: - Segue

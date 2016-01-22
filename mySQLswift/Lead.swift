@@ -11,8 +11,8 @@ import Parse
 
 class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating {
     
-    let navColor = UIColor(red: 0.16, green: 0.69, blue: 0.38, alpha: 1.0)
-    let labelColor = UIColor(red: 0.75, green: 0.36, blue: 0.53, alpha: 1.0)
+    let navColor = UIColor(red: 0.21, green: 0.30, blue: 0.41, alpha: 1.0)
+    let labelColor = UIColor(red: 0.45, green: 0.51, blue: 0.60, alpha: 1.0)
     let labelColor1 = UIColor(white:0.45, alpha:1.0)
     let searchScope = ["name","city","phone","date", "active"]
     

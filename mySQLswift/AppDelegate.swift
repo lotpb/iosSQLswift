@@ -102,8 +102,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         defaults.registerDefaults(["areacodeKey": "(516)", "parsedataKey": "YES"])  // with or without this code works... do I need this?
         defaults.synchronize() */
         
-        
         customizeAppearance()
+        
         return true
     }
     
@@ -212,5 +212,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     
     
 
+}
+
+// MARK: CLLocationManagerDelegate - Beacons
+extension AppDelegate: CLLocationManagerDelegate {
+    func locationManager(manager: CLLocationManager, didExitRegion region: CLRegion) {
+        if let _ = region as? CLBeaconRegion {
+            let notification = UILocalNotification()
+            notification.alertBody = "Are you forgetting something?"
+            notification.soundName = "Default"
+            UIApplication.sharedApplication().presentLocalNotificationNow(notification)
+        }
+    }
 }
 
