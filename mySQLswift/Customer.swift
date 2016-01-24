@@ -133,14 +133,11 @@ class Customer: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         var cellIdentifier: String!
-        //var dic: [String:AnyObject]!
-        
+
         if tableView == self.tableView {
             cellIdentifier = "Cell"
-            //dic = self.users[indexPath.row]
         } else {
             cellIdentifier = "UserFoundCell"
-            //dic = self.foundUsers[indexPath.row]
         }
         
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier) as! CustomTableCell
@@ -410,7 +407,7 @@ class Customer: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     
     
     func updateSearchResultsForSearchController(searchController: UISearchController) {
-        
+        /*
         self.foundUsers.removeAll(keepCapacity: false)
         
         let searchPredicate = NSPredicate(format: "SELF CONTAINS[cd] %@", searchController.searchBar.text!)
@@ -422,7 +419,7 @@ class Customer: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         dispatch_async(dispatch_get_main_queue()) {
             //self.resultsController.tableView.reloadData()
             self.searchController.resignFirstResponder()
-        }
+        } */
     }
     
     // MARK: - Parse
@@ -597,7 +594,7 @@ class Customer: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         if segue.identifier == "newcustSegue" {
             let controller = segue.destinationViewController as? EditData
             controller!.formController = "Customer"
-            controller!.statis = "New"
+            controller!.status = "New"
         }
         
     }

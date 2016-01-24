@@ -465,7 +465,7 @@ class Vendor: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
         if segue.identifier == "newvendSegue" {
             let controller = segue.destinationViewController as? EditData
             controller!.formController = "Vendor"
-            controller!.statis = "New"
+            controller!.status = "New"
         }
         
     }

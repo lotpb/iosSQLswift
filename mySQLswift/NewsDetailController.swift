@@ -38,7 +38,7 @@ class NewsDetailController: UIViewController {
         super.viewDidLoad()
         
         let titleButton: UIButton = UIButton(frame: CGRectMake(0, 0, 100, 32))
-        titleButton.setTitle("myLeads", forState: UIControlState.Normal)
+        titleButton.setTitle("News Detail", forState: UIControlState.Normal)
         titleButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Thin", size: 25.0)
         titleButton.titleLabel?.textAlignment = NSTextAlignment.Center
         titleButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
@@ -47,9 +47,9 @@ class NewsDetailController: UIViewController {
         
         self.scrollView.minimumZoomScale = 1.0
         self.scrollView.maximumZoomScale = 6.0
-        self.newsImageview.backgroundColor = UIColor.lightGrayColor()
+        self.newsImageview.backgroundColor = UIColor.blackColor()
         
-        let editItem = UIBarButtonItem(barButtonSystemItem: .Edit, target: self, action: "editData")
+        let editItem = UIBarButtonItem(barButtonSystemItem: .Edit, target: self, action: "editData:")
         let buttons:NSArray = [editItem]
         self.navigationItem.rightBarButtonItems = buttons as? [UIBarButtonItem]
 
@@ -75,24 +75,24 @@ class NewsDetailController: UIViewController {
         self.titleLabel.numberOfLines = 2
         
         self.detailLabel.text = self.newsDetail as? String
-        //self.detailLabel.text = String(format: "%@ %@", (self.newsDetail! as NSString), (self.newsDate! as NSString))
+        //self.detailLabel!.text = String(format: "%@, %d", (self.newsDetail as? String)!, (self.newsDate as? String)!)
         self.detailLabel.textColor = UIColor.lightGrayColor()
         self.detailLabel.sizeToFit()
         
         self.newsTextview.text = self.newsStory as? String
         
-        if ((self.imageDetailurl?.containsString("movie.mp4")) != nil) {
+        if (self.imageDetailurl == "movie.mp4") {
             
             let playButton = UIButton(type: UIButtonType.Custom) as UIButton
             playButton.frame = CGRectMake(self.newsImageview.frame.size.width/2-130, self.newsImageview.frame.origin.y+100, 50, 50)
-            playButton.alpha = 1.0
+            playButton.alpha = 0.3
             playButton.tintColor = UIColor.whiteColor()
             let playbutton : UIImage? = UIImage(named:"play_button.png")!.imageWithRenderingMode(.AlwaysTemplate)
             playButton .setImage(playbutton, forState: .Normal)
             playButton.userInteractionEnabled = true
             let tap = UITapGestureRecognizer(target: self, action: Selector("playVideo:"))
             playButton.addGestureRecognizer(tap)
-            self.scrollView.addSubview(playButton)
+            self.newsImageview.addSubview(playButton)
             
             videoURL = NSURL(string: self.imageDetailurl as! String)!
         }
@@ -113,17 +113,25 @@ class NewsDetailController: UIViewController {
         
         self.performSegueWithIdentifier("uploadSegue", sender: self)
     }
-
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // MARK: - Segue
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?)
+    {
+        if segue.identifier == "uploadSegue"
+        {
+            let photo = segue.destinationViewController as? UploadController
+            
+            photo!.formStat = "Update"
+            photo!.objectId = self.objectId as? String
+            photo!.newsImage = self.newsImageview.image
+            photo!.newstitle = self.titleLabel.text
+            photo!.newsdetail = self.newsDetail as? String
+            photo!.newsStory = self.newsStory as? String
+            photo!.imageDetailurl = self.imageDetailurl as? String
+        }
     }
-    */
+
+
 
 }

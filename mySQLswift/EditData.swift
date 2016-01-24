@@ -54,7 +54,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     var comment : UITextView!
     
     var formController : NSString?
-    var statis : NSString?
+    var status : NSString?
     var objectId : NSString?
     var custNo : NSString?
     var leadNo : NSString?
@@ -105,7 +105,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         super.viewDidLoad()
         
         let titleButton: UIButton = UIButton(frame: CGRectMake(0, 0, 100, 32))
-        titleButton.setTitle(String(format: "%@ %@", self.statis!, self.formController!), forState: UIControlState.Normal)
+        titleButton.setTitle(String(format: "%@ %@", self.status!, self.formController!), forState: UIControlState.Normal)
         titleButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Thin", size: 25.0)
         titleButton.titleLabel?.textAlignment = NSTextAlignment.Center
         titleButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
@@ -124,14 +124,14 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         let buttons:NSArray = [saveButton]
         self.navigationItem.rightBarButtonItems = buttons as? [UIBarButtonItem]
         
-        if (statis == "New") {
+        if (status == "New") {
             self.following!.text = "Following"
             self.frm30 = "1"
             let replyimage : UIImage? = UIImage(named:"iosStar.png")!
             self.activebutton!.setImage(replyimage, forState: .Normal)
         }
         
-        if (statis == "Edit") {
+        if (status == "Edit") {
             if (frm30 == "1") { //if Active
                 
                 self.following.text = "Following"
@@ -149,7 +149,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         self.callback?.inputView = pickerView
         
         passFieldData()
-        if (self.statis == "Edit") {
+        if (self.status == "Edit") {
             parseData()
         }
         self.tableView!.reloadData()
@@ -288,7 +288,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             if (self.formController == "Leads" || self.formController == "Customer") {
                 
                 self.date?.inputView = DatePickerView
-                if (self.statis == "New") {
+                if (self.status == "New") {
                     self.date?.text = dateString
                 }
                 //DatePickerView.addTarget(self, action: Selector("datePickerValueChanged:"), forControlEvents: UIControlEvents.ValueChanged)
@@ -379,7 +379,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                 cell.textLabel!.text = "Middle"
                 
             } else { //leads
-                if (self.statis == "New") {
+                if (self.status == "New") {
                     self.aptDate?.text = dateString
                 }
                 self.aptDate!.tag = 4
@@ -550,7 +550,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                 self.callback!.placeholder = "Quan"
                 cell.textLabel!.text = "# Windows"
                 
-                if (self.statis == "Edit") {
+                if (self.status == "Edit") {
                     let simpleStepper = UIStepper(frame:CGRectZero);
                     simpleStepper.value = Double(self.callback.text!)!
                     simpleStepper.stepValue = 1
@@ -771,7 +771,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         }
         
         if (formController == "Customer") {
-            if (self.statis == "New") {
+            if (self.status == "New") {
                 self.company?.hidden = true
             } else {
                 self.company.placeholder = "Contractor"
@@ -893,7 +893,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             let myJob : NSNumber = numberFormatter.numberFromString(self.jobNo! as String)!
             let myAd : NSNumber = numberFormatter.numberFromString(self.adNo! as String)!
             
-            if (self.statis == "Edit") { //Edit Lead
+            if (self.status == "Edit") { //Edit Lead
             
             let query = PFQuery(className:"Leads")
             query.whereKey("objectId", equalTo:self.objectId!)
@@ -1000,7 +1000,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             let myJob : NSNumber = numberFormatter.numberFromString(self.jobNo! as String)!
             let myAd : NSNumber = numberFormatter.numberFromString(self.adNo! as String)!
             
-            if (self.statis == "Edit") { //Edit Customer
+            if (self.status == "Edit") { //Edit Customer
 
             let query = PFQuery(className:"Customer")
             query.whereKey("objectId", equalTo:self.objectId!)
@@ -1128,7 +1128,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             }
             let myLead =  numberFormatter.numberFromString(Lead! as String)
             
-            if (self.statis == "Edit") { //Edit Vendor
+            if (self.status == "Edit") { //Edit Vendor
             
             let query = PFQuery(className:"Vendors")
             query.whereKey("objectId", equalTo:self.objectId!)
@@ -1246,7 +1246,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             }
             let myLead =  numberFormatter.numberFromString(Lead!)
             
-            if (self.statis == "Edit") { //Edit Employee
+            if (self.status == "Edit") { //Edit Employee
             
             let query = PFQuery(className:"Employee")
             query.whereKey("objectId", equalTo:self.objectId!)

@@ -232,7 +232,7 @@ class UserViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! JobViewCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! CollectionViewCell
 
         let title:UILabel = UILabel(frame: CGRectMake(0, 100, cell.bounds.size.width, 20))
         title.backgroundColor = UIColor.whiteColor()

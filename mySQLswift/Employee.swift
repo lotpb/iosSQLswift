@@ -13,7 +13,7 @@ class Employee: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     
     let navColor = UIColor(red: 0.64, green: 0.54, blue: 0.50, alpha: 1.0)
     let labelColor = UIColor(red: 0.31, green: 0.23, blue: 0.17, alpha: 1.0)
-    let labelColor1 = UIColor(red: 0.15, green: 0.15, blue: 0.15, alpha: 1.0)
+    //let labelColor1 = UIColor(red: 0.15, green: 0.15, blue: 0.15, alpha: 1.0)
     let searchScope = ["name","city","phone","active"]
     
     @IBOutlet weak var tableView: UITableView?
@@ -134,26 +134,26 @@ class Employee: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier) as! CustomTableCell
         cell.selectionStyle = UITableViewCellSelectionStyle.None
-        
+        /*
         let myLabel1:UILabel = UILabel(frame: CGRectMake(tableView.frame.size.width - 85, 0, 75, 32))
         myLabel1.backgroundColor = labelColor1
         myLabel1.textColor = UIColor.whiteColor()
         myLabel1.textAlignment = NSTextAlignment.Center
         myLabel1.layer.masksToBounds = true
         myLabel1.font = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
-        cell.addSubview(myLabel1)
+        cell.addSubview(myLabel1) */
         
         cell.LeadsubtitleLabel!.textColor = UIColor.grayColor()
         
         if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
             cell.LeadtitleLabel!.font = UIFont (name: "HelveticaNeue", size: 20)
             cell.LeadsubtitleLabel!.font = UIFont (name: "HelveticaNeue", size: 16)
-            myLabel1.font = UIFont (name: "HelveticaNeue", size: 16)
+            //myLabel1.font = UIFont (name: "HelveticaNeue", size: 16)
 
         } else {
             cell.LeadtitleLabel!.font = UIFont (name: "HelveticaNeue", size: 20)
             cell.LeadsubtitleLabel!.font = UIFont (name: "HelveticaNeue", size: 16)
-            myLabel1.font = UIFont (name: "HelveticaNeue", size: 16)
+            //myLabel1.font = UIFont (name: "HelveticaNeue", size: 16)
         }
         
         if (tableView == self.tableView) {
@@ -161,22 +161,24 @@ class Employee: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             cell.LeadtitleLabel!.text = String(format: "%@ %@ %@", (_feedItems[indexPath.row] .valueForKey("First") as? String)!,
                 (_feedItems[indexPath.row] .valueForKey("Last") as? String)!,
                 (_feedItems[indexPath.row] .valueForKey("Company") as? String)!)
-            cell.LeadsubtitleLabel!.text = _feedItems[indexPath.row] .valueForKey("City") as? String
+            cell.LeadsubtitleLabel!.text = _feedItems[indexPath.row] .valueForKey("Title") as? String
+            /*
             var numNo:Int? = _feedItems[indexPath.row] .valueForKey("EmployeeNo")as? Int
             if numNo == nil {
                 numNo = 0
             }
-            myLabel1.text = "\(numNo!)"
+            myLabel1.text = "\(numNo!)" */
             
         } else {
 
             cell.LeadtitleLabel!.text = String(format: "%@ %@ %@", (filteredString[indexPath.row] .valueForKey("First") as? String)!, (filteredString[indexPath.row] .valueForKey("Last") as? String)!, (filteredString[indexPath.row] .valueForKey("Company") as? String)!)
-            cell.LeadsubtitleLabel!.text = filteredString[indexPath.row] .valueForKey("City") as? String
+            cell.LeadsubtitleLabel!.text = filteredString[indexPath.row] .valueForKey("Title") as? String
+            /*
             var numNo:Int? = filteredString[indexPath.row] .valueForKey("EmployeeNo")as? Int
             if numNo == nil {
                 numNo = 0
             }
-            myLabel1.text = "\(numNo!)"
+            myLabel1.text = "\(numNo!)" */
             
         }
         
@@ -485,7 +487,7 @@ class Employee: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         if segue.identifier == "newemploySegue" {
             let controller = segue.destinationViewController as? EditData
             controller!.formController = "Employee"
-            controller!.statis = "New"
+            controller!.status = "New"
         }
         
     }

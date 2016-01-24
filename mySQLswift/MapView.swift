@@ -211,6 +211,9 @@ class MapView: UIViewController, MKMapViewDelegate,  CLLocationManagerDelegate {
     
     func mapView(mapView: MKMapView, viewForAnnotation annotation: MKAnnotation) -> MKAnnotationView? {
         
+        if (annotation is MKUserLocation) { //added blue circle userlocation
+        return nil
+        }
         
         let annotationView = MKPinAnnotationView()
         //annotationView.rightCalloutAccessoryView = UIButton(type: UIButtonType.InfoLight)

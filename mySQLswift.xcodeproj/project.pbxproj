@@ -31,8 +31,8 @@
 		AF2817CB1C38794F00B2607A /* LeadUserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2817CA1C38794F00B2607A /* LeadUserController.swift */; };
 		AF2DB75E1C243EAA00AAE855 /* UserDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2DB75D1C243EAA00AAE855 /* UserDetailController.swift */; };
 		AF46FA841C2313EE00C27445 /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF46FA831C2313EE00C27445 /* UserViewController.swift */; };
-		AF46FA861C2322B200C27445 /* JobViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF46FA851C2322B200C27445 /* JobViewCell.swift */; };
 		AF56DFC31C28947400CD7EB9 /* SnapshotController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF56DFC21C28947400CD7EB9 /* SnapshotController.swift */; };
+		AF5794B31C53EC6B006C456B /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF5794B21C53EC6B006C456B /* KeychainWrapper.swift */; };
 		AF5BF9E91C18C3720072B997 /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF5BF9E81C18C3720072B997 /* News.swift */; };
 		AF5C01DE1C493199009BB817 /* MusicController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF5C01DD1C493199009BB817 /* MusicController.swift */; };
 		AF5C01E01C4931EE009BB817 /* TrackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF5C01DF1C4931EE009BB817 /* TrackCell.swift */; };
@@ -177,8 +177,8 @@
 		AF2817CA1C38794F00B2607A /* LeadUserController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeadUserController.swift; sourceTree = "<group>"; };
 		AF2DB75D1C243EAA00AAE855 /* UserDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDetailController.swift; sourceTree = "<group>"; };
 		AF46FA831C2313EE00C27445 /* UserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
-		AF46FA851C2322B200C27445 /* JobViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobViewCell.swift; sourceTree = "<group>"; };
 		AF56DFC21C28947400CD7EB9 /* SnapshotController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotController.swift; sourceTree = "<group>"; };
+		AF5794B21C53EC6B006C456B /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
 		AF5BF9E81C18C3720072B997 /* News.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
 		AF5C01DD1C493199009BB817 /* MusicController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MusicController.swift; sourceTree = "<group>"; };
 		AF5C01DF1C4931EE009BB817 /* TrackCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackCell.swift; sourceTree = "<group>"; };
@@ -348,10 +348,8 @@
 			children = (
 				AF0369A41C173DDC00137D7E /* AppDelegate.swift */,
 				AF0369A61C173DDC00137D7E /* MasterViewController.swift */,
-				AF0369A81C173DDC00137D7E /* DetailViewController.swift */,
 				AF0D6B301C4AC5E900334D03 /* YQL.swift */,
 				AF0369AA1C173DDC00137D7E /* Main.storyboard */,
-				AFD754F11C4FCBF200021F97 /* ContactController.swift */,
 				AF8CC3A91C41B34E004147F3 /* Main Tables */,
 				AF8CC3A81C41B317004147F3 /* Tables */,
 				AF0DACA21C1F45D400B23CE5 /* Blog */,
@@ -427,7 +425,7 @@
 				AF206E021C1B1F6A00EA60D6 /* Sounds */,
 				AF1E6D551C1920FC0009230E /* CustomTableCell.swift */,
 				AF0C77A21C2245BA0055DDE4 /* CollectionViewCell.swift */,
-				AF46FA851C2322B200C27445 /* JobViewCell.swift */,
+				AF5794B21C53EC6B006C456B /* KeychainWrapper.swift */,
 				AF0369AD1C173DDC00137D7E /* Assets.xcassets */,
 				AF0369AF1C173DDC00137D7E /* LaunchScreen.storyboard */,
 				AF0369B21C173DDC00137D7E /* Info.plist */,
@@ -441,8 +439,6 @@
 				AF1DE4B01C19CDBC002B24C5 /* LeadDetail.swift */,
 				AF6E27031C3AC52200612C25 /* EditData.swift */,
 				AF8CC3A61C4153AF004147F3 /* NewEditData.swift */,
-				AF8CC3AA1C42B9FB004147F3 /* StatisticController.swift */,
-				AF56DFC21C28947400CD7EB9 /* SnapshotController.swift */,
 				AF2817CA1C38794F00B2607A /* LeadUserController.swift */,
 				AFDFCBB81C3EA4EA00F02E7B /* MapView.swift */,
 			);
@@ -452,6 +448,8 @@
 		AF8CC3A91C41B34E004147F3 /* Main Tables */ = {
 			isa = PBXGroup;
 			children = (
+				AF8CC3AA1C42B9FB004147F3 /* StatisticController.swift */,
+				AF56DFC21C28947400CD7EB9 /* SnapshotController.swift */,
 				AFE263A11C176F15007BBB90 /* Lead.swift */,
 				AFD1A30A1C1E224600580F10 /* Customer.swift */,
 				AFB5A71D1C2C499200F8BC56 /* Vendor.swift */,
@@ -460,6 +458,7 @@
 				AF011A751C40AB2F000EAF5D /* SalesmanController.swift */,
 				AF011A711C40A798000EAF5D /* ProductController.swift */,
 				AFCAACE71C40961E00A52073 /* AdController.swift */,
+				AF0369A81C173DDC00137D7E /* DetailViewController.swift */,
 				AFD1A3091C1DB88200580F10 /* Web */,
 			);
 			name = "Main Tables";
@@ -501,6 +500,7 @@
 				AFF3C8F01C4EC45100D9B7BD /* Beacons */,
 				AF5C01E51C493245009BB817 /* Music */,
 				AF0754871C4344F400B03D38 /* lookup */,
+				AFD754F11C4FCBF200021F97 /* ContactController.swift */,
 				AF0D6B321C4C554300334D03 /* YouTubeController.swift */,
 				AFD1A2FF1C1CCFCF00580F10 /* SocialController.swift */,
 				AFF7BCE41C3230EA0051DDCB /* CodeGenController.swift */,
@@ -803,7 +803,6 @@
 				AF0369A91C173DDC00137D7E /* DetailViewController.swift in Sources */,
 				AF011A741C40AAE2000EAF5D /* JobController.swift in Sources */,
 				AF0369A71C173DDC00137D7E /* MasterViewController.swift in Sources */,
-				AF46FA861C2322B200C27445 /* JobViewCell.swift in Sources */,
 				AFE263A41C178830007BBB90 /* Blog.swift in Sources */,
 				AF5BF9E91C18C3720072B997 /* News.swift in Sources */,
 				AFF3C8F21C4F38D500D9B7BD /* NewsDetailController.swift in Sources */,
@@ -830,6 +829,7 @@
 				AF1E6D561C1920FC0009230E /* CustomTableCell.swift in Sources */,
 				AF46FA841C2313EE00C27445 /* UserViewController.swift in Sources */,
 				AF5C01E01C4931EE009BB817 /* TrackCell.swift in Sources */,
+				AF5794B31C53EC6B006C456B /* KeychainWrapper.swift in Sources */,
 				AF8CC3A71C4153AF004147F3 /* NewEditData.swift in Sources */,
 				AF011A761C40AB2F000EAF5D /* SalesmanController.swift in Sources */,
 			);

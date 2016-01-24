@@ -575,7 +575,7 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
         if segue.identifier == "newleadSegue" {
             let controller = segue.destinationViewController as? EditData
             controller!.formController = "Leads"
-            controller!.statis = "New"
+            controller!.status = "New"
         }
         
     }

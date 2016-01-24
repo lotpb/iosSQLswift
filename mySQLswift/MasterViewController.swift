@@ -72,11 +72,20 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
       /*
         PFUser.logInWithUsernameInBackground("Peter Balsamo", password:"3911") { (user, error) -> Void in
         } */
+        let userId:String = defaults.stringForKey("usernameKey")!
+        let userpassword:String = defaults.stringForKey("passwordKey")!
         
-        PFUser.logInWithUsernameInBackground(defaults.stringForKey("usernameKey")!, password:defaults.stringForKey("passwordKey")!) { (user, error) -> Void in
+        //Keychain
+        let isSavedId: Bool = KeychainWrapper.setString(userId, forKey: "myKey")
+        let isSavedPass: Bool = KeychainWrapper.setString(userpassword, forKey: "myKey")
+        print(isSavedId, isSavedPass)
+        
+        let retrievedString: String? = KeychainWrapper.stringForKey("myKey")
+        print(retrievedString)
+        
+        //Parse
+        PFUser.logInWithUsernameInBackground(userId, password:userpassword) { (user, error) -> Void in
         }
-
-        
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -117,6 +126,9 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
             PFUser.logOut()
             self.performSegueWithIdentifier("showLogin", sender: self)
         })
+        let buttonSix = UIAlertAction(title: "Membership Status", style: .Default, handler: { (action) -> Void in
+            self.sendNotification()
+        })
         let buttonCancel = UIAlertAction(title: "Cancel", style: .Cancel) { (action) -> Void in
             //print("Cancel Button Pressed")
         }
@@ -125,6 +137,7 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         alertController.addAction(buttonTwo)
         alertController.addAction(buttonThree)
         alertController.addAction(buttonFour)
+        alertController.addAction(buttonSix)
         alertController.addAction(buttonSocial)
         alertController.addAction(buttonFive)
         alertController.addAction(buttonCancel)
@@ -361,6 +374,29 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         
         presentViewController(alert, animated: true, completion: nil)
         
+    }
+    
+    
+    // MARK: - localNotification
+    
+    /*
+    override class func initialize() {
+        var onceToken: dispatch_once_t = 0
+        dispatch_once(&onceToken) {
+            self.sendNotification()
+        }
+    } */
+    
+    func sendNotification() {
+        let localNotification: UILocalNotification = UILocalNotification()
+        localNotification.alertAction = "Membership Status"
+        localNotification.alertBody = "Our system has detected that your membership is inactive."
+        localNotification.fireDate = NSDate(timeIntervalSinceNow: 10)
+        localNotification.timeZone = NSTimeZone.localTimeZone()
+        localNotification.category = "status"
+        localNotification.userInfo = [ "cause": "inactiveMembership"]
+        localNotification.applicationIconBadgeNumber = UIApplication.sharedApplication().applicationIconBadgeNumber + 1
+        UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
     }
 
     

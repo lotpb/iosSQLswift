@@ -10,8 +10,13 @@ import UIKit
 import Parse
 import Contacts
 import ContactsUI
+import EventKit
+import MessageUI
 
-class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, MFMailComposeViewControllerDelegate {
+    
+    let emailTitle:String = "mySQL" //defaults.stringForKey("emailtitleKey")!
+    let messageBody:String = "Program in Swift" //defaults.stringForKey("emailmessageKey")!
     
     var tableData : NSMutableArray = NSMutableArray()
     var tableData2 : NSMutableArray = NSMutableArray()
@@ -39,7 +44,10 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var activebutton: UIButton!
     @IBOutlet weak var mapbutton: UIButton!
     
+    var defaults = NSUserDefaults.standardUserDefaults()
+    
     var formController : String?
+    var status : NSString?
     
     var objectId : String?
     var custNo : String?
@@ -104,8 +112,8 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var salesman : NSString?
     var jobdescription : NSString?
     var advertiser : NSString?
-    var dateInput : UITextField?
-    var itemText : UITextField?
+    //var dateInput : UITextField?
+    //var itemText : UITextField?
     
     var savedEventId : NSString?
     var getEmail : NSString?
@@ -221,6 +229,7 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource {
     // MARK: - Button
     
     func editButton() {
+        status = "Edit"
         self.performSegueWithIdentifier("editFormSegue", sender: self)
     }
     
@@ -597,19 +606,20 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource {
             self.createContact()
         })
         let cal = UIAlertAction(title: "Add Calender Event", style: .Default, handler: { (action) -> Void in
-            //self.performSegueWithIdentifier("userSegue", sender: self)
+            self.addEvent()
         })
         let web = UIAlertAction(title: "Web Page", style: .Default, handler: { (action) -> Void in
             self.openurl()
         })
         let new = UIAlertAction(title: "Add Customer", style: .Default, handler: { (action) -> Void in
-            //self.performSegueWithIdentifier("codegenSegue", sender: self)
+            self.status = "New"
+            self.performSegueWithIdentifier("editFormSegue", sender: self)
         })
         let phone = UIAlertAction(title: "Call Phone", style: .Default, handler: { (action) -> Void in
             self.callPhone()
         })
         let email = UIAlertAction(title: "Send Email", style: .Default, handler: { (action) -> Void in
-            //self.performSegueWithIdentifier("showLogin", sender: self)
+            self.sendEmail()
         })
         let buttonCancel = UIAlertAction(title: "Cancel", style: .Cancel) { (action) -> Void in
             //print("Cancel Button Pressed")
@@ -672,31 +682,117 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     func openurl() {
         
-        //if !(self.tbl26 == NSNull() && self.tbl26 != "0") {
-        
-        
-        if let url = NSURL(string: "\(self.tbl26!)") {
-            UIApplication.sharedApplication().openURL(url)
-        }
-        
-        /*
-        let stringWithPossibleURL: String = "\(self.tbl26!)"// Or another source of text
-        print(stringWithPossibleURL)
-        
-        if let validURL: NSURL = NSURL(string: stringWithPossibleURL) {
-            // Successfully constructed an NSURL; open it
-            UIApplication.sharedApplication().openURL(validURL)
-        } */
-        
-        
-        else {
-            // Initialization failed; alert the user
-            let controller: UIAlertController = UIAlertController(title: "Invalid URL", message: "Please try again.", preferredStyle: .Alert)
-            controller.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+        if ((self.tbl26 != NSNull()) && ( self.tbl26 != 0 )) {
             
-            self.presentViewController(controller, animated: true, completion: nil)
+            if let url = NSURL(string: "\(self.tbl26!)") {
+                UIApplication.sharedApplication().openURL(url)
+            }
+                /*
+                let stringWithPossibleURL: String = "\(self.tbl26!)"// Or another source of text
+                print(stringWithPossibleURL)
+                
+                if let validURL: NSURL = NSURL(string: stringWithPossibleURL) {
+                // Successfully constructed an NSURL; open it
+                UIApplication.sharedApplication().openURL(validURL)
+                } */
+                
+        } else {
+                // Initialization failed; alert the user
+                
+                let alert = UIAlertController(title: "Invalid URL", message: "Your field doesn't have valid URL.", preferredStyle: UIAlertControllerStyle.Alert)
+                let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Destructive, handler: {(alert: UIAlertAction!) in })
+                
+                alert.addAction(alertActionTrue)
+                self .presentViewController(alert, animated: true, completion: nil)
+            }
+        }
+    
+    func sendEmail() {
+        if (formController == "Leads") || (formController == "Customer") {
+            if ((self.tbl15 != NSNull()) && ( self.tbl15 != 0 )) {
+                self.getEmail(t15!)
+                
+            } else {
+                
+                let alert = UIAlertController(title: "Alert", message: "Your field doesn't have valid email.", preferredStyle: UIAlertControllerStyle.Alert)
+                let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Destructive, handler: {(alert: UIAlertAction!) in })
+                
+                alert.addAction(alertActionTrue)
+                self .presentViewController(alert, animated: true, completion: nil)
+            }
+        }
+        if (formController == "Vendor") || (formController == "Employee") {
+            if ((self.tbl21 != NSNull()) && ( self.tbl21 != 0 )) {
+                self.getEmail(t21!)
+                
+            } else {
+                
+                let alert = UIAlertController(title: "Alert", message: "Your field doesn't have valid email.", preferredStyle: UIAlertControllerStyle.Alert)
+                let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Destructive, handler: {(alert: UIAlertAction!) in })
+                
+                alert.addAction(alertActionTrue)
+                self .presentViewController(alert, animated: true, completion: nil)
+            }
         }
     }
+    
+    func getEmail(emailfield: NSString) {
+      
+        let email = MFMailComposeViewController()
+        email.mailComposeDelegate = self
+        email.setToRecipients([emailfield as String])
+        email.setSubject(emailTitle)
+        email.setMessageBody(messageBody, isHTML: true) // or true, if you prefer
+        email.modalTransitionStyle = UIModalTransitionStyle.FlipHorizontal
+        presentViewController(email, animated: true, completion: nil)
+    }
+
+    func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
+    func addEvent() {
+        let eventStore = EKEventStore()
+        
+        let itemText = "Meeting"
+        
+        let startDate = NSDate().dateByAddingTimeInterval(60 * 60)
+        let endDate = startDate.dateByAddingTimeInterval(60 * 60) // One hour
+        
+        if (EKEventStore.authorizationStatusForEntityType(.Event) != EKAuthorizationStatus.Authorized) {
+            eventStore.requestAccessToEntityType(.Event, completion: {
+                granted, error in
+                self.createEvent(eventStore, title: String(format: "%@, %@", itemText, self.name!), startDate: startDate, endDate: endDate)
+            })
+        } else {
+            createEvent(eventStore, title: String(format: "%@ %@", itemText, self.name!), startDate: startDate, endDate: endDate)
+        }
+    }
+    
+    func createEvent(eventStore: EKEventStore, title: String, startDate: NSDate, endDate: NSDate) {
+        let event = EKEvent(eventStore: eventStore)
+        
+        event.title = title
+        event.startDate = startDate
+        event.endDate = endDate
+        event.location = String(format: "%@ %@ %@ %@", self.address!,self.city!,self.state!,self.zip!)
+        event.notes = self.comments as? String
+        event.calendar = eventStore.defaultCalendarForNewEvents
+        do {
+            try eventStore.saveEvent(event, span: .ThisEvent)
+            savedEventId = event.eventIdentifier
+            
+            let alert = UIAlertController(title: "Event", message: "Event successfully saved.", preferredStyle: UIAlertControllerStyle.Alert)
+            let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
+            
+            alert.addAction(alertActionTrue)
+            self .presentViewController(alert, animated: true, completion: nil)
+            
+        } catch {
+            print("Bad things happened")
+        }
+    }
+    
     
     func createContact() {
         
@@ -715,14 +811,13 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource {
             homeAddress.country = "US"
             newContact.postalAddresses = [CNLabeledValue(label:CNLabelHome, value:homeAddress)]
             
-            let homephone = CNLabeledValue(label: CNLabelHome, value: self.tbl12!)
+            let homephone = CNLabeledValue(label:CNLabelHome, value:CNPhoneNumber(stringValue: self.tbl12! as String))
             newContact.phoneNumbers = [homephone]
             
             let homeEmail = CNLabeledValue(label: CNLabelHome, value: self.tbl15!)
             newContact.emailAddresses = [homeEmail]
             
             newContact.note = self.comments as! String
-            
         }
         
         if (formController == "Customer") {
@@ -738,7 +833,7 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource {
             homeAddress.country = "US"
             newContact.postalAddresses = [CNLabeledValue(label:CNLabelHome, value:homeAddress)]
             
-            let homephone = CNLabeledValue(label: CNLabelHome, value: self.tbl12!)
+            let homephone = CNLabeledValue(label:CNLabelHome, value:CNPhoneNumber(stringValue:self.tbl12! as String))
             newContact.phoneNumbers = [homephone]
             
             let homeEmail = CNLabeledValue(label: CNLabelHome, value: self.tbl15!)
@@ -746,7 +841,6 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource {
             
             newContact.organizationName = self.tbl11 as! String
             newContact.note = self.comments as! String
-            
         }
         
         if (formController == "Vendor") {
@@ -762,17 +856,16 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource {
             homeAddress.country = "US"
             newContact.postalAddresses = [CNLabeledValue(label:CNLabelHome, value:homeAddress)]
             
-            let workphone1 = CNLabeledValue(label: CNLabelWork, value: self.tbl11!)
-            let workphone2 = CNLabeledValue(label: CNLabelWork, value: self.tbl12!)
-            let workphone3 = CNLabeledValue(label: CNLabelWork, value: self.tbl13!)
-            let workphone4 = CNLabeledValue(label: CNLabelWork, value: self.tbl14!)
-            newContact.phoneNumbers = [workphone1, workphone2, workphone3, workphone4]
+            let homephone1 = CNLabeledValue(label:CNLabelWork, value:CNPhoneNumber(stringValue: self.tbl11! as String))
+            let homephone2 = CNLabeledValue(label:CNLabelWork, value:CNPhoneNumber(stringValue: self.tbl12! as String))
+            let homephone3 = CNLabeledValue(label:CNLabelWork, value:CNPhoneNumber(stringValue: self.tbl13! as String))
+            let homephone4 = CNLabeledValue(label:CNLabelWork, value:CNPhoneNumber(stringValue: self.tbl14! as String))
+            newContact.phoneNumbers = [homephone1, homephone2, homephone3, homephone4]
             
             let homeEmail = CNLabeledValue(label: CNLabelHome, value: self.tbl21!)
             newContact.emailAddresses = [homeEmail]
             
             newContact.note = self.comments as! String
-            
         }
         
         if (formController == "Employee") {
@@ -792,11 +885,11 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource {
             homeAddress.country = self.tbl25 as! String
             newContact.postalAddresses = [CNLabeledValue(label:CNLabelHome, value:homeAddress)]
             
-            let workphone1 = CNLabeledValue(label: CNLabelHome, value: self.tbl11!)
-            let workphone2 = CNLabeledValue(label: CNLabelWork, value: self.tbl12!)
-            let workphone3 = CNLabeledValue(label: CNLabelPhoneNumberMobile, value: self.tbl13!)
-            newContact.phoneNumbers = [workphone1, workphone2, workphone3]
-            
+            let homephone1 = CNLabeledValue(label:CNLabelHome, value:CNPhoneNumber(stringValue: self.tbl11! as String))
+            let homephone2 = CNLabeledValue(label:CNLabelWork, value:CNPhoneNumber(stringValue: self.tbl12! as String))
+            let homephone3 = CNLabeledValue(label:CNLabelPhoneNumberMobile, value:CNPhoneNumber(stringValue: self.tbl13! as String))
+            newContact.phoneNumbers = [homephone1, homephone2, homephone3]
+
             let homeEmail = CNLabeledValue(label: CNLabelHome, value: self.tbl21!)
             //let workEmail = CNLabeledValue(label: CNLabelWork,value: "liam@workemail.com")
             newContact.emailAddresses = [homeEmail]
@@ -827,18 +920,31 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource {
             let imgData = UIImagePNGRepresentation(img){
             newContact.imageData = imgData
             } */
-            
         }
         
         do {
             let saveRequest = CNSaveRequest()
-            saveRequest.updateContact(newContact)
+            saveRequest.addContact(newContact, toContainerWithIdentifier: nil)
             let contactStore = CNContactStore()
             try contactStore.executeSaveRequest(saveRequest)
-            print("Contact Added Successfully")
+            
+            let alert = UIAlertController(title: "Contact", message: "Contact successfully saved.", preferredStyle: UIAlertControllerStyle.Alert)
+            let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
+            
+            alert.addAction(alertActionTrue)
+            self .presentViewController(alert, animated: true, completion: nil)
+            
+            //print("Contact Added Successfully")
         }
         catch {
-            print("Unable to Add the New Contact.")
+            
+            let alert = UIAlertController(title: "Contact", message: "Unable to Add the New Contact.", preferredStyle: UIAlertControllerStyle.Alert)
+            let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Destructive, handler: {(alert: UIAlertAction!) in })
+            
+            alert.addAction(alertActionTrue)
+            self .presentViewController(alert, animated: true, completion: nil)
+            
+            //print("Unable to Add the New Contact.")
         }
         
     }
@@ -859,38 +965,73 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource {
         
         if segue.identifier == "editFormSegue" {
             let controller = segue.destinationViewController as? EditData
+            
             if (formController == "Leads") {
-                controller!.formController = "Leads"
-                controller!.statis = "Edit"
-                controller!.objectId = self.objectId //Parse Only
-                controller!.leadNo = self.leadNo
-                controller!.frm11 = self.tbl13 //first
-                controller!.frm12 = self.name
-                controller!.frm13 = nil
-                controller!.frm14 = self.address
-                controller!.frm15 = self.city
-                controller!.frm16 = self.state
-                controller!.frm17 = self.zip
-                controller!.frm18 = self.date
-                controller!.frm19 = self.tbl21 //aptdate
-                controller!.frm20 = self.tbl12 //phone
-                controller!.frm21 = self.tbl22 //salesNo
-                controller!.frm22 = self.tbl23 //jobNo
-                controller!.frm23 = self.tbl24 //adNo
-                controller!.frm24 = self.amount
-                controller!.frm25 = self.tbl15 //email
-                controller!.frm26 = self.tbl14 //spouse
-                controller!.frm27 = self.tbl11 //callback
-                controller!.frm28 = self.comments
-                controller!.frm29 = self.photo
-                controller!.frm30 = self.active
-                controller!.saleNo = self.tbl22
-                controller!.jobNo = self.tbl23
-                controller!.adNo = self.tbl24
+                
+                if (self.status == "Edit") {
+                    
+                    controller!.formController = "Leads"
+                    controller!.status = "Edit"
+                    controller!.objectId = self.objectId //Parse Only
+                    controller!.leadNo = self.leadNo
+                    controller!.frm11 = self.tbl13 //first
+                    controller!.frm12 = self.name
+                    controller!.frm13 = nil
+                    controller!.frm14 = self.address
+                    controller!.frm15 = self.city
+                    controller!.frm16 = self.state
+                    controller!.frm17 = self.zip
+                    controller!.frm18 = self.date
+                    controller!.frm19 = self.tbl21 //aptdate
+                    controller!.frm20 = self.tbl12 //phone
+                    controller!.frm21 = self.tbl22 //salesNo
+                    controller!.frm22 = self.tbl23 //jobNo
+                    controller!.frm23 = self.tbl24 //adNo
+                    controller!.frm24 = self.amount
+                    controller!.frm25 = self.tbl15 //email
+                    controller!.frm26 = self.tbl14 //spouse
+                    controller!.frm27 = self.tbl11 //callback
+                    controller!.frm28 = self.comments
+                    controller!.frm29 = self.photo
+                    controller!.frm30 = self.active
+                    controller!.saleNo = self.tbl22
+                    controller!.jobNo = self.tbl23
+                    controller!.adNo = self.tbl24
+                    
+                } else if (self.status == "New") { //new Customer from Lead
+                    
+                    controller!.formController = "Customer"
+                    controller!.status = "New"
+                    controller!.custNo = self.custNo
+                    controller!.frm31 = self.leadNo
+                    controller!.frm11 = self.tbl13 //first
+                    controller!.frm12 = self.name
+                    controller!.frm13 = nil
+                    controller!.frm14 = self.address
+                    controller!.frm15 = self.city
+                    controller!.frm16 = self.state
+                    controller!.frm17 = self.zip
+                    controller!.frm18 = nil //date
+                    controller!.frm19 = nil //aptdate
+                    controller!.frm20 = self.tbl12 //phone
+                    controller!.frm21 = self.salesman
+                    controller!.frm22 = self.jobdescription
+                    controller!.frm23 = nil //adNo
+                    controller!.frm24 = self.amount
+                    controller!.frm25 = self.tbl15 //email
+                    controller!.frm26 = self.tbl14 //spouse
+                    controller!.frm27 = nil //callback
+                    controller!.frm28 = self.comments
+                    controller!.frm29 = self.photo
+                    controller!.frm30 = self.active
+                    //controller!.saleNoDetail = self.tbl22 //salesNo
+                    //controller!.jobNoDetail = self.tbl23 //jobNo
+                    
+                }
                 
             } else if (formController == "Customer") {
                 controller!.formController = "Customer"
-                controller!.statis = "Edit"
+                controller!.status = "Edit"
                 controller!.objectId = self.objectId //Parse Only
                 controller!.custNo = self.custNo
                 controller!.leadNo = self.leadNo
@@ -925,7 +1066,7 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource {
                 
             } else if (formController == "Vendor") {
                 controller!.formController = "Vendor"
-                controller!.statis = "Edit"
+                controller!.status = "Edit"
                 controller!.objectId = self.objectId //Parse Only
                 controller!.leadNo = self.leadNo //vendorNo
                 controller!.frm11 = self.name //vendorname
@@ -951,7 +1092,7 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
             } else if (formController == "Employee") {
                 controller!.formController = "Employee"
-                controller!.statis = "Edit"
+                controller!.status = "Edit"
                 controller!.objectId = self.objectId //Parse Only
                 controller!.leadNo = self.leadNo //employeeNo
                 controller!.frm11 = self.tbl26 //first

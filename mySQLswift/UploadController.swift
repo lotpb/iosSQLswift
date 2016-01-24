@@ -64,12 +64,13 @@ UIImagePickerControllerDelegate {
         self.mainView.backgroundColor = UIColor(white:0.90, alpha:1.0)
 
         if (self.progressView.progress == 0) {
-            self.progressView.hidden = false
-        } else {
             self.progressView.hidden = true
+        } else {
+            self.progressView.hidden = false
         }
         
         if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
+            
             self.commentTitle!.font = UIFont (name: "HelveticaNeue", size: 18)
             self.commentSorce!.font = UIFont (name: "HelveticaNeue", size: 18)
             self.commentSorce!.font = UIFont (name: "HelveticaNeue", size: 18)

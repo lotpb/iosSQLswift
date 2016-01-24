@@ -6,10 +6,9 @@
 //  Copyright © 2015 Peter Balsamo. All rights reserved.
 //
 
-import Foundation
+
 import UIKit
 
-import Parse
 
 class CustomTableCell: UITableViewCell {
     

@@ -22,6 +22,7 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
     var selectedEmail : NSString!
     var selectedPhone : NSString!
     var imageDetailurl : NSString!
+    var resultDateDiff : NSString!
     
     var selectedState : NSString!
     var selectedZip : NSString!
@@ -57,6 +58,9 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
     //var objects = [AnyObject]()
     //let searchController = UISearchController(searchResultsController: nil)
     
+    var imageObject :PFObject!
+    var imageFile :PFFile!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -80,7 +84,6 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
         self.navigationItem.rightBarButtonItems = buttons as? [UIBarButtonItem]
         
         parseData()
-        
         
         self.refreshControl = UIRefreshControl()
         refreshControl.backgroundColor = UIColor.clearColor()
@@ -108,7 +111,7 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
     func refreshData(sender:AnyObject)
     {
         parseData()
-        self.tableView!.reloadData()
+        //self.tableView!.reloadData()
         self.refreshControl?.endRefreshing()
     }
 
@@ -176,7 +179,7 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
                 return result
             }
         } else if (indexPath.section == 6) {
-            
+            //let result:CGFloat = 100
             switch (indexPath.row % 4)
             {
             case 0:
@@ -244,25 +247,25 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
         cell.accessoryType = UITableViewCellAccessoryType.None
         cell.textLabel!.text = ""
         
-        maintitle = UILabel(frame: CGRectMake(15, 23, cell.frame.size.width - 15, 50))
-        datetitle = UILabel(frame: CGRectMake(15, 5, cell.frame.size.width - 15, 20))
+        //maintitle = UILabel(frame: CGRectMake(15, 23, cell.frame.size.width - 15, 50))
+        //datetitle = UILabel(frame: CGRectMake(15, 5, cell.frame.size.width - 15, 20))
         
-        maintitle.text = nil
-        maintitle.backgroundColor = UIColor.whiteColor()
-        maintitle.textColor = UIColor.blackColor()
+        //maintitle.text = nil
+        //maintitle.backgroundColor = UIColor.whiteColor()
+        //maintitle.textColor = UIColor.blackColor()
         
-        datetitle.text = nil
-        datetitle.backgroundColor = UIColor.whiteColor()
-        datetitle.textColor = UIColor.lightGrayColor()
+        //datetitle.text = nil
+        //datetitle.backgroundColor = UIColor.whiteColor()
+        //datetitle.textColor = UIColor.lightGrayColor()
         
         if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
             cell.textLabel!.font = UIFont (name: "HelveticaNeue-Medium", size: 18)
-            maintitle.font = UIFont (name: "HelveticaNeue", size: 18)
-            datetitle.font = UIFont (name: "HelveticaNeue", size: 14)
+            //maintitle.font = UIFont (name: "HelveticaNeue", size: 18)
+            //datetitle.font = UIFont (name: "HelveticaNeue", size: 14)
         } else {
             cell.textLabel!.font = UIFont (name: "HelveticaNeue-Medium", size: 18)
-            maintitle.font = UIFont (name: "HelveticaNeue", size: 18)
-            datetitle.font = UIFont (name: "HelveticaNeue", size: 14)
+            //maintitle.font = UIFont (name: "HelveticaNeue", size: 18)
+            //datetitle.font = UIFont (name: "HelveticaNeue", size: 14)
         }
         
         //cell.selectionStyle = UITableViewCellSelectionStyle.None
@@ -303,28 +306,21 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
                 
             } else if (indexPath.row == 1) {
                 
-                cell.collectionView.reloadData()
-
                 /*
-                maintitle.numberOfLines = 2
-                maintitle.tag = 1
-                cell.addSubview(maintitle)
-                
-                datetitle.numberOfLines = 1
-                datetitle.tag = 2
-                cell.addSubview(datetitle)
-                
                 let creationDate:NSDate = (_feedItems[0] .valueForKey("createdAt") as? NSDate)!
                 let datetime1:NSDate = creationDate
                 let datetime2:NSDate = NSDate()
                 let dateInterval:Double = datetime2.timeIntervalSinceDate(datetime1) / (60*60*24)
                 let mydate = String(format: "%@%x", "%.0f days ago ", dateInterval)
+                */
                 
-                maintitle = cell.viewWithTag(1) as! UILabel;
-                datetitle = cell.viewWithTag(2) as! UILabel;
+                //cell.textLabel?.text = _feedItems[0] .valueForKey("Subject") as? String
+                //cell.textLabel?.numberOfLines = 0
+                cell.textLabel?.text = "No Top Stories"
+                //cell.textLabel!.text = _feedItems[0] .valueForKey("newsTitle") as? String
                 
-                maintitle.text = _feedItems[0] .valueForKey("newsTitle") as? String
-                datetitle.text = String(format: "%@ %@", (_feedItems[0] .valueForKey("newsDetail") as? String)!, mydate) */
+                //maintitle.text = _feedItems[0] .valueForKey("newsTitle") as? String
+                //datetitle.text = String(format: "%@ %@", (_feedItems[0] .valueForKey("newsDetail") as? String)!, mydate) */
 
                 return cell
             }
@@ -426,21 +422,13 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
                 return cell
             } else if (indexPath.row == 1) {
                 
-                //maintitle.hidden = false
-                maintitle.numberOfLines = 2
-                maintitle.tag = 61
-                cell.addSubview(maintitle)
+                cell.textLabel!.text = _feedItems6[0] .valueForKey("Subject") as? String
+                cell.textLabel!.numberOfLines = 0
+                cell.detailTextLabel?.text = "Peter"
+                //cell.detailTextLabel!.text = _feedItems6[0] .valueForKey("PostBy") as? String
                 
-                //datetitle.hidden = false
-                datetitle.numberOfLines = 1
-                datetitle.tag = 62
-                cell.addSubview(datetitle)
-                
-                maintitle = cell.viewWithTag(61) as! UILabel;
-                datetitle = cell.viewWithTag(62) as! UILabel;
-                
-                maintitle.text = _feedItems6[0] .valueForKey("Subject") as? String
-                datetitle.text = _feedItems6[0] .valueForKey("PostBy") as? String
+                //maintitle.text = _feedItems6[0] .valueForKey("Subject") as? String
+                //datetitle.text = _feedItems6[0] .valueForKey("PostBy") as? String
                 
                 return cell
             }
@@ -456,24 +444,12 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
                 return cell
             } else if (indexPath.row == 1) {
                 
-                maintitle.numberOfLines = 2
-                maintitle.tag = 81
-                cell.addSubview(maintitle)
-                
-                datetitle.numberOfLines = 1
-                datetitle.tag = 82
-                cell.addSubview(datetitle)
-                
-                maintitle = cell.viewWithTag(81) as! UILabel;
-                datetitle = cell.viewWithTag(82) as! UILabel;
-                
                 let localNotification = UILocalNotification()
                 if (UIApplication.sharedApplication().scheduledLocalNotifications!.count == 0) {
-                    self.maintitle.text = "You have no pending notifications :)"
+                    cell.textLabel!.text = "You have no pending notifications :)"
                 } else {
-                    self.maintitle.text = localNotification.alertBody
-                    //datetitle.text = localNotification.fireDate!.description
-                    
+                    cell.textLabel!.text = localNotification.alertBody
+                    cell.detailTextLabel!.text = localNotification.fireDate!.description
                 }
                 
                 return cell
@@ -490,22 +466,13 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
                 return cell
             } else if (indexPath.row == 1) {
                 
-                maintitle.numberOfLines = 2
-                maintitle.tag = 91
-                cell.addSubview(maintitle)
-                
-                datetitle.numberOfLines = 1
-                datetitle.tag = 92
-                cell.addSubview(datetitle)
-                
-                maintitle = cell.viewWithTag(91) as! UILabel;
-                datetitle = cell.viewWithTag(92) as! UILabel;
-                
                 //if (self.eventsList.count == 0) {
-                    maintitle.text = "You have no pending events :)"
+                    cell.textLabel!.text = "You have no pending events :)"
+                    //maintitle.text = "You have no pending events :)"
                // } else {
+                   // cell.detailTextLabel!.text = [[self.eventsList firstObject] title]
                 //    maintitle.text = [[self.eventsList firstObject] title];
-               // }
+                //}
                 
                 return cell
             }
@@ -536,7 +503,7 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath:NSIndexPath)->UICollectionViewCell
     {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! JobViewCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! CollectionViewCell
         
         let myLabel1:UILabel = UILabel(frame: CGRectMake(0, 100, cell.bounds.size.width, 20))
         myLabel1.backgroundColor = UIColor.whiteColor()
@@ -671,7 +638,7 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
             if error == nil {
                 let temp: NSArray = objects! as NSArray
                 self._feedItems = temp.mutableCopy() as! NSMutableArray
-                //self.tableView!.reloadData()
+                self.tableView!.reloadData()
             } else {
                 print("Error")
             }
@@ -684,7 +651,7 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
             if error == nil {
                 let temp: NSArray = objects! as NSArray
                 self._feedItems2 = temp.mutableCopy() as! NSMutableArray
-                //self.tableView!.reloadData()
+                self.tableView!.reloadData()
             } else {
                 print("Error")
             }
@@ -697,7 +664,7 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
             if error == nil {
                 let temp: NSArray = objects! as NSArray
                 self._feedItems3 = temp.mutableCopy() as! NSMutableArray
-                //self.tableView!.reloadData()
+                self.tableView!.reloadData()
             } else {
                 print("Error")
             }
@@ -710,7 +677,7 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
             if error == nil {
                 let temp: NSArray = objects! as NSArray
                 self._feedItems4 = temp.mutableCopy() as! NSMutableArray
-                //self.tableView!.reloadData()
+                self.tableView!.reloadData()
             } else {
                 print("Error")
             }
@@ -737,12 +704,190 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
             if error == nil {
                 let temp: NSArray = objects! as NSArray
                 self._feedItems6 = temp.mutableCopy() as! NSMutableArray
-                //self.tableView!.reloadData()
+                self.tableView!.reloadData()
             } else {
                 print("Error")
             }
         }
-        self.tableView!.reloadData()
+        //self.tableView!.reloadData()
+    }
+    
+    // MARK: - Segues
+    
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath)
+    {
+        if (collectionView.tag == 0) {
+            
+            imageObject = _feedItems.objectAtIndex(indexPath.row) as! PFObject
+            imageFile = imageObject.objectForKey("imageFile") as? PFFile
+            imageFile!.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError?) -> Void in
+                
+                self.selectedImage = UIImage(data: imageData!)
+                self.selectedObjectId = self._feedItems[indexPath.row] .valueForKey("objectId") as? String
+                self.selectedTitle = self._feedItems[indexPath.row] .valueForKey("newsTitle") as? String
+                self.selectedEmail = self._feedItems[indexPath.row] .valueForKey("newsDetail") as? String
+                self.selectedPhone = self._feedItems[indexPath.row] .valueForKey("storyText") as? String
+                self.imageDetailurl = self.imageFile.url
+                
+                let date1 = (self._feedItems[indexPath.row] .valueForKey("createdAt") as? NSDate)!
+                let date2 = NSDate()
+                let diffDateComponents = NSCalendar.currentCalendar().components([NSCalendarUnit.Day], fromDate: date1, toDate: date2, options: NSCalendarOptions.init(rawValue: 0))
+                self.resultDateDiff = String(format: "%d%@" , diffDateComponents.day," days ago" )
+                self.selectedCreate = self.resultDateDiff
+                
+                self.performSegueWithIdentifier("snapuploadSegue", sender:self)
+            }
+        } else if (collectionView.tag == 1) {
+            
+            imageObject = _feedItems2.objectAtIndex(indexPath.row) as! PFObject
+            imageFile = imageObject.objectForKey("imageFile") as? PFFile
+            imageFile!.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError?) -> Void in
+                
+                self.selectedImage = UIImage(data: imageData!)
+                self.selectedTitle = self._feedItems2[indexPath.row] .valueForKey("imageGroup") as? String
+            self.performSegueWithIdentifier("snapuploadSegue", sender:self)
+            }
+            
+        } else if (collectionView.tag == 2) {
+            
+            imageObject = _feedItems3.objectAtIndex(indexPath.row) as! PFObject
+            imageFile = imageObject.objectForKey("imageFile") as? PFFile
+            imageFile!.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError?) -> Void in
+                
+                self.selectedImage = UIImage(data: imageData!)
+                self.selectedObjectId = self._feedItems3[indexPath.row] .valueForKey("objectId") as? String
+                self.selectedName = self._feedItems3[indexPath.row] .valueForKey("username") as? String
+                self.selectedEmail = self._feedItems3[indexPath.row] .valueForKey("email") as? String
+                self.selectedPhone = self._feedItems3[indexPath.row] .valueForKey("phone") as? String
+                
+                let updated:NSDate = (self._feedItems3[(indexPath.row)] .valueForKey("createdAt") as? NSDate)!
+                let dateFormatter = NSDateFormatter()
+                dateFormatter.dateFormat = "MMM dd, yyyy"
+                let createString = dateFormatter.stringFromDate(updated)
+                self.selectedCreate = createString
+                
+                self.performSegueWithIdentifier("userdetailSegue", sender:self)
+            }
+        } else if (collectionView.tag == 3) {
+            
+            imageObject = _feedItems4.objectAtIndex(indexPath.row) as! PFObject
+            imageFile = imageObject.objectForKey("imageFile") as? PFFile
+            imageFile!.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError?) -> Void in
+                
+                self.selectedImage = UIImage(data: imageData!)
+                self.selectedObjectId = self._feedItems4[indexPath.row] .valueForKey("objectId") as? String
+                self.selectedEmail = self._feedItems4[indexPath.row] .valueForKey("SalesNo") as? String
+                self.selectedPhone = self._feedItems4[indexPath.row] .valueForKey("Active") as? String
+                self.selectedTitle = self._feedItems4[indexPath.row] .valueForKey("Salesman") as? String
+                
+                self.performSegueWithIdentifier("snapuploadSegue", sender:self)
+            }
+        } else if (collectionView.tag == 4) {
+            
+            imageObject = _feedItems4.objectAtIndex(indexPath.row) as! PFObject
+            imageFile = imageObject.objectForKey("imageFile") as? PFFile
+            imageFile!.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError?) -> Void in
+                
+                //self.selectedImage = UIImage(data: imageData!)
+                self.selectedObjectId = self._feedItems5[indexPath.row] .valueForKey("objectId") as? String
+                self.selectedPhone = self._feedItems5[indexPath.row] .valueForKey("EmployeeNo") as? String
+                self.selectedCreate = self._feedItems5[indexPath.row] .valueForKey("Email") as? String
+                
+                self.selectedName = self._feedItems5[indexPath.row] .valueForKey("SalesNo") as? String
+                
+                self.selectedTitle = self._feedItems5[indexPath.row] .valueForKey("Last") as? String
+                self.selectedEmail = self._feedItems5[indexPath.row] .valueForKey("Street") as? String
+                self.imageDetailurl = self._feedItems5[indexPath.row] .valueForKey("City") as? String
+                self.selectedState = self._feedItems5[indexPath.row] .valueForKey("State") as? String
+                self.selectedZip = self._feedItems5[indexPath.row] .valueForKey("Zip") as? String
+                
+                self.selectedAmount = self._feedItems5[indexPath.row] .valueForKey("Title") as? String
+                self.selected11 = self._feedItems5[indexPath.row] .valueForKey("HomePhone") as? String
+                self.selected12 = self._feedItems5[indexPath.row] .valueForKey("WorkPhone") as? String
+                self.selected13 = self._feedItems5[indexPath.row] .valueForKey("CellPhone") as? String
+                self.selected14 = self._feedItems5[indexPath.row] .valueForKey("SS") as? String
+                self.selected15 = self._feedItems5[indexPath.row] .valueForKey("Middle") as? String
+                
+                self.selected21 = self._feedItems5[indexPath.row] .valueForKey("Email") as? String
+                self.selected22 = self._feedItems5[indexPath.row] .valueForKey("Department") as? String
+                self.selected23 = self._feedItems5[indexPath.row] .valueForKey("Title") as? String
+                self.selected24 = self._feedItems5[indexPath.row] .valueForKey("Manager") as? String
+                self.selected25 = self._feedItems5[indexPath.row] .valueForKey("Country") as? String
+                
+                self.selected16 = String(self._feedItems5[indexPath.row] .valueForKey("updatedAt") as? NSDate)
+                self.selected26 = self._feedItems5[indexPath.row] .valueForKey("First") as? String
+                self.selected27 = self._feedItems5[indexPath.row] .valueForKey("Company") as? String
+                self.selectedComments = self._feedItems5[indexPath.row] .valueForKey("Comments") as? String
+                self.selectedActive = self._feedItems5[indexPath.row] .valueForKey("Active") as? String
+                
+                self.performSegueWithIdentifier("snapemployeeSegue", sender:self)
+            }
+        }
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
+        if segue.identifier == "snapuploadSegue" {
+            
+            let VC = segue.destinationViewController as? NewsDetailController
+            VC!.objectId = self.selectedObjectId
+            VC!.newsTitle = self.selectedTitle
+            VC!.newsDetail = self.selectedEmail
+            VC!.newsDate = self.selectedCreate
+            VC!.newsStory = self.selectedPhone
+            VC!.image = self.selectedImage
+            VC!.imageDetailurl = self.imageDetailurl
+            
+        } else if segue.identifier == "userdetailSegue" {
+            
+            let VC = segue.destinationViewController as? UserDetailController
+            VC!.objectId = self.selectedObjectId
+            VC!.username = self.selectedName
+            VC!.create = self.selectedCreate
+            VC!.email = self.selectedEmail
+            VC!.phone = self.selectedPhone
+            VC!.userimage = self.selectedImage
+            
+        } else if segue.identifier == "snapemployeeSegue" {
+            
+            let VC = segue.destinationViewController as? LeadDetail
+            VC!.formController = "Employee"
+            VC!.objectId = self.selectedObjectId as String
+            VC!.leadNo = self.selectedPhone as String
+            VC!.date = self.selectedCreate as String
+            VC!.name = self.selectedName as String
+            VC!.custNo = self.selectedTitle as String
+            VC!.address = self.selectedEmail as String
+            VC!.city = self.imageDetailurl as String
+            VC!.state = self.selectedState as String
+            VC!.zip = self.selectedZip as String
+            VC!.amount = self.selectedAmount as String
+            VC!.tbl11 = self.selected11
+            VC!.tbl12 = self.selected12
+            VC!.tbl13 = self.selected13
+            VC!.tbl14 = self.selected14
+            VC!.tbl15 = self.selected15
+            VC!.tbl21 = self.selected21
+            VC!.tbl22 = self.selected22
+            VC!.tbl23 = self.selected23
+            VC!.tbl24 = self.selected24
+            VC!.tbl25 = self.selected25
+            VC!.tbl16 = self.selected16
+            VC!.tbl26 = self.selected26
+            VC!.tbl27 = self.selected27
+            VC!.comments = self.selectedComments
+            VC!.active = self.selectedActive
+            
+            VC!.l11 = "Home"; VC!.l12 = "Work"
+            VC!.l13 = "Mobile"; VC!.l14 = "Social"
+            VC!.l15 = "Middle "; VC!.l21 = "Email"
+            VC!.l22 = "Department"; VC!.l23 = "Title"
+            VC!.l24 = "Manager"; VC!.l25 = "Country"
+            VC!.l16 = "Last Updated"; VC!.l26 = "First"
+            VC!.l1datetext = "Email:"
+            VC!.lnewsTitle = "Employee News: Health benifits cancelled immediately, ineffect starting today."
+        }
+        
     }
     
     

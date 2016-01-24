@@ -38,10 +38,6 @@ class BlogNewController: UIViewController, UITextViewDelegate {
     
     var formStatus : NSString?
     var activeImage : UIImageView? //star
-    
-    var _feedItems : NSMutableArray = NSMutableArray()
-    var objects = [AnyObject]()
-    //var refreshControl : UIRefreshControl!
 
   
     override func viewDidLoad() {
@@ -203,20 +199,6 @@ class BlogNewController: UIViewController, UITextViewDelegate {
         }
         
         return cell
-    }
-    
-    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    
-    func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        if editingStyle == .Delete {
-            objects.removeAtIndex(indexPath.row)
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Fade)
-        } else if editingStyle == .Insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
-        }
     }
     
     // MARK: - Button

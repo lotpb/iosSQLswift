@@ -8,6 +8,8 @@
 
 import UIKit
 import Parse
+import AVKit
+import AVFoundation
 
 
 class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UISearchResultsUpdating {
@@ -97,57 +99,58 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
         cell.backgroundColor = UIColor.whiteColor()
         cell.sourceLabel.textColor = UIColor(white:0.45, alpha:1.0)
         
+        let playButton = UIButton(type: UIButtonType.Custom) as UIButton
+        
         if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
             cell.titleLabel!.font = UIFont (name: "HelveticaNeue", size: 20)
             cell.sourceLabel!.font = UIFont (name: "HelveticaNeue", size: 14)
             cell.numLabel!.font = UIFont (name: "HelveticaNeue-Medium", size:16)
-
+            playButton.frame = CGRectMake(cell.imageView.frame.size.width/2-25, cell.imageView.frame.origin.y, 50, 50)
+            
         } else {
             cell.titleLabel!.font = UIFont (name: "HelveticaNeue", size: 20)
             cell.sourceLabel!.font = UIFont (name: "HelveticaNeue", size: 14)
             cell.numLabel!.font = UIFont (name: "HelveticaNeue-Medium", size:16)
- 
+            playButton.frame = CGRectMake(cell.imageView.frame.size.width/2-25, cell.imageView.frame.origin.y, 50, 50)
+            
         }
         
         imageObject = _feedItems.objectAtIndex(indexPath.row) as! PFObject
         imageFile = imageObject.objectForKey("imageFile") as? PFFile
         imageFile!.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError?) -> Void in
-        
-        cell.imageView?.image = UIImage(data: imageData!)
-        cell.imageView!.backgroundColor = UIColor.blackColor()
-
-        cell.titleLabel?.text = self._feedItems[indexPath.row] .valueForKey("newsTitle") as? String
             
-        let creationDate:NSDate = (self._feedItems[indexPath.row] .valueForKey("createdAt") as? NSDate)!
-        let datetime1:NSDate = creationDate
-        let datetime2:NSDate = NSDate()
-        let dateInterval:Double = datetime2.timeIntervalSinceDate(datetime1)/(60*60*24)
-        let mydate = String(format: "%d, %@", dateInterval, "days ago ")
-            
-        cell.sourceLabel?.text  = String(format: "%@ %@", (self._feedItems[indexPath.row] .valueForKey("newsDetail") as? String)!, (mydate as NSString))
-    
+            cell.imageView?.image = UIImage(data: imageData!)
+            cell.imageView!.backgroundColor = UIColor.blackColor()
         }
         
-        if ((self.imageDetailurl?.containsString("movie.mp4")) != nil) {
+        cell.titleLabel?.text = self._feedItems[indexPath.row] .valueForKey("newsTitle") as? String
+        
+        let date1 = (self._feedItems[indexPath.row] .valueForKey("createdAt") as? NSDate)!
+        let date2 = NSDate()
+        let diffDateComponents = NSCalendar.currentCalendar().components([NSCalendarUnit.Day], fromDate: date1, toDate: date2, options: NSCalendarOptions.init(rawValue: 0))
+        
+        cell.sourceLabel?.text = String(format: "%@, %d%@" , (self._feedItems[indexPath.row] .valueForKey("newsDetail") as? String)!, diffDateComponents.day," days ago" )
+        
+        
+        
+        if (imageFile.url == "movie.mp4") {
             
-            let playButton = UIButton(type: UIButtonType.Custom) as UIButton
-            playButton.frame = CGRectMake(cell.imageView.frame.size.width/2, cell.imageView.frame.origin.y+55, 50, 50)
-            playButton.alpha = 1.0
+            playButton.alpha = 0.3
+            playButton.userInteractionEnabled = true
+            //playButton.center = cell.imageView.center
             playButton.tintColor = UIColor.whiteColor()
             let playimage : UIImage? = UIImage(named:"play_button.png")!.imageWithRenderingMode(.AlwaysTemplate)
             playButton .setImage(playimage, forState: .Normal)
-            playButton.userInteractionEnabled = true
             let tap = UITapGestureRecognizer(target: self, action: Selector("playVideo:"))
             playButton.addGestureRecognizer(tap)
-            cell.addSubview(playButton)
+            cell.imageView.addSubview(playButton)
             
-            videoURL = NSURL(string:(self.imageDetailurl as? String)!)
         }
         
         cell.actionBtn.tintColor = UIColor.lightGrayColor()
         let imagebutton : UIImage? = UIImage(named:"Upload50.png")!.imageWithRenderingMode(.AlwaysTemplate)
         cell.actionBtn .setImage(imagebutton, forState: .Normal)
-        //actionBtn .addTarget(self, action: "shareButton:", forControlEvents: UIControlEvents.TouchUpInside)
+        cell.actionBtn .addTarget(self, action: "shareButton:", forControlEvents: UIControlEvents.TouchUpInside)
         
         cell.likeButton.tintColor = UIColor.lightGrayColor()
         let likeimage : UIImage? = UIImage(named:"Thumb Up.png")!.imageWithRenderingMode(.AlwaysTemplate)
@@ -177,6 +180,20 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
         self.performSegueWithIdentifier("uploadSegue", sender: self)
     }
     
+    func playVideo(sender: UITapGestureRecognizer) {
+        
+        let url = NSURL.fileURLWithPath(self.imageDetailurl as! String)
+        let player = AVPlayer(URL: url)
+        let playerViewController = AVPlayerViewController()
+        playerViewController.player = player
+        
+        playerViewController.view.frame = CGRectMake(20, 50, 300, 300)
+        self.view.addSubview(playerViewController.view)
+        self.addChildViewController(playerViewController)
+        
+        player.play()
+    }
+    
     func likeButton(sender:UIButton) {
         
         sender.tintColor = likeColor
@@ -193,25 +210,24 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
         }
     }
     
-    // MARK: - localNotification
-    
-    override class func initialize() {
-        var onceToken: dispatch_once_t = 0
-        dispatch_once(&onceToken) {
-            self.sendNotification()
-        }
-    }
-    
-    class func sendNotification() {
-        let localNotification: UILocalNotification = UILocalNotification()
-        localNotification.alertAction = "Membership Status"
-        localNotification.alertBody = "Our system has detected that your membership is inactive."
-        localNotification.fireDate = NSDate(timeIntervalSinceNow: 10)
-        localNotification.timeZone = NSTimeZone.localTimeZone()
-        localNotification.category = "status"
-        localNotification.userInfo = [ "cause": "inactiveMembership"]
-        localNotification.applicationIconBadgeNumber = UIApplication.sharedApplication().applicationIconBadgeNumber + 1
-        UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
+    func shareButton(sender: UIButton) {
+        
+        /*
+        let postPhrase = "Just hit highscore! Beat it! #SwypIt"
+        
+        //Generate the screenshot
+        UIGraphicsBeginImageContext(view.frame.size)
+        view.layer.renderInContext(UIGraphicsGetCurrentContext()!)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        let postImage = UIImage(named: "\(image)")
+        
+        let activityViewController : UIActivityViewController = UIActivityViewController(activityItems: [postPhrase, postImage!], applicationActivities: nil)
+        
+        self.presentViewController(activityViewController, animated: true, completion: nil)
+        */
+        
     }
     
     func parseData() {
@@ -262,14 +278,6 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath)
     {
-        imageObject = _feedItems.objectAtIndex(indexPath.row) as! PFObject
-        imageFile = imageObject.objectForKey("imageFile") as? PFFile
-        
-        imageFile!.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError?) -> Void in
-            
-            self.selectedImage = UIImage(data: imageData!)
-        }
-        
         self.performSegueWithIdentifier("newsdetailseque", sender:self)
     }
     
@@ -282,10 +290,18 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
             let indexPaths = self.collectionView!.indexPathsForSelectedItems()!
             let indexPath = indexPaths[0] as NSIndexPath
             
+            imageObject = _feedItems.objectAtIndex(indexPath.row) as! PFObject
+            imageFile = imageObject.objectForKey("imageFile") as? PFFile
+            
+            imageFile!.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError?) -> Void in
+                
+                self.selectedImage = UIImage(data: imageData!)
+            }
+            
             vc!.objectId = self._feedItems[indexPath.row] .valueForKey("objectId") as? String
             vc!.newsTitle = (self._feedItems[indexPath.row] .valueForKey("newsTitle") as? String)!
             vc!.newsDetail = self._feedItems[indexPath.row] .valueForKey("newsDetail") as? String
-            vc!.newsDate = self._feedItems[indexPath.row] .valueForKey("createAt") as? String
+            vc!.newsDate = String(self._feedItems[indexPath.row] .valueForKey("createAt") as? NSDate)
             vc!.newsStory = self._feedItems[indexPath.row] .valueForKey("storyText") as? String
             vc!.image = self.selectedImage
             vc!.imageDetailurl = self.imageDetailurl
