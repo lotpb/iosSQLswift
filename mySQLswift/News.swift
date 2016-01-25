@@ -6,6 +6,7 @@
 //  Copyright © 2015 Peter Balsamo. All rights reserved.
 //
 
+import Foundation
 import UIKit
 import Parse
 import AVKit
@@ -29,10 +30,13 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
     var resultsController: UITableViewController!
     var foundUsers = [String]()
     
+    var playerViewController = AVPlayerViewController()
     var imageDetailurl : NSString?
     var videoURL: NSURL?
     
     var refreshControl: UIRefreshControl!
+    
+    var urlLabel : UILabel?
 
  
     override func viewDidLoad() {
@@ -63,17 +67,24 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
         self.collectionView!.addSubview(refreshControl)
         
     }
-        
+    
+    override func viewWillDisappear(animated: Bool) {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.barTintColor = navColor
+        
+         NSNotificationCenter.defaultCenter().addObserver(self, selector: "finishedPlaying:", name: AVPlayerItemDidPlayToEndTimeNotification, object: self.playerViewController)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
     
     // MARK: - refresh
     
@@ -120,8 +131,11 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
         imageFile!.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError?) -> Void in
             
             cell.imageView?.image = UIImage(data: imageData!)
-            cell.imageView!.backgroundColor = UIColor.blackColor()
         }
+        
+        cell.imageView!.backgroundColor = UIColor.blackColor()
+        cell.imageView!.layer.borderColor = UIColor.lightGrayColor().CGColor
+        cell.imageView!.layer.borderWidth = 0.5
         
         cell.titleLabel?.text = self._feedItems[indexPath.row] .valueForKey("newsTitle") as? String
         
@@ -131,16 +145,18 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
         
         cell.sourceLabel?.text = String(format: "%@, %d%@" , (self._feedItems[indexPath.row] .valueForKey("newsDetail") as? String)!, diffDateComponents.day," days ago" )
         
-        
-        
-        if (imageFile.url == "movie.mp4") {
-            
+        let value = self.imageFile.url
+        let result1 = value!.containsString("movie.mp4")
+        //if s!.rangeOfString("movie.mp4") != nil {
+        if (result1 == true) {
+ 
             playButton.alpha = 0.3
             playButton.userInteractionEnabled = true
             //playButton.center = cell.imageView.center
             playButton.tintColor = UIColor.whiteColor()
             let playimage : UIImage? = UIImage(named:"play_button.png")!.imageWithRenderingMode(.AlwaysTemplate)
             playButton .setImage(playimage, forState: .Normal)
+            //playButton .setTitle(urlLabel!.text, forState: UIControlState.Normal)
             let tap = UITapGestureRecognizer(target: self, action: Selector("playVideo:"))
             playButton.addGestureRecognizer(tap)
             cell.imageView.addSubview(playButton)
@@ -173,6 +189,7 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
         
     }
     
+    
     // MARK: - Button
     
     func newButton(sender: AnyObject) {
@@ -182,12 +199,16 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
     
     func playVideo(sender: UITapGestureRecognizer) {
         
-        let url = NSURL.fileURLWithPath(self.imageDetailurl as! String)
+        let url = NSURL.fileURLWithPath(self.imageFile.url!)
+        //let url = NSURL.fileURLWithPath(self.imageDetailurl as! String)
         let player = AVPlayer(URL: url)
         let playerViewController = AVPlayerViewController()
         playerViewController.player = player
         
-        playerViewController.view.frame = CGRectMake(20, 50, 300, 300)
+        playerViewController.view.frame = self.view.bounds
+        playerViewController.videoGravity = AVLayerVideoGravityResizeAspect
+        playerViewController.showsPlaybackControls = true
+        //self.imgToUpload.addSubview(playerViewController.view)
         self.view.addSubview(playerViewController.view)
         self.addChildViewController(playerViewController)
         
@@ -306,6 +327,12 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
             vc!.image = self.selectedImage
             vc!.imageDetailurl = self.imageDetailurl
         }
+    }
+    
+    func finishedPlaying(myNotification:NSNotification) {
+        
+        let stopedPlayerItem: AVPlayerItem = myNotification.object as! AVPlayerItem
+        stopedPlayerItem.seekToTime(kCMTimeZero)
     }
     
     

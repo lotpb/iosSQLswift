@@ -171,14 +171,11 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
         var cellIdentifier: String!
-        //var dic: [String]!
         
         if tableView == self.tableView{
             cellIdentifier = "Cell"
-            //dic = self.users[indexPath.row]
-        }else{
+        } else {
             cellIdentifier = "UserFoundCell"
-           // dic = self.foundUsers[indexPath.row]
         }
         
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath)
@@ -356,26 +353,6 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         self.resultsController.tableView.reloadData()
     }
     
-    // MARK: - Rate App
-    
-    @IBAction func alertPressed(sender: UIButton) {
-        // 5
-        let alert = UIAlertController(title: "Default Style", message: "A Standard Alert", preferredStyle: UIAlertControllerStyle.Alert)
-        
-        let oneAction = UIAlertAction(title: "One", style: UIAlertActionStyle.Default, handler: nil)
-        
-        let twoAction = UIAlertAction(title: "Two", style: UIAlertActionStyle.Default, handler: nil)
-        
-        let threeAction = UIAlertAction(title: "Three", style: UIAlertActionStyle.Default, handler: nil)
-        
-        alert.addAction(oneAction)
-        alert.addAction(twoAction)
-        alert.addAction(threeAction)
-        
-        presentViewController(alert, animated: true, completion: nil)
-        
-    }
-    
     
     // MARK: - localNotification
     
@@ -388,6 +365,7 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
     } */
     
     func sendNotification() {
+        
         let localNotification: UILocalNotification = UILocalNotification()
         localNotification.alertAction = "Membership Status"
         localNotification.alertBody = "Our system has detected that your membership is inactive."

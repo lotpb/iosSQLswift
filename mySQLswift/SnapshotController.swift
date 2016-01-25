@@ -106,6 +106,7 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
         // Dispose of any resources that can be recreated.
     }
     
+    
     // MARK: - refresh
     
     func refreshData(sender:AnyObject)
@@ -114,6 +115,28 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
         //self.tableView!.reloadData()
         self.refreshControl?.endRefreshing()
     }
+    
+    
+    // MARK: UICollectionViewDelegateFlowLayout
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        if (collectionView.tag == 0) {
+            return CGSize(width: 150, height: 130)
+        } else if (collectionView.tag == 1) {
+            return CGSize(width: 150, height: 130)
+        } else if (collectionView.tag == 2) {
+            return CGSize(width: 120, height: 130)
+        }
+        return CGSize(width: 90, height: 130)
+    }
+    
+    /*
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
+    //let frame : CGRect = self.view.frame
+    //let margin  = (frame.width - 90 * 3) / 6.0
+    return UIEdgeInsetsMake(0, 10, 0, 50) // margin between cells
+    } */
+    
 
     // MARK: - Table View
     
@@ -132,7 +155,7 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
                 return result
             }
         } else if (indexPath.section == 1) {
-            let result:CGFloat = 85
+            let result:CGFloat = 100
             switch (indexPath.row % 4)
             {
             case 0:
@@ -179,7 +202,7 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
                 return result
             }
         } else if (indexPath.section == 6) {
-            //let result:CGFloat = 100
+            let result:CGFloat = 100
             switch (indexPath.row % 4)
             {
             case 0:
@@ -188,7 +211,7 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
                 return result
             }
         } else if (indexPath.section == 7) {
-            
+            let result:CGFloat = 100
             switch (indexPath.row % 4)
             {
             case 0:
@@ -197,7 +220,7 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
                 return result
             }
         } else if (indexPath.section == 8) {
-            
+            let result:CGFloat = 100
             switch (indexPath.row % 4)
             {
             case 0:
@@ -234,40 +257,30 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
         
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! CustomTableCell
         
-        /*
-        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        layout.scrollDirection = .Horizontal
-        layout.itemSize = CGSize(width: 120.0, height: 120.0) */
-        
         cell.collectionView.delegate = nil
         cell.collectionView.dataSource = nil
         cell.collectionView.backgroundColor = UIColor.whiteColor()
-        //cell.collectionView.contentOffset = CGPointZero
-        cell.accessoryType = UITableViewCellAccessoryType.None
-        cell.textLabel!.text = ""
-        
-        //maintitle = UILabel(frame: CGRectMake(15, 23, cell.frame.size.width - 15, 50))
-        //datetitle = UILabel(frame: CGRectMake(15, 5, cell.frame.size.width - 15, 20))
-        
-        //maintitle.text = nil
-        //maintitle.backgroundColor = UIColor.whiteColor()
-        //maintitle.textColor = UIColor.blackColor()
-        
-        //datetitle.text = nil
-        //datetitle.backgroundColor = UIColor.whiteColor()
-        //datetitle.textColor = UIColor.lightGrayColor()
         
         if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
             cell.textLabel!.font = UIFont (name: "HelveticaNeue-Medium", size: 18)
-            //maintitle.font = UIFont (name: "HelveticaNeue", size: 18)
-            //datetitle.font = UIFont (name: "HelveticaNeue", size: 14)
+            cell.snaptitleLabel.font = UIFont (name: "HelveticaNeue", size: 16)
+            cell.snapdetailLabel.font = UIFont (name: "HelveticaNeue", size: 18)
         } else {
             cell.textLabel!.font = UIFont (name: "HelveticaNeue-Medium", size: 18)
-            //maintitle.font = UIFont (name: "HelveticaNeue", size: 18)
-            //datetitle.font = UIFont (name: "HelveticaNeue", size: 14)
+            cell.snaptitleLabel.font = UIFont (name: "HelveticaNeue", size: 16)
+            cell.snapdetailLabel.font = UIFont (name: "HelveticaNeue", size: 18)
         }
         
+        cell.accessoryType = UITableViewCellAccessoryType.None
+        cell.textLabel?.text = ""
+        
+        cell.snaptitleLabel?.numberOfLines = 1
+        cell.snaptitleLabel?.text = ""
+        cell.snaptitleLabel?.textColor = UIColor.lightGrayColor()
+        
+        cell.snapdetailLabel?.numberOfLines = 0
+        cell.snapdetailLabel?.text = ""
+        cell.snapdetailLabel?.textColor = UIColor.blackColor()
         //cell.selectionStyle = UITableViewCellSelectionStyle.None
         
         if (indexPath.section == 0) {
@@ -285,6 +298,16 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
                 cell.collectionView.delegate = self
                 cell.collectionView.dataSource = self
                 cell.collectionView.tag = 0
+                
+                
+                let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+                layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+                layout.scrollDirection = .Horizontal
+                layout.itemSize = CGSize(width: 180.0, height: 120.0)
+
+                
+                
+                
                 cell.collectionView.reloadData()
                 
                 return cell
@@ -313,10 +336,12 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
                 let dateInterval:Double = datetime2.timeIntervalSinceDate(datetime1) / (60*60*24)
                 let mydate = String(format: "%@%x", "%.0f days ago ", dateInterval)
                 */
-                
+                //_feedItems.objectAtIndex((indexPath?.row)!) .valueForKey("objectId") as? String
                 //cell.textLabel?.text = _feedItems[0] .valueForKey("Subject") as? String
-                //cell.textLabel?.numberOfLines = 0
-                cell.textLabel?.text = "No Top Stories"
+                
+                cell.collectionView.backgroundColor = UIColor.clearColor()
+                cell.snaptitleLabel?.text = "Reuters 6 Days ago"
+                cell.snapdetailLabel?.text = "No Top Stories"
                 //cell.textLabel!.text = _feedItems[0] .valueForKey("newsTitle") as? String
                 
                 //maintitle.text = _feedItems[0] .valueForKey("newsTitle") as? String
@@ -422,13 +447,9 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
                 return cell
             } else if (indexPath.row == 1) {
                 
-                cell.textLabel!.text = _feedItems6[0] .valueForKey("Subject") as? String
-                cell.textLabel!.numberOfLines = 0
-                cell.detailTextLabel?.text = "Peter"
-                //cell.detailTextLabel!.text = _feedItems6[0] .valueForKey("PostBy") as? String
-                
-                //maintitle.text = _feedItems6[0] .valueForKey("Subject") as? String
-                //datetitle.text = _feedItems6[0] .valueForKey("PostBy") as? String
+                cell.collectionView.backgroundColor = UIColor.clearColor()
+                cell.snaptitleLabel?.text = _feedItems6[0] .valueForKey("PostBy") as? String
+                cell.snapdetailLabel?.text = _feedItems6[0] .valueForKey("Subject") as? String
                 
                 return cell
             }
@@ -444,12 +465,14 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
                 return cell
             } else if (indexPath.row == 1) {
                 
+                cell.collectionView.backgroundColor = UIColor.clearColor()
+ 
                 let localNotification = UILocalNotification()
                 if (UIApplication.sharedApplication().scheduledLocalNotifications!.count == 0) {
-                    cell.textLabel!.text = "You have no pending notifications :)"
+                    cell.snapdetailLabel?.text = "You have no pending notifications :)"
                 } else {
-                    cell.textLabel!.text = localNotification.alertBody
-                    cell.detailTextLabel!.text = localNotification.fireDate!.description
+                    cell.snaptitleLabel?.text = localNotification.fireDate?.description
+                    cell.snapdetailLabel?.text = localNotification.alertBody
                 }
                 
                 return cell
@@ -459,19 +482,19 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
             
             if (indexPath.row == 0) {
                 
-                cell.textLabel!.text = "Top Calander Event";
+                cell.textLabel!.text = "Top Calender Event";
                 cell.selectionStyle = UITableViewCellSelectionStyle.Gray
                 cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
                 
                 return cell
             } else if (indexPath.row == 1) {
                 
+                cell.collectionView.backgroundColor = UIColor.clearColor()
+
                 //if (self.eventsList.count == 0) {
-                    cell.textLabel!.text = "You have no pending events :)"
-                    //maintitle.text = "You have no pending events :)"
+                cell.snapdetailLabel?.text = "You have no pending events :)"
                // } else {
-                   // cell.detailTextLabel!.text = [[self.eventsList firstObject] title]
-                //    maintitle.text = [[self.eventsList firstObject] title];
+                   // cell.snaptitleLabel?.text!.text = [[self.eventsList firstObject] title]
                 //}
                 
                 return cell
@@ -500,12 +523,13 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
         }
         return 1;
     }
+
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath:NSIndexPath)->UICollectionViewCell
     {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! CollectionViewCell
         
-        let myLabel1:UILabel = UILabel(frame: CGRectMake(0, 100, cell.bounds.size.width, 20))
+        let myLabel1:UILabel = UILabel(frame: CGRectMake(0, 110, cell.bounds.size.width, 20))
         myLabel1.backgroundColor = UIColor.whiteColor()
         myLabel1.textColor = UIColor.blackColor()
         myLabel1.textAlignment = NSTextAlignment.Center
@@ -518,7 +542,7 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
             let imageObject = _feedItems.objectAtIndex(indexPath.row) as! PFObject
             let imageFile = imageObject.objectForKey("imageFile") as? PFFile
             
-            cell.loadingSpinner!.hidden = true
+            cell.loadingSpinner!.hidden = false
             cell.loadingSpinner!.startAnimating()
             
             imageFile!.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError?) -> Void in
@@ -539,7 +563,7 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
             let imageObject = _feedItems2.objectAtIndex(indexPath.row) as! PFObject
             let imageFile = imageObject.objectForKey("imageFile") as? PFFile
             
-            cell.loadingSpinner!.hidden = true
+            cell.loadingSpinner!.hidden = false
             cell.loadingSpinner!.startAnimating()
             
             imageFile!.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError?) -> Void in
@@ -561,7 +585,7 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
             let imageObject = _feedItems3.objectAtIndex(indexPath.row) as! PFObject
             let imageFile = imageObject.objectForKey("imageFile") as? PFFile
             
-            cell.loadingSpinner!.hidden = true
+            cell.loadingSpinner!.hidden = false
             cell.loadingSpinner!.startAnimating()
             
             imageFile!.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError?) -> Void in
@@ -583,7 +607,7 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
             let imageObject = _feedItems4.objectAtIndex(indexPath.row) as! PFObject
             let imageFile = imageObject.objectForKey("imageFile") as? PFFile
             
-            cell.loadingSpinner!.hidden = true
+            cell.loadingSpinner!.hidden = false
             cell.loadingSpinner!.startAnimating()
             
             imageFile!.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError?) -> Void in
@@ -603,7 +627,7 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
             let imageObject = _feedItems5.objectAtIndex(indexPath.row) as! PFObject
             let imageFile = imageObject.objectForKey("imageFile") as? PFFile
             
-            cell.loadingSpinner!.hidden = true
+            cell.loadingSpinner!.hidden = false
             cell.loadingSpinner!.startAnimating()
             
             imageFile!.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError?) -> Void in

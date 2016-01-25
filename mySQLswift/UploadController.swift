@@ -8,8 +8,9 @@
 
 import UIKit
 import Parse
-//import CoreLocation
 import MobileCoreServices //kUTTypeImage
+import AVKit
+import AVFoundation
 
 class UploadController: UIViewController, UINavigationControllerDelegate,
 UIImagePickerControllerDelegate {
@@ -25,6 +26,12 @@ UIImagePickerControllerDelegate {
     @IBOutlet weak var clearButton: UIButton!
     @IBOutlet weak var selectPic: UIButton!
     
+    var pickImage = false
+    var playerViewController = AVPlayerViewController()
+    var imagePicker: UIImagePickerController!
+    var activityIndicator : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 150, 150)) as UIActivityIndicatorView
+    //var activityIndicator : UIActivityIndicatorView?
+    
     var formStat : String?
     var objectId : String?
     var newstitle : String?
@@ -33,23 +40,11 @@ UIImagePickerControllerDelegate {
     var imageDetailurl : String?
     var newsImage : UIImage!
     
-    var username : NSString?
-    
-    var file : PFFile?
-    var pictureData : NSData?
-    var user : PFUser?
-    //var query : PFQuery?
-    //var userquery: PFObject?
-    //var userimage : UIImage?
-    //var pickImage : UIImage?
-    
+    var file : PFFile!
+    var pictureData : NSData!
     var videoURL : NSURL?
     
-    var imagePicker: UIImagePickerController!
     
-    var activityIndicator : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 150, 150)) as UIActivityIndicatorView
-    
-
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -101,6 +96,15 @@ UIImagePickerControllerDelegate {
         self.selectPic.tintColor = UIColor(white:0.45, alpha:1.0)
         
     }
+    
+    override func viewWillAppear(animated: Bool) {
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: "finishedPlaying:", name: AVPlayerItemDidPlayToEndTimeNotification, object: self.playerViewController)
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -123,7 +127,7 @@ UIImagePickerControllerDelegate {
     }
     
     // MARK: - Button
-    
+    /*
     @IBAction func selectCamera(sender: AnyObject) {
         
         if UIImagePickerController.isSourceTypeAvailable(.Camera) {
@@ -135,30 +139,58 @@ UIImagePickerControllerDelegate {
             imagePicker.delegate = self
             imagePicker.showsCameraControls = true
             //imagePicker.videoMaximumDuration = 10.0
+            imagePicker.videoQuality = UIImagePickerControllerQualityType.TypeHigh
             self.presentViewController(imagePicker, animated: true, completion: nil)
+            
         } else {
             print("Camera is not available")
         }
-    }
+    } */
     
     @IBAction func selectImage(sender: AnyObject) {
         
         imagePicker = UIImagePickerController()
         imagePicker.sourceType = .SavedPhotosAlbum
-        imagePicker.mediaTypes = [kUTTypeImage as String]
+        imagePicker.mediaTypes = UIImagePickerController.availableMediaTypesForSourceType(imagePicker.sourceType)!  
         imagePicker.allowsEditing = true
         imagePicker.delegate = self
+        imagePicker.videoQuality = UIImagePickerControllerQualityType.TypeHigh
         self.presentViewController(imagePicker, animated: false, completion: nil)
     }
     
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: AnyObject]) {
         
-        if let pickedImage = info[UIImagePickerControllerEditedImage] as? UIImage {
-            self.imgToUpload!.image = pickedImage
-            dismissViewControllerAnimated(true, completion: { () -> Void in
-            })
+        let mediaType = info[UIImagePickerControllerMediaType] as! NSString
+        self.dismissViewControllerAnimated(true, completion: nil)
+        
+        if mediaType.isEqualToString(kUTTypeMovie as String) {
+            
+            //let videoURL = NSURL(string: Videos[indexPath.row].url!)
+            pickImage = false
+            videoURL = info[UIImagePickerControllerMediaURL] as? NSURL
+            let player = AVPlayer(URL: videoURL!)
+            playerViewController.player = player
+   
+            playerViewController.view.frame = self.imgToUpload.bounds
+            playerViewController.videoGravity = AVLayerVideoGravityResizeAspect
+            playerViewController.showsPlaybackControls = true
+            self.imgToUpload.addSubview(playerViewController.view)
+            player.play()
+            
+            // FIXME:
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: "moviePlayBackDidFinish", name: AVPlayerItemDidPlayToEndTimeNotification, object: playerViewController)
+            
+        } else if mediaType.isEqualToString(kUTTypeImage as String) {
+            
+            let image = info[UIImagePickerControllerEditedImage] as! UIImage
+            pickImage = true
+            self.imgToUpload!.image = image
+            self.imgToUpload.contentMode = UIViewContentMode.ScaleToFill
+            self.imgToUpload.clipsToBounds = true
+            
         }
+        
     }
     
     
@@ -166,12 +198,22 @@ UIImagePickerControllerDelegate {
         
         picker.dismissViewControllerAnimated(true, completion: nil)
     }
-    
+        
     @IBAction func uploadImage(sender: AnyObject) {
+        
+        self.navigationItem.rightBarButtonItem!.enabled = false
         
         activityIndicator.center = self.imgToUpload!.center
         activityIndicator.startAnimating()
         self.view.addSubview(activityIndicator)
+        
+        if (pickImage == true) {
+            pictureData = UIImageJPEGRepresentation(self.imgToUpload!.image!, 1.0)
+            file = PFFile(name: "img", data: pictureData!)
+        } else {
+            pictureData =  NSData(contentsOfURL: videoURL!)
+            file = PFFile(name: "movie.mp4", data: pictureData!)
+        }
         
         if (self.formStat == "Update") {
             
@@ -185,23 +227,24 @@ UIImagePickerControllerDelegate {
                     updateblog!.setObject(PFUser.currentUser()!.username!, forKey:"username")
                     updateblog!.saveEventually()
                     
-                    let alert = UIAlertController(title: "Upload Complete", message: "Successfully updated the data", preferredStyle: UIAlertControllerStyle.Alert)
-                    let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
+                    self.file!.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
+                        if success {
+                            updateblog!.setObject(self.file!, forKey:"imageFile")
+                            updateblog!.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
+                            }
+                        }
+                    }
                     
+                    let alert = UIAlertController(title: "Upload Complete", message: "Successfully updated the data", preferredStyle: UIAlertControllerStyle.Alert)
+                    let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in
+                        self.navigationController?.popToRootViewControllerAnimated(true)
+                    })
                     alert.addAction(alertActionTrue)
                     self .presentViewController(alert, animated: true, completion: nil)
                 }
             }
-            
+
         } else {
-            
-            if ((newsImage) != nil) {
-                pictureData = UIImageJPEGRepresentation(self.imgToUpload!.image!, 1.0)
-                file = PFFile(name: "img", data: pictureData!)
-            } else {
-                pictureData =  NSData(contentsOfURL: videoURL!)
-                file = PFFile(name: "movie.mp4", data: pictureData!)
-            }
             
             file!.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
                 if success {
@@ -221,9 +264,16 @@ UIImagePickerControllerDelegate {
                     }
                 }
             }
-            self.activityIndicator.stopAnimating()
-            self.activityIndicator.removeFromSuperview()
         }
+        self.activityIndicator.stopAnimating()
+        self.activityIndicator.removeFromSuperview()
+
+    }
+    
+    func finishedPlaying(myNotification:NSNotification) {
+        
+        let stopedPlayerItem: AVPlayerItem = myNotification.object as! AVPlayerItem
+        stopedPlayerItem.seekToTime(kCMTimeZero)
     }
 
 

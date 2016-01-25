@@ -81,6 +81,10 @@ class NewsDetailController: UIViewController {
         
         self.newsTextview.text = self.newsStory as? String
         
+        //let value = imageDetailurl
+        //let result1 = value!.containsString("movie.mp4")
+        //if s!.rangeOfString("movie.mp4") != nil {
+        //if (result1 == true) {
         if (self.imageDetailurl == "movie.mp4") {
             
             let playButton = UIButton(type: UIButtonType.Custom) as UIButton

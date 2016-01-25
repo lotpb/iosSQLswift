@@ -296,36 +296,28 @@ class MapView: UIViewController, MKMapViewDelegate,  CLLocationManagerDelegate {
     func compassBtnTapped() {
         
         mapView.showsCompass = !mapView.showsCompass
-        
-        //self.updateCompassBtn()
     }
     
     func buildingBtnTapped() {
         
         mapView.showsBuildings = !mapView.showsBuildings
-        
-        //self.updateCompassBtn()
     }
     
     func userlocationBtnTapped() {
         
         mapView.showsUserLocation = !mapView.showsUserLocation
-        
-        //self.updateCompassBtn()
     }
     
     func pointsofinterestBtnTapped() {
         
         mapView.showsPointsOfInterest = !mapView.showsPointsOfInterest
         
-        //self.updateCompassBtn()
     }
     
     func requestsAlternateRoutesBtnTapped() {
         
         //mapView.requestsAlternateRoutes = !mapView.requestsAlternateRoutes
-        
-        //self.updateCompassBtn()
+
     }
     
     func shareButton() {

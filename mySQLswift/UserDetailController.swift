@@ -18,7 +18,6 @@ class UserDetailController: UIViewController, UINavigationControllerDelegate, UI
     @IBOutlet weak var mainView: UIView?
     @IBOutlet weak var userimageView: UIImageView?
     @IBOutlet weak var pickFile: UIButton?
-    @IBOutlet weak var pickUpload: UIButton?
     @IBOutlet weak var selectCamera: UIButton?
     @IBOutlet weak var update: UIButton?
     @IBOutlet weak var createLabel: UILabel?
@@ -177,35 +176,15 @@ class UserDetailController: UIViewController, UINavigationControllerDelegate, UI
         picker.dismissViewControllerAnimated(true, completion: nil)
     }
     
-    @IBAction func uploadImage(sender: UIButton) {
+    
+    @IBAction func Update(sender: AnyObject) {
         
         activityIndicator.center = self.userimageView!.center
         activityIndicator.startAnimating()
         self.view.addSubview(activityIndicator)
         
-        //if ((pickImage) != nil) {
         pictureData = UIImageJPEGRepresentation(self.userimageView!.image!, 1.0)
         let file = PFFile(name: "img", data: pictureData!)
-       // }
-        file!.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
-            if success {
-                self.user = PFUser.currentUser()
-                self.user!.setObject(file!, forKey:"imageFile")
-                self.user!.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
-                    
-                    if success {
-                        self.navigationController?.popViewControllerAnimated(true)
-                    } else {
-                        print("Error: \(error) \(error!.userInfo)")
-                    }
-                }
-            }
-        } 
-        self.activityIndicator.stopAnimating()
-        self.activityIndicator.removeFromSuperview()
-    }
-    
-    @IBAction func Update(sender: AnyObject) {
         
         let query = PFUser.query()!
         query.whereKey("objectId", equalTo:self.objectId!)
@@ -216,24 +195,34 @@ class UserDetailController: UIViewController, UINavigationControllerDelegate, UI
                 updateuser!.setObject(self.usernameField!.text!, forKey:"phone")
                 updateuser!.saveEventually()
                 
-                let alertController = UIAlertController(title: "Upload Complete", message:
-                    "Successfully updated the data", preferredStyle: UIAlertControllerStyle.Alert)
-                alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: nil))
+                file!.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
+                    if success {
+                        self.user = PFUser.currentUser()
+                        self.user!.setObject(file!, forKey:"imageFile")
+                        self.user!.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
+                        }
+                    }
+                }
                 
-                self.presentViewController(alertController, animated: true, completion: nil)
-                self.navigationController?.popToRootViewControllerAnimated(true)
+                let alert = UIAlertController(title: "Upload Complete", message: "Successfully updated the data", preferredStyle: UIAlertControllerStyle.Alert)
+                let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in
+                    self.navigationController?.popToRootViewControllerAnimated(true)
+                })
+                alert.addAction(alertActionTrue)
+                self .presentViewController(alert, animated: true, completion: nil)
                 
             } else {
-                let alertController = UIAlertController(title: "Upload Failure", message:
-                    "Failure updating the data", preferredStyle: UIAlertControllerStyle.Alert)
-                alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: nil))
                 
-                self.presentViewController(alertController, animated: true, completion: nil)
+                let alert = UIAlertController(title: "Upload Failure", message: "Failure updating the data", preferredStyle: UIAlertControllerStyle.Alert)
+                let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Destructive, handler: {(alert: UIAlertAction!) in
+                    self.navigationController?.popToRootViewControllerAnimated(true)
+                })
+                alert.addAction(alertActionTrue)
+                self .presentViewController(alert, animated: true, completion: nil)
             }
         }
-        //self.navigationController?.popToRootViewControllerAnimated(true)
-        //self.navigationController?.popViewControllerAnimated(true)
-        
+        self.activityIndicator.stopAnimating()
+        self.activityIndicator.removeFromSuperview()
     }
     
     // MARK: - Navigation

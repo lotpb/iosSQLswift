@@ -14,6 +14,8 @@ class CustomTableCell: UITableViewCell {
     
     // Snapshot Controller
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var snaptitleLabel: UILabel!
+    @IBOutlet weak var snapdetailLabel: UILabel!
     
     // Ad Controller
     @IBOutlet weak var adtitleLabel: UILabel!
@@ -26,11 +28,6 @@ class CustomTableCell: UITableViewCell {
     
     // salesman Controller
     @IBOutlet weak var salestitleLabel: UILabel!
-    
-    // NewEditData Controller
-    @IBOutlet weak var newedittitleLabel: UILabel!
-    @IBOutlet weak var neweditsubtitleLabel: UILabel!
-    @IBOutlet weak var neweditImageView: UIImageView!
     
     // BUser Controller
     @IBOutlet weak var usertitleLabel: UILabel!

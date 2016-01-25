@@ -120,6 +120,28 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
         loginButton.center = self.view.center
         loginButton.delegate = self
         self.view.addSubview(loginButton)
+        
+        /*
+        FBSDKGraphRequest.init(graphPath: "me", parameters: ["fields":"first_name, last_name, picture.type(large)"]).startWithCompletionHandler { (connection, result, error) -> Void in
+            
+            let strFirstName: String = (result.objectForKey("first_name") as? String)!
+            let strLastName: String = (result.objectForKey("last_name") as? String)!
+            
+            let strPictureURL: String = (result.objectForKey("picture")?.objectForKey("data")?.objectForKey("url") as? String)!
+            
+            //self.lblName.text = "Welcome, \(strFirstName) \(strLastName)"
+            self.lblName.text = "\(strFirstName) \(strLastName)"
+            
+            self.ivUserProfileImage.image = UIImage(data: NSData(contentsOfURL: NSURL(string: strPictureURL)!)!)
+            
+            defaults.setObject(self.lblName.text, forKey: "usernameKey")
+          //defaults.setObject("eunitedws@verizon.net", forKey: "emailKey")
+            
+            } */
+        
+        
+        
+        
 
         /*
         let requestParameters = ["fields": "id, email, first_name, last_name"]
