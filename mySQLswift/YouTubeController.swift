@@ -21,7 +21,7 @@ class YouTubeController: UIViewController, UITableViewDelegate, UITableViewDataS
     
     var apiKey = "AIzaSyB11hJ5EOIBKeaeRPeRXK5eEA0pYMndcVw"
     
-    var desiredChannelsArray = ["lotpb", "Apple", "Google", "Microsoft", "HOWARDTV", "VeaSoftware", "CodeWithChris", "SergeyKargopolov", "Laura_in_the_Kitchen"]
+    var desiredChannelsArray = ["lotpb", "Apple", "Google", "Microsoft", "HOWARDTV", "VeaSoftware", "CodeWithChris", "SergeyKargopolov"]
     
     var channelIndex = 0
     

@@ -48,7 +48,8 @@ class DetailViewController: UIViewController, RPPreviewViewControllerDelegate, A
     var selectedVoiceLanguage = 0
     
     var defaults = NSUserDefaults.standardUserDefaults()
-
+    
+    //below has nothing
     var detailItem: AnyObject? { //dont delete for splitview
         didSet {
             // Update the view.
@@ -93,7 +94,7 @@ class DetailViewController: UIViewController, RPPreviewViewControllerDelegate, A
         buttonEnabledControl(recorder.recording)
 
         
-        let myLabel:UILabel = UILabel(frame: CGRectMake(20, 70, 60, 60))
+        let myLabel:UILabel = UILabel(frame: CGRectMake(20, 65, 60, 60))
         myLabel.backgroundColor = UIColor.orangeColor() //UIColor(red: 0.02, green: 0.36, blue: 0.53, alpha: 1.0)
         myLabel.textColor = UIColor.whiteColor()
         myLabel.textAlignment = NSTextAlignment.Center

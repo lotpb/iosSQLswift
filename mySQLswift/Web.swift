@@ -206,7 +206,7 @@ class Web: UIViewController, SFSafariViewControllerDelegate, WKNavigationDelegat
              let request = NSURLRequest(URL: url!);
              webView.loadRequest(request)
         case 3:
-            url = NSURL(string:"http://www.cnbc.com")!
+            url = NSURL(string:"http://lotpb.github.io/UnitedWebPage/index.html")!
             let request = NSURLRequest(URL: url!);
             webView.loadRequest(request)
         case 4:

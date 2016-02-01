@@ -15,9 +15,11 @@ class CollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var sourceLabel: UILabel!
-    @IBOutlet weak var numLabel: UILabel!
+    
     @IBOutlet weak var likeButton: UIButton!
     @IBOutlet weak var actionBtn: UIButton!
+    @IBOutlet weak var numLabel: UILabel!
+    @IBOutlet weak var uploadbyLabel: UILabel!
     
     // Snapshot Controller / UserView Controller
     @IBOutlet weak var user2ImageView: UIImageView?

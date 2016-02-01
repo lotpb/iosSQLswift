@@ -8,13 +8,17 @@
 
 import UIKit
 import Parse
+import EventKit
 
 class SnapshotController: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDataSource, UICollectionViewDelegate {
 
     @IBOutlet weak var tableView: UITableView!
     
     var selectedImage : UIImage!
-    
+    //var eventStore : EKEventStore = EKEventStore()
+    var eventStore: EKEventStore!
+    var reminders: [EKReminder]!
+
     var selectedObjectId : NSString!
     var selectedTitle : NSString!
     var selectedName : NSString!
@@ -47,12 +51,12 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
     var maintitle : UILabel!
     var datetitle : UILabel!
 
-    var _feedItems : NSMutableArray = NSMutableArray()
-    var _feedItems2 : NSMutableArray = NSMutableArray()
-    var _feedItems3 : NSMutableArray = NSMutableArray()
-    var _feedItems4 : NSMutableArray = NSMutableArray()
-    var _feedItems5 : NSMutableArray = NSMutableArray()
-    var _feedItems6 : NSMutableArray = NSMutableArray()
+    var _feedItems : NSMutableArray = NSMutableArray() //news
+    var _feedItems2 : NSMutableArray = NSMutableArray() //job
+    var _feedItems3 : NSMutableArray = NSMutableArray() //user
+    var _feedItems4 : NSMutableArray = NSMutableArray() //salesman
+    var _feedItems5 : NSMutableArray = NSMutableArray() //employee
+    var _feedItems6 : NSMutableArray = NSMutableArray() //blog
     var refreshControl: UIRefreshControl!
     //var filteredString : NSMutableArray = NSMutableArray()
     //var objects = [AnyObject]()
@@ -60,6 +64,25 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
     
     var imageObject :PFObject!
     var imageFile :PFFile!
+    
+    //below has nothing
+    var detailItem: AnyObject? { //dont delete for splitview
+        didSet {
+            // Update the view.
+            //self.configureView()
+        }
+    }
+    
+    
+    func configureView() {
+        /*
+        // Update the user interface for the detail item.
+        if let detail = self.detailItem {
+        if let label = self.detailDescriptionLabel {
+        label.text = detail.description
+        }
+        } */
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,6 +106,10 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
         let buttons:NSArray = [searchButton]
         self.navigationItem.rightBarButtonItems = buttons as? [UIBarButtonItem]
         
+        /*
+        let homeButton = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: Selector("homeButton"))
+        self.navigationItem.leftBarButtonItem = homeButton */
+        
         parseData()
         
         self.refreshControl = UIRefreshControl()
@@ -98,7 +125,13 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
         super.viewWillAppear(animated)
         
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
-        self.navigationController?.navigationBar.barTintColor = UIColor(white:0.45, alpha:1.0)
+        if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
+            self.navigationController?.navigationBar.barTintColor = UIColor.blackColor()
+        } else {
+            self.navigationController?.navigationBar.barTintColor = UIColor(white:0.45, alpha:1.0)
+        }
+        self.eventStore = EKEventStore()
+        self.reminders = [EKReminder]()
     }
     
     override func didReceiveMemoryWarning() {
@@ -112,9 +145,14 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
     func refreshData(sender:AnyObject)
     {
         parseData()
-        //self.tableView!.reloadData()
         self.refreshControl?.endRefreshing()
     }
+    
+    // MARK: - Button
+    /*
+    func homeButton() {
+        self.performSegueWithIdentifier("donehomeSegue", sender: self)
+    } */
     
     
     // MARK: UICollectionViewDelegateFlowLayout
@@ -298,17 +336,7 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
                 cell.collectionView.delegate = self
                 cell.collectionView.dataSource = self
                 cell.collectionView.tag = 0
-                
-                
-                let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-                layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-                layout.scrollDirection = .Horizontal
-                layout.itemSize = CGSize(width: 180.0, height: 120.0)
-
-                
-                
-                
-                cell.collectionView.reloadData()
+                //cell.collectionView.reloadData()
                 
                 return cell
                 
@@ -342,14 +370,11 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
                 cell.collectionView.backgroundColor = UIColor.clearColor()
                 cell.snaptitleLabel?.text = "Reuters 6 Days ago"
                 cell.snapdetailLabel?.text = "No Top Stories"
-                //cell.textLabel!.text = _feedItems[0] .valueForKey("newsTitle") as? String
+                //cell.snapdetailLabel?.text = _feedItems[0] .valueForKey("newsTitle") as? String
                 
-                //maintitle.text = _feedItems[0] .valueForKey("newsTitle") as? String
-                //datetitle.text = String(format: "%@ %@", (_feedItems[0] .valueForKey("newsDetail") as? String)!, mydate) */
-
                 return cell
             }
-        
+            
         }  else if (indexPath.section == 2) {
             
             if (indexPath.row == 0) {
@@ -365,7 +390,7 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
                 cell.collectionView.delegate = self
                 cell.collectionView.dataSource = self
                 cell.collectionView.tag = 1
-                cell.collectionView.reloadData()
+                //cell.collectionView.reloadData()
                 
                 return cell
             }
@@ -373,7 +398,7 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
         }  else if (indexPath.section == 3) {
             
             if (indexPath.row == 0) {
- 
+                
                 cell.textLabel!.text = String(format: "%@%d", "Top Users ", _feedItems3.count)
                 cell.selectionStyle = UITableViewCellSelectionStyle.Gray
                 cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
@@ -385,8 +410,8 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
                 cell.collectionView.delegate = self
                 cell.collectionView.dataSource = self
                 cell.collectionView.tag = 2
-                cell.collectionView.reloadData()
-
+                //cell.collectionView.reloadData()
+                
                 return cell
                 
             } else if (indexPath.row == 2) {
@@ -399,7 +424,7 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
         } else if (indexPath.section == 4) {
             
             if (indexPath.row == 0) {
-
+                
                 cell.textLabel!.text = String(format: "%@%d", "Top Salesman ", _feedItems4.count)
                 cell.selectionStyle = UITableViewCellSelectionStyle.Gray
                 cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
@@ -411,7 +436,7 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
                 cell.collectionView.delegate = self
                 cell.collectionView.dataSource = self
                 cell.collectionView.tag = 3
-                cell.collectionView.reloadData()
+                //cell.collectionView.reloadData()
                 
                 return cell
             }
@@ -419,7 +444,7 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
         } else if (indexPath.section == 5) {
             
             if (indexPath.row == 0) {
-
+                
                 cell.textLabel!.text = String(format: "%@%d", "Top Employee ", _feedItems5.count)
                 cell.selectionStyle = UITableViewCellSelectionStyle.Gray
                 cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
@@ -431,7 +456,7 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
                 cell.collectionView.delegate = self
                 cell.collectionView.dataSource = self
                 cell.collectionView.tag = 4
-                cell.collectionView.reloadData()
+                //cell.collectionView.reloadData()
                 
                 return cell
             }
@@ -439,7 +464,7 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
         } else if (indexPath.section == 6) {
             
             if (indexPath.row == 0) {
-
+                
                 cell.textLabel!.text = "Top Blog Story";
                 cell.selectionStyle = UITableViewCellSelectionStyle.Gray
                 cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
@@ -466,7 +491,7 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
             } else if (indexPath.row == 1) {
                 
                 cell.collectionView.backgroundColor = UIColor.clearColor()
- 
+                
                 let localNotification = UILocalNotification()
                 if (UIApplication.sharedApplication().scheduledLocalNotifications!.count == 0) {
                     cell.snapdetailLabel?.text = "You have no pending notifications :)"
@@ -490,12 +515,21 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
             } else if (indexPath.row == 1) {
                 
                 cell.collectionView.backgroundColor = UIColor.clearColor()
-
-                //if (self.eventsList.count == 0) {
-                cell.snapdetailLabel?.text = "You have no pending events :)"
-               // } else {
-                   // cell.snaptitleLabel?.text!.text = [[self.eventsList firstObject] title]
-                //}
+                
+                if (reminders.count == 0) {
+                    cell.snapdetailLabel?.text = "You have no pending events :)"
+                    
+                } else {
+                    
+                    let reminder:EKReminder! = self.reminders![0]
+                    cell.snapdetailLabel?.text = reminder!.title
+                    
+                    let formatter:NSDateFormatter = NSDateFormatter()
+                    formatter.dateFormat = "yyyy-MM-dd"
+                    if let dueDate = reminder.dueDateComponents?.date{
+                        cell.snaptitleLabel?.text = formatter.stringFromDate(dueDate)
+                    }
+                }
                 
                 return cell
             }
@@ -714,7 +748,7 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
             if error == nil {
                 let temp: NSArray = objects! as NSArray
                 self._feedItems5 = temp.mutableCopy() as! NSMutableArray
-                //self.tableView!.reloadData()
+                self.tableView!.reloadData()
             } else {
                 print("Error")
             }

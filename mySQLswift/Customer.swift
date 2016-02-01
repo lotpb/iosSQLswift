@@ -163,21 +163,21 @@ class Customer: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         
         if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
             
-            cell.custtitleLabel!.font = UIFont (name: "HelveticaNeue", size: 20)
-            cell.custsubtitleLabel!.font = UIFont (name: "HelveticaNeue", size: 16)
-            cell.custreplyLabel.font = UIFont (name: "HelveticaNeue", size: 16)
-            cell.custlikeLabel.font = UIFont (name: "HelveticaNeue-Medium", size: 16)
-            myLabel1.font = UIFont (name: "HelveticaNeue", size: 16)
-            myLabel2.font = UIFont (name: "HelveticaNeue-Medium", size: 16)
+            cell.custtitleLabel!.font = UIFont.systemFontOfSize(20)
+            cell.custsubtitleLabel!.font = UIFont.systemFontOfSize(17)
+            cell.custreplyLabel.font = UIFont.systemFontOfSize(16)
+            cell.custlikeLabel.font = UIFont.systemFontOfSize(17, weight: UIFontWeightMedium)
+            myLabel1.font = UIFont.systemFontOfSize(17)
+            myLabel2.font = UIFont.systemFontOfSize(17, weight: UIFontWeightMedium)
             
         } else {
             
-            cell.custtitleLabel!.font = UIFont (name: "HelveticaNeue", size: 20)
-            cell.custsubtitleLabel!.font = UIFont (name: "HelveticaNeue", size: 16)
-            cell.custreplyLabel.font = UIFont (name: "HelveticaNeue", size: 16)
-            cell.custlikeLabel.font = UIFont (name: "HelveticaNeue-Medium", size: 16)
-            myLabel1.font = UIFont (name: "HelveticaNeue", size: 16)
-            myLabel2.font = UIFont (name: "HelveticaNeue-Medium", size: 16)
+            cell.custtitleLabel!.font = UIFont.systemFontOfSize(20)
+            cell.custsubtitleLabel!.font =  UIFont.systemFontOfSize(17)
+            cell.custreplyLabel.font = UIFont.systemFontOfSize(17)
+            cell.custlikeLabel.font = UIFont.systemFontOfSize(17, weight: UIFontWeightMedium)
+            myLabel1.font = UIFont.systemFontOfSize(16)
+            myLabel2.font = UIFont.systemFontOfSize(17, weight: UIFontWeightMedium)
         }
         
         if (tableView == self.tableView) {
@@ -236,7 +236,7 @@ class Customer: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         myLabel.textAlignment = NSTextAlignment.Center
         myLabel.layer.masksToBounds = true
         //let firstChar = "\(text.characters.first!)" //Swift 2.1
-        myLabel.text = "Page"
+        myLabel.text = "Cust"
         myLabel.font = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
         myLabel.layer.cornerRadius = 25.0
         myLabel.userInteractionEnabled = true

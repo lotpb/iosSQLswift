@@ -57,12 +57,8 @@ UIImagePickerControllerDelegate {
         self.navigationItem.titleView = titleButton
         
         self.mainView.backgroundColor = UIColor(white:0.90, alpha:1.0)
-
-        if (self.progressView.progress == 0) {
-            self.progressView.hidden = true
-        } else {
-            self.progressView.hidden = false
-        }
+        self.progressView.hidden = true
+        self.progressView.setProgress(0, animated: true)
         
         if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
             
@@ -202,6 +198,7 @@ UIImagePickerControllerDelegate {
     @IBAction func uploadImage(sender: AnyObject) {
         
         self.navigationItem.rightBarButtonItem!.enabled = false
+        self.progressView.hidden = false
         
         activityIndicator.center = self.imgToUpload!.center
         activityIndicator.startAnimating()

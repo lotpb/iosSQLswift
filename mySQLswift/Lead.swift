@@ -11,8 +11,8 @@ import Parse
 
 class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating {
     
-    let navColor = UIColor(red: 0.21, green: 0.30, blue: 0.41, alpha: 1.0)
-    let labelColor = UIColor(red: 0.45, green: 0.51, blue: 0.60, alpha: 1.0)
+    let navColor = UIColor(red: 0.01, green: 0.48, blue: 1.0, alpha: 1.0)
+    let labelColor = UIColor(white:0.45, alpha:1.0)
     let labelColor1 = UIColor(white:0.45, alpha:1.0)
     let searchScope = ["name","city","phone","date", "active"]
     
@@ -164,15 +164,18 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
         cell.LeadsubtitleLabel!.textColor = UIColor.grayColor()
         
         if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
-            cell.LeadtitleLabel!.font = UIFont (name: "HelveticaNeue", size: 20)
-            cell.LeadsubtitleLabel!.font = UIFont (name: "HelveticaNeue", size: 16)
-            myLabel1.font = UIFont (name: "HelveticaNeue", size: 16)
-            myLabel2.font = UIFont (name: "HelveticaNeue-Medium", size: 16)
+            
+            cell.LeadtitleLabel!.font = UIFont.systemFontOfSize(20)
+            cell.LeadsubtitleLabel!.font = UIFont.systemFontOfSize(17)
+            myLabel1.font = UIFont.systemFontOfSize(16)
+            myLabel2.font = UIFont.systemFontOfSize(17, weight: UIFontWeightMedium)
+            
         } else {
-            cell.LeadtitleLabel!.font = UIFont (name: "HelveticaNeue", size: 20)
-            cell.LeadsubtitleLabel!.font = UIFont (name: "HelveticaNeue", size: 16)
-            myLabel1.font = UIFont (name: "HelveticaNeue", size: 16)
-            myLabel2.font = UIFont (name: "HelveticaNeue-Medium", size: 16)
+            
+            cell.LeadtitleLabel!.font = UIFont.systemFontOfSize(20)
+            cell.LeadsubtitleLabel!.font =  UIFont.systemFontOfSize(17)
+            myLabel1.font = UIFont.systemFontOfSize(16)
+            myLabel2.font = UIFont.systemFontOfSize(17, weight: UIFontWeightMedium)
         }
         
         if (tableView == self.tableView) {
@@ -196,7 +199,7 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
         myLabel.textColor = UIColor.whiteColor()
         myLabel.textAlignment = NSTextAlignment.Center
         myLabel.layer.masksToBounds = true
-        myLabel.text = "Page"
+        myLabel.text = "Lead"
         myLabel.font = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
         myLabel.layer.cornerRadius = 25.0
         myLabel.userInteractionEnabled = true
@@ -469,7 +472,15 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
             //userDetails = foundUsers[indexPath.row]
             //self.performSegueWithIdentifier("PushDetailsVC", sender: self)
         } else {
-            self.performSegueWithIdentifier("showDetail2", sender: self)
+            if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
+                let storyBoard : UIStoryboard = UIStoryboard (name: "Main", bundle: nil);
+                let objSecondryViewController :LeadDetail = storyBoard.instantiateViewControllerWithIdentifier("SecondryViewController") as! LeadDetail
+                //objSecondryViewController.selectedColor = cell.textLabel?.text
+                showDetailViewController(objSecondryViewController, sender: self)
+                
+            } else {
+                self.performSegueWithIdentifier("showDetail2", sender: self)
+            }
         }
     }
     

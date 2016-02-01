@@ -348,6 +348,7 @@
 			children = (
 				AF0369A41C173DDC00137D7E /* AppDelegate.swift */,
 				AF0369A61C173DDC00137D7E /* MasterViewController.swift */,
+				AF0369A81C173DDC00137D7E /* DetailViewController.swift */,
 				AF0D6B301C4AC5E900334D03 /* YQL.swift */,
 				AF0369AA1C173DDC00137D7E /* Main.storyboard */,
 				AF8CC3A91C41B34E004147F3 /* Main Tables */,
@@ -448,7 +449,6 @@
 		AF8CC3A91C41B34E004147F3 /* Main Tables */ = {
 			isa = PBXGroup;
 			children = (
-				AF8CC3AA1C42B9FB004147F3 /* StatisticController.swift */,
 				AF56DFC21C28947400CD7EB9 /* SnapshotController.swift */,
 				AFE263A11C176F15007BBB90 /* Lead.swift */,
 				AFD1A30A1C1E224600580F10 /* Customer.swift */,
@@ -458,7 +458,7 @@
 				AF011A751C40AB2F000EAF5D /* SalesmanController.swift */,
 				AF011A711C40A798000EAF5D /* ProductController.swift */,
 				AFCAACE71C40961E00A52073 /* AdController.swift */,
-				AF0369A81C173DDC00137D7E /* DetailViewController.swift */,
+				AF8CC3AA1C42B9FB004147F3 /* StatisticController.swift */,
 				AFD1A3091C1DB88200580F10 /* Web */,
 			);
 			name = "Main Tables";

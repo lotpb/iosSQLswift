@@ -8,6 +8,7 @@
 
 import UIKit
 import Parse
+import Social
 
 class Blog: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
@@ -19,6 +20,9 @@ class Blog: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView?
     
+    //var imageObject :PFObject!
+    //var imageFile :PFFile!
+
     var _feedItems : NSMutableArray = NSMutableArray()
     var _feedheadItems : NSMutableArray = NSMutableArray()
     var filteredString : NSMutableArray = NSMutableArray()
@@ -27,7 +31,7 @@ class Blog: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var likeButton: UIButton?
     var refreshControl: UIRefreshControl!
     let searchController = UISearchController(searchResultsController: nil)
-    var parseObject:PFObject?
+
     var isReplyClicked = true
     var posttoIndex: NSString?
     var userIndex: NSString?
@@ -79,7 +83,11 @@ class Blog: UIViewController, UITableViewDelegate, UITableViewDataSource {
         super.viewWillAppear(animated)
         refreshData(self)
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
-        self.navigationController?.navigationBar.barTintColor = navColor
+        if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
+            self.navigationController?.navigationBar.barTintColor = UIColor.blackColor()
+        } else {
+            self.navigationController?.navigationBar.barTintColor = navColor
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -121,17 +129,20 @@ class Blog: UIViewController, UITableViewDelegate, UITableViewDataSource {
         cell.selectionStyle = UITableViewCellSelectionStyle.None
         
         if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
-            cell.blogtitleLabel.font = UIFont (name: "HelveticaNeue-Medium", size: 18)
-            cell.blogsubtitleLabel.font = UIFont (name: "HelveticaNeue-Light", size: 18)
-            cell.blogmsgDateLabel.font = UIFont (name: "HelveticaNeue-Light", size: 16)
-            cell.numLabel.font = UIFont (name: "HelveticaNeue-Bold", size: 16)
-            cell.commentLabel.font = UIFont (name: "HelveticaNeue-Bold", size: 16)
+            
+            cell.blogtitleLabel!.font =  UIFont.systemFontOfSize(18, weight: UIFontWeightMedium)
+            cell.blogsubtitleLabel!.font =  UIFont.systemFontOfSize(17, weight: UIFontWeightLight)
+            cell.blogmsgDateLabel.font = UIFont.systemFontOfSize(17)
+            cell.numLabel.font = UIFont.systemFontOfSize(17, weight: UIFontWeightBold)
+            cell.commentLabel.font = UIFont.systemFontOfSize(17, weight: UIFontWeightBold)
+            
         } else {
-            cell.blogtitleLabel.font = UIFont (name: "HelveticaNeue-Medium", size: 17)
-            cell.blogsubtitleLabel.font = UIFont (name: "HelveticaNeue-Light", size: 17)
-            cell.blogmsgDateLabel.font = UIFont (name: "HelveticaNeue-Light", size: 14)
-            cell.numLabel.font = UIFont (name: "HelveticaNeue-Bold", size: 16)
-            cell.commentLabel.font = UIFont (name: "HelveticaNeue-Bold", size: 16)
+            
+            cell.blogtitleLabel!.font =  UIFont.systemFontOfSize(18, weight: UIFontWeightMedium)
+            cell.blogsubtitleLabel!.font =  UIFont.systemFontOfSize(17, weight: UIFontWeightLight)
+            cell.blogmsgDateLabel.font = UIFont.systemFontOfSize(16)
+            cell.numLabel.font = UIFont.systemFontOfSize(17, weight: UIFontWeightBold)
+            cell.commentLabel.font = UIFont.systemFontOfSize(17, weight: UIFontWeightBold)
         }
         
         let query:PFQuery = PFUser.query()!
@@ -207,7 +218,7 @@ class Blog: UIViewController, UITableViewDelegate, UITableViewDataSource {
         cell.actionBtn.tintColor = UIColor.lightGrayColor()
         let actionimage : UIImage? = UIImage(named:"Upload50.png")!.imageWithRenderingMode(.AlwaysTemplate)
         cell.actionBtn .setImage(actionimage, forState: .Normal)
-        cell.actionBtn .addTarget(self, action: "share:", forControlEvents: UIControlEvents.TouchUpInside)
+        cell.actionBtn .addTarget(self, action: "showShare:", forControlEvents: UIControlEvents.TouchUpInside)
         
         if !(cell.numLabel.text! == "0") {
             cell.numLabel.textColor = buttonColor
@@ -314,7 +325,6 @@ class Blog: UIViewController, UITableViewDelegate, UITableViewDataSource {
             let alertController = UIAlertController(title: "Delete", message: "Confirm Delete", preferredStyle: .Alert)
             
             let destroyAction = UIAlertAction(title: "Delete!", style: .Destructive) { (action) in
-                
                 query.findObjectsInBackgroundWithBlock({ (objects : [PFObject]?, error: NSError?) -> Void in
                     if error == nil {
                         for object in objects! {
@@ -378,41 +388,9 @@ class Blog: UIViewController, UITableViewDelegate, UITableViewDataSource {
         self.performSegueWithIdentifier("blognewSegue", sender: self)
     }
     
-    func share(sender: AnyObject) {
+    func flagButton(sender:UIButton) {
         
-        let alert = UIAlertController(title: nil, message: nil, preferredStyle: .ActionSheet)
-        
-        let email = UIAlertAction(title: "Email this Message", style: .Default) { (alert: UIAlertAction!) -> Void in
-            NSLog("You pressed button one")
-        }
-        
-        let sms = UIAlertAction(title: "SMS this Message", style: .Default) { (alert: UIAlertAction!) -> Void in
-            NSLog("You pressed button two")
-        }
-        
-        let follow = UIAlertAction(title: "Follow", style: .Default) { (alert: UIAlertAction!) -> Void in
-            NSLog("You pressed button one")
-        }
-        
-        let block = UIAlertAction(title: "Block this Message", style: .Default) { (alert: UIAlertAction!) -> Void in
-            NSLog("You pressed button two")
-        }
-        
-        let report = UIAlertAction(title: "Report this User", style: .Destructive) { (alert: UIAlertAction!) -> Void in
-            NSLog("You pressed button one")
-        }
-        
-        let cancel = UIAlertAction(title: "Cancel", style: .Cancel) { (alert: UIAlertAction!) -> Void in
-            NSLog("You pressed button one")
-        }
-        
-        alert.addAction(email)
-        alert.addAction(sms)
-        alert.addAction(follow)
-        alert.addAction(block)
-        alert.addAction(report)
-        alert.addAction(cancel)
-        presentViewController(alert, animated: true, completion:nil)
+
     }
     
     // MARK: - Search
@@ -478,6 +456,84 @@ class Blog: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    // MARK: - AlertController
+    
+    func showShare(sender:UIButton) {
+        
+        let hitPoint = sender.convertPoint(CGPointZero, toView: self.tableView)
+        let indexPath = self.tableView!.indexPathForRowAtPoint(hitPoint)
+        let socialText = self._feedItems[indexPath!.row] .valueForKey("Subject") as? String
+        
+            let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
+            
+            let tweetAction = UIAlertAction(title: "Share on Twitter", style: UIAlertActionStyle.Default) { (action) -> Void in
+                
+                if SLComposeViewController.isAvailableForServiceType(SLServiceTypeTwitter) {
+                    let twitterComposeVC = SLComposeViewController(forServiceType: SLServiceTypeTwitter)
+                    
+                    if socialText!.characters.count <= 140 {
+                        twitterComposeVC.setInitialText(socialText)
+                    } else {
+                        let index = socialText!.startIndex.advancedBy(140)
+                        let subText = socialText!.substringToIndex(index)
+                        twitterComposeVC.setInitialText("\(subText)")
+                    }
+                    
+                    self.presentViewController(twitterComposeVC, animated: true, completion: nil)
+                } else {
+                    self.showAlertMessage("You are not logged in to your Twitter account.")
+                }
+            }
+            
+            let facebookPostAction = UIAlertAction(title: "Share on Facebook", style: UIAlertActionStyle.Default) { (action) -> Void in
+                
+                if SLComposeViewController.isAvailableForServiceType(SLServiceTypeFacebook) {
+                    let facebookComposeVC = SLComposeViewController(forServiceType: SLServiceTypeFacebook)
+                    //facebookComposeVC.setInitialText(socialText)
+                    //facebookComposeVC.addImage(detailImageView.image!)
+                    facebookComposeVC.addURL(NSURL(string: "http://lotpb.github.io/UnitedWebPage/index.html"))
+                    self.presentViewController(facebookComposeVC, animated: true, completion: nil)
+                }
+                else {
+                    self.showAlertMessage("You are not connected to your Facebook account.")
+                }
+            }
+            
+            let moreAction = UIAlertAction(title: "More", style: UIAlertActionStyle.Default) { (action) -> Void in
+                
+                let activityViewController = UIActivityViewController(activityItems: [socialText!], applicationActivities: nil)
+                //activityViewController.excludedActivityTypes = [UIActivityTypeMail]
+                self.presentViewController(activityViewController, animated: true, completion: nil)
+                
+            }
+            let follow = UIAlertAction(title: "Follow", style: .Default) { (alert: UIAlertAction!) -> Void in
+                NSLog("You pressed button one")
+            }
+            let block = UIAlertAction(title: "Block this Message", style: .Default) { (alert: UIAlertAction!) -> Void in
+                NSLog("You pressed button two")
+            }
+            let report = UIAlertAction(title: "Report this User", style: .Destructive) { (alert: UIAlertAction!) -> Void in
+                NSLog("You pressed button one")
+            }
+            let dismissAction = UIAlertAction(title: "Close", style: UIAlertActionStyle.Cancel) { (action) -> Void in
+            }
+            actionSheet.addAction(follow)
+            actionSheet.addAction(block)
+            actionSheet.addAction(report)
+            actionSheet.addAction(tweetAction)
+            actionSheet.addAction(facebookPostAction)
+            actionSheet.addAction(moreAction)
+            actionSheet.addAction(dismissAction)
+            
+            self.presentViewController(actionSheet, animated: true, completion: nil)
+    }
+    
+    func showAlertMessage(message: String!) {
+        let alertController = UIAlertController(title: "EasyShare", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        alertController.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default, handler: nil))
+        presentViewController(alertController, animated: true, completion: nil)
+    }
+    
     // MARK: - imgLoadSegue
     
     func imgLoadSegue(sender:UITapGestureRecognizer) {
@@ -490,7 +546,6 @@ class Blog: UIViewController, UITableViewDelegate, UITableViewDataSource {
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         self.performSegueWithIdentifier("blogeditSegue", sender: self)
-        
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

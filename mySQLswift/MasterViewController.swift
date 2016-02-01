@@ -13,8 +13,8 @@ import AVFoundation
 class MasterViewController: UITableViewController, UISplitViewControllerDelegate, UISearchResultsUpdating {
 
   //var detailViewController: DetailViewController? = nil
-    var menuItems:NSMutableArray = ["Leads","Customers","Vendors","Employee","Advertising","Product","Job","Salesman", "Show Detail", "Music", "YouTube", "Spot Beacon", "Transmit Beacon", "Contacts"]
-    var currentItem = "Leads"
+    var menuItems:NSMutableArray = ["Snapshot","Leads","Customers","Vendors","Employee","Advertising","Product","Job","Salesman","Show Detail","Music","YouTube","Spot Beacon","Transmit Beacon","Contacts"]
+    var currentItem = "Snapshot"
     
     var player : AVAudioPlayer! = nil
     var defaults = NSUserDefaults.standardUserDefaults()
@@ -61,31 +61,32 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
             self.detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
         } */
 
-        self.splitViewController!.delegate = self; //added
-        self.splitViewController!.preferredDisplayMode = UISplitViewControllerDisplayMode.Automatic //added
+        self.splitViewController?.delegate = self; //added
+        self.splitViewController?.preferredDisplayMode = UISplitViewControllerDisplayMode.Automatic //added
         
         if (defaults.valueForKey("soundKey") == nil)  {
             playSound()
         }
         
      //-------------------create Parse User------------------
-      /*
+      
         PFUser.logInWithUsernameInBackground("Peter Balsamo", password:"3911") { (user, error) -> Void in
-        } */
-        let userId:String = defaults.stringForKey("usernameKey")!
-        let userpassword:String = defaults.stringForKey("passwordKey")!
+        }
+        //let userId:String = defaults.stringForKey("usernameKey")!
+        //let userpassword:String = defaults.stringForKey("passwordKey")!
         
         //Keychain
-        let isSavedId: Bool = KeychainWrapper.setString(userId, forKey: "myKey")
-        let isSavedPass: Bool = KeychainWrapper.setString(userpassword, forKey: "myKey")
-        print(isSavedId, isSavedPass)
+        //let isSavedId: Bool = KeychainWrapper.setString(userId, forKey: "myKey")
+        //let isSavedPass: Bool = KeychainWrapper.setString(userpassword, forKey: "myKey")
+        //print(isSavedId, isSavedPass)
         
-        let retrievedString: String? = KeychainWrapper.stringForKey("myKey")
-        print(retrievedString)
+        //let retrievedString: String? = KeychainWrapper.stringForKey("myKey")
+        //print(retrievedString)
         
         //Parse
+        /*
         PFUser.logInWithUsernameInBackground(userId, password:userpassword) { (user, error) -> Void in
-        }
+        } */
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -107,9 +108,6 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
  
         let alertController = UIAlertController(title:nil, message:nil, preferredStyle: .ActionSheet)
         
-        let buttonOne = UIAlertAction(title: "SnapShot", style: .Default, handler: { (action) -> Void in
-            self.performSegueWithIdentifier("snapshotSegue", sender: self)
-        })
         let buttonTwo = UIAlertAction(title: "Users", style: .Default, handler: { (action) -> Void in
             self.performSegueWithIdentifier("userSegue", sender: self)
         })
@@ -133,7 +131,7 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
             //print("Cancel Button Pressed")
         }
         
-        alertController.addAction(buttonOne)
+        //alertController.addAction(buttonOne)
         alertController.addAction(buttonTwo)
         alertController.addAction(buttonThree)
         alertController.addAction(buttonFour)
@@ -181,9 +179,12 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath)
         
         if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
-            cell.textLabel!.font = UIFont (name: "HelveticaNeue-Medium", size: 18)
+            
+            cell.textLabel!.font = UIFont.systemFontOfSize(20)
+            
         } else {
-            cell.textLabel!.font = UIFont (name: "HelveticaNeue-Medium", size: 18)
+            
+            cell.textLabel!.font = UIFont.systemFontOfSize(20)
         }
         
         if (tableView == self.tableView) {
@@ -391,7 +392,9 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
             //self.performSegueWithIdentifier("PushDetailsVC", sender: self)
         } else {
             
-            if (currentItem == "Leads") {
+            if (currentItem == "Snapshot") {
+                self.performSegueWithIdentifier("snapshotSegue", sender: self)
+            } else if (currentItem == "Leads") {
                 self.performSegueWithIdentifier("showleadSegue", sender: self)
             } else if (currentItem == "Customers") {
                 self.performSegueWithIdentifier("showcustSegue", sender: self)

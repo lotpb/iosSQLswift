@@ -75,7 +75,11 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
-        self.navigationController?.navigationBar.barTintColor = navColor
+        if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
+            self.navigationController?.navigationBar.barTintColor = UIColor.blackColor()
+        } else {
+            self.navigationController?.navigationBar.barTintColor = navColor
+        }
         
          NSNotificationCenter.defaultCenter().addObserver(self, selector: "finishedPlaying:", name: AVPlayerItemDidPlayToEndTimeNotification, object: self.playerViewController)
     }
@@ -109,6 +113,7 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
         
         cell.backgroundColor = UIColor.whiteColor()
         cell.sourceLabel.textColor = UIColor(white:0.45, alpha:1.0)
+        cell.uploadbyLabel.textColor = UIColor.lightGrayColor()
         
         let playButton = UIButton(type: UIButtonType.Custom) as UIButton
         
@@ -116,12 +121,14 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
             cell.titleLabel!.font = UIFont (name: "HelveticaNeue", size: 20)
             cell.sourceLabel!.font = UIFont (name: "HelveticaNeue", size: 14)
             cell.numLabel!.font = UIFont (name: "HelveticaNeue-Medium", size:16)
+            cell.uploadbyLabel!.font = UIFont (name: "HelveticaNeue", size:12)
             playButton.frame = CGRectMake(cell.imageView.frame.size.width/2-25, cell.imageView.frame.origin.y, 50, 50)
             
         } else {
             cell.titleLabel!.font = UIFont (name: "HelveticaNeue", size: 20)
             cell.sourceLabel!.font = UIFont (name: "HelveticaNeue", size: 14)
             cell.numLabel!.font = UIFont (name: "HelveticaNeue-Medium", size:16)
+            cell.uploadbyLabel!.font = UIFont (name: "HelveticaNeue", size:12)
             playButton.frame = CGRectMake(cell.imageView.frame.size.width/2-25, cell.imageView.frame.origin.y, 50, 50)
             
         }
@@ -142,26 +149,14 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
         let date1 = (self._feedItems[indexPath.row] .valueForKey("createdAt") as? NSDate)!
         let date2 = NSDate()
         let diffDateComponents = NSCalendar.currentCalendar().components([NSCalendarUnit.Day], fromDate: date1, toDate: date2, options: NSCalendarOptions.init(rawValue: 0))
-        
         cell.sourceLabel?.text = String(format: "%@, %d%@" , (self._feedItems[indexPath.row] .valueForKey("newsDetail") as? String)!, diffDateComponents.day," days ago" )
         
-        let value = self.imageFile.url
-        let result1 = value!.containsString("movie.mp4")
-        //if s!.rangeOfString("movie.mp4") != nil {
-        if (result1 == true) {
- 
-            playButton.alpha = 0.3
-            playButton.userInteractionEnabled = true
-            //playButton.center = cell.imageView.center
-            playButton.tintColor = UIColor.whiteColor()
-            let playimage : UIImage? = UIImage(named:"play_button.png")!.imageWithRenderingMode(.AlwaysTemplate)
-            playButton .setImage(playimage, forState: .Normal)
-            //playButton .setTitle(urlLabel!.text, forState: UIControlState.Normal)
-            let tap = UITapGestureRecognizer(target: self, action: Selector("playVideo:"))
-            playButton.addGestureRecognizer(tap)
-            cell.imageView.addSubview(playButton)
-            
-        }
+        let updated:NSDate = date1
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "MMM dd, yyyy"
+        let createString = dateFormatter.stringFromDate(updated)
+        let username = self._feedItems[indexPath.row] .valueForKey("username") as? String
+        cell.uploadbyLabel.text = String(format: "%@%@ %@", "Uploaded by:", username!, createString)
         
         cell.actionBtn.tintColor = UIColor.lightGrayColor()
         let imagebutton : UIImage? = UIImage(named:"Upload50.png")!.imageWithRenderingMode(.AlwaysTemplate)
@@ -183,6 +178,24 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
             cell.numLabel.textColor = likeColor
         } else {
             cell.numLabel.text! = ""
+        }
+        
+        let value = self.imageFile.url
+        let result1 = value!.containsString("movie.mp4")
+        //if s!.rangeOfString("movie.mp4") != nil {
+        if (result1 == true) {
+            
+            playButton.alpha = 0.3
+            playButton.userInteractionEnabled = true
+            //playButton.center = cell.imageView.center
+            playButton.tintColor = UIColor.whiteColor()
+            let playimage : UIImage? = UIImage(named:"play_button.png")!.imageWithRenderingMode(.AlwaysTemplate)
+            playButton .setImage(playimage, forState: .Normal)
+            //playButton .setTitle(urlLabel!.text, forState: UIControlState.Normal)
+            let tap = UITapGestureRecognizer(target: self, action: Selector("playVideo:"))
+            playButton.addGestureRecognizer(tap)
+            cell.imageView.addSubview(playButton)
+            
         }
         
         return cell
@@ -233,23 +246,24 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
     
     func shareButton(sender: UIButton) {
         
-        /*
-        let postPhrase = "Just hit highscore! Beat it! #SwypIt"
+        let point : CGPoint = sender.convertPoint(CGPointZero, toView:collectionView)
+        let indexPath = collectionView!.indexPathForItemAtPoint(point)
+        let socialText = self._feedItems[indexPath!.row] .valueForKey("newsTitle") as? String
         
-        //Generate the screenshot
-        UIGraphicsBeginImageContext(view.frame.size)
-        view.layer.renderInContext(UIGraphicsGetCurrentContext()!)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        let postImage = UIImage(named: "\(image)")
-        
-        let activityViewController : UIActivityViewController = UIActivityViewController(activityItems: [postPhrase, postImage!], applicationActivities: nil)
-        
-        self.presentViewController(activityViewController, animated: true, completion: nil)
-        */
-        
+        imageObject = _feedItems.objectAtIndex(indexPath!.row) as! PFObject
+        imageFile = imageObject.objectForKey("imageFile") as? PFFile
+        imageFile!.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError?) -> Void in
+            let image = UIImage(data: imageData!)
+            
+            let activityViewController = UIActivityViewController (
+                activityItems: [socialText!, (image)!],
+                applicationActivities: nil)
+            
+            self.presentViewController(activityViewController, animated: true, completion: nil)
+        }
     }
+    
+    // MARK: - Parse
     
     func parseData() {
         

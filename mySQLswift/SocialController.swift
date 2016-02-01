@@ -31,12 +31,13 @@ class SocialController: UIViewController, UITextViewDelegate {
     // MARK: IBAction Function
     
     @IBAction func showShareOptions(sender: AnyObject) {
+        
         // Dismiss the keyboard if it's visible.
         if noteTextview.isFirstResponder() {
             noteTextview.resignFirstResponder()
         }
 
-        let actionSheet = UIAlertController(title: "", message: "Share your Note", preferredStyle: UIAlertControllerStyle.ActionSheet)
+        let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.ActionSheet)
         
         // Configure a new action for sharing the note in Twitter.
         let tweetAction = UIAlertAction(title: "Share on Twitter", style: UIAlertActionStyle.Default) { (action) -> Void in
@@ -94,7 +95,6 @@ class SocialController: UIViewController, UITextViewDelegate {
             
         }
         
-        
         let dismissAction = UIAlertAction(title: "Close", style: UIAlertActionStyle.Cancel) { (action) -> Void in
             
         }
@@ -108,6 +108,12 @@ class SocialController: UIViewController, UITextViewDelegate {
         presentViewController(actionSheet, animated: true, completion: nil)
     }
     
+    func showAlertMessage(message: String!) {
+        let alertController = UIAlertController(title: "EasyShare", message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        alertController.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default, handler: nil))
+        presentViewController(alertController, animated: true, completion: nil)
+    }
+    
     
     // MARK: Custom Functions
     
@@ -115,13 +121,6 @@ class SocialController: UIViewController, UITextViewDelegate {
         noteTextview.layer.cornerRadius = 8.0
         noteTextview.layer.borderColor = UIColor(white: 0.75, alpha: 0.5).CGColor
         noteTextview.layer.borderWidth = 1.2
-    }
-    
-    
-    func showAlertMessage(message: String!) {
-        let alertController = UIAlertController(title: "EasyShare", message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        alertController.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default, handler: nil))
-        presentViewController(alertController, animated: true, completion: nil)
     }
     
     

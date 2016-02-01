@@ -141,13 +141,16 @@ class BlogEditController: UIViewController, UITableViewDelegate, UITableViewData
             cell.selectionStyle = UITableViewCellSelectionStyle.None
             
             if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
-                cell.titleLabel!.font = UIFont (name: "HelveticaNeue-Bold", size: 20)
-                cell.subtitleLabel!.font = UIFont (name: "HelveticaNeue-Light", size: 20)
-                cell.msgDateLabel!.font = UIFont (name: "HelveticaNeue-Light", size: 18)
+                
+                cell.titleLabel!.font = UIFont.systemFontOfSize(20, weight: UIFontWeightBold)
+                cell.subtitleLabel!.font = UIFont.systemFontOfSize(20, weight: UIFontWeightLight)
+                cell.msgDateLabel.font = UIFont.systemFontOfSize(17, weight: UIFontWeightLight)
+                
             } else {
-                cell.titleLabel!.font = UIFont (name: "HelveticaNeue-Bold", size: 18)
-                cell.subtitleLabel!.font = UIFont (name: "HelveticaNeue-Light", size: 18)
-                cell.msgDateLabel.font = UIFont (name: "HelveticaNeue-Light", size: 16)
+                
+                cell.titleLabel!.font = UIFont.systemFontOfSize(18, weight: UIFontWeightBold)
+                cell.subtitleLabel!.font = UIFont.systemFontOfSize(17, weight: UIFontWeightLight)
+                cell.msgDateLabel.font = UIFont.systemFontOfSize(17, weight: UIFontWeightLight)
             }
             
             let query:PFQuery = PFUser.query()!
@@ -240,15 +243,18 @@ class BlogEditController: UIViewController, UITableViewDelegate, UITableViewData
             cell.replydateLabel.textColor = UIColor.grayColor()
             
             if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
-                cell.replytitleLabel!.font = UIFont (name: "HelveticaNeue-Bold", size: 16)
-                cell.replysubtitleLabel!.font = UIFont (name: "HelveticaNeue-Light", size: 16)
-                cell.replynumLabel!.font = UIFont (name: "HelveticaNeue-Bold", size: 16)
-                cell.replydateLabel!.font = UIFont (name: "HelveticaNeue", size: 16)
+                
+                cell.replytitleLabel!.font = UIFont.systemFontOfSize(16, weight: UIFontWeightBold)
+                cell.replysubtitleLabel!.font = UIFont.systemFontOfSize(16, weight: UIFontWeightLight)
+                cell.replynumLabel!.font = UIFont.systemFontOfSize(16, weight: UIFontWeightBold)
+                cell.replydateLabel!.font = UIFont.systemFontOfSize(16)
+                
             } else {
-                cell.replytitleLabel!.font = UIFont (name: "HelveticaNeue-Bold", size: 14)
-                cell.replysubtitleLabel!.font = UIFont (name: "HelveticaNeue-Light", size: 14)
-                cell.replynumLabel.font = UIFont (name: "HelveticaNeue-Bold", size: 14)
-                cell.replydateLabel!.font = UIFont (name: "HelveticaNeue", size: 14)
+                
+                cell.replytitleLabel!.font = UIFont.systemFontOfSize(14, weight: UIFontWeightBold)
+                cell.replysubtitleLabel!.font = UIFont.systemFontOfSize(14, weight: UIFontWeightLight)
+                cell.replynumLabel.font = UIFont.systemFontOfSize(14, weight: UIFontWeightBold)
+                cell.replydateLabel.font = UIFont.systemFontOfSize(14)
             }
 
             let date1 = _feedItems1[indexPath.row] .valueForKey("createdAt") as? NSDate

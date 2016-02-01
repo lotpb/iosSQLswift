@@ -8,14 +8,14 @@
 
 import UIKit
 import MediaPlayer
-
+//import AVFoundation
 
 class MusicController: UIViewController {
-    var activeDownloads = [String: Download]()
     
-    // 1
+    //var player:AVPlayer?
+    
+    var activeDownloads = [String: Download]()
     let defaultSession = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
-    // 2
     var dataTask: NSURLSessionDataTask?
     
     @IBOutlet weak var tableView: UITableView!
@@ -157,7 +157,11 @@ class MusicController: UIViewController {
     
     // This method attempts to play the local file (if it exists) when the cell is tapped
     func playDownload(track: Track) {
+        
         if let urlString = track.previewUrl, url = localFilePathForUrl(urlString) {
+
+             //player = AVPlayer(URL:url)
+ 
             let moviePlayer:MPMoviePlayerViewController! = MPMoviePlayerViewController(contentURL: url)
             presentMoviePlayerViewControllerAnimated(moviePlayer)
         }

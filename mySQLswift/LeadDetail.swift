@@ -15,6 +15,11 @@ import MessageUI
 
 class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, MFMailComposeViewControllerDelegate {
     
+    let textFont = ".SFUIText-Regular"
+    let textFontB = ".SFUIText-Bold"
+    let textFontSB = ".SFUIText-Semibold"
+    let textFontM = ".SFUIText-Medium"
+    let textFontL = ".SFUIText-Light"
     let emailTitle:String = "mySQL" //defaults.stringForKey("emailtitleKey")!
     let messageBody:String = "Program in Swift" //defaults.stringForKey("emailmessageKey")!
     
@@ -138,31 +143,32 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         self.newsTableView!.rowHeight = UITableViewAutomaticDimension
         
         if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
-            labelamount!.font = UIFont (name: "HelveticaNeue", size: 36)
-            labelname!.font = UIFont (name: "HelveticaNeue-Light", size: 30)
-            labeldate!.font = UIFont (name: "HelveticaNeue", size: 18)
-            labeladdress!.font = UIFont (name: "HelveticaNeue-Light", size: 26)
-            labelcity!.font = UIFont (name: "HelveticaNeue-Light", size: 26)
-            mapbutton!.titleLabel?.font = UIFont(name: "HelveticaNeue", size: 18)
+            
+            labelamount!.font = UIFont (name: textFont, size: 36)
+            labelname!.font = UIFont (name: textFontL, size: 30)
+            labeldate!.font = UIFont (name: textFont, size: 18)
+            labeladdress!.font = UIFont (name: textFontL, size: 26)
+            labelcity!.font = UIFont (name: textFontL, size: 26)
+            mapbutton!.titleLabel?.font = UIFont(name: textFont, size: 18)
             
         } else {
             
-            labeladdress!.font = UIFont (name: "HelveticaNeue-Light", size: 20)
-            labelcity!.font = UIFont (name: "HelveticaNeue-Light", size: 20)
-            mapbutton!.titleLabel?.font = UIFont(name: "HelveticaNeue", size: 18)
+            labeladdress!.font = UIFont (name: textFont, size: 20)
+            labelcity!.font = UIFont (name: textFont, size: 20)
+            mapbutton!.titleLabel?.font = UIFont(name: textFont, size: 18)
             
             if (self.formController == "Vendor" || self.formController == "Employee") {
-                labelamount!.font = UIFont (name: "HelveticaNeue", size: 20)
-                labeldate!.font = UIFont (name: "HelveticaNeue", size: 12)
+                labelamount!.font = UIFont (name: textFont, size: 20)
+                labeldate!.font = UIFont (name: textFont, size: 12)
             } else {
-                labelamount!.font = UIFont (name: "HelveticaNeue", size: 36)
-                labeldate!.font = UIFont (name: "HelveticaNeue", size: 16)
+                labelamount!.font = UIFont (name: textFontM, size: 36)
+                labeldate!.font = UIFont (name: textFont, size: 16)
             }
             
             if self.formController == "Vendor" {
-                labelname!.font = UIFont (name: "HelveticaNeue-Light", size: 18)
+                labelname!.font = UIFont (name: textFontL, size: 18)
             } else {
-                labelname!.font = UIFont (name: "HelveticaNeue-Light", size: 24)
+                labelname!.font = UIFont (name: textFontL, size: 24)
             }
         }
         
@@ -290,11 +296,11 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             cell.layer.masksToBounds = true */
             
             if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
-                cell.textLabel!.font = UIFont (name: "HelveticaNeue-Bold", size: 14)
-                cell.detailTextLabel!.font = UIFont (name: "HelveticaNeue-Light", size: 14)
+                cell.textLabel!.font = UIFont (name: textFontSB, size: 14)
+                cell.detailTextLabel!.font = UIFont (name: textFontL, size: 14)
             } else {
-                cell.textLabel!.font = UIFont (name: "HelveticaNeue-Bold", size: 12)
-                cell.detailTextLabel!.font = UIFont (name: "HelveticaNeue-Light", size: 12)
+                cell.textLabel!.font = UIFont (name: textFontSB, size: 12)
+                cell.detailTextLabel!.font = UIFont (name: textFontL, size: 12)
             }
             
             cell.textLabel!.text = tableData4.objectAtIndex(indexPath.row) as? String
@@ -319,11 +325,11 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
 
             
             if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
-                cell.textLabel!.font = UIFont (name: "HelveticaNeue-Bold", size: 14)
-                cell.detailTextLabel!.font = UIFont (name: "HelveticaNeue-Light", size: 14)
+                cell.textLabel!.font = UIFont (name: textFontSB, size: 14)
+                cell.detailTextLabel!.font = UIFont (name: textFontL, size: 14)
             } else {
-                cell.textLabel!.font = UIFont (name: "HelveticaNeue-Bold", size: 12)
-                cell.detailTextLabel!.font = UIFont (name: "HelveticaNeue-Light", size: 12)
+                cell.textLabel!.font = UIFont (name: textFontSB, size: 12)
+                cell.detailTextLabel!.font = UIFont (name: textFontL, size: 12)
             }
             
             cell.textLabel!.text = tableData3.objectAtIndex(indexPath.row) as? String
@@ -341,15 +347,15 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             self.newsTableView!.tableFooterView = UIView(frame: CGRectZero)
             
             if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
-                cell.leadtitleDetail!.font = UIFont (name: "HelveticaNeue-Medium", size: 20)
-                cell.leadsubtitleDetail!.font = UIFont (name: "HelveticaNeue-Light", size: 18)
-                cell.leadreadDetail!.font = UIFont (name: "HelveticaNeue", size: 18)
-                cell.leadnewsDetail!.font = UIFont (name: "HelveticaNeue", size: 18)
+                cell.leadtitleDetail!.font = UIFont (name: textFontSB, size: 20)
+                cell.leadsubtitleDetail!.font = UIFont (name: textFontL, size: 18)
+                cell.leadreadDetail!.font = UIFont (name: textFont, size: 18)
+                cell.leadnewsDetail!.font = UIFont (name: textFont, size: 18)
             } else {
-                cell.leadtitleDetail!.font = UIFont (name: "HelveticaNeue-Medium", size: 18)
-                cell.leadsubtitleDetail!.font = UIFont (name: "HelveticaNeue-Light", size: 16)
-                cell.leadreadDetail.font = UIFont (name: "HelveticaNeue", size: 16)
-                cell.leadnewsDetail!.font = UIFont (name: "HelveticaNeue", size: 16)
+                cell.leadtitleDetail!.font = UIFont (name: textFontSB, size: 18)
+                cell.leadsubtitleDetail!.font = UIFont (name: textFontL, size: 16)
+                cell.leadreadDetail.font = UIFont (name: textFont, size: 16)
+                cell.leadnewsDetail!.font = UIFont (name: textFont, size: 16)
             }
             
             let width = CGFloat(2.0)
