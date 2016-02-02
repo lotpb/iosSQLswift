@@ -9,10 +9,8 @@
 import UIKit
 import SafariServices
 import WebKit
-let MessageHandler = "didGetPosts"
-let PostSelected = "postSelected"
 
-class Web: UIViewController, SFSafariViewControllerDelegate, WKNavigationDelegate, WKScriptMessageHandler {
+class Web: UIViewController, SFSafariViewControllerDelegate, WKNavigationDelegate {
     
     //let navColor = UIColor(red: 0.09, green: 0.62, blue: 0.93, alpha: 1.0)
     //let headColor = UIColor(red: 0.09, green: 0.62, blue: 0.93, alpha: 1.0)
@@ -24,8 +22,6 @@ class Web: UIViewController, SFSafariViewControllerDelegate, WKNavigationDelegat
     
     var webView: WKWebView
     var url: NSURL?
-    var postsWebView: WKWebView?
-    var posts: [Post] = []
     
     @IBOutlet weak var progressView: UIProgressView!
     @IBOutlet weak var backButton: UIBarButtonItem!
@@ -36,10 +32,6 @@ class Web: UIViewController, SFSafariViewControllerDelegate, WKNavigationDelegat
   
     required init?(coder aDecoder: NSCoder) {
         let config = WKWebViewConfiguration()
-        let scriptURL = NSBundle.mainBundle().pathForResource("hideSections", ofType: "js")
-        let scriptContent = try? String(contentsOfFile:scriptURL!, encoding:NSUTF8StringEncoding)
-        let script = WKUserScript(source: scriptContent!, injectionTime: .AtDocumentStart, forMainFrameOnly: true)
-        config.userContentController.addUserScript(script)
         self.webView = WKWebView(frame: CGRectZero, configuration: config)
         super.init(coder: aDecoder)
         self.webView.navigationDelegate = self
@@ -77,26 +69,14 @@ class Web: UIViewController, SFSafariViewControllerDelegate, WKNavigationDelegat
         
         webView.addObserver(self, forKeyPath: "loading", options: .New, context: nil)
         webView.addObserver(self, forKeyPath: "estimatedProgress", options: .New, context: nil)
-        //webView.addObserver(self, forKeyPath: "title", options: .New, context: nil) //stops web title in tab bar
+        //webView.addObserver(self, forKeyPath: "title", options: .New, context: nil) //removes title on tabBar
         
-        url = NSURL(string:"http://www.cnn.com")!
-        let request = NSURLRequest(URL: url!);
-        webView.loadRequest(request)
+        webView.loadRequest(NSURLRequest(URL:NSURL(string:"http://www.cnn.com")!))
         
         backButton.enabled = false
         forwardButton.enabled = false
         recentPostsButton.enabled = false 
         
-        let config = WKWebViewConfiguration()
-        let scriptURL = NSBundle.mainBundle().pathForResource("getPosts", ofType: "js")
-        let scriptContent = try? String(contentsOfFile:scriptURL!, encoding:NSUTF8StringEncoding)
-        let script = WKUserScript(source: scriptContent!, injectionTime: .AtDocumentEnd, forMainFrameOnly: true)
-        config.userContentController.addUserScript(script)
-        config.userContentController.addScriptMessageHandler(self, name: MessageHandler)
-        postsWebView = WKWebView(frame: CGRectZero, configuration: config)
-        postsWebView!.loadRequest(NSURLRequest(URL:NSURL(string:"http://www.Drudgereport.com")!))
-        
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "postSelected:", name: PostSelected, object: nil) 
 }
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -138,6 +118,7 @@ class Web: UIViewController, SFSafariViewControllerDelegate, WKNavigationDelegat
         progressView.setProgress(0.0, animated: false)
     }
     
+    
     func webView(webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: NSError) {
         let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .Alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
@@ -153,31 +134,6 @@ class Web: UIViewController, SFSafariViewControllerDelegate, WKNavigationDelegat
         }
     }
     
-    func userContentController(userContentController: WKUserContentController, didReceiveScriptMessage message: WKScriptMessage) {
-        if (message.name == MessageHandler) {
-            if let postsList = message.body as? [Dictionary<String, String>] {
-                for ps in postsList {
-                    let post = Post(dictionary: ps)
-                    posts.append(post)
-                }
-                recentPostsButton.enabled = true
-            }
-        }
-    }
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
-        if (segue.identifier == "recentPosts") {
-            let navigationController = segue.destinationViewController as! UINavigationController
-            let postsViewController = navigationController.topViewController as! PostsTableViewController
-            postsViewController.posts = posts
-        }
-    }
-    
-    func postSelected(notification:NSNotification) {
-        webView.loadRequest(NSURLRequest())
-        let post = notification.object as! Post
-        webView.loadRequest(NSURLRequest(URL:NSURL(string:post.postURL)!))
-    }
     
 //---------------------------------------------------------------
     
@@ -187,7 +143,7 @@ class Web: UIViewController, SFSafariViewControllerDelegate, WKNavigationDelegat
         let safariVC = SFSafariViewController(URL:NSURL(string: "http://www.cnn.com")!, entersReaderIfAvailable: true) // Set to false if not interested in using reader
         safariVC.delegate = self
         self.presentViewController(safariVC, animated: true, completion: nil)
-    } 
+    }
     
     
     @IBAction func WebTypeChanged(sender : UISegmentedControl) {

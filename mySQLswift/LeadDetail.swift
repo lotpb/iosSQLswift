@@ -19,7 +19,10 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     let textFontB = ".SFUIText-Bold"
     let textFontSB = ".SFUIText-Semibold"
     let textFontM = ".SFUIText-Medium"
+    let fontM = UIFont.systemFontOfSize(36, weight: UIFontWeightMedium)
+    //let textFontMD = ".SFUIDisplay-Medium"
     let textFontL = ".SFUIText-Light"
+    
     let emailTitle:String = "mySQL" //defaults.stringForKey("emailtitleKey")!
     let messageBody:String = "Program in Swift" //defaults.stringForKey("emailmessageKey")!
     
@@ -158,10 +161,10 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             mapbutton!.titleLabel?.font = UIFont(name: textFont, size: 18)
             
             if (self.formController == "Vendor" || self.formController == "Employee") {
-                labelamount!.font = UIFont (name: textFont, size: 20)
+                labelamount!.font = UIFont (name: textFontM, size: 20)
                 labeldate!.font = UIFont (name: textFont, size: 12)
             } else {
-                labelamount!.font = UIFont (name: textFontM, size: 36)
+                labelamount!.font = fontM
                 labeldate!.font = UIFont (name: textFont, size: 16)
             }
             
@@ -308,7 +311,6 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             cell.detailTextLabel!.text = tableData.objectAtIndex(indexPath.row) as? String
             cell.detailTextLabel!.textColor = UIColor.blackColor()
 
-            
             return cell
             
         } else if (tableView == self.listTableView2) {
@@ -323,7 +325,6 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             cell.layer.addSublayer(topBorder)
             cell.layer.masksToBounds = true */
 
-            
             if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
                 cell.textLabel!.font = UIFont (name: textFontSB, size: 14)
                 cell.detailTextLabel!.font = UIFont (name: textFontL, size: 14)
@@ -337,7 +338,6 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             cell.detailTextLabel!.text = tableData2.objectAtIndex(indexPath.row) as? String
             cell.detailTextLabel!.textColor = UIColor.blackColor()
 
-            
             return cell
             
         } else if (tableView == self.newsTableView) {
@@ -1125,8 +1125,6 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             }
         }
     }
-    
-    
     
     
 }

@@ -53,12 +53,10 @@
 		AF9EE4C71C2771D70057B7DB /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9EE4C61C2771D70057B7DB /* NotificationController.swift */; };
 		AFB5A71E1C2C499200F8BC56 /* Vendor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB5A71D1C2C499200F8BC56 /* Vendor.swift */; };
 		AFB5A7201C2C4C7700F8BC56 /* Employee.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB5A71F1C2C4C7700F8BC56 /* Employee.swift */; };
+		AFC4002C1C60250E0095333E /* YTPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = AFC4002B1C60250E0095333E /* YTPlayerView.m */; };
+		AFC4002E1C6025700095333E /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC4002D1C6025700095333E /* PlayerViewController.swift */; };
 		AFCAACE81C40961E00A52073 /* AdController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCAACE71C40961E00A52073 /* AdController.swift */; };
 		AFD1A3001C1CCFCF00580F10 /* SocialController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD1A2FF1C1CCFCF00580F10 /* SocialController.swift */; };
-		AFD1A3021C1DB79600580F10 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD1A3011C1DB79600580F10 /* Post.swift */; };
-		AFD1A3041C1DB7AE00580F10 /* PostsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD1A3031C1DB7AE00580F10 /* PostsTableViewController.swift */; };
-		AFD1A3061C1DB85600580F10 /* getPosts.js in Resources */ = {isa = PBXBuildFile; fileRef = AFD1A3051C1DB85600580F10 /* getPosts.js */; };
-		AFD1A3081C1DB85D00580F10 /* hideSections.js in Resources */ = {isa = PBXBuildFile; fileRef = AFD1A3071C1DB85D00580F10 /* hideSections.js */; };
 		AFD1A30B1C1E224600580F10 /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD1A30A1C1E224600580F10 /* Customer.swift */; };
 		AFD1A30F1C1E32A500580F10 /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD1A30E1C1E32A500580F10 /* LoginController.swift */; };
 		AFD754F21C4FCBF200021F97 /* ContactController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD754F11C4FCBF200021F97 /* ContactController.swift */; };
@@ -199,12 +197,12 @@
 		AF9EE4C61C2771D70057B7DB /* NotificationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
 		AFB5A71D1C2C499200F8BC56 /* Vendor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vendor.swift; sourceTree = "<group>"; };
 		AFB5A71F1C2C4C7700F8BC56 /* Employee.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Employee.swift; sourceTree = "<group>"; };
+		AFC400291C60250E0095333E /* mySQLswift-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "mySQLswift-Bridging-Header.h"; sourceTree = "<group>"; };
+		AFC4002A1C60250E0095333E /* YTPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTPlayerView.h; sourceTree = "<group>"; };
+		AFC4002B1C60250E0095333E /* YTPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTPlayerView.m; sourceTree = "<group>"; };
+		AFC4002D1C6025700095333E /* PlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayerViewController.swift; sourceTree = "<group>"; };
 		AFCAACE71C40961E00A52073 /* AdController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdController.swift; sourceTree = "<group>"; };
 		AFD1A2FF1C1CCFCF00580F10 /* SocialController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SocialController.swift; sourceTree = "<group>"; };
-		AFD1A3011C1DB79600580F10 /* Post.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
-		AFD1A3031C1DB7AE00580F10 /* PostsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostsTableViewController.swift; sourceTree = "<group>"; };
-		AFD1A3051C1DB85600580F10 /* getPosts.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = getPosts.js; sourceTree = "<group>"; };
-		AFD1A3071C1DB85D00580F10 /* hideSections.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = hideSections.js; sourceTree = "<group>"; };
 		AFD1A30A1C1E224600580F10 /* Customer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Customer.swift; sourceTree = "<group>"; };
 		AFD1A30E1C1E32A500580F10 /* LoginController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		AFD754F11C4FCBF200021F97 /* ContactController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContactController.swift; sourceTree = "<group>"; };
@@ -459,7 +457,7 @@
 				AF011A711C40A798000EAF5D /* ProductController.swift */,
 				AFCAACE71C40961E00A52073 /* AdController.swift */,
 				AF8CC3AA1C42B9FB004147F3 /* StatisticController.swift */,
-				AFD1A3091C1DB88200580F10 /* Web */,
+				AF9A87831C18645C0091B0E3 /* Web.swift */,
 			);
 			name = "Main Tables";
 			sourceTree = "<group>";
@@ -482,16 +480,16 @@
 			name = News;
 			sourceTree = "<group>";
 		};
-		AFD1A3091C1DB88200580F10 /* Web */ = {
+		AFC400281C60249F0095333E /* YouTube */ = {
 			isa = PBXGroup;
 			children = (
-				AF9A87831C18645C0091B0E3 /* Web.swift */,
-				AFD1A3011C1DB79600580F10 /* Post.swift */,
-				AFD1A3051C1DB85600580F10 /* getPosts.js */,
-				AFD1A3071C1DB85D00580F10 /* hideSections.js */,
-				AFD1A3031C1DB7AE00580F10 /* PostsTableViewController.swift */,
+				AF0D6B321C4C554300334D03 /* YouTubeController.swift */,
+				AFC4002D1C6025700095333E /* PlayerViewController.swift */,
+				AFC400291C60250E0095333E /* mySQLswift-Bridging-Header.h */,
+				AFC4002A1C60250E0095333E /* YTPlayerView.h */,
+				AFC4002B1C60250E0095333E /* YTPlayerView.m */,
 			);
-			name = Web;
+			name = YouTube;
 			sourceTree = "<group>";
 		};
 		AFD1A3101C1E367B00580F10 /* Accessory Tables */ = {
@@ -500,9 +498,9 @@
 				AFF3C8F01C4EC45100D9B7BD /* Beacons */,
 				AF5C01E51C493245009BB817 /* Music */,
 				AF0754871C4344F400B03D38 /* lookup */,
-				AFD754F11C4FCBF200021F97 /* ContactController.swift */,
-				AF0D6B321C4C554300334D03 /* YouTubeController.swift */,
+				AFC400281C60249F0095333E /* YouTube */,
 				AFD1A2FF1C1CCFCF00580F10 /* SocialController.swift */,
+				AFD754F11C4FCBF200021F97 /* ContactController.swift */,
 				AFF7BCE41C3230EA0051DDCB /* CodeGenController.swift */,
 				AF9EE4C61C2771D70057B7DB /* NotificationController.swift */,
 				AF7383EA1C302DD00049407C /* NotificationDetailController.swift */,
@@ -662,7 +660,7 @@
 		AF0369991C173DDC00137D7E /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0710;
+				LastSwiftUpdateCheck = 0720;
 				LastUpgradeCheck = 0710;
 				ORGANIZATIONNAME = "Peter Balsamo";
 				TargetAttributes = {
@@ -734,14 +732,12 @@
 				AFE264181C17DC11007BBB90 /* tag.png in Resources */,
 				AFE264271C17DC11007BBB90 /* Left 2-25.png in Resources */,
 				AFE264331C17DC11007BBB90 /* user_male-128.png in Resources */,
-				AFD1A3061C1DB85600580F10 /* getPosts.js in Resources */,
 				AFE264261C17DC11007BBB90 /* iosStarNA.png in Resources */,
 				AFE264151C17DC11007BBB90 /* photo-frame.png in Resources */,
 				AFE264141C17DC11007BBB90 /* photo-frame-2.png in Resources */,
 				AFE2642B1C17DC11007BBB90 /* mySQLBLOG.png in Resources */,
 				AF6C691B1C455BAE00CD6A36 /* Settings.bundle in Resources */,
 				AFE2642A1C17DC11007BBB90 /* menu@2x.png in Resources */,
-				AFD1A3081C1DB85D00580F10 /* hideSections.js in Resources */,
 				AFE2640D1C17DC11007BBB90 /* bookmark.png in Resources */,
 				AFE2640F1C17DC11007BBB90 /* comments.png in Resources */,
 				AFE264131C17DC11007BBB90 /* news.png in Resources */,
@@ -788,9 +784,7 @@
 				AF0DACA11C1F43DB00B23CE5 /* BlogEditController.swift in Sources */,
 				AF6E27041C3AC52300612C25 /* EditData.swift in Sources */,
 				AFD1A3001C1CCFCF00580F10 /* SocialController.swift in Sources */,
-				AFD1A3041C1DB7AE00580F10 /* PostsTableViewController.swift in Sources */,
 				AFCAACE81C40961E00A52073 /* AdController.swift in Sources */,
-				AFD1A3021C1DB79600580F10 /* Post.swift in Sources */,
 				AF1DE4B11C19CDBC002B24C5 /* LeadDetail.swift in Sources */,
 				AFD1A30F1C1E32A500580F10 /* LoginController.swift in Sources */,
 				AFDFCBB91C3EA4EA00F02E7B /* MapView.swift in Sources */,
@@ -817,6 +811,7 @@
 				AF5C01E21C493204009BB817 /* Track.swift in Sources */,
 				AFB5A7201C2C4C7700F8BC56 /* Employee.swift in Sources */,
 				AFE263A21C176F15007BBB90 /* Lead.swift in Sources */,
+				AFC4002C1C60250E0095333E /* YTPlayerView.m in Sources */,
 				AF56DFC31C28947400CD7EB9 /* SnapshotController.swift in Sources */,
 				AF0754861C4336E200B03D38 /* LookupData.swift in Sources */,
 				AF7383EB1C302DD00049407C /* NotificationDetailController.swift in Sources */,
@@ -825,6 +820,7 @@
 				AF5C01DE1C493199009BB817 /* MusicController.swift in Sources */,
 				AF011A721C40A798000EAF5D /* ProductController.swift in Sources */,
 				AFB5A71E1C2C499200F8BC56 /* Vendor.swift in Sources */,
+				AFC4002E1C6025700095333E /* PlayerViewController.swift in Sources */,
 				AFD754F41C4FFEB200021F97 /* UploadController.swift in Sources */,
 				AF1E6D561C1920FC0009230E /* CustomTableCell.swift in Sources */,
 				AF46FA841C2313EE00C27445 /* UserViewController.swift in Sources */,
@@ -973,6 +969,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/mySQLswift/Parse",
@@ -982,6 +979,8 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.PeterBalsamo.SwiftMySQL;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "mySQLswift/mySQLswift-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -989,6 +988,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/mySQLswift/Parse",
@@ -998,6 +998,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.PeterBalsamo.SwiftMySQL;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "mySQLswift/mySQLswift-Bridging-Header.h";
 			};
 			name = Release;
 		};

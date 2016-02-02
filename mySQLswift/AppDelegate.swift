@@ -43,7 +43,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         // MARK: - RegisterUserNotification
         
         let mySettings = UIUserNotificationSettings(forTypes: [.Badge, .Sound, .Alert], categories: nil);
-        UIApplication.sharedApplication().registerUserNotificationSettings( mySettings);
+        UIApplication.sharedApplication().registerUserNotificationSettings( mySettings)
+        
+        application.applicationIconBadgeNumber = 0
         
         
         // MARK: - Background Fetch

@@ -666,9 +666,9 @@
                                                         </state>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="Amount" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xWY-0q-UnI">
-                                                        <rect key="frame" x="15" y="47" width="175" height="43"/>
+                                                        <rect key="frame" x="15" y="47" width="180" height="43"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="width" constant="175" id="UZk-eR-vXi"/>
+                                                            <constraint firstAttribute="width" constant="180" id="UZk-eR-vXi"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" type="system" pointSize="30"/>
                                                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -4427,11 +4427,12 @@
                         <outlet property="tblVideos" destination="cbh-fv-OqH" id="YjV-yo-VMv"/>
                         <outlet property="txtSearch" destination="pbx-PP-TPQ" id="hdK-SR-Vl6"/>
                         <outlet property="viewWait" destination="hUW-tV-P7y" id="EAC-I9-V1w"/>
+                        <segue destination="cth-cI-DI8" kind="show" identifier="idSeguePlayer" id="Z62-ub-3Bm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gvA-VS-aV8" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1424" y="108"/>
+            <point key="canvasLocation" x="-769" y="-2734"/>
         </scene>
         <!--Spot Beacon Controller-->
         <scene sceneID="eQ3-U9-ZFZ">
@@ -4972,6 +4973,39 @@
             </objects>
             <point key="canvasLocation" x="2173" y="1577"/>
         </scene>
+        <!--Player View Controller-->
+        <scene sceneID="QLA-Lt-LUR">
+            <objects>
+                <viewController id="cth-cI-DI8" customClass="PlayerViewController" customModule="mySQLswift" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="3hE-PX-Xcd"/>
+                        <viewControllerLayoutGuide type="bottom" id="Acs-7N-lnb"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="RDL-a4-Iko">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iTi-mb-ZdV" customClass="YTPlayerView">
+                                <rect key="frame" x="0.0" y="44" width="600" height="227"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="iTi-mb-ZdV" firstAttribute="top" secondItem="3hE-PX-Xcd" secondAttribute="bottom" id="105-uJ-Jr5"/>
+                            <constraint firstAttribute="trailing" secondItem="iTi-mb-ZdV" secondAttribute="trailing" id="6Mg-kX-xzD"/>
+                            <constraint firstItem="iTi-mb-ZdV" firstAttribute="leading" secondItem="RDL-a4-Iko" secondAttribute="leading" id="EgG-bg-MPm"/>
+                            <constraint firstItem="Acs-7N-lnb" firstAttribute="top" secondItem="iTi-mb-ZdV" secondAttribute="bottom" constant="280" id="ty8-a1-47y"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="playerView" destination="iTi-mb-ZdV" id="43e-rN-7Cz"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yiz-bo-WKn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1494" y="-2734"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Commentfilled.png" width="50" height="50"/>
@@ -4993,8 +5027,8 @@
         <segue reference="Dw5-mA-Z0d"/>
         <segue reference="nhd-UC-dO1"/>
         <segue reference="LRB-pN-dPg"/>
-        <segue reference="qP3-pz-Ogt"/>
-        <segue reference="Chc-U1-Vvf"/>
+        <segue reference="Mih-40-jc2"/>
+        <segue reference="8OJ-nY-fNy"/>
         <segue reference="ldc-8w-WDy"/>
         <segue reference="VDX-fG-ZvN"/>
     </inferredMetricsTieBreakers>

@@ -11,6 +11,11 @@ import Parse
 import EventKit
 
 class SnapshotController: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDataSource, UICollectionViewDelegate {
+    
+    let font18M = UIFont.systemFontOfSize(18, weight: UIFontWeightMedium)
+    let font18R = UIFont.systemFontOfSize(18, weight: UIFontWeightRegular)
+    let font16R = UIFont.systemFontOfSize(16, weight: UIFontWeightRegular)
+    let fontl = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
 
     @IBOutlet weak var tableView: UITableView!
     
@@ -300,13 +305,13 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
         cell.collectionView.backgroundColor = UIColor.whiteColor()
         
         if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
-            cell.textLabel!.font = UIFont (name: "HelveticaNeue-Medium", size: 18)
-            cell.snaptitleLabel.font = UIFont (name: "HelveticaNeue", size: 16)
-            cell.snapdetailLabel.font = UIFont (name: "HelveticaNeue", size: 18)
+            cell.textLabel!.font = font18M
+            cell.snaptitleLabel.font = font16R
+            cell.snapdetailLabel.font = font18R
         } else {
-            cell.textLabel!.font = UIFont (name: "HelveticaNeue-Medium", size: 18)
-            cell.snaptitleLabel.font = UIFont (name: "HelveticaNeue", size: 16)
-            cell.snapdetailLabel.font = UIFont (name: "HelveticaNeue", size: 18)
+            cell.textLabel!.font = font18M
+            cell.snaptitleLabel.font = font16R
+            cell.snapdetailLabel.font = font18R
         }
         
         cell.accessoryType = UITableViewCellAccessoryType.None
@@ -351,26 +356,23 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
             
             if (indexPath.row == 0) {
                 
-                cell.textLabel!.text = "Top News Story";
+                cell.textLabel!.text = "Top News Story"
                 
                 return cell
                 
             } else if (indexPath.row == 1) {
                 
-                /*
-                let creationDate:NSDate = (_feedItems[0] .valueForKey("createdAt") as? NSDate)!
-                let datetime1:NSDate = creationDate
-                let datetime2:NSDate = NSDate()
-                let dateInterval:Double = datetime2.timeIntervalSinceDate(datetime1) / (60*60*24)
-                let mydate = String(format: "%@%x", "%.0f days ago ", dateInterval)
-                */
-                //_feedItems.objectAtIndex((indexPath?.row)!) .valueForKey("objectId") as? String
-                //cell.textLabel?.text = _feedItems[0] .valueForKey("Subject") as? String
-                
                 cell.collectionView.backgroundColor = UIColor.clearColor()
-                cell.snaptitleLabel?.text = "Reuters 6 Days ago"
-                cell.snapdetailLabel?.text = "No Top Stories"
-                //cell.snapdetailLabel?.text = _feedItems[0] .valueForKey("newsTitle") as? String
+                
+                /*
+                let date1 = (_feedItems.firstObject? .valueForKey("createdAt") as? NSDate)!
+                let date2 = NSDate()
+                let diffDateComponents = NSCalendar.currentCalendar().components([NSCalendarUnit.Day], fromDate: date1, toDate: date2, options: NSCalendarOptions.init(rawValue: 0))
+                cell.snaptitleLabel?.text  = String(format: "%@, %d%@" , (_feedItems.firstObject? .valueForKey("newsDetail") as? String)!, diffDateComponents.day," days ago" ) */
+                
+                cell.snaptitleLabel?.text  = _feedItems.firstObject? .valueForKey("newsDetail") as? String
+  
+                cell.snapdetailLabel?.text = _feedItems.firstObject? .valueForKey("newsTitle") as? String
                 
                 return cell
             }
@@ -568,7 +570,7 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
         myLabel1.textColor = UIColor.blackColor()
         myLabel1.textAlignment = NSTextAlignment.Center
         myLabel1.clipsToBounds = true
-        myLabel1.font = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
+        myLabel1.font = fontl
         //myLabel1.adjustsFontSizeToFitWidth = true
         
         if (collectionView.tag == 0) {
@@ -676,16 +678,13 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
             cell.addSubview(myLabel1)
             
             return cell
-        } else if (collectionView.tag == 13) {
-            
-            self.performSegueWithIdentifier("newssnapSegue", sender: self)
-            
-            return cell
         }
-        
         
         return cell
     }
+    
+    
+    // MARK: - Parse
     
     func parseData() {
         

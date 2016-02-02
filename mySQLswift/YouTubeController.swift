@@ -50,11 +50,11 @@ class YouTubeController: UIViewController, UITableViewDelegate, UITableViewDataS
     
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        /*
+        
         if segue.identifier == "idSeguePlayer" {
             let playerViewController = segue.destinationViewController as! PlayerViewController
             playerViewController.videoID = videosArray[selectedVideoIndex]["videoID"] as! String
-        } */
+        }
     }
     
     
@@ -305,7 +305,7 @@ class YouTubeController: UIViewController, UITableViewDelegate, UITableViewDataS
         let playlistID = channelsDataArray[index]["playlistID"] as! String
         
         // Form the request URL string.
-        let urlString = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=\(playlistID)&key=\(apiKey)"
+        let urlString = "https://www.googleapis.com/youtube/v3/playlistItems?part=snippet&playlistId=\(playlistID)&key=\(apiKey)&maxResults=\(25)"
         
         // Create a NSURL object based on the above string.
         let targetURL = NSURL(string: urlString)

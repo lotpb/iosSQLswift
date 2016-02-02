@@ -516,7 +516,7 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
             controller?.zip =  formatter.stringFromNumber(Zip!)
             
             var Amount:Int? = _feedItems[indexPath] .valueForKey("Amount")as? Int
-            formatter.numberStyle = .DecimalStyle
+            formatter.numberStyle = .CurrencyStyle
             if Amount == nil {
                 Amount = 0
             }

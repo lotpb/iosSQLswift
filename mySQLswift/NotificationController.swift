@@ -47,7 +47,7 @@ class NotificationController: UIViewController {
     }
     
     override func viewWillAppear(animated: Bool) {
-        //self.clearsSelectionOnViewWillAppear = self.splitViewController!.collapsed
+    
         super.viewWillAppear(animated)
         navigationController?.hidesBarsOnSwipe = true
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
@@ -75,7 +75,8 @@ class NotificationController: UIViewController {
         let notifications:UILocalNotification = UILocalNotification()
         //notifications.timeZone = NSTimeZone.localTimeZone()
         //notifications.timeZone = NSTimeZone.systemTimeZone()
-        notifications.fireDate = datePicker.date
+        notifications.timeZone = NSTimeZone.defaultTimeZone()
+        notifications.fireDate = fixedNotificationDate(datePicker.date)
         
         switch(frequencySegmentedControl.selectedSegmentIndex){
         case 0:
@@ -141,15 +142,17 @@ class NotificationController: UIViewController {
         
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    
+    //Here we are going to set the value of second to zero
+    func fixedNotificationDate(dateToFix: NSDate) -> NSDate {
+        let dateComponents: NSDateComponents = NSCalendar.currentCalendar().components([NSCalendarUnit.Day, NSCalendarUnit.Month, NSCalendarUnit.Year, NSCalendarUnit.Hour, NSCalendarUnit.Minute], fromDate: dateToFix)
+        
+        dateComponents.second = 0
+        
+        let fixedDate: NSDate = NSCalendar.currentCalendar().dateFromComponents(dateComponents)!
+        
+        return fixedDate
+        
     }
-    */
-
+    
 }
