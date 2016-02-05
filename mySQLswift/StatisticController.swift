@@ -11,6 +11,8 @@ import Parse
 
 class StatisticController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UISearchResultsUpdating {
     
+    let navlabel = UIFont.systemFontOfSize(25, weight: UIFontWeightThin)
+    
     @IBOutlet weak var scrollWall: UIScrollView!
     @IBOutlet weak var tableView: UITableView!
     var photoImage: UIImageView!
@@ -63,7 +65,7 @@ class StatisticController: UIViewController, UITableViewDelegate, UITableViewDat
         
         let titleButton: UIButton = UIButton(frame: CGRectMake(0, 0, 100, 32))
         titleButton.setTitle("myStats", forState: UIControlState.Normal)
-        titleButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Thin", size: 25.0)
+        titleButton.titleLabel?.font = navlabel
         titleButton.titleLabel?.textAlignment = NSTextAlignment.Center
         titleButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         titleButton.addTarget(self, action: Selector(), forControlEvents: UIControlEvents.TouchUpInside)

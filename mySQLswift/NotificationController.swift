@@ -10,6 +10,9 @@ import UIKit
 
 class NotificationController: UIViewController {
     
+    let navlabel = UIFont.systemFontOfSize(25, weight: UIFontWeightThin)
+    let celltitle = UIFont.systemFontOfSize(18, weight: UIFontWeightRegular)
+    
     @IBOutlet weak var customMessage: UITextField!
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var frequencySegmentedControl : UISegmentedControl!
@@ -20,7 +23,7 @@ class NotificationController: UIViewController {
 
         let titleButton: UIButton = UIButton(frame: CGRectMake(0, 0, 100, 32))
         titleButton.setTitle("myNotification", forState: UIControlState.Normal)
-        titleButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Thin", size: 25.0)
+        titleButton.titleLabel?.font = navlabel
         titleButton.titleLabel?.textAlignment = NSTextAlignment.Center
         titleButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         //titleButton.addTarget(self, action: Selector(), forControlEvents: UIControlEvents.TouchUpInside)
@@ -33,12 +36,11 @@ class NotificationController: UIViewController {
         
         self.customMessage.clearButtonMode = .Always
         self.customMessage.clearButtonMode = .WhileEditing
-        self.customMessage!.font = UIFont (name: "HelveticaNeue", size: 18)
+        self.customMessage!.font = celltitle
         self.customMessage.placeholder = "enter notification"
         
         UITextField.appearance().tintColor = UIColor.orangeColor()
 
-        
     }
 
     override func didReceiveMemoryWarning() {

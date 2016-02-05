@@ -11,9 +11,13 @@ import Parse
 
 class SalesmanController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating {
     
+    let navlabel = UIFont.systemFontOfSize(25, weight: UIFontWeightThin)
     let navColor = UIColor(red: 0.28, green: 0.50, blue: 0.49, alpha: 1.0)
     let labelColor = UIColor(red: 0.65, green: 0.49, blue: 0.35, alpha: 1.0)
     let searchScope = ["salesman","salesNo","active"]
+    
+    let celltitle = UIFont.systemFontOfSize(20, weight: UIFontWeightRegular)
+    let headtitle = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
     
     @IBOutlet weak var tableView: UITableView?
     var isFormStat = false
@@ -34,7 +38,7 @@ class SalesmanController: UIViewController, UITableViewDelegate, UITableViewData
         
         let titleButton: UIButton = UIButton(frame: CGRectMake(0, 0, 100, 32))
         titleButton.setTitle("mySalesman", forState: UIControlState.Normal)
-        titleButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Thin", size: 25.0)
+        titleButton.titleLabel?.font = navlabel
         titleButton.titleLabel?.textAlignment = NSTextAlignment.Center
         titleButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         titleButton.addTarget(self, action: Selector(), forControlEvents: UIControlEvents.TouchUpInside)
@@ -47,8 +51,7 @@ class SalesmanController: UIViewController, UITableViewDelegate, UITableViewData
         //self.tableView!.rowHeight = UITableViewAutomaticDimension
         self.tableView!.backgroundColor = UIColor(white:0.90, alpha:1.0)
         self.automaticallyAdjustsScrollViewInsets = false
-        
-        //users = []
+
         foundUsers = []
         resultsController = UITableViewController(style: .Plain)
         resultsController.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "UserFoundCell")
@@ -136,9 +139,9 @@ class SalesmanController: UIViewController, UITableViewDelegate, UITableViewData
         //cell.LeadsubtitleLabel!.textColor = UIColor.grayColor()
         
         if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
-            cell.salestitleLabel!.font = UIFont (name: "HelveticaNeue", size: 20)
+            cell.salestitleLabel!.font = celltitle
         } else {
-            cell.salestitleLabel!.font = UIFont (name: "HelveticaNeue", size: 20)
+            cell.salestitleLabel!.font = celltitle
         }
         
         if (tableView == self.tableView) {
@@ -157,7 +160,7 @@ class SalesmanController: UIViewController, UITableViewDelegate, UITableViewData
         myLabel.textAlignment = NSTextAlignment.Center
         myLabel.layer.masksToBounds = true
         myLabel.text = "Salesman"
-        myLabel.font = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
+        myLabel.font = headtitle
         myLabel.layer.cornerRadius = 25.0
         myLabel.userInteractionEnabled = true
         myLabel.tag = indexPath.row
@@ -184,7 +187,7 @@ class SalesmanController: UIViewController, UITableViewDelegate, UITableViewData
         myLabel1.textAlignment = NSTextAlignment.Center
         myLabel1.layer.masksToBounds = true
         myLabel1.text = String(format: "%@%d", "Sale's\n", _feedItems.count)
-        myLabel1.font = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
+        myLabel1.font = headtitle
         myLabel1.layer.cornerRadius = 25.0
         myLabel1.userInteractionEnabled = true
         vw.addSubview(myLabel1)
@@ -200,7 +203,7 @@ class SalesmanController: UIViewController, UITableViewDelegate, UITableViewData
         myLabel2.textAlignment = NSTextAlignment.Center
         myLabel2.layer.masksToBounds = true
         myLabel2.text = String(format: "%@%d", "Active\n", _feedheadItems.count)
-        myLabel2.font = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
+        myLabel2.font = headtitle
         myLabel2.layer.cornerRadius = 25.0
         myLabel2.userInteractionEnabled = true
         vw.addSubview(myLabel2)
@@ -216,7 +219,7 @@ class SalesmanController: UIViewController, UITableViewDelegate, UITableViewData
         myLabel3.textAlignment = NSTextAlignment.Center
         myLabel3.layer.masksToBounds = true
         myLabel3.text = "Active"
-        myLabel3.font = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
+        myLabel3.font = headtitle
         myLabel3.layer.cornerRadius = 25.0
         myLabel3.userInteractionEnabled = true
         vw.addSubview(myLabel3)

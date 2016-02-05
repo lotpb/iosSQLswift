@@ -11,6 +11,13 @@ import Parse
 
 class BlogNewController: UIViewController, UITextViewDelegate {
     
+    let navlabel = UIFont.systemFontOfSize(25, weight: UIFontWeightThin)
+    let ipadtitle = UIFont.systemFontOfSize(18, weight: UIFontWeightLight)
+    let ipadsubject = UIFont.systemFontOfSize(20, weight: UIFontWeightLight)
+    
+    let celltitle = UIFont.systemFontOfSize(16, weight: UIFontWeightLight)
+    let cellsubject = UIFont.systemFontOfSize(18, weight: UIFontWeightLight)
+    
     @IBOutlet weak var tableView: UITableView?
     @IBOutlet weak var Share: UIButton?
     @IBOutlet weak var Update: UIButton?
@@ -45,7 +52,7 @@ class BlogNewController: UIViewController, UITextViewDelegate {
         
         let titleButton: UIButton = UIButton(frame: CGRectMake(0, 0, 100, 32))
         titleButton.setTitle("New Message", forState: UIControlState.Normal)
-        titleButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Thin", size: 25.0)
+        titleButton.titleLabel?.font = navlabel
         titleButton.titleLabel?.textAlignment = NSTextAlignment.Center
         titleButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         titleButton.addTarget(self, action: Selector(), forControlEvents: UIControlEvents.TouchUpInside)
@@ -63,9 +70,9 @@ class BlogNewController: UIViewController, UITextViewDelegate {
         } */
         
         if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
-            self.subject!.font = UIFont (name: "HelveticaNeue-Light", size: 20)
+            self.subject!.font = ipadsubject
         } else {
-            self.subject!.font = UIFont (name:"HelveticaNeue-Light", size: 18)
+            self.subject!.font = cellsubject
         }
         
         let query:PFQuery = PFUser.query()!
@@ -166,12 +173,12 @@ class BlogNewController: UIViewController, UITextViewDelegate {
         cell.selectionStyle = UITableViewCellSelectionStyle.None
         
         if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
-            cell.textLabel!.font = UIFont (name: "HelveticaNeue-Light", size: 18)
-            cell.detailTextLabel!.font = UIFont (name: "HelveticaNeue-Light", size: 18)
+            cell.textLabel!.font = ipadtitle
+            cell.detailTextLabel!.font = ipadtitle
 
         } else {
-            cell.textLabel!.font = UIFont (name:"HelveticaNeue-Light", size: 16)
-            cell.detailTextLabel!.font = UIFont (name:"HelveticaNeue-Light", size: 16)
+            cell.textLabel!.font = celltitle
+            cell.detailTextLabel!.font = celltitle
         }
         
         if (indexPath.row == 0) {

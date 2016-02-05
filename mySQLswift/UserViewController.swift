@@ -12,6 +12,15 @@ import MapKit
 import CoreLocation
 
 class UserViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate,  UICollectionViewDataSource, MKMapViewDelegate {
+    
+    let navlabel = UIFont.systemFontOfSize(25, weight: UIFontWeightThin)
+    let ipadtitle = UIFont.systemFontOfSize(20, weight: UIFontWeightRegular)
+    let ipadsubtitle = UIFont.systemFontOfSize(16, weight: UIFontWeightRegular)
+    
+    let celltitle = UIFont.systemFontOfSize(16, weight: UIFontWeightRegular)
+    let cellsubtitle = UIFont.systemFontOfSize(12, weight: UIFontWeightRegular)
+    let headtitle = UIFont.systemFontOfSize(UIFont.buttonFontSize())
+    //let headtitle = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -35,7 +44,7 @@ class UserViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         let titleButton: UIButton = UIButton(frame: CGRectMake(0, 0, 100, 32))
         titleButton.setTitle("myUsers", forState: UIControlState.Normal)
-        titleButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Thin", size: 25.0)
+        titleButton.titleLabel?.font = navlabel
         titleButton.titleLabel?.textAlignment = NSTextAlignment.Center
         titleButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         titleButton.addTarget(self, action: Selector(), forControlEvents: UIControlEvents.TouchUpInside)
@@ -131,11 +140,11 @@ class UserViewController: UIViewController, UITableViewDelegate, UITableViewData
         cell.usersubtitleLabel!.textColor = UIColor.grayColor()
         
         if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
-            cell.usertitleLabel!.font = UIFont (name: "HelveticaNeue", size: 20)
-            cell.usersubtitleLabel!.font = UIFont (name: "HelveticaNeue", size: 16)
+            cell.usertitleLabel!.font = ipadtitle
+            cell.usersubtitleLabel!.font = ipadsubtitle
         } else {
-            cell.usertitleLabel!.font = UIFont (name: "HelveticaNeue", size: 20)
-            cell.usersubtitleLabel!.font = UIFont (name: "HelveticaNeue", size: 16)
+            cell.usertitleLabel!.font = celltitle
+            cell.usersubtitleLabel!.font = cellsubtitle
         }
         
         let query:PFQuery = PFUser.query()!
@@ -176,7 +185,7 @@ class UserViewController: UIViewController, UITableViewDelegate, UITableViewData
         myLabel1.backgroundColor = UIColor.clearColor()
         myLabel1.textColor = UIColor.whiteColor()
         myLabel1.text = String(format: "%@%d", "Leads ", _feedItems.count)
-        myLabel1.font = UIFont.systemFontOfSize(UIFont.buttonFontSize())
+        myLabel1.font = headtitle
         vw.addSubview(myLabel1)
         
         return vw
@@ -240,7 +249,7 @@ class UserViewController: UIViewController, UITableViewDelegate, UITableViewData
         title.textAlignment = NSTextAlignment.Center
         title.layer.masksToBounds = true
         title.text = _feedItems[indexPath.row] .valueForKey("username") as? String
-        title.font = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
+        title.font = headtitle
         title.adjustsFontSizeToFitWidth = true
         title.clipsToBounds = true
         cell.addSubview(title)

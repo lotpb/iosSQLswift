@@ -15,6 +15,10 @@ import LocalAuthentication
 
 
 class LoginController: UIViewController, FBSDKLoginButtonDelegate {
+    
+    let navlabel = UIFont.systemFontOfSize(25, weight: UIFontWeightThin)
+    let ipadtitle = UIFont.systemFontOfSize(20, weight: UIFontWeightRegular)
+    let celltitle = UIFont.systemFontOfSize(18, weight: UIFontWeightRegular)
 
     @IBOutlet weak var mapView: MKMapView?
     
@@ -41,7 +45,7 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
         
         let titleButton: UIButton = UIButton(frame: CGRectMake(0, 0, 100, 32))
         titleButton.setTitle("Login", forState: UIControlState.Normal)
-        titleButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Thin", size: 25.0)
+        titleButton.titleLabel?.font = navlabel
         titleButton.titleLabel?.textAlignment = NSTextAlignment.Center
         titleButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         titleButton.addTarget(self, action: Selector(), forControlEvents: UIControlEvents.TouchUpInside)
@@ -75,17 +79,17 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
         }
         
         if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
-            self.usernameField!.font = UIFont (name: "HelveticaNeue", size: 20)
-            self.passwordField!.font = UIFont (name: "HelveticaNeue", size: 20)
-            self.reEnterPasswordField!.font = UIFont (name: "HelveticaNeue", size: 20)
-            self.emailField!.font = UIFont (name: "HelveticaNeue", size: 20)
-            self.phoneField!.font = UIFont (name: "HelveticaNeue", size: 20)
+            self.usernameField!.font = ipadtitle
+            self.passwordField!.font = ipadtitle
+            self.reEnterPasswordField!.font = ipadtitle
+            self.emailField!.font = ipadtitle
+            self.phoneField!.font = ipadtitle
         } else {
-            self.usernameField!.font = UIFont (name: "HelveticaNeue", size: 18)
-            self.passwordField!.font = UIFont (name: "HelveticaNeue", size: 18)
-            self.reEnterPasswordField!.font = UIFont (name: "HelveticaNeue", size: 18)
-            self.emailField!.font = UIFont (name: "HelveticaNeue", size: 18)
-            self.phoneField!.font = UIFont (name: "HelveticaNeue", size: 18)
+            self.usernameField!.font = celltitle
+            self.passwordField!.font = celltitle
+            self.reEnterPasswordField!.font = celltitle
+            self.emailField!.font = celltitle
+            self.phoneField!.font = celltitle
         }
         
         self.emailField!.keyboardType = UIKeyboardType.EmailAddress
@@ -138,8 +142,6 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
           //defaults.setObject("eunitedws@verizon.net", forKey: "emailKey")
             
             } */
-        
-        
         
         
 

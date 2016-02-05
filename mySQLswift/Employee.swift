@@ -11,10 +11,15 @@ import Parse
 
 class Employee: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating {
     
+    let navlabel = UIFont.systemFontOfSize(25, weight: UIFontWeightThin)
     let navColor = UIColor(red: 0.64, green: 0.54, blue: 0.50, alpha: 1.0)
     let labelColor = UIColor(red: 0.31, green: 0.23, blue: 0.17, alpha: 1.0)
     //let labelColor1 = UIColor(red: 0.15, green: 0.15, blue: 0.15, alpha: 1.0)
     let searchScope = ["name","city","phone","active"]
+    
+    let celltitle = UIFont.systemFontOfSize(20, weight: UIFontWeightRegular)
+    let cellsubtitle = UIFont.systemFontOfSize(17, weight: UIFontWeightRegular)
+    let headtitle = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
     
     @IBOutlet weak var tableView: UITableView?
 
@@ -37,7 +42,7 @@ class Employee: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         
         let titleButton: UIButton = UIButton(frame: CGRectMake(0, 0, 100, 32))
         titleButton.setTitle("myEmployee", forState: UIControlState.Normal)
-        titleButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Thin", size: 25.0)
+        titleButton.titleLabel?.font = navlabel
         titleButton.titleLabel?.textAlignment = NSTextAlignment.Center
         titleButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         titleButton.addTarget(self, action: Selector(), forControlEvents: UIControlEvents.TouchUpInside)
@@ -146,14 +151,14 @@ class Employee: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         cell.LeadsubtitleLabel!.textColor = UIColor.grayColor()
         
         if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
-            cell.LeadtitleLabel!.font = UIFont (name: "HelveticaNeue", size: 20)
-            cell.LeadsubtitleLabel!.font = UIFont (name: "HelveticaNeue", size: 16)
-            //myLabel1.font = UIFont (name: "HelveticaNeue", size: 16)
+            
+            cell.LeadtitleLabel!.font = celltitle
+            cell.LeadsubtitleLabel!.font = cellsubtitle
 
         } else {
-            cell.LeadtitleLabel!.font = UIFont (name: "HelveticaNeue", size: 20)
-            cell.LeadsubtitleLabel!.font = UIFont (name: "HelveticaNeue", size: 16)
-            //myLabel1.font = UIFont (name: "HelveticaNeue", size: 16)
+            cell.LeadtitleLabel!.font = celltitle
+            cell.LeadsubtitleLabel!.font = cellsubtitle
+           
         }
         
         if (tableView == self.tableView) {
@@ -187,8 +192,8 @@ class Employee: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         myLabel.textColor = UIColor.whiteColor()
         myLabel.textAlignment = NSTextAlignment.Center
         myLabel.layer.masksToBounds = true
-        myLabel.text = "Page"
-        myLabel.font = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
+        myLabel.text = "Employee"
+        myLabel.font = headtitle
         myLabel.layer.cornerRadius = 25.0
         myLabel.userInteractionEnabled = true
         cell.addSubview(myLabel)
@@ -219,7 +224,7 @@ class Employee: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         myLabel1.textAlignment = NSTextAlignment.Center
         myLabel1.layer.masksToBounds = true
         myLabel1.text = String(format: "%@%d", "Employ\n", _feedItems.count)
-        myLabel1.font = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
+        myLabel1.font = headtitle
         myLabel1.layer.cornerRadius = 25.0
         myLabel1.userInteractionEnabled = true
         vw.addSubview(myLabel1)
@@ -235,7 +240,7 @@ class Employee: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         myLabel2.textAlignment = NSTextAlignment.Center
         myLabel2.layer.masksToBounds = true
         myLabel2.text = String(format: "%@%d", "Active\n", _feedheadItems.count)
-        myLabel2.font = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
+        myLabel2.font = headtitle
         myLabel2.layer.cornerRadius = 25.0
         myLabel2.userInteractionEnabled = true
         vw.addSubview(myLabel2)
@@ -251,7 +256,7 @@ class Employee: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         myLabel3.textAlignment = NSTextAlignment.Center
         myLabel3.layer.masksToBounds = true
         myLabel3.text = "Active"
-        myLabel3.font = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
+        myLabel3.font = headtitle
         myLabel3.layer.cornerRadius = 25.0
         myLabel3.userInteractionEnabled = true
         vw.addSubview(myLabel3)

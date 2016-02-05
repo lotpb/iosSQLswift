@@ -12,15 +12,16 @@ import EventKit
 
 class SnapshotController: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDataSource, UICollectionViewDelegate {
     
-    let font18M = UIFont.systemFontOfSize(18, weight: UIFontWeightMedium)
-    let font18R = UIFont.systemFontOfSize(18, weight: UIFontWeightRegular)
-    let font16R = UIFont.systemFontOfSize(16, weight: UIFontWeightRegular)
-    let fontl = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
+    let navlabel = UIFont.systemFontOfSize(25, weight: UIFontWeightThin)
+    let cellHeadertitle = UIFont.systemFontOfSize(20, weight: UIFontWeightRegular)
+    let celltitle = UIFont.systemFontOfSize(18, weight: UIFontWeightRegular)
+    let cellsubtitle = UIFont.systemFontOfSize(16, weight: UIFontWeightRegular)
+    let headtitle = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
+
 
     @IBOutlet weak var tableView: UITableView!
     
     var selectedImage : UIImage!
-    //var eventStore : EKEventStore = EKEventStore()
     var eventStore: EKEventStore!
     var reminders: [EKReminder]!
 
@@ -94,7 +95,7 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
         
         let titleButton: UIButton = UIButton(frame: CGRectMake(0, 0, 100, 32))
         titleButton.setTitle("mySnapshot", forState: UIControlState.Normal)
-        titleButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Thin", size: 25.0)
+        titleButton.titleLabel?.font = navlabel
         titleButton.titleLabel?.textAlignment = NSTextAlignment.Center
         titleButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         titleButton.addTarget(self, action: Selector(), forControlEvents: UIControlEvents.TouchUpInside)
@@ -305,13 +306,13 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
         cell.collectionView.backgroundColor = UIColor.whiteColor()
         
         if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
-            cell.textLabel!.font = font18M
-            cell.snaptitleLabel.font = font16R
-            cell.snapdetailLabel.font = font18R
+            cell.textLabel!.font = cellHeadertitle
+            cell.snaptitleLabel.font = cellsubtitle
+            cell.snapdetailLabel.font = celltitle
         } else {
-            cell.textLabel!.font = font18M
-            cell.snaptitleLabel.font = font16R
-            cell.snapdetailLabel.font = font18R
+            cell.textLabel!.font = cellHeadertitle
+            cell.snaptitleLabel.font = cellsubtitle
+            cell.snapdetailLabel.font = celltitle
         }
         
         cell.accessoryType = UITableViewCellAccessoryType.None
@@ -570,7 +571,7 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
         myLabel1.textColor = UIColor.blackColor()
         myLabel1.textAlignment = NSTextAlignment.Center
         myLabel1.clipsToBounds = true
-        myLabel1.font = fontl
+        myLabel1.font = headtitle
         //myLabel1.adjustsFontSizeToFitWidth = true
         
         if (collectionView.tag == 0) {

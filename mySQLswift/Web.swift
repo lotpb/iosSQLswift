@@ -20,7 +20,7 @@ class Web: UIViewController, SFSafariViewControllerDelegate, WKNavigationDelegat
     //let buttonColor = UIColor(red: 0.02, green: 0.36, blue: 0.53, alpha: 1.0)
     //let buttonColor1 = UIColor(white:0.45, alpha:1.0)
     
-    var webView: WKWebView
+    private var webView: WKWebView
     var url: NSURL?
     
     @IBOutlet weak var progressView: UIProgressView!

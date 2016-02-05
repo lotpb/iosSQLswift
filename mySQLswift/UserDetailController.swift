@@ -14,6 +14,13 @@ import MobileCoreServices //kUTTypeImage
 
 class UserDetailController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, MKMapViewDelegate, UITextFieldDelegate {
     
+    let navlabel = UIFont.systemFontOfSize(25, weight: UIFontWeightThin)
+    let ipadtitle = UIFont.systemFontOfSize(20, weight: UIFontWeightLight)
+    let ipadlabel = UIFont.systemFontOfSize(16, weight: UIFontWeightLight)
+    
+    let celltitle = UIFont.systemFontOfSize(18, weight: UIFontWeightLight)
+    let celllabel = UIFont.systemFontOfSize(14, weight: UIFontWeightLight)
+    
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var mainView: UIView?
     @IBOutlet weak var userimageView: UIImageView?
@@ -48,7 +55,7 @@ class UserDetailController: UIViewController, UINavigationControllerDelegate, UI
 
         let titleButton: UIButton = UIButton(frame: CGRectMake(0, 0, 100, 32))
         titleButton.setTitle("myUser Info", forState: UIControlState.Normal)
-        titleButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Thin", size: 25.0)
+        titleButton.titleLabel?.font = navlabel
         titleButton.titleLabel?.textAlignment = NSTextAlignment.Center
         titleButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         titleButton.addTarget(self, action: Selector(), forControlEvents: UIControlEvents.TouchUpInside)
@@ -87,15 +94,15 @@ class UserDetailController: UIViewController, UINavigationControllerDelegate, UI
         
         
         if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
-            self.usernameField!.font = UIFont (name: "HelveticaNeue-Light", size: 20)
-            self.emailField!.font = UIFont (name: "HelveticaNeue-Light", size: 20)
-            self.phoneField!.font = UIFont (name: "HelveticaNeue-Light", size: 20)
-            self.createLabel!.font = UIFont (name: "HelveticaNeue-Light", size: 16)
+            self.usernameField!.font = ipadtitle
+            self.emailField!.font = ipadtitle
+            self.phoneField!.font = ipadtitle
+            self.createLabel!.font = ipadlabel
         } else {
-            self.usernameField!.font = UIFont (name: "HelveticaNeue-Light", size: 18)
-            self.emailField!.font = UIFont (name: "HelveticaNeue-Light", size: 18)
-            self.phoneField!.font = UIFont (name: "HelveticaNeue-Light", size: 18)
-            self.createLabel!.font = UIFont (name: "HelveticaNeue-Light", size: 14)
+            self.usernameField!.font = celltitle
+            self.emailField!.font = celltitle
+            self.phoneField!.font = celltitle
+            self.createLabel!.font = celllabel
         }
         
         let query = PFUser.query()

@@ -15,16 +15,33 @@ import MessageUI
 
 class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, MFMailComposeViewControllerDelegate {
     
-    let textFont = ".SFUIText-Regular"
-    let textFontB = ".SFUIText-Bold"
-    let textFontSB = ".SFUIText-Semibold"
-    let textFontM = ".SFUIText-Medium"
-    let fontM = UIFont.systemFontOfSize(36, weight: UIFontWeightMedium)
-    //let textFontMD = ".SFUIDisplay-Medium"
-    let textFontL = ".SFUIText-Light"
+    let navlabel = UIFont.systemFontOfSize(25, weight: UIFontWeightThin)
+    let ipadname = UIFont.systemFontOfSize(30, weight: UIFontWeightLight)
+    let ipaddate = UIFont.systemFontOfSize(18, weight: UIFontWeightRegular)
+    let ipadaddress = UIFont.systemFontOfSize(26, weight: UIFontWeightLight)
+    let ipadAmount = UIFont.systemFontOfSize(36, weight: UIFontWeightRegular)
     
-    let emailTitle:String = "mySQL" //defaults.stringForKey("emailtitleKey")!
-    let messageBody:String = "Program in Swift" //defaults.stringForKey("emailmessageKey")!
+    let textname = UIFont.systemFontOfSize(24, weight: UIFontWeightLight)
+    let textdate = UIFont.systemFontOfSize(16, weight: UIFontWeightRegular)
+    let textaddress = UIFont.systemFontOfSize(20, weight: UIFontWeightRegular)
+    let textAmount = UIFont.systemFontOfSize(30, weight: UIFontWeightRegular)
+    
+    let Vtextname = UIFont.systemFontOfSize(18, weight: UIFontWeightLight)
+    let Vtextdate = UIFont.systemFontOfSize(12, weight: UIFontWeightRegular)
+    let VtextAmount = UIFont.systemFontOfSize(20, weight: UIFontWeightMedium)
+    
+    let celltitle = UIFont.systemFontOfSize(12, weight: UIFontWeightSemibold)
+    let cellsubtitle = UIFont.systemFontOfSize(12, weight: UIFontWeightLight)
+    
+    let newstitle = UIFont.systemFontOfSize(18, weight: UIFontWeightSemibold)
+    let newssubtitle = UIFont.systemFontOfSize(16, weight: UIFontWeightLight)
+    let newsdetail = UIFont.systemFontOfSize(16, weight: UIFontWeightRegular)
+    
+    let textbutton = UIFont.systemFontOfSize(18, weight: UIFontWeightRegular)
+    
+    let defaults = NSUserDefaults.standardUserDefaults()
+    var emailTitle :String!
+    var messageBody:String!
     
     var tableData : NSMutableArray = NSMutableArray()
     var tableData2 : NSMutableArray = NSMutableArray()
@@ -32,12 +49,14 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     var tableData4 : NSMutableArray = NSMutableArray()
     
     @IBOutlet weak var scrollWall: UIScrollView?
+    @IBOutlet weak var mainView: UIView!
+    @IBOutlet weak var mySwitch: UISwitch!
+    @IBOutlet weak var activebutton: UIButton!
+    @IBOutlet weak var mapbutton: UIButton!
     
     @IBOutlet weak var listTableView: UITableView!
     @IBOutlet weak var listTableView2: UITableView!
     @IBOutlet weak var newsTableView: UITableView!
-    
-    @IBOutlet weak var mainView: UIView!
     
     @IBOutlet weak var labelNo: UILabel!
     @IBOutlet weak var labelname: UILabel!
@@ -47,12 +66,6 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     @IBOutlet weak var labelcity: UILabel!
     @IBOutlet weak var following: UILabel!
     @IBOutlet weak var labeldatetext: UILabel!
-    
-    @IBOutlet weak var mySwitch: UISwitch!
-    @IBOutlet weak var activebutton: UIButton!
-    @IBOutlet weak var mapbutton: UIButton!
-    
-    var defaults = NSUserDefaults.standardUserDefaults()
     
     var formController : String?
     var status : NSString?
@@ -134,7 +147,7 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         
         let titleButton: UIButton = UIButton(frame: CGRectMake(0, 0, 100, 32))
         titleButton.setTitle("myDetails", forState: UIControlState.Normal)
-        titleButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Thin", size: 25.0)
+        titleButton.titleLabel?.font = navlabel
         titleButton.titleLabel?.textAlignment = NSTextAlignment.Center
         titleButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         titleButton.addTarget(self, action: Selector(), forControlEvents: UIControlEvents.TouchUpInside)
@@ -145,33 +158,36 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         self.newsTableView!.estimatedRowHeight = 100
         self.newsTableView!.rowHeight = UITableViewAutomaticDimension
         
+        emailTitle = defaults.stringForKey("emailtitleKey")!
+        messageBody = defaults.stringForKey("emailmessageKey")!
+        
         if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
             
-            labelamount!.font = UIFont (name: textFont, size: 36)
-            labelname!.font = UIFont (name: textFontL, size: 30)
-            labeldate!.font = UIFont (name: textFont, size: 18)
-            labeladdress!.font = UIFont (name: textFontL, size: 26)
-            labelcity!.font = UIFont (name: textFontL, size: 26)
-            mapbutton!.titleLabel?.font = UIFont(name: textFont, size: 18)
+            labelamount!.font = ipadAmount
+            labelname!.font = ipadname
+            labeldate!.font = ipaddate
+            labeladdress!.font = ipadaddress
+            labelcity!.font = ipadaddress
+            mapbutton!.titleLabel?.font = textbutton
             
         } else {
             
-            labeladdress!.font = UIFont (name: textFont, size: 20)
-            labelcity!.font = UIFont (name: textFont, size: 20)
-            mapbutton!.titleLabel?.font = UIFont(name: textFont, size: 18)
+            labeladdress!.font = textaddress
+            labelcity!.font = textaddress
+            mapbutton!.titleLabel?.font = textbutton
             
             if (self.formController == "Vendor" || self.formController == "Employee") {
-                labelamount!.font = UIFont (name: textFontM, size: 20)
-                labeldate!.font = UIFont (name: textFont, size: 12)
+                labelamount!.font = VtextAmount
+                labeldate!.font = Vtextdate
             } else {
-                labelamount!.font = fontM
-                labeldate!.font = UIFont (name: textFont, size: 16)
+                labelamount!.font = textAmount
+                labeldate!.font = textdate
             }
             
             if self.formController == "Vendor" {
-                labelname!.font = UIFont (name: textFontL, size: 18)
+                labelname!.font = Vtextname
             } else {
-                labelname!.font = UIFont (name: textFontL, size: 24)
+                labelname!.font = textname
             }
         }
         
@@ -299,11 +315,11 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             cell.layer.masksToBounds = true */
             
             if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
-                cell.textLabel!.font = UIFont (name: textFontSB, size: 14)
-                cell.detailTextLabel!.font = UIFont (name: textFontL, size: 14)
+                cell.textLabel!.font = celltitle
+                cell.detailTextLabel!.font = cellsubtitle
             } else {
-                cell.textLabel!.font = UIFont (name: textFontSB, size: 12)
-                cell.detailTextLabel!.font = UIFont (name: textFontL, size: 12)
+                cell.textLabel!.font = celltitle
+                cell.detailTextLabel!.font = cellsubtitle
             }
             
             cell.textLabel!.text = tableData4.objectAtIndex(indexPath.row) as? String
@@ -326,11 +342,11 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             cell.layer.masksToBounds = true */
 
             if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
-                cell.textLabel!.font = UIFont (name: textFontSB, size: 14)
-                cell.detailTextLabel!.font = UIFont (name: textFontL, size: 14)
+                cell.textLabel!.font = celltitle
+                cell.detailTextLabel!.font = cellsubtitle
             } else {
-                cell.textLabel!.font = UIFont (name: textFontSB, size: 12)
-                cell.detailTextLabel!.font = UIFont (name: textFontL, size: 12)
+                cell.textLabel!.font = celltitle
+                cell.detailTextLabel!.font = cellsubtitle
             }
             
             cell.textLabel!.text = tableData3.objectAtIndex(indexPath.row) as? String
@@ -347,15 +363,15 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             self.newsTableView!.tableFooterView = UIView(frame: CGRectZero)
             
             if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
-                cell.leadtitleDetail!.font = UIFont (name: textFontSB, size: 20)
-                cell.leadsubtitleDetail!.font = UIFont (name: textFontL, size: 18)
-                cell.leadreadDetail!.font = UIFont (name: textFont, size: 18)
-                cell.leadnewsDetail!.font = UIFont (name: textFont, size: 18)
+                cell.leadtitleDetail!.font = newstitle
+                cell.leadsubtitleDetail!.font = newssubtitle
+                cell.leadreadDetail!.font = newsdetail
+                cell.leadnewsDetail!.font = newsdetail
             } else {
-                cell.leadtitleDetail!.font = UIFont (name: textFontSB, size: 18)
-                cell.leadsubtitleDetail!.font = UIFont (name: textFontL, size: 16)
-                cell.leadreadDetail.font = UIFont (name: textFont, size: 16)
-                cell.leadnewsDetail!.font = UIFont (name: textFont, size: 16)
+                cell.leadtitleDetail!.font = newstitle
+                cell.leadsubtitleDetail!.font = newssubtitle
+                cell.leadreadDetail.font = newsdetail
+                cell.leadnewsDetail!.font = newsdetail
             }
             
             let width = CGFloat(2.0)

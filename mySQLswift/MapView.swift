@@ -12,6 +12,9 @@ import CoreLocation
 
 class MapView: UIViewController, MKMapViewDelegate,  CLLocationManagerDelegate {
     
+    let celllabel1 = UIFont.systemFontOfSize(18, weight: UIFontWeightMedium)
+    let cellsteps = UIFont.systemFontOfSize(18, weight: UIFontWeightLight)
+    
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var travelTime: UILabel!
     @IBOutlet weak var travelDistance: UILabel!
@@ -42,9 +45,9 @@ class MapView: UIViewController, MKMapViewDelegate,  CLLocationManagerDelegate {
         //self.travelTime.sizeToFit()
         //self.travelDistance.sizeToFit()
         
-        self.travelTime.font = UIFont (name: "HelveticaNeue-Medium", size: 18)
-        self.travelDistance.font = UIFont (name: "HelveticaNeue-Medium", size: 18)
-        self.steps.font = UIFont (name: "HelveticaNeue-light", size: 18)
+        self.travelTime.font = celllabel1
+        self.travelDistance.font = celllabel1
+        self.steps.font = cellsteps
         
         self.travelTime.textColor = UIColor(red:0.0, green:122.0/255.0, blue:1.0, alpha: 1.0)
         self.travelDistance.textColor = UIColor(red:0.0, green:122.0/255.0, blue:1.0, alpha: 1.0)

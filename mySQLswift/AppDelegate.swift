@@ -20,9 +20,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
+        // MARK: - Settings
+        
+        var itemDefaults = Dictionary<String,AnyObject>()
+        itemDefaults["soundKey"] = false
+        itemDefaults["parsedataKey"] = true
+        itemDefaults["autolockKey"] = false
+        itemDefaults["fetchKey"] = false
+        itemDefaults["usernameKey"] = "Peter Balsamo"
+        itemDefaults["passwordKey"] = "3911"
+        itemDefaults["emailtitleKey"] = "mySQL"
+        itemDefaults["emailmessageKey"] = "Program in Swift"
+
+        
+        defaults.registerDefaults(itemDefaults)
+        defaults.synchronize()
+        
         // MARK: - Parse
         
-        if (defaults.valueForKey("parsedataKey") != nil)  {
+        if (defaults.boolForKey("parsedataKey"))  {
             
         Parse.setApplicationId("lMUWcnNfBE2HcaGb2zhgfcTgDLKifbyi6dgmEK3M", clientKey: "UVyAQYRpcfZdkCa5Jzoza5fTIPdELFChJ7TVbSeX")
         
@@ -31,11 +47,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         PFFacebookUtils.initializeFacebookWithApplicationLaunchOptions(launchOptions)
             
         }
-        
 
         // MARK: - prevent Autolock
         
-        if (defaults.valueForKey("autolockKey") != nil)  {
+        if (defaults.boolForKey("autolockKey"))  {
             UIApplication.sharedApplication().idleTimerDisabled = true
         }
         
@@ -50,10 +65,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         
         // MARK: - Background Fetch
         
-        if (defaults.valueForKey("fetchKey") != nil) {
+        //if (defaults.boolForKey("fetchKey"))  {
         
             UIApplication.sharedApplication().setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalMinimum)
-        }
+       // }
         
         // MARK: - ApplicationIconBadgeNumber
         
@@ -65,8 +80,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         
         // MARK: - Register login
         // FIXME:
-        
-        if (defaults.valueForKey("registerKey") == nil) || (defaults.valueForKey("loginKey") != nil) {
+        if ((defaults.boolForKey("registerKey")) || (defaults.boolForKey("loginKey"))) {
+        //if (defaults.valueForKey("registerKey") == nil) || (defaults.valueForKey("loginKey") != nil) {
         //if PFUser.currentUser() == nil{
             
             // show main screen
@@ -84,7 +99,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         }
         
         
-        
         // MARK: - SplitViewController
         /*
         // Override point for customization after application launch.
@@ -93,15 +107,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         navigationController.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem()
         splitViewController.delegate = self */
         
-        
-        // MARK: - Reg Settings
-        
-        /*
-        let prefs = NSBundle.mainBundle().pathForResource("Settings", ofType: "plist")
-        let dict = NSDictionary(contentsOfFile: prefs!)
-        defaults.setObject(dict, forKey: "defaults")                // without this code doesn't work
-        defaults.registerDefaults(["areacodeKey": "(516)", "parsedataKey": "YES"])  // with or without this code works... do I need this?
-        defaults.synchronize() */
         
         customizeAppearance()
         
@@ -119,7 +124,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     
     func application(application: UIApplication, performFetchWithCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
         
-        if (defaults.valueForKey("fetchKey") != nil)  {
+        //if (defaults.boolForKey("fetchKey")) {
+        //if (defaults.valueForKey("fetchKey") != nil)  {
             print("########### Received Background Fetch ###########");
             
             let localNotification: UILocalNotification = UILocalNotification()
@@ -130,7 +136,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
             UIApplication.sharedApplication().presentLocalNotificationNow(localNotification)
             
             completionHandler(UIBackgroundFetchResult.NewData)
-        }
+       // }
     }
     
     // MARK: - Facebook

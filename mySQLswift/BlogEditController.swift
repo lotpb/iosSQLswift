@@ -11,6 +11,25 @@ import Parse
 
 class BlogEditController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    let navlabel = UIFont.systemFontOfSize(25, weight: UIFontWeightThin)
+    let ipadtitle = UIFont.systemFontOfSize(20, weight: UIFontWeightBold)
+    let ipadsubtitle = UIFont.systemFontOfSize(12, weight: UIFontWeightLight)
+    let ipaddate = UIFont.systemFontOfSize(18, weight: UIFontWeightLight)
+    
+    let celltitle = UIFont.systemFontOfSize(18, weight: UIFontWeightBold)
+    let cellsubtitle = UIFont.systemFontOfSize(17, weight: UIFontWeightLight)
+    let celldate = UIFont.systemFontOfSize(17, weight: UIFontWeightLight)
+    
+    let replyipadtitle = UIFont.systemFontOfSize(16, weight: UIFontWeightBold)
+    let replyipadsubtitle = UIFont.systemFontOfSize(16, weight: UIFontWeightLight)
+    let replyipaddate = UIFont.systemFontOfSize(16, weight: UIFontWeightBold)
+    let replyipadlabel = UIFont.systemFontOfSize(16, weight: UIFontWeightRegular)
+    
+    let replytitle = UIFont.systemFontOfSize(14, weight: UIFontWeightBold)
+    let replysubtitle = UIFont.systemFontOfSize(14, weight: UIFontWeightLight)
+    let replydate = UIFont.systemFontOfSize(14, weight: UIFontWeightBold)
+    let replylabel = UIFont.systemFontOfSize(14, weight: UIFontWeightRegular)
+    
     @IBOutlet weak var tableView: UITableView?
     @IBOutlet weak var listTableView: UITableView?
     @IBOutlet weak var toolBar: UIToolbar?
@@ -40,7 +59,7 @@ class BlogEditController: UIViewController, UITableViewDelegate, UITableViewData
 
         let titleButton: UIButton = UIButton(frame: CGRectMake(0, 0, 100, 32))
         titleButton.setTitle("Edit Message", forState: UIControlState.Normal)
-        titleButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Thin", size: 25.0)
+        titleButton.titleLabel?.font = navlabel
         titleButton.titleLabel?.textAlignment = NSTextAlignment.Center
         titleButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         titleButton.addTarget(self, action: Selector(), forControlEvents: UIControlEvents.TouchUpInside)
@@ -142,15 +161,15 @@ class BlogEditController: UIViewController, UITableViewDelegate, UITableViewData
             
             if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
                 
-                cell.titleLabel!.font = UIFont.systemFontOfSize(20, weight: UIFontWeightBold)
-                cell.subtitleLabel!.font = UIFont.systemFontOfSize(20, weight: UIFontWeightLight)
-                cell.msgDateLabel.font = UIFont.systemFontOfSize(17, weight: UIFontWeightLight)
+                cell.titleLabel!.font = ipadtitle
+                cell.subtitleLabel!.font = ipadsubtitle
+                cell.msgDateLabel.font = ipaddate
                 
             } else {
                 
-                cell.titleLabel!.font = UIFont.systemFontOfSize(18, weight: UIFontWeightBold)
-                cell.subtitleLabel!.font = UIFont.systemFontOfSize(17, weight: UIFontWeightLight)
-                cell.msgDateLabel.font = UIFont.systemFontOfSize(17, weight: UIFontWeightLight)
+                cell.titleLabel!.font = celltitle
+                cell.subtitleLabel!.font = cellsubtitle
+                cell.msgDateLabel.font = celldate
             }
             
             let query:PFQuery = PFUser.query()!
@@ -244,17 +263,17 @@ class BlogEditController: UIViewController, UITableViewDelegate, UITableViewData
             
             if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
                 
-                cell.replytitleLabel!.font = UIFont.systemFontOfSize(16, weight: UIFontWeightBold)
-                cell.replysubtitleLabel!.font = UIFont.systemFontOfSize(16, weight: UIFontWeightLight)
-                cell.replynumLabel!.font = UIFont.systemFontOfSize(16, weight: UIFontWeightBold)
-                cell.replydateLabel!.font = UIFont.systemFontOfSize(16)
+                cell.replytitleLabel!.font = replyipadtitle
+                cell.replysubtitleLabel!.font = replyipadsubtitle
+                cell.replynumLabel!.font = replyipaddate
+                cell.replydateLabel!.font = replyipadlabel
                 
             } else {
                 
-                cell.replytitleLabel!.font = UIFont.systemFontOfSize(14, weight: UIFontWeightBold)
-                cell.replysubtitleLabel!.font = UIFont.systemFontOfSize(14, weight: UIFontWeightLight)
-                cell.replynumLabel.font = UIFont.systemFontOfSize(14, weight: UIFontWeightBold)
-                cell.replydateLabel.font = UIFont.systemFontOfSize(14)
+                cell.replytitleLabel!.font = replytitle
+                cell.replysubtitleLabel!.font = replysubtitle
+                cell.replynumLabel.font = replydate
+                cell.replydateLabel.font = replylabel
             }
 
             let date1 = _feedItems1[indexPath.row] .valueForKey("createdAt") as? NSDate

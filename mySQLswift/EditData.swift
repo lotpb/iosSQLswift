@@ -11,6 +11,8 @@ import Parse
 
 class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate {
 
+    let navlabel = UIFont.systemFontOfSize(25, weight: UIFontWeightThin)
+    let celltitle = UIFont.systemFontOfSize(20, weight: UIFontWeightRegular)
     
     @IBOutlet weak var tableView: UITableView?
     
@@ -106,7 +108,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         
         let titleButton: UIButton = UIButton(frame: CGRectMake(0, 0, 100, 32))
         titleButton.setTitle(String(format: "%@ %@", self.status!, self.formController!), forState: UIControlState.Normal)
-        titleButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Thin", size: 25.0)
+        titleButton.titleLabel?.font = navlabel
         titleButton.titleLabel?.textAlignment = NSTextAlignment.Center
         titleButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         titleButton.addTarget(self, action: Selector(), forControlEvents: UIControlEvents.TouchUpInside)
@@ -228,19 +230,20 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         aptframe = UITextField(frame:CGRect(x: 220, y: 7, width: 80, height: 30))
         
         if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
+            
             textframe = UITextField(frame:CGRect(x: 118, y: 7, width: 250, height: 30))
             textviewframe = UITextView(frame:CGRect(x: 118, y: 7, width: 250, height: 95))
-            textframe!.font = UIFont (name: "HelveticaNeue", size: 20)
-            aptframe!.font = UIFont (name: "HelveticaNeue", size: 20)
-            textviewframe!.font = UIFont (name: "HelveticaNeue", size: 20)
+            textframe!.font = celltitle
+            aptframe!.font = celltitle
+            textviewframe!.font = celltitle
 
         } else {
+            
             textframe = UITextField(frame:CGRect(x: 118, y: 7, width: 205, height: 30))
             textviewframe = UITextView(frame:CGRect(x: 118, y: 7, width: 240, height: 95))
-            textframe!.font = UIFont (name: "HelveticaNeue", size: 20)
-            aptframe!.font = UIFont (name: "HelveticaNeue", size: 20)
-            textviewframe!.font = UIFont (name: "HelveticaNeue", size: 20)
-
+            textframe!.font = celltitle
+            aptframe!.font = celltitle
+            textviewframe!.font = celltitle
         }
         
         textframe!.autocorrectionType = UITextAutocorrectionType.No
@@ -589,7 +592,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             }
             cell.textLabel!.text = "Comments"
             cell.contentView.addSubview(self.comment!)
-            self.comment!.font = UIFont (name: "HelveticaNeue-Medium", size: 20)
+            self.comment!.font = celltitle
             
         } else if(indexPath.row == 14) {
             self.start = textframe
@@ -617,7 +620,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             self.complete!.inputView = nil //self datePicker:15
             cell.textLabel!.text = "End Date"
             cell.contentView.addSubview(self.complete!)
-            self.complete!.font = UIFont (name: "HelveticaNeue", size: 20)
+            self.complete!.font = celltitle
             }
         
         return cell
@@ -733,9 +736,9 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     
     func passFieldData() {
         
-        self.first!.font = UIFont (name: "HelveticaNeue", size: 20)
-        self.last!.font = UIFont (name: "HelveticaNeue", size: 20)
-        self.company!.font = UIFont (name: "HelveticaNeue", size: 20)
+        self.first!.font = celltitle
+        self.last!.font = celltitle
+        self.company!.font = celltitle
         
         if (self.formController == "Leads" || self.formController == "Customer") {
             self.last.borderStyle = UITextBorderStyle.RoundedRect

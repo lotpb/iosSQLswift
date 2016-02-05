@@ -11,6 +11,9 @@ import Parse
 
 class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UISearchResultsUpdating {
     
+    let navlabel = UIFont.systemFontOfSize(25, weight: UIFontWeightThin)
+    let celltitle = UIFont.systemFontOfSize(20, weight: UIFontWeightRegular)
+    
     @IBOutlet weak var tableView: UITableView?
     
     var formController : NSString?
@@ -42,7 +45,7 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
         
         let titleButton: UIButton = UIButton(frame: CGRectMake(0, 0, 100, 32))
         titleButton.setTitle(String(format: "%@ %@", self.formStatus!, self.formController!), forState: UIControlState.Normal)
-        titleButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Thin", size: 25.0)
+        titleButton.titleLabel?.font = navlabel
         titleButton.titleLabel?.textAlignment = NSTextAlignment.Center
         titleButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         titleButton.addTarget(self, action: Selector(), forControlEvents: UIControlEvents.TouchUpInside)
@@ -71,7 +74,6 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
         let buttons:NSArray = [saveButton]
         self.navigationItem.rightBarButtonItems = buttons as? [UIBarButtonItem]
 
-        
         self.refreshControl = UIRefreshControl()
         refreshControl.backgroundColor = UIColor.clearColor()
         refreshControl.tintColor = UIColor.blackColor()
@@ -142,22 +144,19 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
         
         let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier)! as UITableViewCell
 
-        
         cell.selectionStyle = UITableViewCellSelectionStyle.None
-        
         
         textframe = UITextField(frame:CGRect(x: 130, y: 7, width: 175, height: 30))
         activeImage = UIImageView(frame:CGRect(x: 130, y: 10, width: 18, height: 22))
         
-        
         if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
             
-            self.salesman!.font = UIFont (name: "HelveticaNeue", size: 20)
-            self.salesNo!.font = UIFont (name: "HelveticaNeue", size: 20)
+            self.salesman!.font = celltitle
+            self.salesNo!.font = celltitle
         } else {
             
-            self.salesman?.font = UIFont (name: "HelveticaNeue", size: 20)
-            self.salesNo?.font = UIFont (name: "HelveticaNeue", size: 20)
+            self.salesman?.font = celltitle
+            self.salesNo?.font = celltitle
         }
         
         if (indexPath.row == 0) {

@@ -16,6 +16,13 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
     let labelColor1 = UIColor(white:0.45, alpha:1.0)
     let searchScope = ["name","city","phone","date", "active"]
     
+    let navlabel = UIFont.systemFontOfSize(25, weight: UIFontWeightThin)
+    let celltitle = UIFont.systemFontOfSize(20, weight: UIFontWeightRegular)
+    let cellsubtitle = UIFont.systemFontOfSize(17, weight: UIFontWeightRegular)
+    let celllabel1 = UIFont.systemFontOfSize(16, weight: UIFontWeightRegular)
+    let celllabel2 = UIFont.systemFontOfSize(17, weight: UIFontWeightMedium)
+    let headtitle = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
+    
     @IBOutlet weak var tableView: UITableView?
     
     var _feedItems = NSMutableArray()
@@ -39,7 +46,7 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
         
         let titleButton: UIButton = UIButton(frame: CGRectMake(0, 0, 100, 32))
         titleButton.setTitle("myLeads", forState: UIControlState.Normal)
-        titleButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Thin", size: 25.0)
+        titleButton.titleLabel?.font = navlabel
         titleButton.titleLabel?.textAlignment = NSTextAlignment.Center
         titleButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         titleButton.addTarget(self, action: Selector(), forControlEvents: UIControlEvents.TouchUpInside)
@@ -165,17 +172,17 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
         
         if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
             
-            cell.LeadtitleLabel!.font = UIFont.systemFontOfSize(20)
-            cell.LeadsubtitleLabel!.font = UIFont.systemFontOfSize(17)
-            myLabel1.font = UIFont.systemFontOfSize(16)
-            myLabel2.font = UIFont.systemFontOfSize(17, weight: UIFontWeightMedium)
+            cell.LeadtitleLabel!.font = celltitle
+            cell.LeadsubtitleLabel!.font = cellsubtitle
+            myLabel1.font = celllabel1
+            myLabel2.font = celllabel2
             
         } else {
             
-            cell.LeadtitleLabel!.font = UIFont.systemFontOfSize(20)
-            cell.LeadsubtitleLabel!.font =  UIFont.systemFontOfSize(17)
-            myLabel1.font = UIFont.systemFontOfSize(16)
-            myLabel2.font = UIFont.systemFontOfSize(17, weight: UIFontWeightMedium)
+            cell.LeadtitleLabel!.font = celltitle
+            cell.LeadsubtitleLabel!.font =  cellsubtitle
+            myLabel1.font = celllabel1
+            myLabel2.font = celllabel2
         }
         
         if (tableView == self.tableView) {
@@ -200,7 +207,7 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
         myLabel.textAlignment = NSTextAlignment.Center
         myLabel.layer.masksToBounds = true
         myLabel.text = "Lead"
-        myLabel.font = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
+        myLabel.font = headtitle
         myLabel.layer.cornerRadius = 25.0
         myLabel.userInteractionEnabled = true
         myLabel.tag = indexPath.row
@@ -230,7 +237,7 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
         myLabel1.textAlignment = NSTextAlignment.Center
         myLabel1.layer.masksToBounds = true
         myLabel1.text = String(format: "%@%d", "Leads\n", _feedItems.count)
-        myLabel1.font = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
+        myLabel1.font = headtitle
         myLabel1.layer.cornerRadius = 25.0
         myLabel1.userInteractionEnabled = true
         vw.addSubview(myLabel1)
@@ -246,7 +253,7 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
         myLabel2.textAlignment = NSTextAlignment.Center
         myLabel2.layer.masksToBounds = true
         myLabel2.text = String(format: "%@%d", "Active\n", _feedheadItems.count)
-        myLabel2.font = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
+        myLabel2.font = headtitle
         myLabel2.layer.cornerRadius = 25.0
         myLabel2.userInteractionEnabled = true
         vw.addSubview(myLabel2)
@@ -262,7 +269,7 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
         myLabel3.textAlignment = NSTextAlignment.Center
         myLabel3.layer.masksToBounds = true
         myLabel3.text = "Active"
-        myLabel3.font = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
+        myLabel3.font = headtitle
         myLabel3.layer.cornerRadius = 25.0
         myLabel3.userInteractionEnabled = true
         vw.addSubview(myLabel3)

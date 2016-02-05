@@ -15,24 +15,15 @@ import CoreBluetooth
 class TransmitBeaconController: UIViewController, CBPeripheralManagerDelegate {
     
     @IBOutlet weak var btnAction: UIButton!
-    
     @IBOutlet weak var lblStatus: UILabel!
-    
     @IBOutlet weak var lblBTStatus: UILabel!
-    
     @IBOutlet weak var txtMajor: UITextField!
-    
     @IBOutlet weak var txtMinor: UITextField!
     
-    
     let uuid = NSUUID(UUIDString: "F34A1A1F-500F-48FB-AFAA-9584D641D7B1")
-    
     var beaconRegion: CLBeaconRegion!
-    
     var bluetoothPeripheralManager: CBPeripheralManager!
-    
     var isBroadcasting = false
-    
     var dataDictionary = NSDictionary()
     
     
@@ -45,7 +36,6 @@ class TransmitBeaconController: UIViewController, CBPeripheralManagerDelegate {
         let swipeDownGestureRecognizer = UISwipeGestureRecognizer(target: self, action: "handleSwipeGestureRecognizer:")
         swipeDownGestureRecognizer.direction = UISwipeGestureRecognizerDirection.Down
         view.addGestureRecognizer(swipeDownGestureRecognizer)
-        
         
         bluetoothPeripheralManager = CBPeripheralManager(delegate: self, queue: nil, options: nil)
     }

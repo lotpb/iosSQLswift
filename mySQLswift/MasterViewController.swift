@@ -11,13 +11,17 @@ import Parse
 import AVFoundation
 
 class MasterViewController: UITableViewController, UISplitViewControllerDelegate, UISearchResultsUpdating {
+    
+    let navlabel = UIFont.systemFontOfSize(25, weight: UIFontWeightThin)
+    let celltitle = UIFont.systemFontOfSize(20, weight: UIFontWeightRegular)
+    let headtitle = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
 
   //var detailViewController: DetailViewController? = nil
     var menuItems:NSMutableArray = ["Snapshot","Leads","Customers","Vendors","Employee","Advertising","Product","Job","Salesman","Show Detail","Music","YouTube","Spot Beacon","Transmit Beacon","Contacts"]
     var currentItem = "Snapshot"
     
     var player : AVAudioPlayer! = nil
-    var defaults = NSUserDefaults.standardUserDefaults()
+    
     var objects = [AnyObject]()
     
     var searchController = UISearchController!()
@@ -32,7 +36,7 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
      
         let titleButton: UIButton = UIButton(frame: CGRectMake(0, 0, 100, 32))
         titleButton.setTitle("Main Menu", forState: UIControlState.Normal)
-        titleButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Thin", size: 25.0)
+        titleButton.titleLabel?.font = navlabel
         titleButton.titleLabel?.textAlignment = NSTextAlignment.Center
         titleButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         titleButton.addTarget(self, action: Selector(), forControlEvents: UIControlEvents.TouchUpInside)
@@ -40,6 +44,8 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         
         self.automaticallyAdjustsScrollViewInsets = false
         self.tableView!.backgroundColor = UIColor.blackColor()
+        
+        let defaults = NSUserDefaults.standardUserDefaults()
         
         //users = []
         foundUsers = []
@@ -64,16 +70,15 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         self.splitViewController?.delegate = self; //added
         self.splitViewController?.preferredDisplayMode = UISplitViewControllerDisplayMode.Automatic //added
         
-        if (defaults.valueForKey("soundKey") == nil)  {
+        if (defaults.boolForKey("soundKey"))  {
             playSound()
         }
         
-     //-------------------create Parse User------------------
-      
-        PFUser.logInWithUsernameInBackground("Peter Balsamo", password:"3911") { (user, error) -> Void in
-        }
-        //let userId:String = defaults.stringForKey("usernameKey")!
-        //let userpassword:String = defaults.stringForKey("passwordKey")!
+     //-------------------Parse User------------------
+ 
+        
+        let userId:String = defaults.stringForKey("usernameKey")!
+        let userpassword:String = defaults.stringForKey("passwordKey")!
         
         //Keychain
         //let isSavedId: Bool = KeychainWrapper.setString(userId, forKey: "myKey")
@@ -84,9 +89,9 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         //print(retrievedString)
         
         //Parse
-        /*
+        
         PFUser.logInWithUsernameInBackground(userId, password:userpassword) { (user, error) -> Void in
-        } */
+        } 
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -108,6 +113,10 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
  
         let alertController = UIAlertController(title:nil, message:nil, preferredStyle: .ActionSheet)
         
+        let setting = UIAlertAction(title: "Settings", style: .Default, handler: { (action) -> Void in
+            let settingsUrl = NSURL(string: UIApplicationOpenSettingsURLString)
+            UIApplication.sharedApplication().openURL(settingsUrl!)
+        })
         let buttonTwo = UIAlertAction(title: "Users", style: .Default, handler: { (action) -> Void in
             self.performSegueWithIdentifier("userSegue", sender: self)
         })
@@ -131,7 +140,7 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
             //print("Cancel Button Pressed")
         }
         
-        //alertController.addAction(buttonOne)
+        alertController.addAction(setting)
         alertController.addAction(buttonTwo)
         alertController.addAction(buttonThree)
         alertController.addAction(buttonFour)
@@ -180,17 +189,19 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         
         if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
             
-            cell.textLabel!.font = UIFont.systemFontOfSize(20)
+            cell.textLabel!.font = celltitle
             
         } else {
             
-            cell.textLabel!.font = UIFont.systemFontOfSize(20)
+            cell.textLabel!.font = celltitle
         }
         
         if (tableView == self.tableView) {
             
             cell.textLabel!.text = menuItems[indexPath.row] as? String
+            
         } else {
+            
             cell.textLabel!.text = self.foundUsers[indexPath.row]
         }
         
@@ -228,7 +239,7 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         myLabel1.textAlignment = NSTextAlignment.Center
         myLabel1.layer.masksToBounds = true
         myLabel1.text = String(format: "%@%d", "COUNT\n", menuItems.count)
-        myLabel1.font = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
+        myLabel1.font = headtitle
         myLabel1.layer.cornerRadius = 30.0
         myLabel1.userInteractionEnabled = true
         vw.addSubview(myLabel1)
@@ -244,7 +255,7 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         myLabel2.textAlignment = NSTextAlignment.Center
         myLabel2.layer.masksToBounds = true
         myLabel2.text = String(format: "%@%d", "NASDAQ\n", menuItems.count)
-        myLabel2.font = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
+        myLabel2.font = headtitle
         myLabel2.layer.cornerRadius = 30.0
         myLabel2.userInteractionEnabled = true
         vw.addSubview(myLabel2)
@@ -261,7 +272,7 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         myLabel3.layer.masksToBounds = true
         myLabel3.text = String(format: "%@%d", "S&P 500\n", menuItems.count)
 
-        myLabel3.font = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
+        myLabel3.font = headtitle
         myLabel3.layer.cornerRadius = 30.0
         myLabel3.userInteractionEnabled = true
         vw.addSubview(myLabel3)
@@ -273,7 +284,7 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         let myLabel4:UILabel = UILabel(frame: CGRectMake(10, 100, 140, 20))
         myLabel4.textColor = UIColor.greenColor()
         myLabel4.text = "Today's Weather"
-        myLabel4.font = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
+        myLabel4.font = headtitle
         vw.addSubview(myLabel4)
         
         let statButton:UIButton = UIButton(frame: CGRectMake(tableView.frame.size.width-100, 95, 90, 30))
@@ -314,7 +325,7 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
     
     func playSound() {
         
-        let audioPath = NSBundle.mainBundle().pathForResource("A Whiter Shade Of Pale", ofType: "mp3")
+        let audioPath = NSBundle.mainBundle().pathForResource("MobyDick", ofType: "mp3")
         do {
             player = try AVAudioPlayer(contentsOfURL: NSURL(fileURLWithPath: audioPath!))
         }

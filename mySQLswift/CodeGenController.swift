@@ -11,15 +11,14 @@ import Parse
 
 class CodeGenController: UIViewController {
     
-    @IBOutlet weak var textField: UITextField!
+    let navlabel = UIFont.systemFontOfSize(25, weight: UIFontWeightThin)
+    let fonttitle = UIFont.systemFontOfSize(18, weight: UIFontWeightBold)
     
+    @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var imgQRCode: UIImageView!
     @IBOutlet weak var profilePick: UIImageView!
-    
     @IBOutlet weak var btnAction: UIButton!
-    
     @IBOutlet weak var slider: UISlider!
-    
     
     var qrcodeImage: CIImage!
     var defaults = NSUserDefaults.standardUserDefaults()
@@ -30,7 +29,7 @@ class CodeGenController: UIViewController {
 
         let titleButton: UIButton = UIButton(frame: CGRectMake(0, 0, 100, 32))
         titleButton.setTitle("Membership Card", forState: UIControlState.Normal)
-        titleButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Thin", size: 25.0)
+        titleButton.titleLabel?.font = navlabel
         titleButton.titleLabel?.textAlignment = NSTextAlignment.Center
         titleButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         titleButton.addTarget(self, action:nil, forControlEvents: UIControlEvents.TouchUpInside)
@@ -50,7 +49,7 @@ class CodeGenController: UIViewController {
             }
         }
         
-        self.textField!.font = UIFont (name: "HelveticaNeue-Bold", size: 18)
+        self.textField!.font = fonttitle
         self.textField!.text = defaults.stringForKey("usernameKey")
     }
 

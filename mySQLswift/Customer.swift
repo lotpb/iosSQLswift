@@ -11,12 +11,21 @@ import Parse
 
 class Customer: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating {
     
+    let navlabel = UIFont.systemFontOfSize(25, weight: UIFontWeightThin)
     let navColor = UIColor(red: 0.21, green: 0.60, blue: 0.86, alpha: 1.0)
     let labelColor = UIColor(red: 0.20, green: 0.29, blue: 0.37, alpha: 1.0)
     let labelColor1 = UIColor(white:0.45, alpha:1.0)
     let buttonColor = UIColor.blueColor()
     let buttonColor1 = UIColor.blueColor()
     let searchScope = ["name","city","phone","date", "active"]
+    
+    let celltitle = UIFont.systemFontOfSize(20, weight: UIFontWeightRegular)
+    let cellsubtitle = UIFont.systemFontOfSize(17, weight: UIFontWeightRegular)
+    let celllabel1 = UIFont.systemFontOfSize(16, weight: UIFontWeightRegular)
+    let celllabel2 = UIFont.systemFontOfSize(17, weight: UIFontWeightMedium)
+    let cellreply = UIFont.systemFontOfSize(16, weight: UIFontWeightRegular)
+    let celllike = UIFont.systemFontOfSize(17, weight: UIFontWeightMedium)
+    let headtitle = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
     
     @IBOutlet weak var tableView: UITableView?
     var _feedItems : NSMutableArray = NSMutableArray()
@@ -42,7 +51,7 @@ class Customer: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         
         let titleButton: UIButton = UIButton(frame: CGRectMake(0, 0, 100, 32))
         titleButton.setTitle("myCustomer", forState: UIControlState.Normal)
-        titleButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Thin", size: 25.0)
+        titleButton.titleLabel?.font = navlabel
         titleButton.titleLabel?.textAlignment = NSTextAlignment.Center
         titleButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         titleButton.addTarget(self, action: Selector(), forControlEvents: UIControlEvents.TouchUpInside)
@@ -148,7 +157,7 @@ class Customer: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         myLabel1.textColor = UIColor.whiteColor()
         myLabel1.textAlignment = NSTextAlignment.Center
         myLabel1.layer.masksToBounds = true
-        myLabel1.font = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
+        myLabel1.font = headtitle
         cell.addSubview(myLabel1)
         
         let myLabel2:UILabel = UILabel(frame: CGRectMake(tableView.frame.size.width - 105, 33, 95, 33))
@@ -156,28 +165,28 @@ class Customer: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         myLabel2.textColor = UIColor.blackColor()
         myLabel2.textAlignment = NSTextAlignment.Center
         myLabel2.layer.masksToBounds = true
-        myLabel2.font = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
+        myLabel2.font = headtitle
         cell.addSubview(myLabel2)
         
         cell.custsubtitleLabel!.textColor = UIColor.grayColor()
         
         if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
             
-            cell.custtitleLabel!.font = UIFont.systemFontOfSize(20)
-            cell.custsubtitleLabel!.font = UIFont.systemFontOfSize(17)
-            cell.custreplyLabel.font = UIFont.systemFontOfSize(16)
-            cell.custlikeLabel.font = UIFont.systemFontOfSize(17, weight: UIFontWeightMedium)
-            myLabel1.font = UIFont.systemFontOfSize(17)
-            myLabel2.font = UIFont.systemFontOfSize(17, weight: UIFontWeightMedium)
+            cell.custtitleLabel!.font = celltitle
+            cell.custsubtitleLabel!.font = cellsubtitle
+            cell.custreplyLabel.font = cellreply
+            cell.custlikeLabel.font = celllike
+            myLabel1.font = celllabel1
+            myLabel2.font = celllabel2
             
         } else {
             
-            cell.custtitleLabel!.font = UIFont.systemFontOfSize(20)
-            cell.custsubtitleLabel!.font =  UIFont.systemFontOfSize(17)
-            cell.custreplyLabel.font = UIFont.systemFontOfSize(17)
-            cell.custlikeLabel.font = UIFont.systemFontOfSize(17, weight: UIFontWeightMedium)
-            myLabel1.font = UIFont.systemFontOfSize(16)
-            myLabel2.font = UIFont.systemFontOfSize(17, weight: UIFontWeightMedium)
+            cell.custtitleLabel!.font = celltitle
+            cell.custsubtitleLabel!.font =  cellsubtitle
+            cell.custreplyLabel.font = cellreply
+            cell.custlikeLabel.font = celllike
+            myLabel1.font = celllabel1
+            myLabel2.font = celllabel2
         }
         
         if (tableView == self.tableView) {
@@ -237,7 +246,7 @@ class Customer: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         myLabel.layer.masksToBounds = true
         //let firstChar = "\(text.characters.first!)" //Swift 2.1
         myLabel.text = "Cust"
-        myLabel.font = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
+        myLabel.font = headtitle
         myLabel.layer.cornerRadius = 25.0
         myLabel.userInteractionEnabled = true
         myLabel.tag = indexPath.row
@@ -268,7 +277,7 @@ class Customer: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         myLabel1.textAlignment = NSTextAlignment.Center
         myLabel1.layer.masksToBounds = true
         myLabel1.text = String(format: "%@%d", "Cust\n", _feedItems.count)
-        myLabel1.font = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
+        myLabel1.font = headtitle
         myLabel1.layer.cornerRadius = 25.0
         myLabel1.userInteractionEnabled = true
         myLabel1.layer.borderColor = UIColor.lightGrayColor().CGColor
@@ -286,7 +295,7 @@ class Customer: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         myLabel2.textAlignment = NSTextAlignment.Center
         myLabel2.layer.masksToBounds = true
         myLabel2.text = String(format: "%@%d", "Active\n", _feedheadItems.count)
-        myLabel2.font = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
+        myLabel2.font = headtitle
         myLabel2.layer.cornerRadius = 25.0
         myLabel2.userInteractionEnabled = true
         myLabel2.layer.borderColor = UIColor.lightGrayColor().CGColor
@@ -304,7 +313,7 @@ class Customer: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         myLabel3.textAlignment = NSTextAlignment.Center
         myLabel3.layer.masksToBounds = true
         myLabel3.text = "Active"
-        myLabel3.font = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
+        myLabel3.font = headtitle
         myLabel3.layer.cornerRadius = 25.0
         myLabel3.userInteractionEnabled = true
         myLabel3.layer.borderColor = UIColor.lightGrayColor().CGColor

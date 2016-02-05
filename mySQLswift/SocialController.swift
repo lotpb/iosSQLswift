@@ -27,7 +27,6 @@ class SocialController: UIViewController, UITextViewDelegate {
         // Dispose of any resources that can be recreated.
     }
 
-
     // MARK: IBAction Function
     
     @IBAction func showShareOptions(sender: AnyObject) {
@@ -118,6 +117,7 @@ class SocialController: UIViewController, UITextViewDelegate {
     // MARK: Custom Functions
     
     func configureNoteTextView() {
+        
         noteTextview.layer.cornerRadius = 8.0
         noteTextview.layer.borderColor = UIColor(white: 0.75, alpha: 0.5).CGColor
         noteTextview.layer.borderWidth = 1.2

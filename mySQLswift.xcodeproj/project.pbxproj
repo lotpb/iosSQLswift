@@ -42,6 +42,7 @@
 		AF6E27041C3AC52300612C25 /* EditData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6E27031C3AC52200612C25 /* EditData.swift */; };
 		AF7383EB1C302DD00049407C /* NotificationDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF7383EA1C302DD00049407C /* NotificationDetailController.swift */; };
 		AF83D50E1C2EF9DE00E27DD2 /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF83D50D1C2EF9DE00E27DD2 /* ParseFacebookUtils.framework */; };
+		AF88129F1C61B14C007826AD /* MobyDick.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AF88129E1C61B14C007826AD /* MobyDick.mp3 */; };
 		AF8CC3A71C4153AF004147F3 /* NewEditData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8CC3A61C4153AF004147F3 /* NewEditData.swift */; };
 		AF8CC3AB1C42B9FB004147F3 /* StatisticController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8CC3AA1C42B9FB004147F3 /* StatisticController.swift */; };
 		AF99CD141C2EF0F700F55E1D /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF99CD111C2EF0F700F55E1D /* FBSDKCoreKit.framework */; };
@@ -186,6 +187,7 @@
 		AF6E27031C3AC52200612C25 /* EditData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditData.swift; sourceTree = "<group>"; };
 		AF7383EA1C302DD00049407C /* NotificationDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationDetailController.swift; sourceTree = "<group>"; };
 		AF83D50D1C2EF9DE00E27DD2 /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseFacebookUtils.framework; path = Parse/ParseFacebookUtils.framework; sourceTree = "<group>"; };
+		AF88129E1C61B14C007826AD /* MobyDick.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = MobyDick.mp3; path = Music/MobyDick.mp3; sourceTree = "<group>"; };
 		AF8CC3A61C4153AF004147F3 /* NewEditData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewEditData.swift; sourceTree = "<group>"; };
 		AF8CC3AA1C42B9FB004147F3 /* StatisticController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatisticController.swift; sourceTree = "<group>"; };
 		AF99CD111C2EF0F700F55E1D /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
@@ -402,6 +404,7 @@
 			isa = PBXGroup;
 			children = (
 				AF206E031C1B1FA800EA60D6 /* Tornado.caf */,
+				AF88129E1C61B14C007826AD /* MobyDick.mp3 */,
 				AF206E041C1B1FA800EA60D6 /* A Whiter Shade Of Pale.mp3 */,
 			);
 			name = Sounds;
@@ -452,10 +455,10 @@
 				AFD1A30A1C1E224600580F10 /* Customer.swift */,
 				AFB5A71D1C2C499200F8BC56 /* Vendor.swift */,
 				AFB5A71F1C2C4C7700F8BC56 /* Employee.swift */,
+				AFCAACE71C40961E00A52073 /* AdController.swift */,
+				AF011A711C40A798000EAF5D /* ProductController.swift */,
 				AF011A731C40AAE2000EAF5D /* JobController.swift */,
 				AF011A751C40AB2F000EAF5D /* SalesmanController.swift */,
-				AF011A711C40A798000EAF5D /* ProductController.swift */,
-				AFCAACE71C40961E00A52073 /* AdController.swift */,
 				AF8CC3AA1C42B9FB004147F3 /* StatisticController.swift */,
 				AF9A87831C18645C0091B0E3 /* Web.swift */,
 			);
@@ -753,6 +756,7 @@
 				AFE2641F1C17DC11007BBB90 /* Flag.png in Resources */,
 				AFE2640C1C17DC11007BBB90 /* IMG_1133New.jpg in Resources */,
 				AFE264281C17DC11007BBB90 /* Left 2.png in Resources */,
+				AF88129F1C61B14C007826AD /* MobyDick.mp3 in Resources */,
 				AFE2642F1C17DC11007BBB90 /* note30copy.png in Resources */,
 				AFE2642E1C17DC11007BBB90 /* nav_bg.png in Resources */,
 				AFE264301C17DC11007BBB90 /* play_button.png in Resources */,

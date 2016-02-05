@@ -14,20 +14,13 @@ import CoreLocation
 class SpotBeaconController: UIViewController, CLLocationManagerDelegate {
     
     @IBOutlet weak var btnSwitchSpotting: UIButton!
-    
     @IBOutlet weak var lblBeaconReport: UILabel!
-    
     @IBOutlet weak var lblBeaconDetails: UILabel!
     
-    
     var beaconRegion: CLBeaconRegion!
-    
     var locationManager: CLLocationManager!
-    
     var isSearchingForBeacons = false
-    
     var lastFoundBeacon: CLBeacon! = CLBeacon()
-    
     var lastProximity: CLProximity! = CLProximity.Unknown
     
     
@@ -37,7 +30,6 @@ class SpotBeaconController: UIViewController, CLLocationManagerDelegate {
         
         lblBeaconDetails.hidden = true
         btnSwitchSpotting.layer.cornerRadius = 30.0
-        
         
         locationManager = CLLocationManager()
         locationManager.delegate = self
