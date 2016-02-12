@@ -14,7 +14,6 @@ import MobileCoreServices //kUTTypeImage
 
 class UserDetailController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, MKMapViewDelegate, UITextFieldDelegate {
     
-    let navlabel = UIFont.systemFontOfSize(25, weight: UIFontWeightThin)
     let ipadtitle = UIFont.systemFontOfSize(20, weight: UIFontWeightLight)
     let ipadlabel = UIFont.systemFontOfSize(16, weight: UIFontWeightLight)
     
@@ -55,7 +54,7 @@ class UserDetailController: UIViewController, UINavigationControllerDelegate, UI
 
         let titleButton: UIButton = UIButton(frame: CGRectMake(0, 0, 100, 32))
         titleButton.setTitle("myUser Info", forState: UIControlState.Normal)
-        titleButton.titleLabel?.font = navlabel
+        titleButton.titleLabel?.font = Font.navlabel
         titleButton.titleLabel?.textAlignment = NSTextAlignment.Center
         titleButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         titleButton.addTarget(self, action: Selector(), forControlEvents: UIControlEvents.TouchUpInside)
@@ -216,7 +215,7 @@ class UserDetailController: UIViewController, UINavigationControllerDelegate, UI
                     self.navigationController?.popToRootViewControllerAnimated(true)
                 })
                 alert.addAction(alertActionTrue)
-                self .presentViewController(alert, animated: true, completion: nil)
+                self.presentViewController(alert, animated: true, completion: nil)
                 
             } else {
                 
@@ -225,7 +224,7 @@ class UserDetailController: UIViewController, UINavigationControllerDelegate, UI
                     self.navigationController?.popToRootViewControllerAnimated(true)
                 })
                 alert.addAction(alertActionTrue)
-                self .presentViewController(alert, animated: true, completion: nil)
+                self.presentViewController(alert, animated: true, completion: nil)
             }
         }
         self.activityIndicator.stopAnimating()

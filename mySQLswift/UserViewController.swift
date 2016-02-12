@@ -13,14 +13,11 @@ import CoreLocation
 
 class UserViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDelegate,  UICollectionViewDataSource, MKMapViewDelegate {
     
-    let navlabel = UIFont.systemFontOfSize(25, weight: UIFontWeightThin)
     let ipadtitle = UIFont.systemFontOfSize(20, weight: UIFontWeightRegular)
     let ipadsubtitle = UIFont.systemFontOfSize(16, weight: UIFontWeightRegular)
     
     let celltitle = UIFont.systemFontOfSize(16, weight: UIFontWeightRegular)
     let cellsubtitle = UIFont.systemFontOfSize(12, weight: UIFontWeightRegular)
-    let headtitle = UIFont.systemFontOfSize(UIFont.buttonFontSize())
-    //let headtitle = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -44,7 +41,7 @@ class UserViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         let titleButton: UIButton = UIButton(frame: CGRectMake(0, 0, 100, 32))
         titleButton.setTitle("myUsers", forState: UIControlState.Normal)
-        titleButton.titleLabel?.font = navlabel
+        titleButton.titleLabel?.font = Font.navlabel
         titleButton.titleLabel?.textAlignment = NSTextAlignment.Center
         titleButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         titleButton.addTarget(self, action: Selector(), forControlEvents: UIControlEvents.TouchUpInside)
@@ -185,7 +182,7 @@ class UserViewController: UIViewController, UITableViewDelegate, UITableViewData
         myLabel1.backgroundColor = UIColor.clearColor()
         myLabel1.textColor = UIColor.whiteColor()
         myLabel1.text = String(format: "%@%d", "Leads ", _feedItems.count)
-        myLabel1.font = headtitle
+        myLabel1.font = Font.headtitle
         vw.addSubview(myLabel1)
         
         return vw
@@ -249,7 +246,7 @@ class UserViewController: UIViewController, UITableViewDelegate, UITableViewData
         title.textAlignment = NSTextAlignment.Center
         title.layer.masksToBounds = true
         title.text = _feedItems[indexPath.row] .valueForKey("username") as? String
-        title.font = headtitle
+        title.font = Font.headtitle
         title.adjustsFontSizeToFitWidth = true
         title.clipsToBounds = true
         cell.addSubview(title)

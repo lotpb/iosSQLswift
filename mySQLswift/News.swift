@@ -14,20 +14,6 @@ import AVFoundation
 
 
 class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UISearchResultsUpdating {
-    
-    let navlabel = UIFont.systemFontOfSize(25, weight: UIFontWeightThin)
-    let navColor = UIColor(white:0.45, alpha:1.0)
-    let likeColor = UIColor(red:0.0, green:122.0/255.0, blue:1.0, alpha: 1.0)
-    
-    //let ipadtitle = UIFont.systemFontOfSize(20, weight: UIFontWeightMedium)
-    //let ipadsource = UIFont.systemFontOfSize(16, weight: UIFontWeightLight)
-    //let font14R = UIFont.systemFontOfSize(14, weight: UIFontWeightBold)
-    //let font12R = UIFont.systemFontOfSize(12, weight: UIFontWeightLight)
-    
-    let newstitle = UIFont.systemFontOfSize(20, weight: UIFontWeightMedium)
-    let newssource = UIFont.systemFontOfSize(16, weight: UIFontWeightLight)
-    let newslabel1 = UIFont.systemFontOfSize(16, weight: UIFontWeightBold)
-    let newslabel2 = UIFont.systemFontOfSize(12, weight: UIFontWeightLight)
 
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -37,7 +23,7 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
     var imageFile :PFFile!
     
     var selectedImage : UIImage?
-    var searchController = UISearchController!()
+    var searchController: UISearchController!
     var resultsController: UITableViewController!
     var foundUsers = [String]()
     
@@ -55,7 +41,7 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
         
         let titleButton: UIButton = UIButton(frame: CGRectMake(0, 0, 100, 32))
         titleButton.setTitle("News Today", forState: UIControlState.Normal)
-        titleButton.titleLabel?.font = navlabel
+        titleButton.titleLabel?.font = Font.navlabel
         titleButton.titleLabel?.textAlignment = NSTextAlignment.Center
         titleButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         titleButton.addTarget(self, action: Selector(), forControlEvents: UIControlEvents.TouchUpInside)
@@ -71,7 +57,7 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
         parseData()
         
         self.refreshControl = UIRefreshControl()
-        refreshControl.backgroundColor = navColor
+        refreshControl.backgroundColor = Color.News.navColor
         refreshControl.tintColor = UIColor.whiteColor()
         self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         self.refreshControl.addTarget(self, action: "refreshData:", forControlEvents: UIControlEvents.ValueChanged)
@@ -89,7 +75,7 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
         if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
             self.navigationController?.navigationBar.barTintColor = UIColor.blackColor()
         } else {
-            self.navigationController?.navigationBar.barTintColor = navColor
+            self.navigationController?.navigationBar.barTintColor = Color.News.navColor
         }
         
          NSNotificationCenter.defaultCenter().addObserver(self, selector: "finishedPlaying:", name: AVPlayerItemDidPlayToEndTimeNotification, object: self.playerViewController)
@@ -129,18 +115,18 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
         let playButton = UIButton(type: UIButtonType.Custom) as UIButton
         
         if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
-            cell.titleLabel!.font = newstitle
-            cell.sourceLabel!.font = newssource
-            cell.numLabel!.font = newslabel1
-            cell.uploadbyLabel!.font = newslabel2
+            cell.titleLabel!.font = Font.News.newstitle
+            cell.sourceLabel!.font = Font.News.newssource
+            cell.numLabel!.font = Font.News.newslabel1
+            cell.uploadbyLabel!.font = Font.News.newslabel2
             playButton.frame = CGRectMake(cell.imageView.frame.size.width/2-25, cell.imageView.frame.origin.y, 50, 50)
             
         } else {
             
-            cell.titleLabel!.font = newstitle
-            cell.sourceLabel!.font = newssource
-            cell.numLabel!.font = newslabel1
-            cell.uploadbyLabel!.font = newslabel2
+            cell.titleLabel!.font = Font.News.newstitle
+            cell.sourceLabel!.font = Font.News.newssource
+            cell.numLabel!.font = Font.News.newslabel1
+            cell.uploadbyLabel!.font = Font.News.newslabel2
             playButton.frame = CGRectMake(cell.imageView.frame.size.width/2-25, cell.imageView.frame.origin.y, 50, 50)
             
         }
@@ -187,7 +173,7 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
         cell.numLabel?.text = "\(Liked!)"
         
         if !(cell.numLabel.text! == "0") {
-            cell.numLabel.textColor = likeColor
+            cell.numLabel.textColor = Color.News.buttonColor
         } else {
             cell.numLabel.text! = ""
         }
@@ -242,7 +228,7 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
     
     func likeButton(sender:UIButton) {
         
-        sender.tintColor = likeColor
+        sender.tintColor = Color.News.buttonColor
         let hitPoint = sender.convertPoint(CGPointZero, toView: self.collectionView)
         let indexPath = self.collectionView!.indexPathForItemAtPoint(hitPoint)
         
@@ -311,7 +297,7 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
         //searchController.searchBar.scopeButtonTitles = searchScope
         //tableView!.tableHeaderView = searchController.searchBar
         //tableView!.tableFooterView = UIView(frame: CGRectZero)
-        UISearchBar.appearance().barTintColor = navColor
+        UISearchBar.appearance().barTintColor = Color.News.navColor
         
         self.presentViewController(searchController, animated: true, completion: nil)
     }

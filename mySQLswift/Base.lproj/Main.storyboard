@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="H1p-Uh-vWS">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="H1p-Uh-vWS">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
         <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -439,10 +439,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="JJ3-9U-2NM">
-                                <rect key="frame" x="-4" y="44" width="608" height="2"/>
-                                <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            </progressView>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="D7v-n7-3ie">
                                 <rect key="frame" x="0.0" y="507" width="600" height="44"/>
                                 <items>
@@ -479,6 +475,10 @@
                                     <barButtonItem systemItem="action" id="y6K-g0-wyf"/>
                                 </items>
                             </toolbar>
+                            <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="JJ3-9U-2NM">
+                                <rect key="frame" x="-4" y="44" width="608" height="2"/>
+                                <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </progressView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
@@ -1040,7 +1040,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="joE-Ra-hdb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2101" y="108"/>
+            <point key="canvasLocation" x="2047" y="108"/>
         </scene>
         <!--Blog Controller-->
         <scene sceneID="1Ej-TS-rEk">
@@ -2725,7 +2725,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y7V-66-nmi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2101" y="-644"/>
+            <point key="canvasLocation" x="2106" y="-644"/>
         </scene>
         <!--News-->
         <scene sceneID="g15-cL-pYM">
@@ -5021,15 +5021,15 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="V7s-8d-22M"/>
+        <segue reference="nhd-UC-dO1"/>
+        <segue reference="YLj-JE-RKS"/>
+        <segue reference="icJ-di-vLw"/>
+        <segue reference="2WD-sr-mRd"/>
+        <segue reference="LRB-pN-dPg"/>
+        <segue reference="cgw-US-5Dx"/>
         <segue reference="eo7-o3-O2c"/>
         <segue reference="ig8-5o-G8p"/>
         <segue reference="8pp-z3-NBJ"/>
         <segue reference="Dw5-mA-Z0d"/>
-        <segue reference="nhd-UC-dO1"/>
-        <segue reference="LRB-pN-dPg"/>
-        <segue reference="Mih-40-jc2"/>
-        <segue reference="8OJ-nY-fNy"/>
-        <segue reference="ldc-8w-WDy"/>
-        <segue reference="VDX-fG-ZvN"/>
     </inferredMetricsTieBreakers>
 </document>

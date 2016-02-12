@@ -16,7 +16,6 @@ import LocalAuthentication
 
 class LoginController: UIViewController, FBSDKLoginButtonDelegate {
     
-    let navlabel = UIFont.systemFontOfSize(25, weight: UIFontWeightThin)
     let ipadtitle = UIFont.systemFontOfSize(20, weight: UIFontWeightRegular)
     let celltitle = UIFont.systemFontOfSize(18, weight: UIFontWeightRegular)
 
@@ -45,7 +44,7 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
         
         let titleButton: UIButton = UIButton(frame: CGRectMake(0, 0, 100, 32))
         titleButton.setTitle("Login", forState: UIControlState.Normal)
-        titleButton.titleLabel?.font = navlabel
+        titleButton.titleLabel?.font = Font.navlabel
         titleButton.titleLabel?.textAlignment = NSTextAlignment.Center
         titleButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         titleButton.addTarget(self, action: Selector(), forControlEvents: UIControlEvents.TouchUpInside)

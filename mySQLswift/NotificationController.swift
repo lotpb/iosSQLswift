@@ -10,7 +10,6 @@ import UIKit
 
 class NotificationController: UIViewController {
     
-    let navlabel = UIFont.systemFontOfSize(25, weight: UIFontWeightThin)
     let celltitle = UIFont.systemFontOfSize(18, weight: UIFontWeightRegular)
     
     @IBOutlet weak var customMessage: UITextField!
@@ -23,7 +22,7 @@ class NotificationController: UIViewController {
 
         let titleButton: UIButton = UIButton(frame: CGRectMake(0, 0, 100, 32))
         titleButton.setTitle("myNotification", forState: UIControlState.Normal)
-        titleButton.titleLabel?.font = navlabel
+        titleButton.titleLabel?.font = Font.navlabel
         titleButton.titleLabel?.textAlignment = NSTextAlignment.Center
         titleButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         //titleButton.addTarget(self, action: Selector(), forControlEvents: UIControlEvents.TouchUpInside)

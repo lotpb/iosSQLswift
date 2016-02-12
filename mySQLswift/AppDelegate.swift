@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
-        // MARK: - Settings
+        // MARK: - Register Settings
         
         var itemDefaults = Dictionary<String,AnyObject>()
         itemDefaults["soundKey"] = false
@@ -29,12 +29,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         itemDefaults["fetchKey"] = false
         itemDefaults["usernameKey"] = "Peter Balsamo"
         itemDefaults["passwordKey"] = "3911"
-        itemDefaults["emailtitleKey"] = "mySQL"
+        itemDefaults["emailtitleKey"] = "mySQL Support"
         itemDefaults["emailmessageKey"] = "Program in Swift"
 
-        
         defaults.registerDefaults(itemDefaults)
-        defaults.synchronize()
+        //defaults.synchronize()
         
         // MARK: - Parse
         
@@ -218,6 +217,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         
         UISearchBar.appearance().barTintColor = UIColor.blackColor()
         UISearchBar.appearance().tintColor = UIColor.whiteColor()
+        
         UITextField.appearanceWhenContainedInInstancesOfClasses([UISearchBar.self]).tintColor = UIColor.grayColor()
     }
     

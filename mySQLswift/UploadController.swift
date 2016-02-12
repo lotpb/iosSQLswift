@@ -15,9 +15,7 @@ import AVFoundation
 class UploadController: UIViewController, UINavigationControllerDelegate,
 UIImagePickerControllerDelegate {
     
-    let navlabel = UIFont.systemFontOfSize(25, weight: UIFontWeightThin)
     let ipadtitle = UIFont.systemFontOfSize(18, weight: UIFontWeightRegular)
-    let fonttitle = UIFont.systemFontOfSize(16, weight: UIFontWeightRegular)
     
     let addText = "Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda."
     
@@ -54,7 +52,7 @@ UIImagePickerControllerDelegate {
         
         let titleButton: UIButton = UIButton(frame: CGRectMake(0, 0, 100, 32))
         titleButton.setTitle("myUpload", forState: UIControlState.Normal)
-        titleButton.titleLabel?.font = navlabel
+        titleButton.titleLabel?.font = Font.navlabel
         titleButton.titleLabel?.textAlignment = NSTextAlignment.Center
         titleButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         titleButton.addTarget(self, action: Selector(), forControlEvents: UIControlEvents.TouchUpInside)
@@ -67,13 +65,13 @@ UIImagePickerControllerDelegate {
         if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
             
             self.commentTitle!.font = ipadtitle
-            self.commentSorce!.font = ipadtitle
+            self.commentDetail!.font = ipadtitle
             self.commentSorce!.font = ipadtitle
             
         } else {
-            self.commentTitle!.font = fonttitle
-            self.commentSorce!.font = fonttitle
-            self.commentSorce!.font = fonttitle
+            self.commentTitle!.font = Font.celllabel1
+            self.commentDetail!.font = Font.celllabel1
+            self.commentSorce!.font = Font.celllabel1
             
         }
         
@@ -241,7 +239,7 @@ UIImagePickerControllerDelegate {
                         self.navigationController?.popToRootViewControllerAnimated(true)
                     })
                     alert.addAction(alertActionTrue)
-                    self .presentViewController(alert, animated: true, completion: nil)
+                    self.presentViewController(alert, animated: true, completion: nil)
                 }
             }
 

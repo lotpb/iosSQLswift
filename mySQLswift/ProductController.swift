@@ -11,13 +11,7 @@ import Parse
 
 class ProductController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating {
     
-    let navlabel = UIFont.systemFontOfSize(25, weight: UIFontWeightThin)
-    let navColor = UIColor(red: 0.28, green: 0.50, blue: 0.49, alpha: 1.0)
-    let labelColor = UIColor(red: 0.65, green: 0.49, blue: 0.35, alpha: 1.0)
     let searchScope = ["product","productNo","active"]
-    
-    let celltitle = UIFont.systemFontOfSize(20, weight: UIFontWeightRegular)
-    let headtitle = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
     
     @IBOutlet weak var tableView: UITableView?
     var isFormStat = false
@@ -29,7 +23,7 @@ class ProductController: UIViewController, UITableViewDelegate, UITableViewDataS
     var pasteBoard = UIPasteboard.generalPasteboard()
     var refreshControl: UIRefreshControl!
     
-    var searchController = UISearchController!()
+    var searchController: UISearchController!
     var resultsController: UITableViewController!
     var foundUsers = [String]()
     
@@ -38,7 +32,7 @@ class ProductController: UIViewController, UITableViewDelegate, UITableViewDataS
         
         let titleButton: UIButton = UIButton(frame: CGRectMake(0, 0, 100, 32))
         titleButton.setTitle("myProducts", forState: UIControlState.Normal)
-        titleButton.titleLabel?.font = navlabel
+        titleButton.titleLabel?.font = Font.navlabel
         titleButton.titleLabel?.textAlignment = NSTextAlignment.Center
         titleButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         titleButton.addTarget(self, action: Selector(), forControlEvents: UIControlEvents.TouchUpInside)
@@ -69,7 +63,7 @@ class ProductController: UIViewController, UITableViewDelegate, UITableViewDataS
         parseData()
         
         self.refreshControl = UIRefreshControl()
-        refreshControl.backgroundColor = navColor
+        refreshControl.backgroundColor = Color.Table.navColor
         refreshControl.tintColor = UIColor.whiteColor()
         self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         self.refreshControl.addTarget(self, action: "refreshData:", forControlEvents: UIControlEvents.ValueChanged)
@@ -81,7 +75,7 @@ class ProductController: UIViewController, UITableViewDelegate, UITableViewDataS
         super.viewWillAppear(animated)
         navigationController?.hidesBarsOnSwipe = true
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
-        self.navigationController?.navigationBar.barTintColor = navColor
+        self.navigationController?.navigationBar.barTintColor = Color.Table.navColor
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -139,9 +133,9 @@ class ProductController: UIViewController, UITableViewDelegate, UITableViewDataS
         //cell.LeadsubtitleLabel!.textColor = UIColor.grayColor()
         
         if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
-            cell.prodtitleLabel!.font = celltitle
+            cell.prodtitleLabel!.font = Font.celltitle
         } else {
-            cell.prodtitleLabel!.font = celltitle
+            cell.prodtitleLabel!.font = Font.celltitle
         }
         
         if (tableView == self.tableView) {
@@ -155,12 +149,12 @@ class ProductController: UIViewController, UITableViewDelegate, UITableViewDataS
         }
         
         let myLabel:UILabel = UILabel(frame: CGRectMake(10, 10, 50, 50))
-        myLabel.backgroundColor = labelColor
+        myLabel.backgroundColor = Color.Table.labelColor
         myLabel.textColor = UIColor.whiteColor()
         myLabel.textAlignment = NSTextAlignment.Center
         myLabel.layer.masksToBounds = true
         myLabel.text = "Prod"
-        myLabel.font = headtitle
+        myLabel.font = Font.headtitle
         myLabel.layer.cornerRadius = 25.0
         myLabel.userInteractionEnabled = true
         myLabel.tag = indexPath.row
@@ -177,7 +171,7 @@ class ProductController: UIViewController, UITableViewDelegate, UITableViewDataS
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         let vw = UIView()
-        vw.backgroundColor = navColor
+        vw.backgroundColor = Color.Table.navColor
         tableView.tableHeaderView = vw
         
         let myLabel1:UILabel = UILabel(frame: CGRectMake(10, 15, 50, 50))
@@ -187,7 +181,7 @@ class ProductController: UIViewController, UITableViewDelegate, UITableViewDataS
         myLabel1.textAlignment = NSTextAlignment.Center
         myLabel1.layer.masksToBounds = true
         myLabel1.text = String(format: "%@%d", "Prod's\n", _feedItems.count)
-        myLabel1.font = headtitle
+        myLabel1.font = Font.headtitle
         myLabel1.layer.cornerRadius = 25.0
         myLabel1.userInteractionEnabled = true
         vw.addSubview(myLabel1)
@@ -203,7 +197,7 @@ class ProductController: UIViewController, UITableViewDelegate, UITableViewDataS
         myLabel2.textAlignment = NSTextAlignment.Center
         myLabel2.layer.masksToBounds = true
         myLabel2.text = String(format: "%@%d", "Active\n", _feedheadItems.count)
-        myLabel2.font = headtitle
+        myLabel2.font = Font.headtitle
         myLabel2.layer.cornerRadius = 25.0
         myLabel2.userInteractionEnabled = true
         vw.addSubview(myLabel2)
@@ -219,7 +213,7 @@ class ProductController: UIViewController, UITableViewDelegate, UITableViewDataS
         myLabel3.textAlignment = NSTextAlignment.Center
         myLabel3.layer.masksToBounds = true
         myLabel3.text = "Active"
-        myLabel3.font = headtitle
+        myLabel3.font = Font.headtitle
         myLabel3.layer.cornerRadius = 25.0
         myLabel3.userInteractionEnabled = true
         vw.addSubview(myLabel3)
@@ -312,7 +306,7 @@ class ProductController: UIViewController, UITableViewDelegate, UITableViewDataS
         searchController.searchBar.scopeButtonTitles = searchScope
         //tableView!.tableHeaderView = searchController.searchBar
         tableView!.tableFooterView = UIView(frame: CGRectZero)
-        UISearchBar.appearance().barTintColor = navColor
+        UISearchBar.appearance().barTintColor = Color.Table.navColor
         
         self.presentViewController(searchController, animated: true, completion: nil)
     }

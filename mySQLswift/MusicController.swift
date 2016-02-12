@@ -12,8 +12,6 @@ import MediaPlayer
 
 class MusicController: UIViewController {
     
-    let navlabel = UIFont.systemFontOfSize(25, weight: UIFontWeightThin)
-    
     //var player:AVPlayer?
     
     var activeDownloads = [String: Download]()
@@ -43,7 +41,7 @@ class MusicController: UIViewController {
         
         let titleButton: UIButton = UIButton(frame: CGRectMake(0, 0, 100, 32))
         titleButton.setTitle("myMusic", forState: UIControlState.Normal)
-        titleButton.titleLabel?.font = navlabel
+        titleButton.titleLabel?.font = Font.navlabel
         titleButton.titleLabel?.textAlignment = NSTextAlignment.Center
         titleButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         titleButton.addTarget(self, action: Selector(), forControlEvents: UIControlEvents.TouchUpInside)

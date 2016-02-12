@@ -12,12 +12,8 @@ import EventKit
 
 class SnapshotController: UIViewController, UITableViewDelegate, UITableViewDataSource, UICollectionViewDataSource, UICollectionViewDelegate {
     
-    let navlabel = UIFont.systemFontOfSize(25, weight: UIFontWeightThin)
-    let cellHeadertitle = UIFont.systemFontOfSize(20, weight: UIFontWeightRegular)
-    let celltitle = UIFont.systemFontOfSize(18, weight: UIFontWeightRegular)
+    let celltitle1 = UIFont.systemFontOfSize(18, weight: UIFontWeightRegular)
     let cellsubtitle = UIFont.systemFontOfSize(16, weight: UIFontWeightRegular)
-    let headtitle = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
-
 
     @IBOutlet weak var tableView: UITableView!
     
@@ -64,6 +60,7 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
     var _feedItems5 : NSMutableArray = NSMutableArray() //employee
     var _feedItems6 : NSMutableArray = NSMutableArray() //blog
     var refreshControl: UIRefreshControl!
+    
     //var filteredString : NSMutableArray = NSMutableArray()
     //var objects = [AnyObject]()
     //let searchController = UISearchController(searchResultsController: nil)
@@ -95,7 +92,7 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
         
         let titleButton: UIButton = UIButton(frame: CGRectMake(0, 0, 100, 32))
         titleButton.setTitle("mySnapshot", forState: UIControlState.Normal)
-        titleButton.titleLabel?.font = navlabel
+        titleButton.titleLabel?.font = Font.navlabel
         titleButton.titleLabel?.textAlignment = NSTextAlignment.Center
         titleButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         titleButton.addTarget(self, action: Selector(), forControlEvents: UIControlEvents.TouchUpInside)
@@ -108,7 +105,7 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
         self.tableView!.backgroundColor = UIColor(white:0.90, alpha:1.0)
         self.tableView!.tableFooterView = UIView(frame: CGRectZero)
         
-        let searchButton = UIBarButtonItem(barButtonSystemItem: .Search, target: self, action: Selector("searchButton:"))
+        let searchButton = UIBarButtonItem(barButtonSystemItem: .Search, target: self, action: Selector())
         let buttons:NSArray = [searchButton]
         self.navigationItem.rightBarButtonItems = buttons as? [UIBarButtonItem]
         
@@ -306,13 +303,13 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
         cell.collectionView.backgroundColor = UIColor.whiteColor()
         
         if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
-            cell.textLabel!.font = cellHeadertitle
+            cell.textLabel!.font = Font.celltitle
             cell.snaptitleLabel.font = cellsubtitle
-            cell.snapdetailLabel.font = celltitle
+            cell.snapdetailLabel.font = celltitle1
         } else {
-            cell.textLabel!.font = cellHeadertitle
+            cell.textLabel!.font = Font.celltitle
             cell.snaptitleLabel.font = cellsubtitle
-            cell.snapdetailLabel.font = celltitle
+            cell.snapdetailLabel.font = celltitle1
         }
         
         cell.accessoryType = UITableViewCellAccessoryType.None
@@ -571,7 +568,7 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
         myLabel1.textColor = UIColor.blackColor()
         myLabel1.textAlignment = NSTextAlignment.Center
         myLabel1.clipsToBounds = true
-        myLabel1.font = headtitle
+        myLabel1.font = Font.headtitle
         //myLabel1.adjustsFontSizeToFitWidth = true
         
         if (collectionView.tag == 0) {

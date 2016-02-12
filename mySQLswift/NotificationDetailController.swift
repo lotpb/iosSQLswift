@@ -10,13 +10,11 @@ import UIKit
 
 class NotificationDetailController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    let navlabel = UIFont.systemFontOfSize(25, weight: UIFontWeightThin)
     let ipadtitle = UIFont.systemFontOfSize(20, weight: UIFontWeightRegular)
     let ipadsubtitle = UIFont.systemFontOfSize(16, weight: UIFontWeightRegular)
     
     let celltitle = UIFont.systemFontOfSize(16, weight: UIFontWeightRegular)
     let cellsubtitle = UIFont.systemFontOfSize(12, weight: UIFontWeightRegular)
-    let headtitle = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
     
     @IBOutlet weak var tableView: UITableView?
     var filteredString : NSMutableArray = NSMutableArray()
@@ -32,7 +30,7 @@ class NotificationDetailController: UIViewController, UITableViewDelegate, UITab
         
         let titleButton: UIButton = UIButton(frame: CGRectMake(0, 0, 100, 32))
         titleButton.setTitle("myNotification list", forState: UIControlState.Normal)
-        titleButton.titleLabel?.font = navlabel
+        titleButton.titleLabel?.font = Font.navlabel
         titleButton.titleLabel?.textAlignment = NSTextAlignment.Center
         titleButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         titleButton.addTarget(self, action:Selector(), forControlEvents: UIControlEvents.TouchUpInside)
@@ -172,7 +170,7 @@ class NotificationDetailController: UIViewController, UITableViewDelegate, UITab
         myLabel1.textAlignment = NSTextAlignment.Center
         myLabel1.layer.masksToBounds = true
         myLabel1.text = String(format: "%@%d", "Count\n", (UIApplication.sharedApplication().scheduledLocalNotifications!.count))
-        myLabel1.font = headtitle
+        myLabel1.font = Font.headtitle
         myLabel1.layer.cornerRadius = 25.0
         myLabel1.userInteractionEnabled = true
         vw.addSubview(myLabel1)
@@ -188,7 +186,7 @@ class NotificationDetailController: UIViewController, UITableViewDelegate, UITab
         myLabel2.textAlignment = NSTextAlignment.Center
         myLabel2.layer.masksToBounds = true
         myLabel2.text = "Active"
-        myLabel2.font = headtitle
+        myLabel2.font = Font.headtitle
         myLabel2.layer.cornerRadius = 25.0
         myLabel2.userInteractionEnabled = true
         vw.addSubview(myLabel2)
@@ -204,7 +202,7 @@ class NotificationDetailController: UIViewController, UITableViewDelegate, UITab
         myLabel3.textAlignment = NSTextAlignment.Center
         myLabel3.layer.masksToBounds = true
         myLabel3.text = ""
-        myLabel3.font = headtitle
+        myLabel3.font = Font.headtitle
         myLabel3.layer.cornerRadius = 25.0
         myLabel3.userInteractionEnabled = true
         vw.addSubview(myLabel3)

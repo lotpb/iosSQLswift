@@ -11,17 +11,7 @@ import Parse
 
 class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating {
     
-    let navColor = UIColor(red: 0.01, green: 0.48, blue: 1.0, alpha: 1.0)
-    let labelColor = UIColor(white:0.45, alpha:1.0)
-    let labelColor1 = UIColor(white:0.45, alpha:1.0)
     let searchScope = ["name","city","phone","date", "active"]
-    
-    let navlabel = UIFont.systemFontOfSize(25, weight: UIFontWeightThin)
-    let celltitle = UIFont.systemFontOfSize(20, weight: UIFontWeightRegular)
-    let cellsubtitle = UIFont.systemFontOfSize(17, weight: UIFontWeightRegular)
-    let celllabel1 = UIFont.systemFontOfSize(16, weight: UIFontWeightRegular)
-    let celllabel2 = UIFont.systemFontOfSize(17, weight: UIFontWeightMedium)
-    let headtitle = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
     
     @IBOutlet weak var tableView: UITableView?
     
@@ -32,7 +22,7 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
     var pasteBoard = UIPasteboard.generalPasteboard()
     var refreshControl: UIRefreshControl!
     
-    var searchController = UISearchController!()
+    var searchController: UISearchController!
     var resultsController: UITableViewController!
     var foundUsers = [String]()
     
@@ -46,7 +36,7 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
         
         let titleButton: UIButton = UIButton(frame: CGRectMake(0, 0, 100, 32))
         titleButton.setTitle("myLeads", forState: UIControlState.Normal)
-        titleButton.titleLabel?.font = navlabel
+        titleButton.titleLabel?.font = Font.navlabel
         titleButton.titleLabel?.textAlignment = NSTextAlignment.Center
         titleButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         titleButton.addTarget(self, action: Selector(), forControlEvents: UIControlEvents.TouchUpInside)
@@ -90,7 +80,7 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
         super.viewWillAppear(animated)
         navigationController?.hidesBarsOnSwipe = true
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
-        self.navigationController?.navigationBar.barTintColor = navColor
+        self.navigationController?.navigationBar.barTintColor = Color.Lead.navColor
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -153,11 +143,11 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
         cell.selectionStyle = UITableViewCellSelectionStyle.None
         
         let myLabel1:UILabel = UILabel(frame: CGRectMake(tableView.frame.size.width - 105, 0, 95, 32))
-        myLabel1.backgroundColor = labelColor1 //UIColor(white:0.45, alpha:1.0)
+        myLabel1.backgroundColor = Color.Lead.labelColor1 //UIColor(white:0.45, alpha:1.0)
         myLabel1.textColor = UIColor.whiteColor()
         myLabel1.textAlignment = NSTextAlignment.Center
         myLabel1.layer.masksToBounds = true
-        myLabel1.font = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
+        myLabel1.font = Font.headtitle
         cell.addSubview(myLabel1)
         
         let myLabel2:UILabel = UILabel(frame: CGRectMake(tableView.frame.size.width - 105, 33, 95, 33))
@@ -165,24 +155,24 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
         myLabel2.textColor = UIColor.blackColor()
         myLabel2.textAlignment = NSTextAlignment.Center
         myLabel2.layer.masksToBounds = true
-        myLabel2.font = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
+        myLabel2.font = Font.headtitle
         cell.addSubview(myLabel2)
         
         cell.LeadsubtitleLabel!.textColor = UIColor.grayColor()
         
         if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
             
-            cell.LeadtitleLabel!.font = celltitle
-            cell.LeadsubtitleLabel!.font = cellsubtitle
-            myLabel1.font = celllabel1
-            myLabel2.font = celllabel2
+            cell.LeadtitleLabel!.font = Font.celltitle
+            cell.LeadsubtitleLabel!.font = Font.cellsubtitle
+            myLabel1.font = Font.celllabel1
+            myLabel2.font = Font.celllabel2
             
         } else {
             
-            cell.LeadtitleLabel!.font = celltitle
-            cell.LeadsubtitleLabel!.font =  cellsubtitle
-            myLabel1.font = celllabel1
-            myLabel2.font = celllabel2
+            cell.LeadtitleLabel!.font = Font.celltitle
+            cell.LeadsubtitleLabel!.font =  Font.cellsubtitle
+            myLabel1.font = Font.celllabel1
+            myLabel2.font = Font.celllabel2
         }
         
         if (tableView == self.tableView) {
@@ -202,12 +192,12 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
         }
         
         let myLabel:UILabel = UILabel(frame: CGRectMake(10, 10, 50, 50))
-        myLabel.backgroundColor = labelColor //UIColor(red: 0.02, green: 0.36, blue: 0.53, alpha: 1.0)
+        myLabel.backgroundColor = Color.Lead.labelColor //UIColor(red: 0.02, green: 0.36, blue: 0.53, alpha: 1.0)
         myLabel.textColor = UIColor.whiteColor()
         myLabel.textAlignment = NSTextAlignment.Center
         myLabel.layer.masksToBounds = true
         myLabel.text = "Lead"
-        myLabel.font = headtitle
+        myLabel.font = Font.headtitle
         myLabel.layer.cornerRadius = 25.0
         myLabel.userInteractionEnabled = true
         myLabel.tag = indexPath.row
@@ -227,7 +217,7 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         let vw = UIView()
-        vw.backgroundColor = navColor
+        vw.backgroundColor = Color.Lead.navColor
         tableView.tableHeaderView = vw
         
         let myLabel1:UILabel = UILabel(frame: CGRectMake(10, 15, 50, 50))
@@ -237,7 +227,7 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
         myLabel1.textAlignment = NSTextAlignment.Center
         myLabel1.layer.masksToBounds = true
         myLabel1.text = String(format: "%@%d", "Leads\n", _feedItems.count)
-        myLabel1.font = headtitle
+        myLabel1.font = Font.headtitle
         myLabel1.layer.cornerRadius = 25.0
         myLabel1.userInteractionEnabled = true
         vw.addSubview(myLabel1)
@@ -253,7 +243,7 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
         myLabel2.textAlignment = NSTextAlignment.Center
         myLabel2.layer.masksToBounds = true
         myLabel2.text = String(format: "%@%d", "Active\n", _feedheadItems.count)
-        myLabel2.font = headtitle
+        myLabel2.font = Font.headtitle
         myLabel2.layer.cornerRadius = 25.0
         myLabel2.userInteractionEnabled = true
         vw.addSubview(myLabel2)
@@ -269,7 +259,7 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
         myLabel3.textAlignment = NSTextAlignment.Center
         myLabel3.layer.masksToBounds = true
         myLabel3.text = "Active"
-        myLabel3.font = headtitle
+        myLabel3.font = Font.headtitle
         myLabel3.layer.cornerRadius = 25.0
         myLabel3.userInteractionEnabled = true
         vw.addSubview(myLabel3)
@@ -361,7 +351,7 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
         searchController.searchBar.scopeButtonTitles = searchScope
         //tableView!.tableHeaderView = searchController.searchBar
         tableView!.tableFooterView = UIView(frame: CGRectZero)
-        UISearchBar.appearance().barTintColor = navColor
+        UISearchBar.appearance().barTintColor = Color.Lead.navColor
         
         self.presentViewController(searchController, animated: true, completion: nil)
     }

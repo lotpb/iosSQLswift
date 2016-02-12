@@ -25,9 +25,6 @@ class LookupData: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     
     weak var delegate:LookupDataDelegate?
     
-    let navlabel = UIFont.systemFontOfSize(25, weight: UIFontWeightThin)
-    let celltitle = UIFont.systemFontOfSize(20, weight: UIFontWeightRegular)
-    
     @IBOutlet weak var tableView: UITableView?
  
     var zipArray : NSMutableArray = NSMutableArray()
@@ -41,7 +38,7 @@ class LookupData: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     var refreshControl: UIRefreshControl!
     
     var isFilltered = false
-    var searchController = UISearchController!()
+    var searchController: UISearchController!
     var resultsController: UITableViewController!
     //var foundUsers = [String]()
     
@@ -51,14 +48,14 @@ class LookupData: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         
         let titleButton: UIButton = UIButton(frame: CGRectMake(0, 0, 100, 32))
         titleButton.setTitle(String(format: "%@ %@", "Lookup", self.lookupItem!), forState: UIControlState.Normal)
-        titleButton.titleLabel?.font = navlabel
+        titleButton.titleLabel?.font = Font.navlabel
         titleButton.titleLabel?.textAlignment = NSTextAlignment.Center
         titleButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         titleButton.addTarget(self, action: Selector(), forControlEvents: UIControlEvents.TouchUpInside)
         self.navigationItem.titleView = titleButton
         
-        //self.tableView!.delegate = self
-        //self.tableView!.dataSource = self
+        self.tableView!.delegate = self
+        self.tableView!.dataSource = self
         self.tableView!.estimatedRowHeight = 44
         self.tableView!.rowHeight = UITableViewAutomaticDimension
         self.tableView!.backgroundColor = UIColor(white:0.90, alpha:1.0)
@@ -161,11 +158,11 @@ class LookupData: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         
         if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
             
-            cell.textLabel!.font = celltitle
+            cell.textLabel!.font = Font.celltitle
             
         } else {
             
-            cell.textLabel!.font = celltitle
+            cell.textLabel!.font = Font.celltitle
         }
         
         if (tableView == self.tableView) {

@@ -11,12 +11,8 @@ import Parse
 
 class BlogNewController: UIViewController, UITextViewDelegate {
     
-    let navlabel = UIFont.systemFontOfSize(25, weight: UIFontWeightThin)
     let ipadtitle = UIFont.systemFontOfSize(18, weight: UIFontWeightLight)
     let ipadsubject = UIFont.systemFontOfSize(20, weight: UIFontWeightLight)
-    
-    let celltitle = UIFont.systemFontOfSize(16, weight: UIFontWeightLight)
-    let cellsubject = UIFont.systemFontOfSize(18, weight: UIFontWeightLight)
     
     @IBOutlet weak var tableView: UITableView?
     @IBOutlet weak var Share: UIButton?
@@ -52,7 +48,7 @@ class BlogNewController: UIViewController, UITextViewDelegate {
         
         let titleButton: UIButton = UIButton(frame: CGRectMake(0, 0, 100, 32))
         titleButton.setTitle("New Message", forState: UIControlState.Normal)
-        titleButton.titleLabel?.font = navlabel
+        titleButton.titleLabel?.font = Font.navlabel
         titleButton.titleLabel?.textAlignment = NSTextAlignment.Center
         titleButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         titleButton.addTarget(self, action: Selector(), forControlEvents: UIControlEvents.TouchUpInside)
@@ -72,7 +68,7 @@ class BlogNewController: UIViewController, UITextViewDelegate {
         if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
             self.subject!.font = ipadsubject
         } else {
-            self.subject!.font = cellsubject
+            self.subject!.font = Font.Blog.cellsubject
         }
         
         let query:PFQuery = PFUser.query()!
@@ -177,8 +173,8 @@ class BlogNewController: UIViewController, UITextViewDelegate {
             cell.detailTextLabel!.font = ipadtitle
 
         } else {
-            cell.textLabel!.font = celltitle
-            cell.detailTextLabel!.font = celltitle
+            cell.textLabel!.font = Font.Blog.cellsubtitle
+            cell.detailTextLabel!.font = Font.Blog.cellsubtitle
         }
         
         if (indexPath.row == 0) {
@@ -296,7 +292,7 @@ class BlogNewController: UIViewController, UITextViewDelegate {
                 let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
                 
                 alert.addAction(alertActionTrue)
-                self .presentViewController(alert, animated: true, completion: nil)
+                self.presentViewController(alert, animated: true, completion: nil)
 
             } else {
                 
@@ -304,7 +300,7 @@ class BlogNewController: UIViewController, UITextViewDelegate {
                 let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
                 
                 alert.addAction(alertActionTrue)
-                self .presentViewController(alert, animated: true, completion: nil)
+                self.presentViewController(alert, animated: true, completion: nil)
 
             }
         }
@@ -345,7 +341,7 @@ class BlogNewController: UIViewController, UITextViewDelegate {
                 
                 alert.addAction(alertActionTrue)
                 self.navigationController?.popViewControllerAnimated(true)
-                self .presentViewController(alert, animated: true, completion: nil)
+                self.presentViewController(alert, animated: true, completion: nil)
                 
             } else {
                 
@@ -353,7 +349,7 @@ class BlogNewController: UIViewController, UITextViewDelegate {
                 let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
                 
                 alert.addAction(alertActionTrue)
-                self .presentViewController(alert, animated: true, completion: nil)
+                self.presentViewController(alert, animated: true, completion: nil)
             }
             //self.navigationController?.popToRootViewControllerAnimated(true)
             //self.navigationController?.popViewControllerAnimated(true)

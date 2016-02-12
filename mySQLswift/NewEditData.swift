@@ -11,9 +11,6 @@ import Parse
 
 class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UISearchResultsUpdating {
     
-    let navlabel = UIFont.systemFontOfSize(25, weight: UIFontWeightThin)
-    let celltitle = UIFont.systemFontOfSize(20, weight: UIFontWeightRegular)
-    
     @IBOutlet weak var tableView: UITableView?
     
     var formController : NSString?
@@ -36,7 +33,7 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
     var pasteBoard = UIPasteboard.generalPasteboard()
     var refreshControl: UIRefreshControl!
     
-    var searchController = UISearchController!()
+    var searchController: UISearchController!
     var resultsController: UITableViewController!
     var foundUsers = [String]()
     
@@ -45,7 +42,7 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
         
         let titleButton: UIButton = UIButton(frame: CGRectMake(0, 0, 100, 32))
         titleButton.setTitle(String(format: "%@ %@", self.formStatus!, self.formController!), forState: UIControlState.Normal)
-        titleButton.titleLabel?.font = navlabel
+        titleButton.titleLabel?.font = Font.navlabel
         titleButton.titleLabel?.textAlignment = NSTextAlignment.Center
         titleButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         titleButton.addTarget(self, action: Selector(), forControlEvents: UIControlEvents.TouchUpInside)
@@ -151,12 +148,12 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
         
         if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
             
-            self.salesman!.font = celltitle
-            self.salesNo!.font = celltitle
+            self.salesman!.font = Font.celltitle
+            self.salesNo!.font = Font.celltitle
         } else {
             
-            self.salesman?.font = celltitle
-            self.salesNo?.font = celltitle
+            self.salesman?.font = Font.celltitle
+            self.salesNo?.font = Font.celltitle
         }
         
         if (indexPath.row == 0) {
@@ -368,7 +365,7 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
                         let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
                         
                         alert.addAction(okAction)
-                        self .presentViewController(alert, animated: true, completion: nil)
+                        self.presentViewController(alert, animated: true, completion: nil)
                         
                     } else {
                         
@@ -377,7 +374,7 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
                         let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
                         
                         alert.addAction(okAction)
-                        self .presentViewController(alert, animated: true, completion: nil)
+                        self.presentViewController(alert, animated: true, completion: nil)
                         
                     }
                 }
@@ -400,7 +397,7 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
                         
                         alert.addAction(alertActionTrue)
                         self.navigationController?.popViewControllerAnimated(true)
-                        self .presentViewController(alert, animated: true, completion: nil)
+                        self.presentViewController(alert, animated: true, completion: nil)
                         
                     } else {
                         
@@ -408,7 +405,7 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
                         let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
                         
                         alert.addAction(alertActionTrue)
-                        self .presentViewController(alert, animated: true, completion: nil)
+                        self.presentViewController(alert, animated: true, completion: nil)
                     }
                 }
             }
@@ -433,7 +430,7 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
                         let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
                         
                         alert.addAction(alertActionTrue)
-                        self .presentViewController(alert, animated: true, completion: nil)
+                        self.presentViewController(alert, animated: true, completion: nil)
                         
                     } else {
                         
@@ -442,7 +439,7 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
                         let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
                         
                         alert.addAction(alertActionTrue)
-                        self .presentViewController(alert, animated: true, completion: nil)
+                        self.presentViewController(alert, animated: true, completion: nil)
                         
                     }
                 }
@@ -466,7 +463,7 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
                         
                         alert.addAction(alertActionTrue)
                         self.navigationController?.popViewControllerAnimated(true)
-                        self .presentViewController(alert, animated: true, completion: nil)
+                        self.presentViewController(alert, animated: true, completion: nil)
                         
                     } else {
                         
@@ -474,7 +471,7 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
                         let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
                         
                         alert.addAction(alertActionTrue)
-                        self .presentViewController(alert, animated: true, completion: nil)
+                        self.presentViewController(alert, animated: true, completion: nil)
                     }
                 }
                 
@@ -500,7 +497,7 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
                         let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
                         
                         alert.addAction(alertActionTrue)
-                        self .presentViewController(alert, animated: true, completion: nil)
+                        self.presentViewController(alert, animated: true, completion: nil)
                         
                     } else {
                         
@@ -509,7 +506,7 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
                         let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
                         
                         alert.addAction(alertActionTrue)
-                        self .presentViewController(alert, animated: true, completion: nil)
+                        self.presentViewController(alert, animated: true, completion: nil)
                         
                     }
                 }
@@ -532,7 +529,7 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
                         
                         alert.addAction(alertActionTrue)
                         self.navigationController?.popViewControllerAnimated(true)
-                        self .presentViewController(alert, animated: true, completion: nil)
+                        self.presentViewController(alert, animated: true, completion: nil)
                         
                     } else {
                         
@@ -540,7 +537,7 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
                         let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
                         
                         alert.addAction(alertActionTrue)
-                        self .presentViewController(alert, animated: true, completion: nil)
+                        self.presentViewController(alert, animated: true, completion: nil)
                     }
                 }
             }
@@ -565,7 +562,7 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
                         let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
                         
                         alert.addAction(alertActionTrue)
-                        self .presentViewController(alert, animated: true, completion: nil)
+                        self.presentViewController(alert, animated: true, completion: nil)
                         
                     } else {
                         
@@ -574,7 +571,7 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
                         let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
                         
                         alert.addAction(alertActionTrue)
-                        self .presentViewController(alert, animated: true, completion: nil)
+                        self.presentViewController(alert, animated: true, completion: nil)
                         
                     }
                 }
@@ -597,7 +594,7 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
                         
                         alert.addAction(alertActionTrue)
                         self.navigationController?.popViewControllerAnimated(true)
-                        self .presentViewController(alert, animated: true, completion: nil)
+                        self.presentViewController(alert, animated: true, completion: nil)
                         
                     } else {
                         
@@ -605,7 +602,7 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
                         let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
                         
                         alert.addAction(alertActionTrue)
-                        self .presentViewController(alert, animated: true, completion: nil)
+                        self.presentViewController(alert, animated: true, completion: nil)
                     }
                 }
             }

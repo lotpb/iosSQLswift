@@ -11,7 +11,6 @@ import Parse
 
 class CodeGenController: UIViewController {
     
-    let navlabel = UIFont.systemFontOfSize(25, weight: UIFontWeightThin)
     let fonttitle = UIFont.systemFontOfSize(18, weight: UIFontWeightBold)
     
     @IBOutlet weak var textField: UITextField!
@@ -29,7 +28,7 @@ class CodeGenController: UIViewController {
 
         let titleButton: UIButton = UIButton(frame: CGRectMake(0, 0, 100, 32))
         titleButton.setTitle("Membership Card", forState: UIControlState.Normal)
-        titleButton.titleLabel?.font = navlabel
+        titleButton.titleLabel?.font = Font.navlabel
         titleButton.titleLabel?.textAlignment = NSTextAlignment.Center
         titleButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         titleButton.addTarget(self, action:nil, forControlEvents: UIControlEvents.TouchUpInside)

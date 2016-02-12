@@ -42,8 +42,6 @@ class MapView: UIViewController, MKMapViewDelegate,  CLLocationManagerDelegate {
         self.allSteps = ""
         self.travelTime.text = ""
         self.travelDistance.text = ""
-        //self.travelTime.sizeToFit()
-        //self.travelDistance.sizeToFit()
         
         self.travelTime.font = celllabel1
         self.travelDistance.font = celllabel1

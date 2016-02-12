@@ -7,18 +7,10 @@
 //
 
 import UIKit
-import SafariServices
 import WebKit
+import SafariServices
 
 class Web: UIViewController, SFSafariViewControllerDelegate, WKNavigationDelegate {
-    
-    //let navColor = UIColor(red: 0.09, green: 0.62, blue: 0.93, alpha: 1.0)
-    //let headColor = UIColor(red: 0.09, green: 0.62, blue: 0.93, alpha: 1.0)
-    //let searchColor = UIColor(red: 0.09, green: 0.62, blue: 0.93, alpha: 1.0)
-    //let labelColor = UIColor(red: 0.02, green: 0.36, blue: 0.53, alpha: 1.0)
-    //let labelColor1 = UIColor(white:0.45, alpha:1.0)
-    //let buttonColor = UIColor(red: 0.02, green: 0.36, blue: 0.53, alpha: 1.0)
-    //let buttonColor1 = UIColor(white:0.45, alpha:1.0)
     
     private var webView: WKWebView
     var url: NSURL?
@@ -49,16 +41,6 @@ class Web: UIViewController, SFSafariViewControllerDelegate, WKNavigationDelegat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        /*
-        let myActivity = NSUserActivity(activityType: "com.appcoda.searchAPIs.detail")
-        myActivity.title = "Cupertino"
-        myActivity.eligibleForSearch = true
-        myActivity.keywords = Set(arrayLiteral: "Cupertino", "Silcon Valley", "California", "San Jose", "San Francisco", "Apple Inc", "Mothership")
-        self.userActivity = myActivity
-        myActivity.eligibleForHandoff = false
-        myActivity.becomeCurrent() */
- //----------------------------------------------------------
 
         view.insertSubview(webView, belowSubview: progressView)
         
@@ -122,11 +104,11 @@ class Web: UIViewController, SFSafariViewControllerDelegate, WKNavigationDelegat
     func webView(webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: NSError) {
         let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: .Alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .Default, handler: nil))
-        presentViewController(alert, animated: true, completion: nil)
+        self.presentViewController(alert, animated: true, completion: nil)
     }
    
     func webView(webView: WKWebView, decidePolicyForNavigationAction navigationAction: WKNavigationAction, decisionHandler: ((WKNavigationActionPolicy) -> Void)) {
-        if (navigationAction.navigationType == WKNavigationType.LinkActivated && !navigationAction.request.URL!.host!.lowercaseString.hasPrefix("www.Drudgereport.com")) {
+        if (navigationAction.navigationType == WKNavigationType.LinkActivated && !navigationAction.request.URL!.host!.lowercaseString.hasPrefix("www.drudgereport.com")) {
             UIApplication.sharedApplication().openURL(navigationAction.request.URL!)
             decisionHandler(WKNavigationActionPolicy.Cancel)
         } else {

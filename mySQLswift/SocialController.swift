@@ -104,13 +104,13 @@ class SocialController: UIViewController, UITextViewDelegate {
         actionSheet.addAction(moreAction)
         actionSheet.addAction(dismissAction)
         
-        presentViewController(actionSheet, animated: true, completion: nil)
+        self.presentViewController(actionSheet, animated: true, completion: nil)
     }
     
     func showAlertMessage(message: String!) {
         let alertController = UIAlertController(title: "EasyShare", message: message, preferredStyle: UIAlertControllerStyle.Alert)
         alertController.addAction(UIAlertAction(title: "Okay", style: UIAlertActionStyle.Default, handler: nil))
-        presentViewController(alertController, animated: true, completion: nil)
+        self.presentViewController(alertController, animated: true, completion: nil)
     }
     
     

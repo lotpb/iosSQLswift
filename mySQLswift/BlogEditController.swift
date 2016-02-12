@@ -11,22 +11,17 @@ import Parse
 
 class BlogEditController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    let navlabel = UIFont.systemFontOfSize(25, weight: UIFontWeightThin)
     let ipadtitle = UIFont.systemFontOfSize(20, weight: UIFontWeightBold)
     let ipadsubtitle = UIFont.systemFontOfSize(12, weight: UIFontWeightLight)
     let ipaddate = UIFont.systemFontOfSize(18, weight: UIFontWeightLight)
     
-    let celltitle = UIFont.systemFontOfSize(18, weight: UIFontWeightBold)
-    let cellsubtitle = UIFont.systemFontOfSize(17, weight: UIFontWeightLight)
-    let celldate = UIFont.systemFontOfSize(17, weight: UIFontWeightLight)
-    
     let replyipadtitle = UIFont.systemFontOfSize(16, weight: UIFontWeightBold)
-    let replyipadsubtitle = UIFont.systemFontOfSize(16, weight: UIFontWeightLight)
+    let replyipadsubtitle = UIFont.systemFontOfSize(16, weight: UIFontWeightRegular)
     let replyipaddate = UIFont.systemFontOfSize(16, weight: UIFontWeightBold)
     let replyipadlabel = UIFont.systemFontOfSize(16, weight: UIFontWeightRegular)
     
     let replytitle = UIFont.systemFontOfSize(14, weight: UIFontWeightBold)
-    let replysubtitle = UIFont.systemFontOfSize(14, weight: UIFontWeightLight)
+    let replysubtitle = UIFont.systemFontOfSize(14, weight: UIFontWeightRegular)
     let replydate = UIFont.systemFontOfSize(14, weight: UIFontWeightBold)
     let replylabel = UIFont.systemFontOfSize(14, weight: UIFontWeightRegular)
     
@@ -59,7 +54,7 @@ class BlogEditController: UIViewController, UITableViewDelegate, UITableViewData
 
         let titleButton: UIButton = UIButton(frame: CGRectMake(0, 0, 100, 32))
         titleButton.setTitle("Edit Message", forState: UIControlState.Normal)
-        titleButton.titleLabel?.font = navlabel
+        titleButton.titleLabel?.font = Font.navlabel
         titleButton.titleLabel?.textAlignment = NSTextAlignment.Center
         titleButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         titleButton.addTarget(self, action: Selector(), forControlEvents: UIControlEvents.TouchUpInside)
@@ -167,9 +162,9 @@ class BlogEditController: UIViewController, UITableViewDelegate, UITableViewData
                 
             } else {
                 
-                cell.titleLabel!.font = celltitle
-                cell.subtitleLabel!.font = cellsubtitle
-                cell.msgDateLabel.font = celldate
+                cell.titleLabel!.font = Font.Blog.celltitle
+                cell.subtitleLabel!.font = Font.Blog.cellsubtitle
+                cell.msgDateLabel.font = Font.Blog.celldate
             }
             
             let query:PFQuery = PFUser.query()!
@@ -348,7 +343,7 @@ class BlogEditController: UIViewController, UITableViewDelegate, UITableViewData
             activityItems: [self.subject! as NSString],
             applicationActivities: nil)
         
-        presentViewController(activityViewController, animated: true, completion: nil)
+        self.presentViewController(activityViewController, animated: true, completion: nil)
     }
     
     func deleteButton(sender: UIButton) {

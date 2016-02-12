@@ -11,8 +11,6 @@ import Parse
 
 class StatisticController: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate, UISearchResultsUpdating {
     
-    let navlabel = UIFont.systemFontOfSize(25, weight: UIFontWeightThin)
-    
     @IBOutlet weak var scrollWall: UIScrollView!
     @IBOutlet weak var tableView: UITableView!
     var photoImage: UIImageView!
@@ -56,7 +54,7 @@ class StatisticController: UIViewController, UITableViewDelegate, UITableViewDat
     var refreshControl: UIRefreshControl!
     var myTimer: NSTimer!
     
-    var searchController = UISearchController!()
+    var searchController: UISearchController!
     var resultsController: UITableViewController!
     var foundUsers = [String]()
     
@@ -65,7 +63,7 @@ class StatisticController: UIViewController, UITableViewDelegate, UITableViewDat
         
         let titleButton: UIButton = UIButton(frame: CGRectMake(0, 0, 100, 32))
         titleButton.setTitle("myStats", forState: UIControlState.Normal)
-        titleButton.titleLabel?.font = navlabel
+        titleButton.titleLabel?.font = Font.navlabel
         titleButton.titleLabel?.textAlignment = NSTextAlignment.Center
         titleButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         titleButton.addTarget(self, action: Selector(), forControlEvents: UIControlEvents.TouchUpInside)
@@ -177,12 +175,12 @@ class StatisticController: UIViewController, UITableViewDelegate, UITableViewDat
         
         if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
             
-            label1.font = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
-            label2.font = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
+            label1.font = Font.headtitle
+            label2.font = Font.headtitle
         } else {
             
-            label1.font = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
-            label2.font = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
+            label1.font = Font.headtitle
+            label2.font = Font.headtitle
         }
         
         if (indexPath.section == 0) {

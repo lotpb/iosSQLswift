@@ -9,11 +9,8 @@
 import UIKit
 import Parse
 
-class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate {
-
-    let navlabel = UIFont.systemFontOfSize(25, weight: UIFontWeightThin)
-    let celltitle = UIFont.systemFontOfSize(20, weight: UIFontWeightRegular)
-    
+class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
+    //UIPickerViewDataSource, UIPickerViewDelegate,
     @IBOutlet weak var tableView: UITableView?
     
     @IBOutlet weak var first: UITextField!
@@ -25,8 +22,8 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     @IBOutlet weak var activebutton: UIButton!
     @IBOutlet weak var profileImageView: UIImageView?
     
-    var DatePickerView : UIDatePicker = UIDatePicker()
-    var pickOption = ["one", "two", "three", "seven", "fifteen"]
+    //var DatePickerView : UIDatePicker = UIDatePicker()
+    //var pickOption = ["one", "two", "three", "seven", "fifteen"]
     
     var salesArray : NSMutableArray = NSMutableArray()
     var callbackArray : NSMutableArray = NSMutableArray()
@@ -98,7 +95,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     var pasteBoard = UIPasteboard.generalPasteboard()
     var refreshControl: UIRefreshControl!
     
-    //var searchController = UISearchController!()
+    //var searchController: UISearchController!
     //var resultsController: UITableViewController!
     //var foundUsers = [String]()
     
@@ -107,12 +104,12 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         super.viewDidLoad()
         
         let titleButton: UIButton = UIButton(frame: CGRectMake(0, 0, 100, 32))
-        titleButton.setTitle(String(format: "%@ %@", self.status!, self.formController!), forState: UIControlState.Normal)
-        titleButton.titleLabel?.font = navlabel
+        //titleButton.setTitle(String(format: "%@ %@", self.status!, self.formController!), forState: UIControlState.Normal)
+        titleButton.titleLabel?.font = Font.navlabel
         titleButton.titleLabel?.textAlignment = NSTextAlignment.Center
         titleButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         titleButton.addTarget(self, action: Selector(), forControlEvents: UIControlEvents.TouchUpInside)
-        self.navigationItem.titleView = titleButton 
+        self.navigationItem.titleView = titleButton
         
         self.tableView!.delegate = self
         self.tableView!.dataSource = self
@@ -146,11 +143,13 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             }
         }
         
+        /*
         let pickerView = UIPickerView()
         pickerView.delegate = self
-        self.callback?.inputView = pickerView
+        self.callback?.inputView = pickerView */
         
         passFieldData()
+        
         if (self.status == "Edit") {
             parseData()
         }
@@ -233,17 +232,17 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             
             textframe = UITextField(frame:CGRect(x: 118, y: 7, width: 250, height: 30))
             textviewframe = UITextView(frame:CGRect(x: 118, y: 7, width: 250, height: 95))
-            textframe!.font = celltitle
-            aptframe!.font = celltitle
-            textviewframe!.font = celltitle
+            textframe!.font = Font.celltitle
+            aptframe!.font = Font.celltitle
+            textviewframe!.font = Font.celltitle
 
         } else {
             
             textframe = UITextField(frame:CGRect(x: 118, y: 7, width: 205, height: 30))
             textviewframe = UITextView(frame:CGRect(x: 118, y: 7, width: 240, height: 95))
-            textframe!.font = celltitle
-            aptframe!.font = celltitle
-            textviewframe!.font = celltitle
+            textframe!.font = Font.celltitle
+            aptframe!.font = Font.celltitle
+            textviewframe!.font = Font.celltitle
         }
         
         textframe!.autocorrectionType = UITextAutocorrectionType.No
@@ -290,7 +289,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             
             if (self.formController == "Leads" || self.formController == "Customer") {
                 
-                self.date?.inputView = DatePickerView
+                //self.date?.inputView = DatePickerView
                 if (self.status == "New") {
                     self.date?.text = dateString
                 }
@@ -592,7 +591,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             }
             cell.textLabel!.text = "Comments"
             cell.contentView.addSubview(self.comment!)
-            self.comment!.font = celltitle
+            self.comment!.font = Font.celltitle
             
         } else if(indexPath.row == 14) {
             self.start = textframe
@@ -620,7 +619,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             self.complete!.inputView = nil //self datePicker:15
             cell.textLabel!.text = "End Date"
             cell.contentView.addSubview(self.complete!)
-            self.complete!.font = celltitle
+            self.complete!.font = Font.celltitle
             }
         
         return cell
@@ -682,7 +681,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     
     
     // MARK: - PickView
-    
+    /*
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -697,7 +696,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         self.callback.text = pickOption[row]
-    }
+    } */
     
     
     // MARK: - DatePicker
@@ -736,9 +735,9 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     
     func passFieldData() {
         
-        self.first!.font = celltitle
-        self.last!.font = celltitle
-        self.company!.font = celltitle
+        self.first!.font = Font.celltitle
+        self.last!.font = Font.celltitle
+        self.company!.font = Font.celltitle
         
         if (self.formController == "Leads" || self.formController == "Customer") {
             self.last.borderStyle = UITextBorderStyle.RoundedRect
@@ -843,7 +842,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                     self.salesman!.text = object!.objectForKey("Salesman") as? String
                 }
             }
-        }
+        } 
     }
     
     // MARK: - Segues
@@ -931,7 +930,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                     let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
                     
                     alert.addAction(alertActionTrue)
-                    self .presentViewController(alert, animated: true, completion: nil)
+                    self.presentViewController(alert, animated: true, completion: nil)
                     
                 } else {
                     
@@ -940,7 +939,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                     let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
                     
                     alert.addAction(alertActionTrue)
-                    self .presentViewController(alert, animated: true, completion: nil)
+                    self.presentViewController(alert, animated: true, completion: nil)
                     
                 }
             }
@@ -980,7 +979,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                         
                         alert.addAction(alertActionTrue)
                         self.navigationController?.popViewControllerAnimated(true)
-                        self .presentViewController(alert, animated: true, completion: nil)
+                        self.presentViewController(alert, animated: true, completion: nil)
                         
                     } else {
                         
@@ -988,7 +987,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                         let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
                         
                         alert.addAction(alertActionTrue)
-                        self .presentViewController(alert, animated: true, completion: nil)
+                        self.presentViewController(alert, animated: true, completion: nil)
                     }
                 }
             }
@@ -1045,7 +1044,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                     let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
                     
                     alert.addAction(alertActionTrue)
-                    self .presentViewController(alert, animated: true, completion: nil)
+                    self.presentViewController(alert, animated: true, completion: nil)
                     
                 } else {
                     
@@ -1054,7 +1053,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                     let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
                     
                     alert.addAction(alertActionTrue)
-                    self .presentViewController(alert, animated: true, completion: nil)
+                    self.presentViewController(alert, animated: true, completion: nil)
                     
                 }
             }
@@ -1284,7 +1283,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                     let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
                     
                     alert.addAction(alertActionTrue)
-                    self .presentViewController(alert, animated: true, completion: nil)
+                    self.presentViewController(alert, animated: true, completion: nil)
                     
                 } else {
                     
@@ -1293,7 +1292,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                     let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
                     
                     alert.addAction(alertActionTrue)
-                    self .presentViewController(alert, animated: true, completion: nil)
+                    self.presentViewController(alert, animated: true, completion: nil)
                     
                 }
             }
@@ -1333,7 +1332,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                         
                         alert.addAction(alertActionTrue)
                         self.navigationController?.popViewControllerAnimated(true)
-                        self .presentViewController(alert, animated: true, completion: nil)
+                        self.presentViewController(alert, animated: true, completion: nil)
                         
                     } else {
                         
@@ -1341,7 +1340,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                         let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
                         
                         alert.addAction(alertActionTrue)
-                        self .presentViewController(alert, animated: true, completion: nil)
+                        self.presentViewController(alert, animated: true, completion: nil)
                     }
                 }
                 

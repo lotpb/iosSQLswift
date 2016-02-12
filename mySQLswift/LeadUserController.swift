@@ -11,7 +11,6 @@ import Parse
 
 class LeadUserController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    let navlabel = UIFont.systemFontOfSize(25, weight: UIFontWeightThin)
     let cellHeadtitle = UIFont.systemFontOfSize(20, weight: UIFontWeightBold)
     let cellHeadsubtitle = UIFont.systemFontOfSize(18, weight: UIFontWeightLight)
     let cellHeadlabel = UIFont.systemFontOfSize(18, weight: UIFontWeightRegular)
@@ -20,7 +19,6 @@ class LeadUserController: UIViewController, UITableViewDelegate, UITableViewData
     let ipadsubtitle = UIFont.systemFontOfSize(16, weight: UIFontWeightRegular)
     let ipadlabel = UIFont.systemFontOfSize(16, weight: UIFontWeightRegular)
     
-    let celltitle = UIFont.systemFontOfSize(20, weight: UIFontWeightRegular)
     let cellsubtitle = UIFont.systemFontOfSize(16, weight: UIFontWeightRegular)
     let celllabel = UIFont.systemFontOfSize(16, weight: UIFontWeightRegular)
     let headtitle = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
@@ -51,7 +49,7 @@ class LeadUserController: UIViewController, UITableViewDelegate, UITableViewData
         
         let titleButton: UIButton = UIButton(frame: CGRectMake(0, 0, 100, 32))
         titleButton.setTitle(formController as? String, forState: UIControlState.Normal)
-        titleButton.titleLabel?.font = navlabel
+        titleButton.titleLabel?.font = Font.navlabel
         titleButton.titleLabel?.textAlignment = NSTextAlignment.Center
         titleButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         titleButton.addTarget(self, action: Selector(), forControlEvents: UIControlEvents.TouchUpInside)
@@ -152,7 +150,7 @@ class LeadUserController: UIViewController, UITableViewDelegate, UITableViewData
             cell.blogmsgDateLabel!.font = ipadlabel
             cell.commentLabel!.font = ipadlabel
         } else {
-            cell.blogtitleLabel!.font = celltitle
+            cell.blogtitleLabel!.font = Font.celltitle
             cell.blogsubtitleLabel!.font = cellsubtitle
             cell.blogmsgDateLabel!.font = celllabel
             cell.commentLabel!.font = celllabel

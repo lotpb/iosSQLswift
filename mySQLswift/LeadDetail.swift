@@ -15,7 +15,6 @@ import MessageUI
 
 class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, MFMailComposeViewControllerDelegate {
     
-    let navlabel = UIFont.systemFontOfSize(25, weight: UIFontWeightThin)
     let ipadname = UIFont.systemFontOfSize(30, weight: UIFontWeightLight)
     let ipaddate = UIFont.systemFontOfSize(18, weight: UIFontWeightRegular)
     let ipadaddress = UIFont.systemFontOfSize(26, weight: UIFontWeightLight)
@@ -147,7 +146,7 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         
         let titleButton: UIButton = UIButton(frame: CGRectMake(0, 0, 100, 32))
         titleButton.setTitle("myDetails", forState: UIControlState.Normal)
-        titleButton.titleLabel?.font = navlabel
+        titleButton.titleLabel?.font = Font.navlabel
         titleButton.titleLabel?.textAlignment = NSTextAlignment.Center
         titleButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         titleButton.addTarget(self, action: Selector(), forControlEvents: UIControlEvents.TouchUpInside)
@@ -238,6 +237,11 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.barTintColor = UIColor(white:0.45, alpha:1.0)
+        self.labelname.text = ""
+        self.labelamount.text = ""
+        self.labeldate.text = ""
+        self.labeladdress.text = ""
+        self.labelcity.text = ""
     }
     
     override func didReceiveMemoryWarning() {
@@ -689,7 +693,7 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                 let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
                 
                 alert.addAction(alertActionTrue)
-                self .presentViewController(alert, animated: true, completion: nil)
+                self.presentViewController(alert, animated: true, completion: nil)
                 
             }
         } else {
@@ -698,7 +702,7 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
             
             alert.addAction(alertActionTrue)
-            self .presentViewController(alert, animated: true, completion: nil)
+            self.presentViewController(alert, animated: true, completion: nil)
         }
     }
     
@@ -725,7 +729,7 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                 let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Destructive, handler: {(alert: UIAlertAction!) in })
                 
                 alert.addAction(alertActionTrue)
-                self .presentViewController(alert, animated: true, completion: nil)
+                self.presentViewController(alert, animated: true, completion: nil)
             }
         }
     
@@ -740,7 +744,7 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                 let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Destructive, handler: {(alert: UIAlertAction!) in })
                 
                 alert.addAction(alertActionTrue)
-                self .presentViewController(alert, animated: true, completion: nil)
+                self.presentViewController(alert, animated: true, completion: nil)
             }
         }
         if (formController == "Vendor") || (formController == "Employee") {
@@ -753,7 +757,7 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                 let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Destructive, handler: {(alert: UIAlertAction!) in })
                 
                 alert.addAction(alertActionTrue)
-                self .presentViewController(alert, animated: true, completion: nil)
+                self.presentViewController(alert, animated: true, completion: nil)
             }
         }
     }
@@ -766,7 +770,7 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         email.setSubject(emailTitle)
         email.setMessageBody(messageBody, isHTML: true) // or true, if you prefer
         email.modalTransitionStyle = UIModalTransitionStyle.FlipHorizontal
-        presentViewController(email, animated: true, completion: nil)
+        self.presentViewController(email, animated: true, completion: nil)
     }
 
     func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
@@ -808,7 +812,7 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
             
             alert.addAction(alertActionTrue)
-            self .presentViewController(alert, animated: true, completion: nil)
+            self.presentViewController(alert, animated: true, completion: nil)
             
         } catch {
             print("Bad things happened")
@@ -954,7 +958,7 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
             
             alert.addAction(alertActionTrue)
-            self .presentViewController(alert, animated: true, completion: nil)
+            self.presentViewController(alert, animated: true, completion: nil)
             
             //print("Contact Added Successfully")
         }
@@ -964,7 +968,7 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Destructive, handler: {(alert: UIAlertAction!) in })
             
             alert.addAction(alertActionTrue)
-            self .presentViewController(alert, animated: true, completion: nil)
+            self.presentViewController(alert, animated: true, completion: nil)
             
             //print("Unable to Add the New Contact.")
         }

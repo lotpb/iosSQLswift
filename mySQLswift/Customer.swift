@@ -10,29 +10,15 @@ import UIKit
 import Parse
 
 class Customer: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating {
-    
-    let navlabel = UIFont.systemFontOfSize(25, weight: UIFontWeightThin)
-    let navColor = UIColor(red: 0.21, green: 0.60, blue: 0.86, alpha: 1.0)
-    let labelColor = UIColor(red: 0.20, green: 0.29, blue: 0.37, alpha: 1.0)
-    let labelColor1 = UIColor(white:0.45, alpha:1.0)
-    let buttonColor = UIColor.blueColor()
-    let buttonColor1 = UIColor.blueColor()
+
     let searchScope = ["name","city","phone","date", "active"]
-    
-    let celltitle = UIFont.systemFontOfSize(20, weight: UIFontWeightRegular)
-    let cellsubtitle = UIFont.systemFontOfSize(17, weight: UIFontWeightRegular)
-    let celllabel1 = UIFont.systemFontOfSize(16, weight: UIFontWeightRegular)
-    let celllabel2 = UIFont.systemFontOfSize(17, weight: UIFontWeightMedium)
-    let cellreply = UIFont.systemFontOfSize(16, weight: UIFontWeightRegular)
-    let celllike = UIFont.systemFontOfSize(17, weight: UIFontWeightMedium)
-    let headtitle = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
     
     @IBOutlet weak var tableView: UITableView?
     var _feedItems : NSMutableArray = NSMutableArray()
     var _feedheadItems : NSMutableArray = NSMutableArray()
     var filteredString : NSMutableArray = NSMutableArray()
     
-    var searchController = UISearchController!()
+    var searchController: UISearchController!
     var resultsController: UITableViewController!
     var users:[[String:AnyObject]]!
     var foundUsers:[String] = []
@@ -51,7 +37,7 @@ class Customer: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         
         let titleButton: UIButton = UIButton(frame: CGRectMake(0, 0, 100, 32))
         titleButton.setTitle("myCustomer", forState: UIControlState.Normal)
-        titleButton.titleLabel?.font = navlabel
+        titleButton.titleLabel?.font = Font.navlabel
         titleButton.titleLabel?.textAlignment = NSTextAlignment.Center
         titleButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         titleButton.addTarget(self, action: Selector(), forControlEvents: UIControlEvents.TouchUpInside)
@@ -92,7 +78,7 @@ class Customer: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         super.viewWillAppear(animated)
         navigationController?.hidesBarsOnSwipe = true
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
-        self.navigationController?.navigationBar.barTintColor = navColor
+        self.navigationController?.navigationBar.barTintColor = Color.Cust.navColor
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -153,11 +139,11 @@ class Customer: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         cell.selectionStyle = UITableViewCellSelectionStyle.None
         
         let myLabel1:UILabel = UILabel(frame: CGRectMake(tableView.frame.size.width - 105, 0, 95, 32))
-        myLabel1.backgroundColor = labelColor1
+        myLabel1.backgroundColor = Color.Cust.labelColor1
         myLabel1.textColor = UIColor.whiteColor()
         myLabel1.textAlignment = NSTextAlignment.Center
         myLabel1.layer.masksToBounds = true
-        myLabel1.font = headtitle
+        myLabel1.font = Font.headtitle
         cell.addSubview(myLabel1)
         
         let myLabel2:UILabel = UILabel(frame: CGRectMake(tableView.frame.size.width - 105, 33, 95, 33))
@@ -165,28 +151,28 @@ class Customer: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         myLabel2.textColor = UIColor.blackColor()
         myLabel2.textAlignment = NSTextAlignment.Center
         myLabel2.layer.masksToBounds = true
-        myLabel2.font = headtitle
+        myLabel2.font = Font.headtitle
         cell.addSubview(myLabel2)
         
         cell.custsubtitleLabel!.textColor = UIColor.grayColor()
         
         if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
             
-            cell.custtitleLabel!.font = celltitle
-            cell.custsubtitleLabel!.font = cellsubtitle
-            cell.custreplyLabel.font = cellreply
-            cell.custlikeLabel.font = celllike
-            myLabel1.font = celllabel1
-            myLabel2.font = celllabel2
+            cell.custtitleLabel!.font = Font.celltitle
+            cell.custsubtitleLabel!.font = Font.cellsubtitle
+            cell.custreplyLabel.font = Font.cellreply
+            cell.custlikeLabel.font = Font.celllike
+            myLabel1.font = Font.celllabel1
+            myLabel2.font = Font.celllabel2
             
         } else {
             
-            cell.custtitleLabel!.font = celltitle
-            cell.custsubtitleLabel!.font =  cellsubtitle
-            cell.custreplyLabel.font = cellreply
-            cell.custlikeLabel.font = celllike
-            myLabel1.font = celllabel1
-            myLabel2.font = celllabel2
+            cell.custtitleLabel!.font = Font.celltitle
+            cell.custsubtitleLabel!.font =  Font.cellsubtitle
+            cell.custreplyLabel.font = Font.cellreply
+            cell.custlikeLabel.font = Font.celllike
+            myLabel1.font = Font.celllabel1
+            myLabel2.font = Font.celllabel2
         }
         
         if (tableView == self.tableView) {
@@ -230,23 +216,23 @@ class Customer: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         if (_feedItems[indexPath.row] .valueForKey("Comments") as? String == nil) {
             cell.custreplyButton!.tintColor = UIColor.lightGrayColor()
         } else {
-            cell.custreplyButton!.tintColor = buttonColor
+            cell.custreplyButton!.tintColor = Color.Cust.buttonColor
         }
         
         if (_feedItems[indexPath.row] .valueForKey("Rate") as? String == "A" ) {
-            cell.custlikeButton!.tintColor = buttonColor1
+            cell.custlikeButton!.tintColor = Color.Cust.buttonColor
         } else {
             cell.custlikeButton!.tintColor = UIColor.lightGrayColor()
         }
         
         let myLabel:UILabel = UILabel(frame: CGRectMake(10, 10, 50, 50))
-        myLabel.backgroundColor = labelColor
+        myLabel.backgroundColor = Color.Cust.labelColor
         myLabel.textColor = UIColor.whiteColor()
         myLabel.textAlignment = NSTextAlignment.Center
         myLabel.layer.masksToBounds = true
         //let firstChar = "\(text.characters.first!)" //Swift 2.1
         myLabel.text = "Cust"
-        myLabel.font = headtitle
+        myLabel.font = Font.headtitle
         myLabel.layer.cornerRadius = 25.0
         myLabel.userInteractionEnabled = true
         myLabel.tag = indexPath.row
@@ -267,7 +253,7 @@ class Customer: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         
         //let vw = UIView(frame: CGRect(x: 0.0, y: 0.0, width: tableView.frame.size.width, height: 0))
         let vw = UIView()
-        vw.backgroundColor = navColor
+        vw.backgroundColor = Color.Cust.navColor
         //self.tableView!.tableHeaderView = vw
         
         let myLabel1:UILabel = UILabel(frame: CGRectMake(10, 15, 50, 50))
@@ -277,7 +263,7 @@ class Customer: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         myLabel1.textAlignment = NSTextAlignment.Center
         myLabel1.layer.masksToBounds = true
         myLabel1.text = String(format: "%@%d", "Cust\n", _feedItems.count)
-        myLabel1.font = headtitle
+        myLabel1.font = Font.headtitle
         myLabel1.layer.cornerRadius = 25.0
         myLabel1.userInteractionEnabled = true
         myLabel1.layer.borderColor = UIColor.lightGrayColor().CGColor
@@ -295,7 +281,7 @@ class Customer: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         myLabel2.textAlignment = NSTextAlignment.Center
         myLabel2.layer.masksToBounds = true
         myLabel2.text = String(format: "%@%d", "Active\n", _feedheadItems.count)
-        myLabel2.font = headtitle
+        myLabel2.font = Font.headtitle
         myLabel2.layer.cornerRadius = 25.0
         myLabel2.userInteractionEnabled = true
         myLabel2.layer.borderColor = UIColor.lightGrayColor().CGColor
@@ -313,7 +299,7 @@ class Customer: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         myLabel3.textAlignment = NSTextAlignment.Center
         myLabel3.layer.masksToBounds = true
         myLabel3.text = "Active"
-        myLabel3.font = headtitle
+        myLabel3.font = Font.headtitle
         myLabel3.layer.cornerRadius = 25.0
         myLabel3.userInteractionEnabled = true
         myLabel3.layer.borderColor = UIColor.lightGrayColor().CGColor
@@ -409,7 +395,7 @@ class Customer: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         searchController.searchBar.scopeButtonTitles = searchScope
         //tableView!.tableHeaderView = searchController.searchBar
         tableView!.tableFooterView = UIView(frame: CGRectZero)
-        UISearchBar.appearance().barTintColor = navColor
+        UISearchBar.appearance().barTintColor = Color.Cust.navColor
         
         self.presentViewController(searchController, animated: true, completion: nil)
     }

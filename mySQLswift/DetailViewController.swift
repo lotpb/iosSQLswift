@@ -18,6 +18,8 @@ import MobileCoreServices //added CoreSpotlight
 
 class DetailViewController: UIViewController, RPPreviewViewControllerDelegate, AVSpeechSynthesizerDelegate, CLLocationManagerDelegate, UIPickerViewDelegate, UIPickerViewDataSource, RPScreenRecorderDelegate {
     
+    let headtitle = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
+    
     @IBOutlet weak private var startRecordingButton: UIButton!
     @IBOutlet weak private var stopRecordingButton: UIButton!
     @IBOutlet weak private var processingView: UIActivityIndicatorView!
@@ -100,21 +102,12 @@ class DetailViewController: UIViewController, RPPreviewViewControllerDelegate, A
         myLabel.textAlignment = NSTextAlignment.Center
         myLabel.layer.masksToBounds = true
         myLabel.text = "Speak"
-        myLabel.font = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
+        myLabel.font = headtitle
         myLabel.layer.cornerRadius = 30.0
         myLabel.userInteractionEnabled = true
         let tap = UITapGestureRecognizer(target: self, action:Selector("speak:"))
         myLabel.addGestureRecognizer(tap)
         view.addSubview(myLabel)
-
-        
-        // MARK: - iAd
-
-        if (defaults.valueForKey("iadKey") == nil)  {
-            canDisplayBannerAds = true
-        } else {
-            canDisplayBannerAds = false
-        }
         
         //prepareVoiceList()
         
