@@ -15,6 +15,8 @@ import MessageUI
 
 class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, MFMailComposeViewControllerDelegate {
     
+    let defaults = NSUserDefaults.standardUserDefaults()
+    
     let ipadname = UIFont.systemFontOfSize(30, weight: UIFontWeightLight)
     let ipaddate = UIFont.systemFontOfSize(18, weight: UIFontWeightRegular)
     let ipadaddress = UIFont.systemFontOfSize(26, weight: UIFontWeightLight)
@@ -37,10 +39,6 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     let newsdetail = UIFont.systemFontOfSize(16, weight: UIFontWeightRegular)
     
     let textbutton = UIFont.systemFontOfSize(18, weight: UIFontWeightRegular)
-    
-    let defaults = NSUserDefaults.standardUserDefaults()
-    var emailTitle :String!
-    var messageBody:String!
     
     var tableData : NSMutableArray = NSMutableArray()
     var tableData2 : NSMutableArray = NSMutableArray()
@@ -138,6 +136,9 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     var savedEventId : NSString?
     var getEmail : NSString?
     
+    var emailTitle :NSString?
+    var messageBody:NSString?
+    
     var photoImage: UIImageView!
 
     
@@ -156,9 +157,10 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         self.listTableView2!.rowHeight = 30
         self.newsTableView!.estimatedRowHeight = 100
         self.newsTableView!.rowHeight = UITableViewAutomaticDimension
+        self.newsTableView!.tableFooterView = UIView(frame: .zero)
         
-        emailTitle = defaults.stringForKey("emailtitleKey")!
-        messageBody = defaults.stringForKey("emailmessageKey")!
+        emailTitle = defaults.stringForKey("emailtitleKey")
+        messageBody = defaults.stringForKey("emailmessageKey")
         
         if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
             
@@ -198,7 +200,7 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             }
         }
         
-        self.mySwitch!.onTintColor = UIColor(red:0.0, green:122.0/255.0, blue:1.0, alpha: 1.0)
+        self.mySwitch!.onTintColor = Color.BlueColor
         self.mySwitch!.tintColor = UIColor.lightGrayColor()
 
         photoImage = UIImageView(frame:CGRectMake(self.view.frame.size.width/2+15, 60, self.view.frame.size.width/2-25, 110))
@@ -209,7 +211,7 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         photoImage!.userInteractionEnabled = true
         self.mainView!.addSubview(photoImage!) 
         
-        self.mapbutton!.backgroundColor = UIColor(red:0.0, green:122.0/255.0, blue:1.0, alpha: 1.0)
+        self.mapbutton!.backgroundColor = Color.BlueColor
         self.mapbutton!.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         self.mapbutton!.addTarget(self, action: "mapButton", forControlEvents: UIControlEvents.TouchUpInside)
         let btnLayer3: CALayer = self.mapbutton!.layer
@@ -364,8 +366,6 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             
             var cell = tableView.dequeueReusableCellWithIdentifier("Cell") as! CustomTableCell!
             
-            self.newsTableView!.tableFooterView = UIView(frame: CGRectZero)
-            
             if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
                 cell.leadtitleDetail!.font = newstitle
                 cell.leadsubtitleDetail!.font = newssubtitle
@@ -379,7 +379,6 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             }
             
             let width = CGFloat(2.0)
-            
             let topBorder = CALayer()
             topBorder.borderColor = UIColor.lightGrayColor().CGColor
             topBorder.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 0.5)
@@ -387,13 +386,6 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             cell.layer.addSublayer(topBorder)
             cell.layer.masksToBounds = true
 
-            /*
-            let bottomBorder = CALayer()
-            bottomBorder.borderColor = UIColor.lightGrayColor().CGColor
-            bottomBorder.frame = CGRect(x: 0, y: cell.frame.size.height+15, width:  self.view.frame.size.width, height: 0.5)
-            bottomBorder.borderWidth = width
-            cell.layer.addSublayer(bottomBorder)
-            cell!.layer.masksToBounds = true */
             
             if cell == nil {
                 cell = CustomTableCell(style: UITableViewCellStyle.Default, reuseIdentifier: "Cell")
@@ -417,13 +409,14 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             cell.leadsubtitleDetail.textColor = UIColor.grayColor()
             
             cell.leadreadDetail.text = "Read more"
-            cell.leadreadDetail.textColor = UIColor(red:0.0, green:122.0/255.0, blue:1.0, alpha: 1.0)
+            cell.leadreadDetail.textColor = Color.BlueColor
             
             cell.leadnewsDetail.text = self.comments as? String
             cell.leadnewsDetail.numberOfLines = 0
             cell.leadnewsDetail.textColor = UIColor.darkGrayColor()
 
             return cell
+            
         } else {
             return UITableViewCell()
         }
@@ -767,8 +760,8 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         let email = MFMailComposeViewController()
         email.mailComposeDelegate = self
         email.setToRecipients([emailfield as String])
-        email.setSubject(emailTitle)
-        email.setMessageBody(messageBody, isHTML: true) // or true, if you prefer
+        email.setSubject((emailTitle as? String)!)
+        email.setMessageBody((messageBody as? String)!, isHTML:true)
         email.modalTransitionStyle = UIModalTransitionStyle.FlipHorizontal
         self.presentViewController(email, animated: true, completion: nil)
     }
@@ -1148,19 +1141,5 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     
     
 }
-/*
-// MARK: - Protocol
-private extension LeadDetail {
-    
-    func configureStyling() {
-        self.mapbutton!.backgroundColor = UIColor(red:0.0, green:122.0/255.0, blue:1.0, alpha: 1.0)
-        self.mapbutton!.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
-        self.mySwitch!.onTintColor = UIColor(red:0.0, green:122.0/255.0, blue:1.0, alpha: 1.0)
-        self.mySwitch!.tintColor = UIColor.lightGrayColor()
-        photoImage!.layer.borderColor = UIColor.lightGrayColor().CGColor
-        photoImage!.layer.borderWidth = 1.0
-        
-        
-    }
-} */
+
 

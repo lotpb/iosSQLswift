@@ -402,7 +402,7 @@ class Blog: UIViewController, UITableViewDelegate, UITableViewDataSource {
         searchController.hidesNavigationBarDuringPresentation = true
         searchController.searchBar.scopeButtonTitles = searchScope
         searchController.searchBar.barTintColor = Color.Blog.navColor
-        tableView!.tableFooterView = UIView(frame: CGRectZero)
+        tableView!.tableFooterView = UIView(frame: .zero)
         self.presentViewController(searchController, animated: true, completion: nil)
     }
     

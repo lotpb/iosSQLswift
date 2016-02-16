@@ -56,7 +56,7 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
         self.tableView!.backgroundColor = UIColor(white:0.90, alpha:1.0)
         self.automaticallyAdjustsScrollViewInsets = false
         //tableView!.contentInset = UIEdgeInsetsMake(20, 0, 0, 0)
-        //tableView!.tableFooterView = UIView(frame: CGRectZero)
+        //tableView!.tableFooterView = UIView(frame: .zero)
         
         //users = []
         foundUsers = []
@@ -325,7 +325,7 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
         searchController.hidesNavigationBarDuringPresentation = true
         searchController.searchBar.scopeButtonTitles = ["name", "city", "phone", "date", "active"]
         //tableView!.tableHeaderView = searchController.searchBar
-        tableView!.tableFooterView = UIView(frame: CGRectZero)
+        tableView!.tableFooterView = UIView(frame: .zero)
         UISearchBar.appearance().barTintColor = UIColor.brownColor()
         
         self.presentViewController(searchController, animated: true, completion: nil)

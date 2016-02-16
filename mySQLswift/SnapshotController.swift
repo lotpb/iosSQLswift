@@ -103,7 +103,7 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
         self.tableView!.estimatedRowHeight = 100
         self.tableView!.rowHeight = UITableViewAutomaticDimension
         self.tableView!.backgroundColor = UIColor(white:0.90, alpha:1.0)
-        self.tableView!.tableFooterView = UIView(frame: CGRectZero)
+        self.tableView!.tableFooterView = UIView(frame: .zero)
         
         let searchButton = UIBarButtonItem(barButtonSystemItem: .Search, target: self, action: Selector())
         let buttons:NSArray = [searchButton]
@@ -303,11 +303,11 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
         cell.collectionView.backgroundColor = UIColor.whiteColor()
         
         if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
-            cell.textLabel!.font = Font.celltitle
+            cell.textLabel!.font = Font.Snapshot.celltitle
             cell.snaptitleLabel.font = cellsubtitle
             cell.snapdetailLabel.font = celltitle1
         } else {
-            cell.textLabel!.font = Font.celltitle
+            cell.textLabel!.font = Font.Snapshot.celltitle
             cell.snaptitleLabel.font = cellsubtitle
             cell.snapdetailLabel.font = celltitle1
         }

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0710"
+   LastUpgradeVersion = "0720"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "AF0369A01C173DDC00137D7E"
-               BuildableName = "mySQLswift.app"
-               BlueprintName = "mySQLswift"
-               ReferencedContainer = "container:mySQLswift.xcodeproj">
+               BuildableName = "TheLight.app"
+               BlueprintName = "TheLight"
+               ReferencedContainer = "container:TheLight.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -28,34 +28,14 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "AF0369B61C173DDC00137D7E"
-               BuildableName = "mySQLswiftTests.xctest"
-               BlueprintName = "mySQLswiftTests"
-               ReferencedContainer = "container:mySQLswift.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "AF0369C11C173DDC00137D7E"
-               BuildableName = "mySQLswiftUITests.xctest"
-               BlueprintName = "mySQLswiftUITests"
-               ReferencedContainer = "container:mySQLswift.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "AF0369A01C173DDC00137D7E"
-            BuildableName = "mySQLswift.app"
-            BlueprintName = "mySQLswift"
-            ReferencedContainer = "container:mySQLswift.xcodeproj">
+            BuildableName = "TheLight.app"
+            BlueprintName = "TheLight"
+            ReferencedContainer = "container:TheLight.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -76,9 +56,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "AF0369A01C173DDC00137D7E"
-            BuildableName = "mySQLswift.app"
-            BlueprintName = "mySQLswift"
-            ReferencedContainer = "container:mySQLswift.xcodeproj">
+            BuildableName = "TheLight.app"
+            BlueprintName = "TheLight"
+            ReferencedContainer = "container:TheLight.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -95,9 +75,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "AF0369A01C173DDC00137D7E"
-            BuildableName = "mySQLswift.app"
-            BlueprintName = "mySQLswift"
-            ReferencedContainer = "container:mySQLswift.xcodeproj">
+            BuildableName = "TheLight.app"
+            BlueprintName = "TheLight"
+            ReferencedContainer = "container:TheLight.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

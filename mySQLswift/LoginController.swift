@@ -42,21 +42,6 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let titleButton: UIButton = UIButton(frame: CGRectMake(0, 0, 100, 32))
-        titleButton.setTitle("Login", forState: UIControlState.Normal)
-        titleButton.titleLabel?.font = Font.navlabel
-        titleButton.titleLabel?.textAlignment = NSTextAlignment.Center
-        titleButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
-        titleButton.addTarget(self, action: Selector(), forControlEvents: UIControlEvents.TouchUpInside)
-        self.navigationItem.titleView = titleButton
-
-        self.navigationItem.leftBarButtonItem = self.editButtonItem()
-        
-        let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "insertNewObject:")
-        let searchButton = UIBarButtonItem(barButtonSystemItem: .Search, target: self, action: "searchButton:")
-        let buttons:NSArray = [addButton,searchButton]
-        self.navigationItem.rightBarButtonItems = buttons as? [UIBarButtonItem]
-        
         if ((defaults.stringForKey("registerKey") == nil)) {
             
             self.registerBtn!.setTitle("Sign in", forState: UIControlState.Normal)
@@ -67,8 +52,9 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
             self.phoneField!.hidden = false//
             
         } else {
-            
-            self.usernameField!.text = defaults.stringForKey("usernameKey")
+            //Keychain
+            self.usernameField!.text = KeychainWrapper.stringForKey("usernameKey")
+            self.passwordField!.text = KeychainWrapper.stringForKey("passwordKey")
             self.reEnterPasswordField!.hidden = true//
             self.registerBtn!.hidden = false //
             self.emailField!.hidden = true//
@@ -91,6 +77,9 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
             self.phoneField!.font = celltitle
         }
         
+        self.registerBtn!.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+        self.loginBtn!.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+        self.backloginBtn!.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         self.emailField!.keyboardType = UIKeyboardType.EmailAddress
         self.phoneField!.keyboardType = UIKeyboardType.NumbersAndPunctuation
         
@@ -203,7 +192,6 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
     }
     
     override func viewWillAppear(animated: Bool) {
-        //self.clearsSelectionOnViewWillAppear = self.splitViewController!.collapsed
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.barTintColor = UIColor.redColor()
@@ -220,12 +208,12 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
         {
             self.performSegueWithIdentifier("loginSegue", sender: nil)
             print("Login complete.")
-            /*
+            
             defaults.setObject("Peter Balsamo", forKey: "usernameKey")
             defaults.setObject("3911", forKey: "passwordKey")
             defaults.setObject("eunitedws@verizon.net", forKey: "emailKey")
             defaults.setBool(true, forKey: "registerKey")
-            //defaults.synchronize() */
+            //defaults.synchronize()
         } else {
             print(error.localizedDescription)
         }
@@ -305,6 +293,7 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
             self.reEnterPasswordField!.hidden = false
             self.emailField!.hidden = false
             self.phoneField!.hidden = false
+            //FBSDKLoginButton!.hidden = true
             
         } else {
             //check if all text fields are completed
@@ -492,13 +481,14 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
     
     func didAuthenticateWithTouchId() {
         
+        self.performSegueWithIdentifier("loginSegue", sender: nil)
+        print("Login complete.")
+        
         defaults.setObject("Peter Balsamo", forKey: "usernameKey")
         defaults.setObject("3911", forKey: "passwordKey")
         defaults.setObject("eunitedws@verizon.net", forKey: "emailKey")
         defaults.setBool(true, forKey: "registerKey")
         //defaults.synchronize()
-        
-        self.performSegueWithIdentifier("loginSegue", sender: nil)
         
     }
     

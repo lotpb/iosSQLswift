@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:mySQLswift.xcodeproj">
+      location = "self:/Users/peterbalsamo/Desktop/iosSQLswift/TheLight.xcodeproj">
    </FileRef>
 </Workspace>

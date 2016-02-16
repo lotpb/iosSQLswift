@@ -117,7 +117,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         self.tableView!.rowHeight = UITableViewAutomaticDimension
         self.tableView!.backgroundColor = UIColor.whiteColor()
         self.automaticallyAdjustsScrollViewInsets = false
-        self.tableView!.tableFooterView = UIView(frame: CGRectZero)
+        self.tableView!.tableFooterView = UIView(frame: .zero)
         
         let saveButton = UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: "updateData")
         let buttons:NSArray = [saveButton]

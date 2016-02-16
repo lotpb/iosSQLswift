@@ -35,7 +35,7 @@ class SpotBeaconController: UIViewController, CLLocationManagerDelegate {
         locationManager.delegate = self
         
         let uuid = NSUUID(UUIDString: "F34A1A1F-500F-48FB-AFAA-9584D641D7B1")
-        beaconRegion = CLBeaconRegion(proximityUUID: uuid!, identifier: "com.mySQL.beacon")
+        beaconRegion = CLBeaconRegion(proximityUUID: uuid!, identifier: "com.TheLight.beacon")
         
         beaconRegion.notifyOnEntry = true
         beaconRegion.notifyOnExit = true
@@ -101,36 +101,47 @@ class SpotBeaconController: UIViewController, CLLocationManagerDelegate {
     
     
     func locationManager(manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], inRegion region: CLBeaconRegion) {
-        var shouldHideBeaconDetails = true
         
+        var shouldHideBeaconDetails = true
         //if let foundBeacons = beacons {
         if beacons.count > 0 {
-            if let closestBeacon = beacons[0] as? CLBeacon {
-                if closestBeacon != lastFoundBeacon || lastProximity != closestBeacon.proximity  {
-                    lastFoundBeacon = closestBeacon
-                    lastProximity = closestBeacon.proximity
-                    
-                    var proximityMessage: String!
-                    switch lastFoundBeacon.proximity {
-                    case CLProximity.Immediate:
-                        proximityMessage = "Very close"
-                        self.view.backgroundColor = UIColor.redColor()
-                    case CLProximity.Near:
-                        proximityMessage = "Near"
-                        self.view.backgroundColor = UIColor.orangeColor()
-                    case CLProximity.Far:
-                        proximityMessage = "Far"
-                        self.view.backgroundColor = UIColor.blueColor()
-                    default:
-                        proximityMessage = "Where's the beacon?"
-                        self.view.backgroundColor = UIColor.whiteColor()
-                    }
-                    
-                    shouldHideBeaconDetails = false
-                    
-                    lblBeaconDetails.text = "Beacon Details:\nMajor = " + String(closestBeacon.major.intValue) + "\nMinor = " + String(closestBeacon.minor.intValue) + "\nDistance: " + proximityMessage
+            let closestBeacon = beacons[0] as CLBeacon
+            //if let closestBeacon = beacons[0] as? CLBeacon {
+            
+            if closestBeacon != lastFoundBeacon || lastProximity != closestBeacon.proximity  {
+                lastFoundBeacon = closestBeacon
+                lastProximity = closestBeacon.proximity
+                
+                var proximityMessage: String!
+                switch lastFoundBeacon.proximity {
+                case CLProximity.Immediate:
+                    proximityMessage = "Very close"
+                    self.view.backgroundColor = UIColor.redColor()
+                    lblBeaconReport.textColor = UIColor.whiteColor()
+                    lblBeaconDetails.textColor = UIColor.whiteColor()
+                    lblBeaconReport.textColor = UIColor.whiteColor()
+                case CLProximity.Near:
+                    proximityMessage = "Near"
+                    self.view.backgroundColor = UIColor.purpleColor()
+                    lblBeaconReport.textColor = UIColor.whiteColor()
+                    lblBeaconDetails.textColor = UIColor.whiteColor()
+                    lblBeaconReport.textColor = UIColor.whiteColor()
+                case CLProximity.Far:
+                    proximityMessage = "Far"
+                    self.view.backgroundColor = UIColor.blueColor()
+                    lblBeaconReport.textColor = UIColor.whiteColor()
+                    lblBeaconDetails.textColor = UIColor.whiteColor()
+                    lblBeaconReport.textColor = UIColor.whiteColor()
+                default:
+                    proximityMessage = "Where's the beacon?"
+                    self.view.backgroundColor = UIColor.whiteColor()
                 }
+                
+                shouldHideBeaconDetails = false
+                
+                lblBeaconDetails.text = "Beacon Details:\nMajor = " + String(closestBeacon.major.intValue) + "\nMinor = " + String(closestBeacon.minor.intValue) + "\nDistance: " + proximityMessage
             }
+            //}
         }
         //}
         

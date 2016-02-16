@@ -27,10 +27,10 @@ class NotificationController: UIViewController {
         titleButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         //titleButton.addTarget(self, action: Selector(), forControlEvents: UIControlEvents.TouchUpInside)
         self.navigationItem.titleView = titleButton
-        
-        //let doneButton = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: Selector())
+
+        let actionButton = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: "actionButton:")
         let editButton = UIBarButtonItem(barButtonSystemItem: .Edit, target: self, action: Selector("editButton:"))
-        let buttons:NSArray = [editButton]
+        let buttons:NSArray = [editButton, actionButton]
         self.navigationItem.rightBarButtonItems = buttons as? [UIBarButtonItem]
         
         self.customMessage.clearButtonMode = .Always
@@ -53,12 +53,6 @@ class NotificationController: UIViewController {
         navigationController?.hidesBarsOnSwipe = true
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.barTintColor = UIColor(white:0.45, alpha:1.0)
-    }
-    
-    func editButton(sender:AnyObject) {
-        
-        self.performSegueWithIdentifier("notificationdetailsegue", sender: self)
-        
     }
     
     // MARK: - localNotification
@@ -107,40 +101,32 @@ class NotificationController: UIViewController {
         self.customMessage.text = ""
     }
     
-     @IBAction func memberNotification(sender:AnyObject) {
+    
+     func memberNotification() {
       
-        let notifications:UILocalNotification = UILocalNotification()
-        notifications.fireDate = datePicker.date
-        notifications.timeZone = NSTimeZone.localTimeZone()
+        let localNotification: UILocalNotification = UILocalNotification()
+        localNotification.alertAction = "Membership Status"
+        localNotification.alertBody = "Our system has detected that your membership is inactive."
+        localNotification.fireDate = NSDate(timeIntervalSinceNow: 15)
+        localNotification.timeZone = NSTimeZone.defaultTimeZone()
+        localNotification.category = "status"
+        localNotification.userInfo = [ "cause": "inactiveMembership"]
+        localNotification.applicationIconBadgeNumber = UIApplication.sharedApplication().applicationIconBadgeNumber + 1
+        localNotification.soundName = "Tornado.caf"
+        UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
         
-        switch(frequencySegmentedControl.selectedSegmentIndex){
-        case 0:
-            notifications.repeatInterval = NSCalendarUnit(rawValue: 0)
-            break;
-        case 1:
-            notifications.repeatInterval = .Day
-            break;
-        case 2:
-            notifications.repeatInterval = .Weekday
-            break;
-        case 3:
-            notifications.repeatInterval = .Year
-            break;
-        default:
-            notifications.repeatInterval = NSCalendarUnit(rawValue: 0)
-            break;
-        }
-        
-        notifications.alertAction = "Membership Status"
-        notifications.alertBody = "Our system has detected that your membership is inactive."
-        notifications.category = "status"
-        notifications.userInfo = [ "cause": "inactiveMembership"]
-        notifications.applicationIconBadgeNumber = UIApplication.sharedApplication().applicationIconBadgeNumber + 1
-        notifications.soundName = "Tornado.caf"
-        UIApplication.sharedApplication().scheduleLocalNotification(notifications)
-        self.customMessage.text = ""
-        
-        
+    }
+    
+    
+    func newBlogNotification() {
+        let localNotification: UILocalNotification = UILocalNotification()
+        localNotification.alertAction = "Blog Post"
+        localNotification.alertBody = "New Blog Posted at TheLight"
+        localNotification.fireDate = NSDate(timeIntervalSinceNow: 15)
+        localNotification.timeZone = NSTimeZone.defaultTimeZone()
+        localNotification.applicationIconBadgeNumber = UIApplication.sharedApplication().applicationIconBadgeNumber + 1
+        localNotification.soundName = UILocalNotificationDefaultSoundName
+        UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
     }
     
     
@@ -153,6 +139,39 @@ class NotificationController: UIViewController {
         let fixedDate: NSDate = NSCalendar.currentCalendar().dateFromComponents(dateComponents)!
         
         return fixedDate
+        
+    }
+    
+    // MARK: - Button
+    
+    func actionButton(sender: AnyObject) {
+        
+        let alertController = UIAlertController(title:nil, message:nil, preferredStyle: .ActionSheet)
+        
+        let buttonSix = UIAlertAction(title: "Membership Status", style: .Default, handler: { (action) -> Void in
+            self.memberNotification()
+        })
+        
+        let newBog = UIAlertAction(title: "New Blog Posted", style: .Default, handler: { (action) -> Void in
+            self.newBlogNotification()
+        })
+        let buttonCancel = UIAlertAction(title: "Cancel", style: .Cancel) { (action) -> Void in
+            //print("Cancel Button Pressed")
+        }
+        
+        alertController.addAction(buttonSix)
+        alertController.addAction(newBog)
+        alertController.addAction(buttonCancel)
+        
+        if let popoverController = alertController.popoverPresentationController {
+            popoverController.barButtonItem = sender as? UIBarButtonItem
+        }
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    
+    func editButton(sender:AnyObject) {
+        
+        self.performSegueWithIdentifier("notificationdetailsegue", sender: self)
         
     }
     

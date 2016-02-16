@@ -19,18 +19,48 @@ struct YQL {
         
         let results:NSDictionary? = nil
         
-        let jsonData = try? NSData(contentsOfURL: NSURL(string: query)!, options:NSDataReadingOptions.DataReadingMappedIfSafe)
-        
-        if let jsonResult: AnyObject = try? NSJSONSerialization.JSONObjectWithData(jsonData!,options:NSJSONReadingOptions.AllowFragments) {
+        if let jsonData = try? NSData(contentsOfURL: NSURL(string: query)!, options:NSDataReadingOptions.DataReadingMappedIfSafe) {
             
-            if let results = jsonResult as? NSDictionary {
-                print("myDict:\(results)")
-            } /*
-            else if let myArray = jsonResult as? NSArray {
-                print("myArray:\(myArray)")
-            } */
+            if let jsonResult: AnyObject = try? NSJSONSerialization.JSONObjectWithData(jsonData, options:NSJSONReadingOptions.AllowFragments) {
+                
+                if let results = jsonResult as? NSDictionary {
+                    //print("myDict:\(results)")
+                    
+                    let YQLtext:String = (((((results
+                        .objectForKey("query") as! NSDictionary)
+                        .objectForKey("results") as! NSDictionary)
+                        .objectForKey("channel") as! NSDictionary)
+                        .objectForKey("item") as! NSDictionary)
+                        .objectForKey("condition") as! NSDictionary)
+                        .objectForKey("text") as! String
+                    let YQLtemp:String = (((((results
+                        .objectForKey("query") as! NSDictionary)
+                        .objectForKey("results") as! NSDictionary)
+                        .objectForKey("channel") as! NSDictionary)
+                        .objectForKey("item") as! NSDictionary)
+                        .objectForKey("condition") as! NSDictionary)
+                        .objectForKey("temp") as! String
+                    print("Todays Weather: \(YQLtext) \(YQLtemp)")
+                    
+                    /*
+                    let YQLprice:String = (((results
+                        .objectForKey("query") as! NSDictionary)
+                        .objectForKey("results") as! NSDictionary)
+                        .objectForKey("quote") as! NSDictionary)
+                        .objectForKey("LastTradePriceOnly") as! String
+                    let YQLchange:String = (((results
+                        .objectForKey("query") as! NSDictionary)
+                        .objectForKey("results") as! NSDictionary)
+                        .objectForKey("quote") as! NSDictionary)
+                        .objectForKey("Change") as! String
+                    print("Todays Stocks: \(YQLprice) \(YQLchange)")
+                    */
+                    
+                }
+            }
+        } else {
+            print("JSON Error")
         }
-
         return results
     }
 }

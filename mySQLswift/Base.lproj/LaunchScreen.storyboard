@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9531" systemVersion="15C50" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" initialViewController="01J-lp-oVM">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -21,13 +21,13 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="269" translatesAutoresizingMaskIntoConstraints="NO" id="f9f-TY-XZY">
                                 <rect key="frame" x="95" y="148" width="410" height="447"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="mySQL" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xBt-T0-GeL">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="TheLight" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xBt-T0-GeL">
                                         <rect key="frame" x="0.0" y="0.0" width="410" height="128"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="410" id="2NQ-Jf-XCe"/>
                                             <constraint firstAttribute="height" constant="128" id="8CT-1Y-nwL"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="60"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="54"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -85,10 +85,19 @@
                                     </mask>
                                 </variation>
                             </stackView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Icon-167.png" translatesAutoresizingMaskIntoConstraints="NO" id="iWP-o0-OTa">
+                                <rect key="frame" x="262" y="292" width="75" height="75"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="75" id="3HK-gX-8MK"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="iWP-o0-OTa" secondAttribute="bottom" constant="233" id="8Je-07-7yx"/>
+                            <constraint firstItem="iWP-o0-OTa" firstAttribute="centerX" secondItem="f9f-TY-XZY" secondAttribute="centerX" id="ON5-cg-nmE"/>
                             <constraint firstItem="xb3-aO-Qok" firstAttribute="top" secondItem="f9f-TY-XZY" secondAttribute="bottom" constant="5" id="OVr-jn-BvU"/>
+                            <constraint firstItem="iWP-o0-OTa" firstAttribute="top" secondItem="Llm-lL-Icb" secondAttribute="bottom" constant="272" id="q2j-lW-SaV"/>
                             <constraint firstItem="f9f-TY-XZY" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="rzb-Et-WUh"/>
                         </constraints>
                     </view>
@@ -98,4 +107,7 @@
             <point key="canvasLocation" x="53" y="375"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="Icon-167.png" width="167" height="167"/>
+    </resources>
 </document>

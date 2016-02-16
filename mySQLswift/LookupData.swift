@@ -72,7 +72,7 @@ class LookupData: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         searchController.dimsBackgroundDuringPresentation = true
         searchController.hidesNavigationBarDuringPresentation = false
         //tableView!.tableHeaderView = searchController.searchBar
-        tableView!.tableFooterView = UIView(frame: CGRectZero)
+        tableView!.tableFooterView = UIView(frame: .zero)
         UISearchBar.appearance().barTintColor = UIColor(white:0.45, alpha:1.0)
         self.presentViewController(searchController, animated: true, completion: nil)
        

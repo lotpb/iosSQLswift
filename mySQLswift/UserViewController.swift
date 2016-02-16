@@ -56,7 +56,7 @@ class UserViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.tableView!.estimatedRowHeight = 110
         self.tableView!.rowHeight = UITableViewAutomaticDimension
         self.tableView!.backgroundColor = UIColor.clearColor()
-        self.tableView!.tableFooterView = UIView(frame: CGRectZero)
+        self.tableView!.tableFooterView = UIView(frame: .zero)
         
         self.collectionView!.dataSource = self
         self.collectionView!.delegate = self

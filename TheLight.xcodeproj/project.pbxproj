@@ -31,6 +31,7 @@
 		AF2817CB1C38794F00B2607A /* LeadUserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2817CA1C38794F00B2607A /* LeadUserController.swift */; };
 		AF2DB75E1C243EAA00AAE855 /* UserDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2DB75D1C243EAA00AAE855 /* UserDetailController.swift */; };
 		AF46FA841C2313EE00C27445 /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF46FA831C2313EE00C27445 /* UserViewController.swift */; };
+		AF4F52731C72B4A400DC7376 /* Icon-167.png in Resources */ = {isa = PBXBuildFile; fileRef = AF4F52721C72B4A400DC7376 /* Icon-167.png */; };
 		AF56DFC31C28947400CD7EB9 /* SnapshotController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF56DFC21C28947400CD7EB9 /* SnapshotController.swift */; };
 		AF5794B31C53EC6B006C456B /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF5794B21C53EC6B006C456B /* KeychainWrapper.swift */; };
 		AF5BF9E91C18C3720072B997 /* News.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF5BF9E81C18C3720072B997 /* News.swift */; };
@@ -41,6 +42,7 @@
 		AF6C691B1C455BAE00CD6A36 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = AF6C691A1C455BAE00CD6A36 /* Settings.bundle */; };
 		AF6E27041C3AC52300612C25 /* EditData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6E27031C3AC52200612C25 /* EditData.swift */; };
 		AF7383EB1C302DD00049407C /* NotificationDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF7383EA1C302DD00049407C /* NotificationDetailController.swift */; };
+		AF7D843D1C6F7FFF00D53638 /* mySQLswift.entitlements in Resources */ = {isa = PBXBuildFile; fileRef = AF7D843C1C6F7FFF00D53638 /* mySQLswift.entitlements */; };
 		AF83D50E1C2EF9DE00E27DD2 /* ParseFacebookUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF83D50D1C2EF9DE00E27DD2 /* ParseFacebookUtils.framework */; };
 		AF88129F1C61B14C007826AD /* MobyDick.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AF88129E1C61B14C007826AD /* MobyDick.mp3 */; };
 		AF8CC3A71C4153AF004147F3 /* NewEditData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8CC3A61C4153AF004147F3 /* NewEditData.swift */; };
@@ -52,6 +54,7 @@
 		AF9A87821C1862900091B0E3 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = AF9A87811C1862900091B0E3 /* libsqlite3.dylib */; };
 		AF9A87841C18645C0091B0E3 /* Web.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9A87831C18645C0091B0E3 /* Web.swift */; };
 		AF9EE4C71C2771D70057B7DB /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9EE4C61C2771D70057B7DB /* NotificationController.swift */; };
+		AFAE40391C72125300F73183 /* Assets in Resources */ = {isa = PBXBuildFile; fileRef = AFAE40381C72125300F73183 /* Assets */; };
 		AFB5A71E1C2C499200F8BC56 /* Vendor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB5A71D1C2C499200F8BC56 /* Vendor.swift */; };
 		AFB5A7201C2C4C7700F8BC56 /* Employee.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB5A71F1C2C4C7700F8BC56 /* Employee.swift */; };
 		AFC4002C1C60250E0095333E /* YTPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = AFC4002B1C60250E0095333E /* YTPlayerView.m */; };
@@ -150,7 +153,7 @@
 		AF011A711C40A798000EAF5D /* ProductController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductController.swift; sourceTree = "<group>"; };
 		AF011A731C40AAE2000EAF5D /* JobController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = JobController.swift; sourceTree = "<group>"; };
 		AF011A751C40AB2F000EAF5D /* SalesmanController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SalesmanController.swift; sourceTree = "<group>"; };
-		AF0369A11C173DDC00137D7E /* mySQLswift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = mySQLswift.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AF0369A11C173DDC00137D7E /* TheLight.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TheLight.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF0369A41C173DDC00137D7E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AF0369A61C173DDC00137D7E /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
 		AF0369A81C173DDC00137D7E /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
@@ -158,10 +161,10 @@
 		AF0369AD1C173DDC00137D7E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AF0369B01C173DDC00137D7E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AF0369B21C173DDC00137D7E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AF0369B71C173DDC00137D7E /* mySQLswiftTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = mySQLswiftTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AF0369B71C173DDC00137D7E /* TheLight.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TheLight.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF0369BB1C173DDC00137D7E /* mySQLswiftTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mySQLswiftTests.swift; sourceTree = "<group>"; };
 		AF0369BD1C173DDC00137D7E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AF0369C21C173DDC00137D7E /* mySQLswiftUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = mySQLswiftUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AF0369C21C173DDC00137D7E /* TheLight.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TheLight.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF0369C61C173DDC00137D7E /* mySQLswiftUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = mySQLswiftUITests.swift; sourceTree = "<group>"; };
 		AF0369C81C173DDC00137D7E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AF0754851C4336E200B03D38 /* LookupData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LookupData.swift; sourceTree = "<group>"; };
@@ -177,6 +180,7 @@
 		AF2817CA1C38794F00B2607A /* LeadUserController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeadUserController.swift; sourceTree = "<group>"; };
 		AF2DB75D1C243EAA00AAE855 /* UserDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDetailController.swift; sourceTree = "<group>"; };
 		AF46FA831C2313EE00C27445 /* UserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
+		AF4F52721C72B4A400DC7376 /* Icon-167.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-167.png"; sourceTree = "<group>"; };
 		AF56DFC21C28947400CD7EB9 /* SnapshotController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotController.swift; sourceTree = "<group>"; };
 		AF5794B21C53EC6B006C456B /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
 		AF5BF9E81C18C3720072B997 /* News.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = News.swift; sourceTree = "<group>"; };
@@ -187,6 +191,7 @@
 		AF6C691A1C455BAE00CD6A36 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		AF6E27031C3AC52200612C25 /* EditData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditData.swift; sourceTree = "<group>"; };
 		AF7383EA1C302DD00049407C /* NotificationDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationDetailController.swift; sourceTree = "<group>"; };
+		AF7D843C1C6F7FFF00D53638 /* mySQLswift.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = mySQLswift.entitlements; sourceTree = "<group>"; };
 		AF83D50D1C2EF9DE00E27DD2 /* ParseFacebookUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParseFacebookUtils.framework; path = Parse/ParseFacebookUtils.framework; sourceTree = "<group>"; };
 		AF88129E1C61B14C007826AD /* MobyDick.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = MobyDick.mp3; path = Music/MobyDick.mp3; sourceTree = "<group>"; };
 		AF8CC3A61C4153AF004147F3 /* NewEditData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewEditData.swift; sourceTree = "<group>"; };
@@ -198,6 +203,7 @@
 		AF9A87811C1862900091B0E3 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = /usr/lib/libsqlite3.dylib; sourceTree = "<absolute>"; };
 		AF9A87831C18645C0091B0E3 /* Web.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Web.swift; sourceTree = "<group>"; };
 		AF9EE4C61C2771D70057B7DB /* NotificationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
+		AFAE40381C72125300F73183 /* Assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Assets; sourceTree = "<group>"; };
 		AFB5A71D1C2C499200F8BC56 /* Vendor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vendor.swift; sourceTree = "<group>"; };
 		AFB5A71F1C2C4C7700F8BC56 /* Employee.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Employee.swift; sourceTree = "<group>"; };
 		AFC400291C60250E0095333E /* mySQLswift-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "mySQLswift-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -338,9 +344,9 @@
 		AF0369A21C173DDC00137D7E /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				AF0369A11C173DDC00137D7E /* mySQLswift.app */,
-				AF0369B71C173DDC00137D7E /* mySQLswiftTests.xctest */,
-				AF0369C21C173DDC00137D7E /* mySQLswiftUITests.xctest */,
+				AF0369A11C173DDC00137D7E /* TheLight.app */,
+				AF0369B71C173DDC00137D7E /* TheLight.xctest */,
+				AF0369C21C173DDC00137D7E /* TheLight.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -348,6 +354,7 @@
 		AF0369A31C173DDC00137D7E /* mySQLswift */ = {
 			isa = PBXGroup;
 			children = (
+				AF7D843C1C6F7FFF00D53638 /* mySQLswift.entitlements */,
 				AF0369A41C173DDC00137D7E /* AppDelegate.swift */,
 				AFE6936E1C6A4D7E000BEDCE /* Constants.swift */,
 				AF0369A61C173DDC00137D7E /* MasterViewController.swift */,
@@ -489,6 +496,7 @@
 		AFC400281C60249F0095333E /* YouTube */ = {
 			isa = PBXGroup;
 			children = (
+				AFAE40381C72125300F73183 /* Assets */,
 				AF0D6B321C4C554300334D03 /* YouTubeController.swift */,
 				AFC4002D1C6025700095333E /* PlayerViewController.swift */,
 				AFC400291C60250E0095333E /* mySQLswift-Bridging-Header.h */,
@@ -552,6 +560,7 @@
 			children = (
 				AFE263E21C17DC11007BBB90 /* IMG_1133.jpg */,
 				AFE263E31C17DC11007BBB90 /* IMG_1133New.jpg */,
+				AF4F52721C72B4A400DC7376 /* Icon-167.png */,
 				AFE263E41C17DC11007BBB90 /* bookmark.png */,
 				AFE263E51C17DC11007BBB90 /* calendar.png */,
 				AFE263E61C17DC11007BBB90 /* comments.png */,
@@ -607,9 +616,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		AF0369A01C173DDC00137D7E /* mySQLswift */ = {
+		AF0369A01C173DDC00137D7E /* TheLight */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = AF0369CB1C173DDC00137D7E /* Build configuration list for PBXNativeTarget "mySQLswift" */;
+			buildConfigurationList = AF0369CB1C173DDC00137D7E /* Build configuration list for PBXNativeTarget "TheLight" */;
 			buildPhases = (
 				AF03699D1C173DDC00137D7E /* Sources */,
 				AF03699E1C173DDC00137D7E /* Frameworks */,
@@ -619,14 +628,14 @@
 			);
 			dependencies = (
 			);
-			name = mySQLswift;
+			name = TheLight;
 			productName = mySQLswift;
-			productReference = AF0369A11C173DDC00137D7E /* mySQLswift.app */;
+			productReference = AF0369A11C173DDC00137D7E /* TheLight.app */;
 			productType = "com.apple.product-type.application";
 		};
-		AF0369B61C173DDC00137D7E /* mySQLswiftTests */ = {
+		AF0369B61C173DDC00137D7E /* TheLightTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = AF0369CE1C173DDC00137D7E /* Build configuration list for PBXNativeTarget "mySQLswiftTests" */;
+			buildConfigurationList = AF0369CE1C173DDC00137D7E /* Build configuration list for PBXNativeTarget "TheLightTests" */;
 			buildPhases = (
 				AF0369B31C173DDC00137D7E /* Sources */,
 				AF0369B41C173DDC00137D7E /* Frameworks */,
@@ -637,14 +646,14 @@
 			dependencies = (
 				AF0369B91C173DDC00137D7E /* PBXTargetDependency */,
 			);
-			name = mySQLswiftTests;
+			name = TheLightTests;
 			productName = mySQLswiftTests;
-			productReference = AF0369B71C173DDC00137D7E /* mySQLswiftTests.xctest */;
+			productReference = AF0369B71C173DDC00137D7E /* TheLight.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		AF0369C11C173DDC00137D7E /* mySQLswiftUITests */ = {
+		AF0369C11C173DDC00137D7E /* TheLightUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = AF0369D11C173DDC00137D7E /* Build configuration list for PBXNativeTarget "mySQLswiftUITests" */;
+			buildConfigurationList = AF0369D11C173DDC00137D7E /* Build configuration list for PBXNativeTarget "TheLightUITests" */;
 			buildPhases = (
 				AF0369BE1C173DDC00137D7E /* Sources */,
 				AF0369BF1C173DDC00137D7E /* Frameworks */,
@@ -655,9 +664,9 @@
 			dependencies = (
 				AF0369C41C173DDC00137D7E /* PBXTargetDependency */,
 			);
-			name = mySQLswiftUITests;
+			name = TheLightUITests;
 			productName = mySQLswiftUITests;
-			productReference = AF0369C21C173DDC00137D7E /* mySQLswiftUITests.xctest */;
+			productReference = AF0369C21C173DDC00137D7E /* TheLight.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -691,7 +700,7 @@
 					};
 				};
 			};
-			buildConfigurationList = AF03699C1C173DDC00137D7E /* Build configuration list for PBXProject "mySQLswift" */;
+			buildConfigurationList = AF03699C1C173DDC00137D7E /* Build configuration list for PBXProject "TheLight" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -704,9 +713,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				AF0369A01C173DDC00137D7E /* mySQLswift */,
-				AF0369B61C173DDC00137D7E /* mySQLswiftTests */,
-				AF0369C11C173DDC00137D7E /* mySQLswiftUITests */,
+				AF0369A01C173DDC00137D7E /* TheLight */,
+				AF0369B61C173DDC00137D7E /* TheLightTests */,
+				AF0369C11C173DDC00137D7E /* TheLightUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -731,6 +740,7 @@
 				AFE264311C17DC11007BBB90 /* Thumb Up.png in Resources */,
 				AFE264171C17DC11007BBB90 /* profile-rabbit-toy.png in Resources */,
 				AFE264251C17DC11007BBB90 /* iosStar.png in Resources */,
+				AFAE40391C72125300F73183 /* Assets in Resources */,
 				AFE264221C17DC11007BBB90 /* home-50.png in Resources */,
 				AF0369AE1C173DDC00137D7E /* Assets.xcassets in Resources */,
 				AF0369AC1C173DDC00137D7E /* Main.storyboard in Resources */,
@@ -752,6 +762,7 @@
 				AF206E051C1B1FA800EA60D6 /* Tornado.caf in Resources */,
 				AFE264191C17DC11007BBB90 /* wishlist.png in Resources */,
 				AFE264201C17DC11007BBB90 /* home copy.png in Resources */,
+				AF4F52731C72B4A400DC7376 /* Icon-167.png in Resources */,
 				AFE264101C17DC11007BBB90 /* footer_banner.png in Resources */,
 				AFE2642D1C17DC11007BBB90 /* mySQLNEWS.png in Resources */,
 				AFE264211C17DC11007BBB90 /* home_filled-50.png in Resources */,
@@ -761,6 +772,7 @@
 				AFE264281C17DC11007BBB90 /* Left 2.png in Resources */,
 				AF88129F1C61B14C007826AD /* MobyDick.mp3 in Resources */,
 				AFE2642F1C17DC11007BBB90 /* note30copy.png in Resources */,
+				AF7D843D1C6F7FFF00D53638 /* mySQLswift.entitlements in Resources */,
 				AFE2642E1C17DC11007BBB90 /* nav_bg.png in Resources */,
 				AFE264301C17DC11007BBB90 /* play_button.png in Resources */,
 				AFE2641E1C17DC11007BBB90 /* display30copy.png in Resources */,
@@ -860,12 +872,12 @@
 /* Begin PBXTargetDependency section */
 		AF0369B91C173DDC00137D7E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = AF0369A01C173DDC00137D7E /* mySQLswift */;
+			target = AF0369A01C173DDC00137D7E /* TheLight */;
 			targetProxy = AF0369B81C173DDC00137D7E /* PBXContainerItemProxy */;
 		};
 		AF0369C41C173DDC00137D7E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = AF0369A01C173DDC00137D7E /* mySQLswift */;
+			target = AF0369A01C173DDC00137D7E /* TheLight */;
 			targetProxy = AF0369C31C173DDC00137D7E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -985,8 +997,8 @@
 				);
 				INFOPLIST_FILE = mySQLswift/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.PeterBalsamo.SwiftMySQL;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.PeterBalsamo.TheLight;
+				PRODUCT_NAME = TheLight;
 				SWIFT_OBJC_BRIDGING_HEADER = "mySQLswift/mySQLswift-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
@@ -1004,8 +1016,8 @@
 				);
 				INFOPLIST_FILE = mySQLswift/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.PeterBalsamo.SwiftMySQL;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.PeterBalsamo.TheLight;
+				PRODUCT_NAME = TheLight;
 				SWIFT_OBJC_BRIDGING_HEADER = "mySQLswift/mySQLswift-Bridging-Header.h";
 			};
 			name = Release;
@@ -1017,8 +1029,8 @@
 				INFOPLIST_FILE = mySQLswiftTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.PeterBalsamo.mySQLswiftTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/mySQLswift.app/mySQLswift";
+				PRODUCT_NAME = TheLight;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TheLight.app/TheLight";
 			};
 			name = Debug;
 		};
@@ -1029,8 +1041,8 @@
 				INFOPLIST_FILE = mySQLswiftTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.PeterBalsamo.mySQLswiftTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/mySQLswift.app/mySQLswift";
+				PRODUCT_NAME = TheLight;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TheLight.app/TheLight";
 			};
 			name = Release;
 		};
@@ -1040,7 +1052,7 @@
 				INFOPLIST_FILE = mySQLswiftUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.PeterBalsamo.mySQLswiftUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = TheLight;
 				TEST_TARGET_NAME = mySQLswift;
 				USES_XCTRUNNER = YES;
 			};
@@ -1052,7 +1064,7 @@
 				INFOPLIST_FILE = mySQLswiftUITests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.PeterBalsamo.mySQLswiftUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = TheLight;
 				TEST_TARGET_NAME = mySQLswift;
 				USES_XCTRUNNER = YES;
 			};
@@ -1061,7 +1073,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		AF03699C1C173DDC00137D7E /* Build configuration list for PBXProject "mySQLswift" */ = {
+		AF03699C1C173DDC00137D7E /* Build configuration list for PBXProject "TheLight" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AF0369C91C173DDC00137D7E /* Debug */,
@@ -1070,7 +1082,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		AF0369CB1C173DDC00137D7E /* Build configuration list for PBXNativeTarget "mySQLswift" */ = {
+		AF0369CB1C173DDC00137D7E /* Build configuration list for PBXNativeTarget "TheLight" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AF0369CC1C173DDC00137D7E /* Debug */,
@@ -1079,7 +1091,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		AF0369CE1C173DDC00137D7E /* Build configuration list for PBXNativeTarget "mySQLswiftTests" */ = {
+		AF0369CE1C173DDC00137D7E /* Build configuration list for PBXNativeTarget "TheLightTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AF0369CF1C173DDC00137D7E /* Debug */,
@@ -1088,7 +1100,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		AF0369D11C173DDC00137D7E /* Build configuration list for PBXNativeTarget "mySQLswiftUITests" */ = {
+		AF0369D11C173DDC00137D7E /* Build configuration list for PBXNativeTarget "TheLightUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				AF0369D21C173DDC00137D7E /* Debug */,

@@ -9,6 +9,7 @@
 import UIKit
 import Parse
 import AVFoundation
+//import SwiftKeychainWrapper
 //import iAd
 
 class MasterViewController: UITableViewController, UISplitViewControllerDelegate, UISearchResultsUpdating {
@@ -26,6 +27,9 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
     //var searchController: UISearchController!
     var resultsController: UITableViewController!
     var foundUsers = [String]()
+    
+    let defaults = NSUserDefaults.standardUserDefaults()
+
     
     //var tempYQL : String!
     
@@ -65,8 +69,6 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         self.splitViewController?.delegate = self; //added
         self.splitViewController?.preferredDisplayMode = UISplitViewControllerDisplayMode.Automatic //added
         
-        let defaults = NSUserDefaults.standardUserDefaults()
-
         // MARK: - Sound
         
         if (defaults.boolForKey("soundKey"))  {
@@ -86,15 +88,15 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
  
         let userId:String = defaults.stringForKey("usernameKey")!
         let userpassword:String = defaults.stringForKey("passwordKey")!
-        /*
-        //Keychain
-        let isSavedId: Bool = KeychainWrapper.setString(userId, forKey: "usernameKey")
-        let isSavedPass: Bool = KeychainWrapper.setString(userpassword, forKey: "passwordKey")
-        print(isSavedId, isSavedPass)
         
-        let retrievedId: String? = KeychainWrapper.stringForKey("usernameKey")
-        let retrievedPass: String? = KeychainWrapper.stringForKey("passwordKey")
-        print(retrievedId, retrievedPass) */
+        //Keychain
+        
+        //KeychainWrapper.accessGroup = "group.TheLightGroup"
+        if KeychainWrapper.setString(userId, forKey: "usernameKey") && KeychainWrapper.setString(userpassword, forKey: "passwordKey") {
+            print("save successful")
+        } else {
+            print("save failed")
+        }
         
         //Parse
         
@@ -105,14 +107,22 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         // MARK: - YQL
         
         self.updateYahoo()
+        self.versionCheck()
     }
 
     override func viewWillAppear(animated: Bool) {
-        self.clearsSelectionOnViewWillAppear = self.splitViewController!.collapsed
+        //self.clearsSelectionOnViewWillAppear = self.splitViewController!.collapsed
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.barTintColor = UIColor.blackColor()
         
+    }
+    
+    override class func initialize() {
+        var onceToken: dispatch_once_t = 0
+        dispatch_once(&onceToken) {
+            //self.versionCheck()
+        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -146,9 +156,6 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
             PFUser.logOut()
             self.performSegueWithIdentifier("showLogin", sender: self)
         })
-        let buttonSix = UIAlertAction(title: "Membership Status", style: .Default, handler: { (action) -> Void in
-            self.sendNotification()
-        })
         let buttonCancel = UIAlertAction(title: "Cancel", style: .Cancel) { (action) -> Void in
             //print("Cancel Button Pressed")
         }
@@ -157,7 +164,6 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         alertController.addAction(buttonTwo)
         alertController.addAction(buttonThree)
         alertController.addAction(buttonFour)
-        alertController.addAction(buttonSix)
         alertController.addAction(buttonSocial)
         alertController.addAction(buttonFive)
         alertController.addAction(buttonCancel)
@@ -364,7 +370,7 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         searchController.dimsBackgroundDuringPresentation = true
         searchController.hidesNavigationBarDuringPresentation = true
         //tableView!.tableHeaderView = searchController.searchBar
-        tableView!.tableFooterView = UIView(frame: CGRectZero)
+        tableView!.tableFooterView = UIView(frame: .zero)
         UISearchBar.appearance().barTintColor = UIColor.blackColor()
         self.presentViewController(searchController, animated: true, completion: nil)
     }
@@ -379,52 +385,69 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
     }
     
     
-    // MARK: - localNotification
+    // MARK: - upDate
     
-    /*
-    override class func initialize() {
-        var onceToken: dispatch_once_t = 0
-        dispatch_once(&onceToken) {
-            self.sendNotification()
-        }
-    } */
-    
-    func sendNotification() {
+    func versionCheck() {
         
-        let localNotification: UILocalNotification = UILocalNotification()
-        localNotification.alertAction = "Membership Status"
-        localNotification.alertBody = "Our system has detected that your membership is inactive."
-        localNotification.fireDate = NSDate(timeIntervalSinceNow: 10)
-        localNotification.timeZone = NSTimeZone.localTimeZone()
-        localNotification.category = "status"
-        localNotification.userInfo = [ "cause": "inactiveMembership"]
-        localNotification.applicationIconBadgeNumber = UIApplication.sharedApplication().applicationIconBadgeNumber + 1
-        UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
+        let query = PFQuery(className:"Version")
+        //query.cachePolicy = PFCachePolicy.CacheThenNetwork
+        query.getFirstObjectInBackgroundWithBlock {(object: PFObject?, error: NSError?) -> Void in
+            let versionId = object?.objectForKey("VersionId") as! String?
+            
+            if (versionId != self.defaults.stringForKey("versionKey")) {
+                
+                let alert = UIAlertController(title: "New Version!!", message: "A new version of app is available to download", preferredStyle: UIAlertControllerStyle.Alert)
+                
+                let update = UIAlertAction(title: "Update", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
+                
+                alert.addAction(update)
+                self.presentViewController(alert, animated: true, completion: nil)
+                
+            }
+        }
     }
     
+
     func updateYahoo() {
         
         let results = YQL.query("select * from weather.forecast where woeid=2446726")
-        let tempYQL = results?.valueForKeyPath("query.results.channel.item.condition.text") as! NSDictionary?
-        //let resultsText = tempYQL?.objectForKey("text") as! NSString?
-        //let resultsTemp = tempYQL?.objectForKey("temp") as! NSString?
+        /*
+        let YQLtext:String = (((((results.objectForKey("query") as! NSDictionary).objectForKey("results") as! NSDictionary).objectForKey("channel") as! NSDictionary).objectForKey("item") as! NSDictionary).objectForKey("condition") as! NSDictionary).objectForKey("text") as! String
         
-        print(tempYQL)
-        NSLog( "query.results: \(tempYQL)" )
+        let YQLtemp:String = (((((results.objectForKey("query") as! NSDictionary).objectForKey("results") as! NSDictionary).objectForKey("channel") as! NSDictionary).objectForKey("item") as! NSDictionary).objectForKey("condition") as! NSDictionary).objectForKey("temp") as! String
         
+        print("Todays Weather: \(YQLtext) \(YQLtemp)") */
+        
+        print(results)
+        //NSLog( "query.results: \(Yresults)" )
         
         /*
-        let stockresults = YQL.query("select * from yahoo.finance.quote where symbol in (\"^IXIC\",\"SPY\")")
-        print(stockresults) */
+        let query: NSDictionary = Yresults?.objectForKey("query") as! NSDictionary
+        let results: NSDictionary = query.objectForKey("results") as! NSDictionary
+        let channel: NSDictionary = results.objectForKey("channel") as! NSDictionary
+        let item: NSDictionary = channel.objectForKey("item") as! NSDictionary
+        let condition: NSDictionary = item.objectForKey("condition") as! NSDictionary
+        let temp: String = condition.objectForKey("temp") as! String
+        print(temp) */
         
         /*
-        let fieldResults = stockresults?.valueForKeyPath("query.results.quote.LastTradePriceOnly") as! NSDictionary?
-        print(fieldResults)
+
+        let stockresults: NSDictionary = YQL.query("select * from yahoo.finance.quote where symbol in (\"^IXIC\",\"SPY\")")!
+        print(stockresults)
         
-        let changeResults = stockresults?.valueForKeyPath("query.results.quote.Change") as! NSDictionary?
-        print(changeResults) */
+        let YQLprice:String = (((stockresults
+            .objectForKey("query") as! NSDictionary)
+            .objectForKey("results") as! NSDictionary)
+            .objectForKey("quote") as! NSDictionary)
+            .objectForKey("LastTradePriceOnly") as! String
+        let YQLchange:String = (((stockresults
+            .objectForKey("query") as! NSDictionary)
+            .objectForKey("results") as! NSDictionary)
+            .objectForKey("quote") as! NSDictionary)
+            .objectForKey("Change") as! String
+        print("Todays Stocks: \(YQLprice) \(YQLchange)")
         
-        
+        */
     }
 
     

@@ -7,12 +7,15 @@
 //
 
 import UIKit
-import MediaPlayer
-//import AVFoundation
+//import MediaPlayer
+
+import AVKit
+import AVFoundation
 
 class MusicController: UIViewController {
     
-    //var player:AVPlayer?
+    var videoPlayer: AVPlayer? = AVPlayer()
+    var searchResults = [Track]()
     
     var activeDownloads = [String: Download]()
     let defaultSession = NSURLSession(configuration: NSURLSessionConfiguration.defaultSessionConfiguration())
@@ -20,8 +23,6 @@ class MusicController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var searchBar: UISearchBar!
-    
-    var searchResults = [Track]()
     
     lazy var tapRecognizer: UITapGestureRecognizer = {
         var recognizer = UITapGestureRecognizer(target:self, action: "dismissKeyboard")
@@ -159,13 +160,29 @@ class MusicController: UIViewController {
     func playDownload(track: Track) {
         
         if let urlString = track.previewUrl, url = localFilePathForUrl(urlString) {
-
-             //player = AVPlayer(URL:url)
- 
-            let moviePlayer:MPMoviePlayerViewController! = MPMoviePlayerViewController(contentURL: url)
-            presentMoviePlayerViewControllerAnimated(moviePlayer)
+            
+            videoPlayer = AVPlayer(URL: url)
+            let playerViewController = AVPlayerViewController()
+            playerViewController.player = videoPlayer
+            
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: "finishedPlaying:", name: AVPlayerItemDidPlayToEndTimeNotification, object: videoPlayer!.currentItem)
+            
+            self.presentViewController(playerViewController, animated: true)
+                {
+                    playerViewController.player!.play()
+                }
         }
     }
+    
+    
+    func finishedPlaying(myNotification:NSNotification) {
+        
+        let stopedPlayerItem: AVPlayerItem = myNotification.object as! AVPlayerItem
+        stopedPlayerItem.seekToTime(kCMTimeZero)
+    }
+    
+    
+    
     
     // MARK: Download helper methods
     

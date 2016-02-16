@@ -30,7 +30,7 @@ class DetailViewController: UIViewController, RPPreviewViewControllerDelegate, A
     
     private var locationManager = CLLocationManager()
     
-    private let identifier = "com.mySQL" //added CoreSpotlight
+    private let identifier = "com.TheLight" //added CoreSpotlight
     private let domainIdentifier = "com.lotpb.github.io/UnitedWebPage/index.html"
     private var activity: NSUserActivity!
 
@@ -74,7 +74,7 @@ class DetailViewController: UIViewController, RPPreviewViewControllerDelegate, A
         super.viewDidLoad()
 
         let titleButton: UIButton = UIButton(frame: CGRectMake(0, 0, 100, 32))
-        titleButton.setTitle("mySQL Software", forState: UIControlState.Normal)
+        titleButton.setTitle("TheLight Software", forState: UIControlState.Normal)
         titleButton.titleLabel?.font = UIFont(name: "HelveticaNeue-Thin", size: 25.0)
         titleButton.titleLabel?.textAlignment = NSTextAlignment.Center
         titleButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
@@ -96,7 +96,7 @@ class DetailViewController: UIViewController, RPPreviewViewControllerDelegate, A
         buttonEnabledControl(recorder.recording)
 
         
-        let myLabel:UILabel = UILabel(frame: CGRectMake(20, 65, 60, 60))
+        let myLabel:UILabel = UILabel(frame: CGRectMake(20, 70, 60, 60))
         myLabel.backgroundColor = UIColor.orangeColor() //UIColor(red: 0.02, green: 0.36, blue: 0.53, alpha: 1.0)
         myLabel.textColor = UIColor.whiteColor()
         myLabel.textAlignment = NSTextAlignment.Center
@@ -135,13 +135,13 @@ class DetailViewController: UIViewController, RPPreviewViewControllerDelegate, A
         
         let activityType = String(format: "%@.%@", identifier, domainIdentifier)
         activity = NSUserActivity(activityType: activityType)
-        activity.title = "mySQL"
+        activity.title = "TheLight"
         activity.keywords = Set<String>(arrayLiteral: "window", "door", "siding", "roof")
         activity.eligibleForSearch = true
         activity.becomeCurrent()
         
         let attributeSet = CSSearchableItemAttributeSet(itemContentType: kUTTypeText as String)
-        attributeSet.title = "mySQL"
+        attributeSet.title = "TheLight"
         attributeSet.contentDescription = "CoreSpotLight tutorial"
         attributeSet.keywords = ["window", "door", "siding", "roof"]
         //let image = UIImage(named: "m7")!

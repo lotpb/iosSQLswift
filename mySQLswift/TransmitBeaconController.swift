@@ -70,7 +70,7 @@ class TransmitBeaconController: UIViewController, CBPeripheralManagerDelegate {
             if bluetoothPeripheralManager.state == .PoweredOn {
                 let major: CLBeaconMajorValue = UInt16(Int(txtMajor.text!)!)
                 let minor: CLBeaconMinorValue = UInt16(Int(txtMinor.text!)!)
-                beaconRegion = CLBeaconRegion(proximityUUID: uuid!, major: major, minor: minor, identifier: "com.mySQL.beacon")
+                beaconRegion = CLBeaconRegion(proximityUUID: uuid!, major: major, minor: minor, identifier: "com.TheLight.beacon")
                 
                 dataDictionary = beaconRegion.peripheralDataWithMeasuredPower(nil)
                 bluetoothPeripheralManager.startAdvertising(dataDictionary as? [String : AnyObject])

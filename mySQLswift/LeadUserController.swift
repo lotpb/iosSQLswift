@@ -60,7 +60,7 @@ class LeadUserController: UIViewController, UITableViewDelegate, UITableViewData
         self.tableView!.estimatedRowHeight = 110
         self.tableView!.rowHeight = UITableViewAutomaticDimension
         self.tableView!.backgroundColor = UIColor.whiteColor()
-        tableView!.tableFooterView = UIView(frame: CGRectZero)
+        tableView!.tableFooterView = UIView(frame: .zero)
         self.automaticallyAdjustsScrollViewInsets = false
         
         self.parseData()

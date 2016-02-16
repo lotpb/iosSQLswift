@@ -70,7 +70,7 @@ class BlogEditController: UIViewController, UITableViewDelegate, UITableViewData
         self.listTableView!.dataSource = self
         self.listTableView!.estimatedRowHeight = 75
         self.listTableView!.rowHeight = UITableViewAutomaticDimension
-        self.listTableView!.tableFooterView = UIView(frame: CGRectZero)
+        self.listTableView!.tableFooterView = UIView(frame: .zero)
 
         self.view.backgroundColor = UIColor.lightGrayColor()
         self.toolBar!.translucent = false

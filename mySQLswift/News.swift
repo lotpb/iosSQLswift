@@ -110,7 +110,7 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
         
         cell.backgroundColor = UIColor.whiteColor()
         cell.sourceLabel.textColor = UIColor(white:0.45, alpha:1.0)
-        cell.uploadbyLabel.textColor = UIColor.lightGrayColor()
+        cell.uploadbyLabel.textColor = UIColor(white:0.45, alpha:1.0)
         
         let playButton = UIButton(type: UIButtonType.Custom) as UIButton
         
@@ -228,7 +228,7 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
     
     func likeButton(sender:UIButton) {
         
-        sender.tintColor = Color.News.buttonColor
+        sender.tintColor = Color.BlueColor
         let hitPoint = sender.convertPoint(CGPointZero, toView: self.collectionView)
         let indexPath = self.collectionView!.indexPathForItemAtPoint(hitPoint)
         
@@ -296,7 +296,7 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
         searchController.hidesNavigationBarDuringPresentation = true
         //searchController.searchBar.scopeButtonTitles = searchScope
         //tableView!.tableHeaderView = searchController.searchBar
-        //tableView!.tableFooterView = UIView(frame: CGRectZero)
+        //tableView!.tableFooterView = UIView(frame: .zero)
         UISearchBar.appearance().barTintColor = Color.News.navColor
         
         self.presentViewController(searchController, animated: true, completion: nil)

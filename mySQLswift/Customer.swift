@@ -355,28 +355,6 @@ class Customer: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         }
     }
     
-    // MARK: - localNotification
-    
-    override class func initialize() {
-        
-        var onceToken: dispatch_once_t = 0
-        dispatch_once(&onceToken) {
-            self.sendNotification()
-        }
-    }
-    
-    class func sendNotification() {
-        
-        let localNotification: UILocalNotification = UILocalNotification()
-        localNotification.alertAction = "Membership Status"
-        localNotification.alertBody = "Our system has detected that your membership is inactive."
-        localNotification.fireDate = NSDate(timeIntervalSinceNow: 10)
-        localNotification.timeZone = NSTimeZone.localTimeZone()
-        localNotification.category = "status"
-        localNotification.userInfo = [ "cause": "inactiveMembership"]
-        localNotification.applicationIconBadgeNumber = UIApplication.sharedApplication().applicationIconBadgeNumber + 1
-        UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
-    }
     
     // MARK: - Search
     
@@ -394,7 +372,7 @@ class Customer: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         searchController.hidesNavigationBarDuringPresentation = true
         searchController.searchBar.scopeButtonTitles = searchScope
         //tableView!.tableHeaderView = searchController.searchBar
-        tableView!.tableFooterView = UIView(frame: CGRectZero)
+        tableView!.tableFooterView = UIView(frame: .zero)
         UISearchBar.appearance().barTintColor = Color.Cust.navColor
         
         self.presentViewController(searchController, animated: true, completion: nil)

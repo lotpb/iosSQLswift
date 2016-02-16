@@ -350,7 +350,7 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
         searchController.hidesNavigationBarDuringPresentation = true
         searchController.searchBar.scopeButtonTitles = searchScope
         //tableView!.tableHeaderView = searchController.searchBar
-        tableView!.tableFooterView = UIView(frame: CGRectZero)
+        tableView!.tableFooterView = UIView(frame: .zero)
         UISearchBar.appearance().barTintColor = Color.Lead.navColor
         
         self.presentViewController(searchController, animated: true, completion: nil)

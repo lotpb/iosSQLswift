@@ -654,7 +654,7 @@ class StatisticController: UIViewController, UITableViewDelegate, UITableViewDat
         searchController.hidesNavigationBarDuringPresentation = true
         searchController.searchBar.scopeButtonTitles = ["name", "city", "phone", "date", "active"]
         //tableView!.tableHeaderView = searchController.searchBar
-        tableView.tableFooterView = UIView(frame: CGRectZero)
+        tableView.tableFooterView = UIView(frame: .zero)
         UISearchBar.appearance().barTintColor = UIColor.brownColor()
         
         self.presentViewController(searchController, animated: true, completion: nil)
