@@ -458,7 +458,7 @@ class Vendor: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
             controller?.l24 = "Manager"; controller?.l25 = "Profession"
             controller?.l16 = "Last Updated"; controller?.l26 = "Web Page"
             controller?.l1datetext = "Web Page:"
-            controller?.lnewsTitle = "Business News: Peter Balsamo Appointed to United's Board of Directors."
+            controller?.lnewsTitle = Config.NewsVend
             
         }
         

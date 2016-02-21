@@ -569,7 +569,7 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
             controller?.l24 = "Advertiser"; controller?.l25 = "Active"
             controller?.l16 = "Last Updated"; controller?.l26 = "Photo"
             controller?.l1datetext = "Lead Date:"
-            controller?.lnewsTitle = "Customer News: Company to expand to a new web advertising directive this week."
+            controller?.lnewsTitle = Config.NewsLead
         }
         
         if segue.identifier == "leaduserSegue" {

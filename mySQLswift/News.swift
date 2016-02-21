@@ -208,24 +208,6 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
         self.performSegueWithIdentifier("uploadSegue", sender: self)
     }
     
-    func playVideo(sender: UITapGestureRecognizer) {
-        
-        let url = NSURL.fileURLWithPath(self.imageFile.url!)
-        //let url = NSURL.fileURLWithPath(self.imageDetailurl as! String)
-        let player = AVPlayer(URL: url)
-        let playerViewController = AVPlayerViewController()
-        playerViewController.player = player
-        
-        playerViewController.view.frame = self.view.bounds
-        playerViewController.videoGravity = AVLayerVideoGravityResizeAspect
-        playerViewController.showsPlaybackControls = true
-        //self.imgToUpload.addSubview(playerViewController.view)
-        self.view.addSubview(playerViewController.view)
-        self.addChildViewController(playerViewController)
-        
-        player.play()
-    }
-    
     func likeButton(sender:UIButton) {
         
         sender.tintColor = Color.BlueColor
@@ -259,6 +241,32 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
             
             self.presentViewController(activityViewController, animated: true, completion: nil)
         }
+    }
+    
+    // MARK: - Video
+    
+    func playVideo(sender: UITapGestureRecognizer) {
+        
+        let url = NSURL.fileURLWithPath(self.imageFile.url!)
+        //let url = NSURL.fileURLWithPath(self.imageDetailurl as! String)
+        let player = AVPlayer(URL: url)
+        let playerViewController = AVPlayerViewController()
+        playerViewController.player = player
+        
+        playerViewController.view.frame = self.view.bounds
+        playerViewController.videoGravity = AVLayerVideoGravityResizeAspect
+        playerViewController.showsPlaybackControls = true
+        //self.imgToUpload.addSubview(playerViewController.view)
+        self.view.addSubview(playerViewController.view)
+        self.addChildViewController(playerViewController)
+        
+        player.play()
+    }
+    
+    func finishedPlaying(myNotification:NSNotification) {
+        
+        let stopedPlayerItem: AVPlayerItem = myNotification.object as! AVPlayerItem
+        stopedPlayerItem.seekToTime(kCMTimeZero)
     }
     
     // MARK: - Parse
@@ -339,12 +347,6 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
             vc!.image = self.selectedImage
             vc!.imageDetailurl = self.imageDetailurl
         }
-    }
-    
-    func finishedPlaying(myNotification:NSNotification) {
-        
-        let stopedPlayerItem: AVPlayerItem = myNotification.object as! AVPlayerItem
-        stopedPlayerItem.seekToTime(kCMTimeZero)
     }
     
     

@@ -298,13 +298,15 @@ class DetailViewController: UIViewController, RPPreviewViewControllerDelegate, A
         }
     }
     
+    
     // MARK: - speech
     
     @IBAction func speech(sender: AnyObject) {
+        
         //"King Solomon the wisest of men. for i found one righteous man in a thousand and not one righteous woman"
         //"Hello world!!! my name is Peter Balsamo")
         let utterance = AVSpeechUtterance(string: "Hello world!!! It's time too kiss the feet of Peter Balsamo")
-        utterance.voice = AVSpeechSynthesisVoice(language: "en-GB")
+        utterance.voice = AVSpeechSynthesisVoice(identifier: AVSpeechSynthesisVoiceIdentifierAlex)
         utterance.rate = 0.3
         
         let synthesizer = AVSpeechSynthesizer()
@@ -342,9 +344,11 @@ class DetailViewController: UIViewController, RPPreviewViewControllerDelegate, A
     func locationManager(locationManager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
 
         if let location = locations.first {
-            //print("Found user's location: \(location)")
-            latitudeText!.text = "Lat \(location.coordinate.latitude)"
-            longitudeText!.text = "Long \(location.coordinate.longitude)"
+ 
+            latitudeText!.text = String(format: "Lat: %.4f",
+                location.coordinate.latitude)
+            longitudeText!.text = String(format: "Lon: %.4f",
+                location.coordinate.longitude)
             
         }
     }

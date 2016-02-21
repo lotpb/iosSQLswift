@@ -141,7 +141,8 @@ class LeadUserController: UIViewController, UITableViewDelegate, UITableViewData
         }
         
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier) as! CustomTableCell
-
+        
+        cell.selectionStyle = UITableViewCellSelectionStyle.None
         cell.blogsubtitleLabel!.textColor = UIColor.grayColor()
         
         if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
@@ -533,7 +534,7 @@ class LeadUserController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        self.performSegueWithIdentifier("showDetail2", sender: self)
+        //self.performSegueWithIdentifier("showDetail2", sender: self)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

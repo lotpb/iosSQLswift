@@ -50,7 +50,6 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
         
         self.tableView!.delegate = self
         self.tableView!.dataSource = self
-        //self.tableView!.rowHeight = 65
         self.tableView!.estimatedRowHeight = 110
         self.tableView!.rowHeight = UITableViewAutomaticDimension
         self.tableView!.backgroundColor = UIColor(white:0.90, alpha:1.0)
@@ -64,8 +63,6 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
         resultsController.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "UserFoundCell")
         resultsController.tableView.dataSource = self
         resultsController.tableView.delegate = self
-        
-        //self.navigationItem.leftBarButtonItem = self.editButtonItem()
         
         let saveButton = UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: "updateData")
         let buttons:NSArray = [saveButton]

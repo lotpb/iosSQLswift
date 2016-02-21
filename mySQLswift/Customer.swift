@@ -553,7 +553,7 @@ class Customer: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             controller?.l24 = "Product"; controller?.l25 = "Quan"
             controller?.l16 = "Last Updated"; controller?.l26 = "Rate"
             controller?.l1datetext = "Sale Date:"
-            controller?.lnewsTitle = "Customer News: Check out or new line of fabulous windows and siding."
+            controller?.lnewsTitle = Config.NewsCust
         }
         
         if segue.identifier == "custuserSeque" {

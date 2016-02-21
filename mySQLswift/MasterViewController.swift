@@ -93,9 +93,9 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         
         //KeychainWrapper.accessGroup = "group.TheLightGroup"
         if KeychainWrapper.setString(userId, forKey: "usernameKey") && KeychainWrapper.setString(userpassword, forKey: "passwordKey") {
-            print("save successful")
+            print("Keychain successful")
         } else {
-            print("save failed")
+            print("Keychain failed")
         }
         
         //Parse
@@ -241,7 +241,7 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         //vw.backgroundColor = UIColor(red: 0.02, green: 0.36, blue: 0.53, alpha: 1.0)
         tableView.tableHeaderView = vw
         
-        photoImage = UIImageView(frame:CGRectMake(0, 0, vw.frame.size.width, 135))
+        photoImage = UIImageView(frame:CGRectMake(0, 0, tableView.tableHeaderView!.frame.size.width, 135))
         photoImage!.image = UIImage(named:"IMG_1133New.jpg")
         photoImage!.clipsToBounds = true
         photoImage!.contentMode = UIViewContentMode.ScaleAspectFill
@@ -410,44 +410,24 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
 
     func updateYahoo() {
         
-        let results = YQL.query("select * from weather.forecast where woeid=2446726")
+        let resultsYQL = YQL.query("select * from weather.forecast where woeid=2446726")
+        print(resultsYQL)
         /*
-        let YQLtext:String = (((((results.objectForKey("query") as! NSDictionary).objectForKey("results") as! NSDictionary).objectForKey("channel") as! NSDictionary).objectForKey("item") as! NSDictionary).objectForKey("condition") as! NSDictionary).objectForKey("text") as! String
-        
-        let YQLtemp:String = (((((results.objectForKey("query") as! NSDictionary).objectForKey("results") as! NSDictionary).objectForKey("channel") as! NSDictionary).objectForKey("item") as! NSDictionary).objectForKey("condition") as! NSDictionary).objectForKey("temp") as! String
+        let YQLresults = resultsYQL?
+            .objectForKey("query")!
+            .objectForKey("results")!
+            .objectForKey("channel")!
+            .objectForKey("item")!
+            .objectForKey("condition") as? NSDictionary
+        let YQLtext = YQLresults!.objectForKey("text") as? String
+        let YQLtemp = YQLresults!.objectForKey("temp")as? String
         
         print("Todays Weather: \(YQLtext) \(YQLtemp)") */
         
-        print(results)
-        //NSLog( "query.results: \(Yresults)" )
+/*
+        let stockresults = YQL.query("select * from yahoo.finance.quote where symbol in (\"^IXIC\",\"SPY\")")
+        print(stockresults) */
         
-        /*
-        let query: NSDictionary = Yresults?.objectForKey("query") as! NSDictionary
-        let results: NSDictionary = query.objectForKey("results") as! NSDictionary
-        let channel: NSDictionary = results.objectForKey("channel") as! NSDictionary
-        let item: NSDictionary = channel.objectForKey("item") as! NSDictionary
-        let condition: NSDictionary = item.objectForKey("condition") as! NSDictionary
-        let temp: String = condition.objectForKey("temp") as! String
-        print(temp) */
-        
-        /*
-
-        let stockresults: NSDictionary = YQL.query("select * from yahoo.finance.quote where symbol in (\"^IXIC\",\"SPY\")")!
-        print(stockresults)
-        
-        let YQLprice:String = (((stockresults
-            .objectForKey("query") as! NSDictionary)
-            .objectForKey("results") as! NSDictionary)
-            .objectForKey("quote") as! NSDictionary)
-            .objectForKey("LastTradePriceOnly") as! String
-        let YQLchange:String = (((stockresults
-            .objectForKey("query") as! NSDictionary)
-            .objectForKey("results") as! NSDictionary)
-            .objectForKey("quote") as! NSDictionary)
-            .objectForKey("Change") as! String
-        print("Todays Stocks: \(YQLprice) \(YQLchange)")
-        
-        */
     }
 
     

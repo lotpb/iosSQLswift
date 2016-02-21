@@ -22,18 +22,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         
         // MARK: - Register Settings
         
-        let initialDefaults: NSDictionary =
-        ["soundKey": false,
-         "parsedataKey": true,
-         "autolockKey": false,
-         "eventtitleKey": "Appt",
-         "usernameKey": "Peter Balsamo",
-         "passwordKey": "3911",
-         "versionKey": "1.0",
-         "emailtitleKey": "TheLight Support",
-         "emailmessageKey": "<h3>Programming in Swift</h3>"
-        ]
-        defaults.registerDefaults(initialDefaults as! [String : AnyObject])
+        defaults.registerDefaults([
+            "soundKey": false,
+            "parsedataKey": true,
+            "autolockKey": false,
+            "eventtitleKey": "Appt",
+            //"usernameKey": "Peter Balsamo",
+            //"passwordKey": "3911",
+            "versionKey": "1.0",
+            "emailtitleKey": "TheLight Support",
+            "emailmessageKey": "<h3>Programming in Swift</h3>"
+            ])
         
         // MARK: - Parse
         

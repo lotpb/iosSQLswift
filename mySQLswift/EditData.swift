@@ -11,19 +11,18 @@ import Parse
 
 class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
     //UIPickerViewDataSource, UIPickerViewDelegate,
+    
+    //var DatePickerView : UIDatePicker = UIDatePicker()
+    //var pickOption = ["one", "two", "three", "seven", "fifteen"]
     @IBOutlet weak var tableView: UITableView?
     
     @IBOutlet weak var first: UITextField!
     @IBOutlet weak var last: UITextField!
     @IBOutlet weak var company: UITextField!
-  //@IBOutlet weak var photo: UITextField?
     
     @IBOutlet weak var following: UILabel!
     @IBOutlet weak var activebutton: UIButton!
     @IBOutlet weak var profileImageView: UIImageView?
-    
-    //var DatePickerView : UIDatePicker = UIDatePicker()
-    //var pickOption = ["one", "two", "three", "seven", "fifteen"]
     
     var salesArray : NSMutableArray = NSMutableArray()
     var callbackArray : NSMutableArray = NSMutableArray()
@@ -58,7 +57,6 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     var custNo : NSString?
     var leadNo : NSString?
     var time : NSString?
-    //var active : NSString?
 
     var rate : NSString? //cust
     var saleNo : NSString?
@@ -99,29 +97,33 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     //var resultsController: UITableViewController!
     //var foundUsers = [String]()
     
+    //var active : NSString?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        /*
         let titleButton: UIButton = UIButton(frame: CGRectMake(0, 0, 100, 32))
-        //titleButton.setTitle(String(format: "%@ %@", self.status!, self.formController!), forState: UIControlState.Normal)
+        titleButton.setTitle(String(format: "%@ %@", self.status!, self.formController!), forState: UIControlState.Normal)
         titleButton.titleLabel?.font = Font.navlabel
         titleButton.titleLabel?.textAlignment = NSTextAlignment.Center
         titleButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         titleButton.addTarget(self, action: Selector(), forControlEvents: UIControlEvents.TouchUpInside)
-        self.navigationItem.titleView = titleButton
+        self.navigationItem.titleView = titleButton */
         
         self.tableView!.delegate = self
         self.tableView!.dataSource = self
         self.tableView!.estimatedRowHeight = 44
         self.tableView!.rowHeight = UITableViewAutomaticDimension
         self.tableView!.backgroundColor = UIColor.whiteColor()
-        self.automaticallyAdjustsScrollViewInsets = false
+        //self.automaticallyAdjustsScrollViewInsets = false
         self.tableView!.tableFooterView = UIView(frame: .zero)
+        
         
         let saveButton = UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: "updateData")
         let buttons:NSArray = [saveButton]
-        self.navigationItem.rightBarButtonItems = buttons as? [UIBarButtonItem]
+        self.navigationItem.rightBarButtonItems = buttons as? [UIBarButtonItem] 
         
         if (status == "New") {
             self.following!.text = "Following"
@@ -151,9 +153,9 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         passFieldData()
         
         if (self.status == "Edit") {
-            parseData()
+            //parseData() //created a problem EditData wont load
         }
-        self.tableView!.reloadData()
+        //self.tableView!.reloadData()
         
         profileImageView!.layer.cornerRadius = profileImageView!.frame.size.width/2
         profileImageView!.clipsToBounds = true
@@ -200,9 +202,9 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if (self.formController == "Customer") {
-            return 16;
+            return 16
         } else {
-            return 14;
+            return 14
         }
     }
     
@@ -232,17 +234,23 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             
             textframe = UITextField(frame:CGRect(x: 118, y: 7, width: 250, height: 30))
             textviewframe = UITextView(frame:CGRect(x: 118, y: 7, width: 250, height: 95))
-            textframe!.font = Font.celltitle
-            aptframe!.font = Font.celltitle
-            textviewframe!.font = Font.celltitle
+            textframe!.font = Font.Edittitle
+            aptframe!.font = Font.Edittitle
+            textviewframe!.font = Font.Edittitle
+            self.first!.font = Font.Edittitle
+            self.last!.font = Font.Edittitle
+            self.company!.font = Font.Edittitle
 
         } else {
             
             textframe = UITextField(frame:CGRect(x: 118, y: 7, width: 205, height: 30))
             textviewframe = UITextView(frame:CGRect(x: 118, y: 7, width: 240, height: 95))
-            textframe!.font = Font.celltitle
-            aptframe!.font = Font.celltitle
-            textviewframe!.font = Font.celltitle
+            textframe!.font = Font.Edittitle
+            aptframe!.font = Font.Edittitle
+            textviewframe!.font = Font.Edittitle
+            self.first!.font = Font.Edittitle
+            self.last!.font = Font.Edittitle
+            self.company!.font = Font.Edittitle
         }
         
         textframe!.autocorrectionType = UITextAutocorrectionType.No
@@ -313,7 +321,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             
         } else if (indexPath.row == 1) {
             
-            self.address = textframe;
+            self.address = textframe
             if self.frm14 == nil {
                 self.address!.text = ""
             } else {
@@ -325,7 +333,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             
         } else if (indexPath.row == 2) {
             
-            self.city = textframe;
+            self.city = textframe
             if self.frm15 == nil {
                 self.city!.text = ""
             } else {
@@ -338,7 +346,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             
         } else if (indexPath.row == 3) {
             
-            self.state = textframe;
+            self.state = textframe
             if self.frm16 == nil {
                 self.state!.text = ""
             } else {
@@ -360,7 +368,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             
         } else if (indexPath.row == 4) {
             
-            self.aptDate = textframe;
+            self.aptDate = textframe
             if self.frm19 == nil {
                 self.aptDate!.text = ""
             } else {
@@ -394,7 +402,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             
         } else if (indexPath.row == 5) {
             
-            self.phone = textframe;
+            self.phone = textframe
             self.phone!.placeholder = "Phone"
             if (self.frm20 == nil) {
                 self.phone!.text = defaults.stringForKey("areacodeKey")
@@ -459,7 +467,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             cell.contentView.addSubview(self.jobName!)
             
         } else if (indexPath.row == 8) {
-            self.adName = textframe;
+            self.adName = textframe
             self.adName!.placeholder = "Advertiser"
             if self.frm23 == nil {
                 self.adName!.text = ""
@@ -476,7 +484,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                 
             } else if (self.formController == "Employee") {
                 self.adName!.placeholder = "Social Security"
-                cell.textLabel!.text = "Social Security"
+                cell.textLabel!.text = "Social Sec"
                 
             } else if (self.formController == "Customer") {
                 self.adName!.placeholder = "Product"
@@ -490,7 +498,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             
         } else if(indexPath.row == 9) {
             
-            self.amount = textframe;
+            self.amount = textframe
             self.amount!.placeholder = "Amount"
                 if self.frm24 == nil {
                     self.amount!.text = ""
@@ -519,7 +527,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             cell.contentView.addSubview(self.email!)
             
         } else if(indexPath.row == 11) {
-            self.spouse = textframe;
+            self.spouse = textframe
             self.spouse!.placeholder = "Spouse"
             
             if self.frm26 == nil {
@@ -607,8 +615,8 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             cell.contentView.addSubview(self.start!)
             
         } else if(indexPath.row == 15) {
-            self.complete = textframe;
-            self.complete!.tag = 15;
+            self.complete = textframe
+            self.complete!.tag = 15
             self.complete!.placeholder = "Completion Date"
             
             if self.frm32 == nil {
@@ -700,7 +708,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     
     
     // MARK: - DatePicker
-    /*
+    
     func textFieldEditing(sender: UITextField) {
         
         /*
@@ -709,14 +717,14 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         self.date.inputView = DatePickerView */
         
         //let datePickerView:UIDatePicker = UIDatePicker()
-        DatePickerView.datePickerMode = UIDatePickerMode.Date
+        //DatePickerView.datePickerMode = UIDatePickerMode.Date
         //sender.inputView = DatePickerView
-        DatePickerView.addTarget(self, action: Selector("datePickerValueChanged:"), forControlEvents: UIControlEvents.ValueChanged)
+        //DatePickerView.addTarget(self, action: Selector("datePickerValueChanged:"), forControlEvents: UIControlEvents.ValueChanged)
         
-    } */
+    } 
     
     func datePickerValueChanged(sender:UIDatePicker) {
-        
+        /*
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
         dateFormatter.timeStyle = NSDateFormatterStyle.NoStyle
@@ -728,23 +736,18 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             self.start?.text = dateFormatter.stringFromDate(sender.date)
         } else if (sender.tag == 15) {
             self.complete?.text = dateFormatter.stringFromDate(sender.date)
-        }
+        } */
     }
     
     // MARK: - Field Header
     
     func passFieldData() {
         
-        self.first!.font = Font.celltitle
-        self.last!.font = Font.celltitle
-        self.company!.font = Font.celltitle
-        
         if (self.formController == "Leads" || self.formController == "Customer") {
             self.last.borderStyle = UITextBorderStyle.RoundedRect
             self.last.layer.borderColor = UIColor(red:151/255.0, green:193/255.0, blue:252/255.0, alpha: 1.0).CGColor
             self.last.layer.borderWidth = 2.0
             self.last.layer.cornerRadius = 7.0
-   
         }
         
         if (self.formController == "Vendor" || self.formController == "Employee") {

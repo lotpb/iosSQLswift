@@ -47,6 +47,7 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     
     @IBOutlet weak var scrollWall: UIScrollView?
     @IBOutlet weak var mainView: UIView!
+    @IBOutlet weak var tableView: UIView!
     @IBOutlet weak var mySwitch: UISwitch!
     @IBOutlet weak var activebutton: UIButton!
     @IBOutlet weak var mapbutton: UIButton!
@@ -223,6 +224,15 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         let buttons:NSArray = [editButton,actionButton]
         self.navigationItem.rightBarButtonItems = buttons as? [UIBarButtonItem]
         
+        
+        let topBorder = CALayer()
+        let width = CGFloat(2.0)
+        topBorder.borderColor = UIColor.lightGrayColor().CGColor
+        topBorder.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 0.5)
+        topBorder.borderWidth = width
+        tableView.layer.addSublayer(topBorder)
+        tableView.layer.masksToBounds = true
+        
         parseData()
         followButton()
         refreshData()
@@ -311,14 +321,6 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         if (tableView == self.listTableView) {
             
             let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
-            /*
-            let topBorder = CALayer()
-            let width = CGFloat(2.0)
-            topBorder.borderColor = UIColor.lightGrayColor().CGColor
-            topBorder.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 0.5)
-            topBorder.borderWidth = width
-            cell.layer.addSublayer(topBorder)
-            cell.layer.masksToBounds = true */
             
             if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
                 cell.textLabel!.font = celltitle
@@ -338,14 +340,6 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         } else if (tableView == self.listTableView2) {
             
             let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as UITableViewCell
-            /*
-            let topBorder = CALayer()
-            let width = CGFloat(2.0)
-            topBorder.borderColor = UIColor.lightGrayColor().CGColor
-            topBorder.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 0.5)
-            topBorder.borderWidth = width
-            cell.layer.addSublayer(topBorder)
-            cell.layer.masksToBounds = true */
 
             if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
                 cell.textLabel!.font = celltitle
@@ -413,7 +407,7 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             
             cell.leadnewsDetail.text = self.comments as? String
             cell.leadnewsDetail.numberOfLines = 0
-            cell.leadnewsDetail.textColor = UIColor.darkGrayColor()
+            //cell.leadnewsDetail.textColor = UIColor.darkGrayColor()
 
             return cell
             
@@ -913,6 +907,26 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             //let workEmail = CNLabeledValue(label: CNLabelWork,value: "liam@workemail.com")
             newContact.emailAddresses = [homeEmail]
             
+            let birthday = NSDateComponents()
+            birthday.year = 1988 // You can omit the year value for a yearless birthday
+            birthday.month = 12
+            birthday.day = 05
+            newContact.birthday = birthday
+            
+            let anniversaryDate = NSDateComponents()
+            anniversaryDate.month = 10
+            anniversaryDate.day = 12
+            let anniversary = CNLabeledValue(label: "Anniversary", value: anniversaryDate)
+            newContact.dates = [anniversary]
+            
+            newContact.note = self.comments as! String
+            
+            /*
+            if let img = UIImage(named: "contactface"),
+            let imgData = UIImagePNGRepresentation(img){
+            newContact.imageData = imgData
+            } */
+            
             //newContact.departmentName = "Food and Beverages"
             
             /*
@@ -925,20 +939,7 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             userIdentifier: nil, service: CNSocialProfileServiceTwitter))
             
             newContact.socialProfiles = [facebookProfile, twitterProfile]
-            
-            let birthday = NSDateComponents()
-            birthday.year = 1988
-            birthday.month = 12
-            birthday.day = 05
-            newContact.birthday = birthday */
-            
-            newContact.note = self.comments as! String
-            
-            /*
-            if let img = UIImage(named: "contactface"),
-            let imgData = UIImagePNGRepresentation(img){
-            newContact.imageData = imgData
-            } */
+            */
         }
         
         do {

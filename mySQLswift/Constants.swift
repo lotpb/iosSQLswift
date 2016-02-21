@@ -9,7 +9,10 @@
 import Foundation
 
     struct Config {
-        static let splineReticulatorName = "foobar"
+        static let NewsLead = "Customer News: Company to expand to a new web advertising directive this week."
+        static let NewsCust = "Customer News: Check out or new line of fabulous windows and siding."
+        static let NewsVend = "Business News: Peter Balsamo Appointed to United's Board of Directors."
+        static let NewsEmploy = "Employee News: Health benifits cancelled immediately, ineffect starting today."
     }
     
     struct Color {
@@ -54,6 +57,7 @@ import Foundation
     struct Font {
         static let navlabel = UIFont.systemFontOfSize(25, weight: UIFontWeightThin)
         static let headtitle = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
+        static let Edittitle = UIFont.systemFontOfSize(20, weight: UIFontWeightLight)
         //buttonFontSize,  labelFontSize, systemFontSize
         static let celltitle = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
         //static let celltitle = UIFont.systemFontOfSize(20, weight: UIFontWeightRegular)

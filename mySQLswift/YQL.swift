@@ -26,35 +26,25 @@ struct YQL {
                 if let results = jsonResult as? NSDictionary {
                     //print("myDict:\(results)")
                     
-                    let YQLtext:String = (((((results
-                        .objectForKey("query") as! NSDictionary)
-                        .objectForKey("results") as! NSDictionary)
-                        .objectForKey("channel") as! NSDictionary)
-                        .objectForKey("item") as! NSDictionary)
-                        .objectForKey("condition") as! NSDictionary)
-                        .objectForKey("text") as! String
-                    let YQLtemp:String = (((((results
-                        .objectForKey("query") as! NSDictionary)
-                        .objectForKey("results") as! NSDictionary)
-                        .objectForKey("channel") as! NSDictionary)
-                        .objectForKey("item") as! NSDictionary)
-                        .objectForKey("condition") as! NSDictionary)
-                        .objectForKey("temp") as! String
-                    print("Todays Weather: \(YQLtext) \(YQLtemp)")
+                    let YQLresults = results
+                        .objectForKey("query")!
+                        .objectForKey("results")!
+                        .objectForKey("channel")!
+                        .objectForKey("item")!
+                        .objectForKey("condition")!
+                    let YQLtext = YQLresults.objectForKey("text") as! String
+                    let YQLtemp = YQLresults.objectForKey("temp")as! String
                     
+                    print("Todays Weather: \(YQLtext) \(YQLtemp)")
                     /*
-                    let YQLprice:String = (((results
-                        .objectForKey("query") as! NSDictionary)
-                        .objectForKey("results") as! NSDictionary)
-                        .objectForKey("quote") as! NSDictionary)
-                        .objectForKey("LastTradePriceOnly") as! String
-                    let YQLchange:String = (((results
-                        .objectForKey("query") as! NSDictionary)
-                        .objectForKey("results") as! NSDictionary)
-                        .objectForKey("quote") as! NSDictionary)
-                        .objectForKey("Change") as! String
-                    print("Todays Stocks: \(YQLprice) \(YQLchange)")
-                    */
+                    let YQLprice = results
+                        .objectForKey("query")!
+                        .objectForKey("results")!
+                        .objectForKey("quote")!
+                    let YQLlast = YQLprice.objectForKey("LastTradePriceOnly") as! String
+                    let YQLchange = YQLprice.objectForKey("Change") as! String
+                    
+                    print("Todays stocks: \(YQLlast) \(YQLchange)") */
                     
                 }
             }

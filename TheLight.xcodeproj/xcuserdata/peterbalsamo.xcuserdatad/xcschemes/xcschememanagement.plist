@@ -4,10 +4,30 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>TheLight.xcscheme</key>
+		<key>SuperEvil.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>1</integer>
+		</dict>
+		<key>TheLight.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>0</integer>
+		</dict>
+		<key>TodayViewController.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
+		<key>Used Space.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>4</integer>
+		</dict>
+		<key>randomQuote.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
@@ -23,6 +43,26 @@
 			<true/>
 		</dict>
 		<key>AF0369C11C173DDC00137D7E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>AF85E8141C77F4D7004B7EAF</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>AFAEAE3F1C775CE700DF86B1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>AFB6198D1C78AA7500F1BAE8</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>AFF84B0F1C7756E000D10470</key>
 		<dict>
 			<key>primary</key>
 			<true/>

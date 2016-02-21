@@ -940,7 +940,7 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
             VC!.l24 = "Manager"; VC!.l25 = "Country"
             VC!.l16 = "Last Updated"; VC!.l26 = "First"
             VC!.l1datetext = "Email:"
-            VC!.lnewsTitle = "Employee News: Health benifits cancelled immediately, ineffect starting today."
+            VC!.lnewsTitle = Config.NewsEmploy
         }
         
     }

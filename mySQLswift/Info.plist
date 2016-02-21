@@ -23,8 +23,11 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleURLName</key>
+			<string>com.TheLight</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
+				<string>TheLight</string>
 				<string>fb990654514310679</string>
 			</array>
 		</dict>
@@ -34,7 +37,7 @@
 	<key>FacebookAppID</key>
 	<string>990654514310679</string>
 	<key>FacebookDisplayName</key>
-	<string>mySQLswift</string>
+	<string>TheLight</string>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>LSApplicationQueriesSchemes</key>
