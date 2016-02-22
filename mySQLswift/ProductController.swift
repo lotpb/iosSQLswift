@@ -65,7 +65,8 @@ class ProductController: UIViewController, UITableViewDelegate, UITableViewDataS
         self.refreshControl = UIRefreshControl()
         refreshControl.backgroundColor = Color.Table.navColor
         refreshControl.tintColor = UIColor.whiteColor()
-        self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        let attributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+        self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh", attributes: attributes)
         self.refreshControl.addTarget(self, action: "refreshData:", forControlEvents: UIControlEvents.ValueChanged)
         self.tableView!.addSubview(refreshControl)
         

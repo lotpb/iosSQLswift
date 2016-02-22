@@ -47,11 +47,12 @@ class MapView: UIViewController, MKMapViewDelegate,  CLLocationManagerDelegate {
         self.travelDistance.font = celllabel1
         self.steps.font = cellsteps
         
-        self.travelTime.textColor = UIColor(red:0.0, green:122.0/255.0, blue:1.0, alpha: 1.0)
-        self.travelDistance.textColor = UIColor(red:0.0, green:122.0/255.0, blue:1.0, alpha: 1.0)
+        self.routView.backgroundColor = Color.DGrayColor
+        self.travelTime.textColor = UIColor.whiteColor()
+        self.travelDistance.textColor = UIColor.whiteColor()
         
-        self.clearRoute!.backgroundColor = UIColor(red:0.0, green:122.0/255.0, blue:1.0, alpha: 1.0)
-        self.clearRoute!.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
+        self.clearRoute!.backgroundColor = UIColor.whiteColor()
+        self.clearRoute!.setTitleColor(Color.DGrayColor, forState: UIControlState.Normal)
         self.clearRoute!.addTarget(self, action: Selector(), forControlEvents: UIControlEvents.TouchUpInside)
         let btnLayer3: CALayer = self.clearRoute!.layer
         btnLayer3.masksToBounds = true
@@ -182,8 +183,8 @@ class MapView: UIViewController, MKMapViewDelegate,  CLLocationManagerDelegate {
         
         let temp:MKRoute = response.routes.first! as MKRoute
         self.route = temp
-        self.travelTime.text = NSString(format:"Time %0.1f minutes", route.expectedTravelTime/60) as String
-        self.travelDistance.text = String(format:"Distance %0.1f Miles", route.distance/1609.344) as String
+        self.travelTime.text = NSString(format:"Time: %0.1f minutes", route.expectedTravelTime/60) as String
+        self.travelDistance.text = String(format:"Distance: %0.1f Miles", route.distance/1609.344) as String
         self.mapView.addOverlay(route.polyline, level: MKOverlayLevel.AboveRoads)
         
         /*

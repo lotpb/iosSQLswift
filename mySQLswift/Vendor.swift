@@ -11,8 +11,6 @@ import Parse
 
 class Vendor: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating {
 
-    let navColor = UIColor(red: 0.56, green: 0.45, blue: 0.62, alpha: 1.0)
-    let labelColor = UIColor(red: 0.10, green: 0.03, blue: 0.21, alpha: 1.0)
     let searchScope = ["name","city","phone","department"]
     
     @IBOutlet weak var tableView: UITableView?
@@ -65,9 +63,10 @@ class Vendor: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
         parseData()
         
         self.refreshControl = UIRefreshControl()
-        refreshControl.backgroundColor = UIColor.clearColor()
-        refreshControl.tintColor = UIColor.blackColor()
-        self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.backgroundColor = Color.Vend.navColor
+        refreshControl.tintColor = UIColor.whiteColor()
+        let attributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+        self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh", attributes: attributes)
         self.refreshControl.addTarget(self, action: "refreshData:", forControlEvents: UIControlEvents.ValueChanged)
         self.tableView!.addSubview(refreshControl)
         
@@ -77,7 +76,7 @@ class Vendor: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
         super.viewWillAppear(animated)
         navigationController?.hidesBarsOnSwipe = true
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
-        self.navigationController?.navigationBar.barTintColor = navColor
+        self.navigationController?.navigationBar.barTintColor = Color.Vend.navColor
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -165,7 +164,7 @@ class Vendor: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
         }
         
         let myLabel:UILabel = UILabel(frame: CGRectMake(10, 10, 50, 50))
-        myLabel.backgroundColor = labelColor
+        myLabel.backgroundColor = Color.Vend.labelColor
         myLabel.textColor = UIColor.whiteColor()
         myLabel.textAlignment = NSTextAlignment.Center
         myLabel.layer.masksToBounds = true
@@ -185,7 +184,7 @@ class Vendor: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         let vw = UIView()
-        vw.backgroundColor = navColor
+        vw.backgroundColor = Color.Vend.navColor
         tableView.tableHeaderView = vw
         
         let myLabel1:UILabel = UILabel(frame: CGRectMake(10, 15, 50, 50))
@@ -347,7 +346,7 @@ class Vendor: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
         searchController.searchBar.scopeButtonTitles = searchScope
         //tableView!.tableHeaderView = searchController.searchBar
         tableView!.tableFooterView = UIView(frame: .zero)
-        UISearchBar.appearance().barTintColor = navColor
+        UISearchBar.appearance().barTintColor = Color.Vend.navColor
         
         self.presentViewController(searchController, animated: true, completion: nil)
     }

@@ -676,20 +676,11 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                 }
             } else {
                 
-                let alert = UIAlertController(title: "Alert", message: "Call facility is not available!!!", preferredStyle: UIAlertControllerStyle.Alert)
-                let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
-                
-                alert.addAction(alertActionTrue)
-                self.presentViewController(alert, animated: true, completion: nil)
-                
+                self.simpleAlert("Alert", message: "Call facility is not available!!!")
             }
         } else {
             
-            let alert = UIAlertController(title: "Alert", message: "Your device doesn't support this feature.", preferredStyle: UIAlertControllerStyle.Alert)
-            let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
-            
-            alert.addAction(alertActionTrue)
-            self.presentViewController(alert, animated: true, completion: nil)
+            self.simpleAlert("Alert", message: "Your device doesn't support this feature.")
         }
     }
     
@@ -710,13 +701,8 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                 } */
                 
         } else {
-                // Initialization failed; alert the user
-                
-                let alert = UIAlertController(title: "Invalid URL", message: "Your field doesn't have valid URL.", preferredStyle: UIAlertControllerStyle.Alert)
-                let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Destructive, handler: {(alert: UIAlertAction!) in })
-                
-                alert.addAction(alertActionTrue)
-                self.presentViewController(alert, animated: true, completion: nil)
+            
+            self.simpleAlert("Invalid URL", message: "Your field doesn't have valid URL.")
             }
         }
     
@@ -727,11 +713,7 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                 
             } else {
                 
-                let alert = UIAlertController(title: "Alert", message: "Your field doesn't have valid email.", preferredStyle: UIAlertControllerStyle.Alert)
-                let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Destructive, handler: {(alert: UIAlertAction!) in })
-                
-                alert.addAction(alertActionTrue)
-                self.presentViewController(alert, animated: true, completion: nil)
+                self.simpleAlert("Alert", message: "Your field doesn't have valid email.")
             }
         }
         if (formController == "Vendor") || (formController == "Employee") {
@@ -740,11 +722,7 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                 
             } else {
                 
-                let alert = UIAlertController(title: "Alert", message: "Your field doesn't have valid email.", preferredStyle: UIAlertControllerStyle.Alert)
-                let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Destructive, handler: {(alert: UIAlertAction!) in })
-                
-                alert.addAction(alertActionTrue)
-                self.presentViewController(alert, animated: true, completion: nil)
+                self.simpleAlert("Alert", message: "Your field doesn't have valid email.")
             }
         }
     }
@@ -795,11 +773,7 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             try eventStore.saveEvent(event, span: .ThisEvent)
             savedEventId = event.eventIdentifier
             
-            let alert = UIAlertController(title: "Event", message: "Event successfully saved.", preferredStyle: UIAlertControllerStyle.Alert)
-            let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
-            
-            alert.addAction(alertActionTrue)
-            self.presentViewController(alert, animated: true, completion: nil)
+            self.simpleAlert("Event", message: "Event successfully saved.")
             
         } catch {
             print("Bad things happened")
@@ -948,26 +922,28 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             let contactStore = CNContactStore()
             try contactStore.executeSaveRequest(saveRequest)
             
-            let alert = UIAlertController(title: "Contact", message: "Contact successfully saved.", preferredStyle: UIAlertControllerStyle.Alert)
-            let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
-            
-            alert.addAction(alertActionTrue)
-            self.presentViewController(alert, animated: true, completion: nil)
-            
-            //print("Contact Added Successfully")
+            self.simpleAlert("Contact", message: "Contact successfully saved.")
         }
         catch {
             
-            let alert = UIAlertController(title: "Contact", message: "Unable to Add the New Contact.", preferredStyle: UIAlertControllerStyle.Alert)
-            let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Destructive, handler: {(alert: UIAlertAction!) in })
+            self.simpleAlert("Contact", message: "Unable to Add the New Contact.")
             
-            alert.addAction(alertActionTrue)
-            self.presentViewController(alert, animated: true, completion: nil)
-            
-            //print("Unable to Add the New Contact.")
         }
         
     }
+    
+    
+    // MARK: - AlertController
+    
+    func simpleAlert (title:String, message:String) {
+        
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        
+        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: nil))
+        
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    
     
     // MARK: - Segue
     

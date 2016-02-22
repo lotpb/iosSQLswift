@@ -64,9 +64,11 @@ class Blog: UIViewController, UITableViewDelegate, UITableViewDataSource {
         parseData()
         
         self.refreshControl = UIRefreshControl()
-        refreshControl.backgroundColor = Color.Blog.navColor
-        refreshControl.tintColor = UIColor.whiteColor()
-        self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        self.refreshControl.backgroundColor = Color.Blog.navColor
+        self.refreshControl.tintColor = UIColor.whiteColor()
+        let attributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+        self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh", attributes: attributes)
+        //self.refreshControl.attributedTitle = NSAttributedString(string: "Last updated on \(NSDate())", attributes: attributes)
         self.refreshControl.addTarget(self, action: "refreshData:", forControlEvents: UIControlEvents.ValueChanged)
         self.tableView!.addSubview(refreshControl)
 

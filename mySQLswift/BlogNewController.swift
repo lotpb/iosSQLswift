@@ -271,6 +271,19 @@ class BlogNewController: UIViewController, UITextViewDelegate {
     [self.navigationItem setRightBarButtonItem:nil animated:YES]; */
     }
     
+    
+    // MARK: - AlertController
+    
+    func simpleAlert (title:String, message:String) {
+        
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        
+        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: nil))
+        
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    
+    
     // MARK: - Navigation
     
     @IBAction func updateData(sender: UIButton) {
@@ -288,19 +301,11 @@ class BlogNewController: UIViewController, UITextViewDelegate {
                 updateblog!.setObject(self.replyId ?? NSNull(), forKey:"ReplyId")
                 updateblog!.saveEventually()
                 
-                let alert = UIAlertController(title: "Upload Complete", message: "Successfully updated the data", preferredStyle: UIAlertControllerStyle.Alert)
-                let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
+                self.simpleAlert("Upload Complete", message: "Successfully updated the data")
                 
-                alert.addAction(alertActionTrue)
-                self.presentViewController(alert, animated: true, completion: nil)
-
             } else {
                 
-                let alert = UIAlertController(title: "Upload Failure", message: "Failure updated the data", preferredStyle: UIAlertControllerStyle.Alert)
-                let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
-                
-                alert.addAction(alertActionTrue)
-                self.presentViewController(alert, animated: true, completion: nil)
+                self.simpleAlert("Upload Failure", message: "Failure updated the data")
 
             }
         }
@@ -335,21 +340,12 @@ class BlogNewController: UIViewController, UITextViewDelegate {
         
         saveblog.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
             if success == true {
-                
-                let alert = UIAlertController(title: "Upload Complete", message: "Successfully updated the data", preferredStyle: UIAlertControllerStyle.Alert)
-                let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
-                
-                alert.addAction(alertActionTrue)
+                self.simpleAlert("Upload Complete", message: "Successfully updated the data")
                 self.navigationController?.popViewControllerAnimated(true)
-                self.presentViewController(alert, animated: true, completion: nil)
                 
             } else {
                 
-                let alert = UIAlertController(title: "Upload Failure", message: "Failure updated the data", preferredStyle: UIAlertControllerStyle.Alert)
-                let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
-                
-                alert.addAction(alertActionTrue)
-                self.presentViewController(alert, animated: true, completion: nil)
+                self.simpleAlert("Upload Failure", message: "Failure updated the data")
             }
             //self.navigationController?.popToRootViewControllerAnimated(true)
             //self.navigationController?.popViewControllerAnimated(true)

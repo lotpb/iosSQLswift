@@ -37,9 +37,19 @@ import Foundation
             static let buttonColor = BlueColor
         }
         
+        struct Vend {
+            static let navColor = UIColor(red: 0.56, green: 0.45, blue: 0.62, alpha: 1.0)
+            static let labelColor = UIColor(red: 0.10, green: 0.03, blue: 0.21, alpha: 1.0)
+        }
+        
         struct News {
             static let navColor = DGrayColor
             static let buttonColor = BlueColor
+        }
+        
+        struct Stat {
+            static let navColor = UIColor.brownColor()
+            //static let buttonColor = BlueColor
         }
         
         struct Table {
@@ -59,8 +69,9 @@ import Foundation
         static let headtitle = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
         static let Edittitle = UIFont.systemFontOfSize(20, weight: UIFontWeightLight)
         //buttonFontSize,  labelFontSize, systemFontSize
-        static let celltitle = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
+        
         //static let celltitle = UIFont.systemFontOfSize(20, weight: UIFontWeightRegular)
+        static let celltitle = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
         static let cellsubtitle = UIFont.systemFontOfSize(17, weight: UIFontWeightRegular)
         static let celllabel1 = UIFont.systemFontOfSize(16, weight: UIFontWeightRegular)
         static let celllabel2 = UIFont.systemFontOfSize(17, weight: UIFontWeightMedium)

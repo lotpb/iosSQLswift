@@ -54,6 +54,7 @@ class SpotBeaconController: UIViewController, CLLocationManagerDelegate {
         if !isSearchingForBeacons {
             locationManager.requestAlwaysAuthorization()
             locationManager.startMonitoringForRegion(beaconRegion)
+            locationManager.pausesLocationUpdatesAutomatically = false //added
             locationManager.startUpdatingLocation()
             
             btnSwitchSpotting.setTitle("Stop Spotting", forState: UIControlState.Normal)
@@ -91,22 +92,34 @@ class SpotBeaconController: UIViewController, CLLocationManagerDelegate {
     func locationManager(manager: CLLocationManager, didEnterRegion region: CLRegion) {
         lblBeaconReport.text = "Beacon in range"
         lblBeaconDetails.hidden = false
+        simpleAlert("Welcome", message: "Welcome to our store") //added
     }
     
     
     func locationManager(manager: CLLocationManager, didExitRegion region: CLRegion) {
         lblBeaconReport.text = "No beacons in range"
         lblBeaconDetails.hidden = true
+        simpleAlert("Good Bye", message: "Have a nice day") //added
+    }
+    
+    func simpleAlert (title:String, message:String) {
+        
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        
+        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: nil))
+        
+        self.presentViewController(alertController, animated: true, completion: nil)
     }
     
     
     func locationManager(manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], inRegion region: CLBeaconRegion) {
         
         var shouldHideBeaconDetails = true
-        //if let foundBeacons = beacons {
-        if beacons.count > 0 {
-            let closestBeacon = beacons[0] as CLBeacon
+        let foundBeacons = beacons
+        
+        if foundBeacons.count > 0 {
             //if let closestBeacon = beacons[0] as? CLBeacon {
+            let closestBeacon = beacons[0] as CLBeacon
             
             if closestBeacon != lastFoundBeacon || lastProximity != closestBeacon.proximity  {
                 lastFoundBeacon = closestBeacon
@@ -140,6 +153,14 @@ class SpotBeaconController: UIViewController, CLLocationManagerDelegate {
                 shouldHideBeaconDetails = false
                 
                 lblBeaconDetails.text = "Beacon Details:\nMajor = " + String(closestBeacon.major.intValue) + "\nMinor = " + String(closestBeacon.minor.intValue) + "\nDistance: " + proximityMessage
+                /*
+                var makeString = "Beacon Details:\n"
+                makeString += "UUID = \(closestBeacon.proximityUUID.UUIDString)\n"
+                makeString += "Identifier = \(region.identifier)\n"
+                makeString += "Major Value = \(closestBeacon.major.intValue)\n"
+                makeString += "Minor Value = \(closestBeacon.minor.intValue)\n"
+                makeString += "Distance From iBeacon = \(proximityMessage)"
+                lblBeaconDetails.text = makeString */
             }
             //}
         }

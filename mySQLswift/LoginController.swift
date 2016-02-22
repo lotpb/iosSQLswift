@@ -161,10 +161,7 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
 
             } else {
                 
-                let alertController = UIAlertController(title: "Oooops", message:
-                    "Your username and password does not match", preferredStyle: UIAlertControllerStyle.Alert)
-                alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: nil))
-                self.presentViewController(alertController, animated: true, completion: nil)
+                self.simpleAlert("Oooops", message: "Your username and password does not match")
                 
                 PFUser.currentUser()?.fetchInBackgroundWithBlock({ (object, error) -> Void in
                     
@@ -218,17 +215,11 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
             //check if all text fields are completed
             if (self.usernameField!.text == "" || self.passwordField!.text == "" || self.reEnterPasswordField!.text == "") {
                 
-                let alertController = UIAlertController(title: "Oooops", message:
-                    "You must complete all fields", preferredStyle: UIAlertControllerStyle.Alert)
-                alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: nil))
-                
-                self.presentViewController(alertController, animated: true, completion: nil)
+                self.simpleAlert("Oooops", message: "You must complete all fields")
             } else {
                 checkPasswordsMatch()
             }
         }
-        
-        
     }
     
     func registerNewUser() {
@@ -251,20 +242,16 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
                     self.defaults.setObject(self.emailField!.text, forKey: "emailKey")
                 }
                 self.defaults.setBool(true, forKey: "registerKey")
-                //self.defaults.synchronize()
+
+                self.simpleAlert("Success", message: "You have registered a new user")
                 
-                let alertController = UIAlertController(title: "Success", message:
-                    "You have registered a new user", preferredStyle: UIAlertControllerStyle.Alert)
-                alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: nil))
-                
-                self.usernameField!.text = nil;
-                self.passwordField!.text = nil;
-                self.emailField!.text = nil;
-                self.phoneField!.text = nil;
-                
-                self.presentViewController(alertController, animated: true, completion: nil)
+                self.usernameField!.text = nil
+                self.passwordField!.text = nil
+                self.emailField!.text = nil
+                self.phoneField!.text = nil
                 
                 self.performSegueWithIdentifier("loginSegue", sender: nil)
+                
             } else {
                 print("Error: \(error) \(error!.userInfo)")
                 
@@ -433,16 +420,11 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
         
         PFUser.requestPasswordResetForEmailInBackground(finalEmail) { (success, error) -> Void in
             if success {
-                let alertController = UIAlertController(title: "Alert", message:
-                    "Link to reset the password has been send to specified email", preferredStyle: UIAlertControllerStyle.Alert)
-                alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: nil))
-                self.presentViewController(alertController, animated: true, completion: nil)
+                self.simpleAlert("Alert", message: "Link to reset the password has been send to specified email")
+                
             } else {
                 
-                let alertController = UIAlertController(title: "Alert", message:
-                    "Enter email in field: %@", preferredStyle: UIAlertControllerStyle.Alert)
-                alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: nil))
-                self.presentViewController(alertController, animated: true, completion: nil)
+                self.simpleAlert("Alert", message: "Enter email in field: %@")
             }
             
         }
@@ -454,11 +436,8 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
             
             registerNewUser()
         } else {
-            let alertController = UIAlertController(title: "Oooops", message:
-                "Your entered passwords do not match", preferredStyle: UIAlertControllerStyle.Alert)
-            alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: nil))
             
-            self.presentViewController(alertController, animated: true, completion: nil)
+            self.simpleAlert("Oooops", message: "Your entered passwords do not match")
         }
         
     }
@@ -555,6 +534,18 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
             textField.secureTextEntry = true
             
         }
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    
+    
+    // MARK: - AlertController
+    
+    func simpleAlert (title:String, message:String) {
+        
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        
+        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: nil))
+        
         self.presentViewController(alertController, animated: true, completion: nil)
     }
     

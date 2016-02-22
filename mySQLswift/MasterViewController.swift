@@ -30,7 +30,6 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
     
     let defaults = NSUserDefaults.standardUserDefaults()
 
-    
     //var tempYQL : String!
     
     override func viewDidLoad() {

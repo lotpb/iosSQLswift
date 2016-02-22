@@ -59,7 +59,8 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
         self.refreshControl = UIRefreshControl()
         refreshControl.backgroundColor = Color.News.navColor
         refreshControl.tintColor = UIColor.whiteColor()
-        self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        let attributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+        self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh", attributes: attributes)
         self.refreshControl.addTarget(self, action: "refreshData:", forControlEvents: UIControlEvents.ValueChanged)
         self.collectionView!.addSubview(refreshControl)
         

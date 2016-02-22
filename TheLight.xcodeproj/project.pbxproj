@@ -471,8 +471,8 @@
 		AF0369A31C173DDC00137D7E /* mySQLswift */ = {
 			isa = PBXGroup;
 			children = (
-				AF0369A41C173DDC00137D7E /* AppDelegate.swift */,
 				AFE6936E1C6A4D7E000BEDCE /* Constants.swift */,
+				AF0369A41C173DDC00137D7E /* AppDelegate.swift */,
 				AF0369A61C173DDC00137D7E /* MasterViewController.swift */,
 				AF0369A81C173DDC00137D7E /* DetailViewController.swift */,
 				AF0369AA1C173DDC00137D7E /* Main.storyboard */,

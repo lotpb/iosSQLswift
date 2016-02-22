@@ -848,6 +848,19 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         } 
     }
     
+    
+    // MARK: - AlertController
+    
+    func simpleAlert (title:String, message:String) {
+        
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        
+        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: nil))
+        
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    
+    
     // MARK: - Segues
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -899,55 +912,42 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             let myAd : NSNumber = numberFormatter.numberFromString(self.adNo! as String)!
             
             if (self.status == "Edit") { //Edit Lead
-            
-            let query = PFQuery(className:"Leads")
-            query.whereKey("objectId", equalTo:self.objectId!)
-            query.getFirstObjectInBackgroundWithBlock {(updateblog: PFObject?, error: NSError?) -> Void in
-                if error == nil {
-                    updateblog!.setObject(self.leadNo ?? NSNumber(integer:-1), forKey:"LeadNo")
-                    updateblog!.setObject(self.frm30 ?? NSNumber(integer:-1), forKey:"Active")
-                    updateblog!.setObject(self.date.text ?? NSNull(), forKey:"Date")
-                    updateblog!.setObject(self.first.text ?? NSNull(), forKey:"First")
-                    updateblog!.setObject(self.last.text ?? NSNull(), forKey:"LastName")
-                    updateblog!.setObject(self.address.text ?? NSNull(), forKey:"Address")
-                    updateblog!.setObject(self.city.text ?? NSNull(), forKey:"City")
-                    updateblog!.setObject(self.state.text ?? NSNull(), forKey:"State")
-                    updateblog!.setObject(myZip ?? NSNumber(integer:-1), forKey:"Zip")
-                    updateblog!.setObject(self.phone.text ?? NSNull(), forKey:"Phone")
-                    updateblog!.setObject(self.aptDate.text ?? NSNull(), forKey:"AptDate")
-                    updateblog!.setObject(self.email.text ?? NSNull(), forKey:"Email")
-                    updateblog!.setObject(myAmount ?? NSNumber(integer:-1), forKey:"Amount")
-                    updateblog!.setObject(self.spouse.text ?? NSNull(), forKey:"Spouse")
-                    updateblog!.setObject(self.callback.text ?? NSNull(), forKey:"CallBack")
-                    updateblog!.setObject(mySale ?? NSNumber(integer:-1), forKey:"SalesNo")
-                    updateblog!.setObject(myJob ?? NSNumber(integer:-1), forKey:"JobNo")
-                    updateblog!.setObject(myAd ?? NSNumber(integer:-1), forKey:"AdNo")
-                    updateblog!.setObject(self.comment.text ?? NSNull(), forKey:"Coments")
-                    //updateblog!.setObject(self.photo.text ?? NSNull(), forKey:"Photo")
-                    
-                    updateblog!.saveEventually()
-                    self.tableView!.reloadData()
-                    
-                    let alert = UIAlertController(title: "Upload Complete", message: "Successfully updated the data", preferredStyle: UIAlertControllerStyle.Alert)
-                    
-                    let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
-                    
-                    alert.addAction(alertActionTrue)
-                    self.presentViewController(alert, animated: true, completion: nil)
-                    
-                } else {
-                    
-                    let alert = UIAlertController(title: "Upload Failure", message: "Failure updated the data", preferredStyle: UIAlertControllerStyle.Alert)
-                    
-                    let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
-                    
-                    alert.addAction(alertActionTrue)
-                    self.presentViewController(alert, animated: true, completion: nil)
-                    
+                
+                let query = PFQuery(className:"Leads")
+                query.whereKey("objectId", equalTo:self.objectId!)
+                query.getFirstObjectInBackgroundWithBlock {(updateblog: PFObject?, error: NSError?) -> Void in
+                    if error == nil {
+                        updateblog!.setObject(self.leadNo ?? NSNumber(integer:-1), forKey:"LeadNo")
+                        updateblog!.setObject(self.frm30 ?? NSNumber(integer:-1), forKey:"Active")
+                        updateblog!.setObject(self.date.text ?? NSNull(), forKey:"Date")
+                        updateblog!.setObject(self.first.text ?? NSNull(), forKey:"First")
+                        updateblog!.setObject(self.last.text ?? NSNull(), forKey:"LastName")
+                        updateblog!.setObject(self.address.text ?? NSNull(), forKey:"Address")
+                        updateblog!.setObject(self.city.text ?? NSNull(), forKey:"City")
+                        updateblog!.setObject(self.state.text ?? NSNull(), forKey:"State")
+                        updateblog!.setObject(myZip ?? NSNumber(integer:-1), forKey:"Zip")
+                        updateblog!.setObject(self.phone.text ?? NSNull(), forKey:"Phone")
+                        updateblog!.setObject(self.aptDate.text ?? NSNull(), forKey:"AptDate")
+                        updateblog!.setObject(self.email.text ?? NSNull(), forKey:"Email")
+                        updateblog!.setObject(myAmount ?? NSNumber(integer:-1), forKey:"Amount")
+                        updateblog!.setObject(self.spouse.text ?? NSNull(), forKey:"Spouse")
+                        updateblog!.setObject(self.callback.text ?? NSNull(), forKey:"CallBack")
+                        updateblog!.setObject(mySale ?? NSNumber(integer:-1), forKey:"SalesNo")
+                        updateblog!.setObject(myJob ?? NSNumber(integer:-1), forKey:"JobNo")
+                        updateblog!.setObject(myAd ?? NSNumber(integer:-1), forKey:"AdNo")
+                        updateblog!.setObject(self.comment.text ?? NSNull(), forKey:"Coments")
+                        //updateblog!.setObject(self.photo.text ?? NSNull(), forKey:"Photo")
+                        
+                        updateblog!.saveEventually()
+                        self.tableView!.reloadData()
+                        
+                        self.simpleAlert("Upload Complete", message: "Successfully updated the data")
+                    } else {
+                        self.simpleAlert("Upload Failure", message: "Failure updating the data")
+                    }
                 }
-            }
-            self.navigationController?.popToRootViewControllerAnimated(true)
-
+                self.navigationController?.popToRootViewControllerAnimated(true)
+                
             } else { //Save Lead
                 
                 let saveblog:PFObject = PFObject(className:"Leads")
@@ -976,25 +976,13 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                 
                 saveblog.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
                     if success == true {
-                        
-                        let alert = UIAlertController(title: "Upload Complete", message: "Successfully updated the data", preferredStyle: UIAlertControllerStyle.Alert)
-                        let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
-                        
-                        alert.addAction(alertActionTrue)
-                        self.navigationController?.popViewControllerAnimated(true)
-                        self.presentViewController(alert, animated: true, completion: nil)
-                        
+                        self.simpleAlert("Upload Complete", message: "Successfully updated the data")
                     } else {
-                        
-                        let alert = UIAlertController(title: "Upload Failure", message: "Failure updated the data", preferredStyle: UIAlertControllerStyle.Alert)
-                        let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
-                        
-                        alert.addAction(alertActionTrue)
-                        self.presentViewController(alert, animated: true, completion: nil)
+                        self.simpleAlert("Upload Failure", message: "Failure updating the data")
                     }
                 }
             }
-
+            
         } else  if (self.formController == "Customer") {
             
             let myActive : NSNumber = numberFormatter.numberFromString(self.frm30! as String)!
@@ -1006,61 +994,48 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             let myAd : NSNumber = numberFormatter.numberFromString(self.adNo! as String)!
             
             if (self.status == "Edit") { //Edit Customer
-
-            let query = PFQuery(className:"Customer")
-            query.whereKey("objectId", equalTo:self.objectId!)
-            query.getFirstObjectInBackgroundWithBlock {(updateblog: PFObject?, error: NSError?) -> Void in
-                if error == nil {
-                    updateblog!.setObject(self.custNo ?? NSNumber(integer:-1), forKey:"CustNo")
-                    updateblog!.setObject(self.leadNo ?? NSNumber(integer:-1), forKey:"LeadNo")
-                    updateblog!.setObject(myActive ?? NSNumber(integer:1), forKey:"Active")
-                    updateblog!.setObject(self.date.text ?? NSNull(), forKey:"Date")
-                    updateblog!.setObject(self.first.text ?? NSNull(), forKey:"First")
-                    updateblog!.setObject(self.last.text ?? NSNull(), forKey:"LastName")
-                    updateblog!.setObject(self.address.text ?? NSNull(), forKey:"Address")
-                    updateblog!.setObject(self.city.text ?? NSNull(), forKey:"City")
-                    updateblog!.setObject(self.state.text ?? NSNull(), forKey:"State")
-                    updateblog!.setObject(myZip ?? NSNumber(integer:-1), forKey:"Zip")
-                    updateblog!.setObject(self.phone.text ?? NSNull(), forKey:"Phone")
-                    updateblog!.setObject(myQuan ?? NSNumber(integer:-1), forKey:"Quan")
-                    updateblog!.setObject(self.email.text ?? NSNull(), forKey:"Email")
-                    updateblog!.setObject(myAmount ?? NSNumber(integer:-1), forKey:"Amount")
-                    updateblog!.setObject(self.spouse.text ?? NSNull(), forKey:"Spouse")
-                    updateblog!.setObject(self.aptDate.text ?? NSNull(), forKey:"Rate")
-                    updateblog!.setObject(mySale ?? NSNumber(integer:-1), forKey:"SalesNo")
-                    updateblog!.setObject(myJob ?? NSNumber(integer:-1), forKey:"JobNo")
-                    updateblog!.setObject(myAd ?? NSNumber(integer:-1), forKey:"ProductNo")
-                    updateblog!.setObject(self.start.text ?? NSNull(), forKey:"Start")
-                    updateblog!.setObject(self.complete.text ?? NSNull(), forKey:"Completion")
-                    updateblog!.setObject(self.comment.text ?? NSNull(), forKey:"Comments")
-                    updateblog!.setObject(self.company.text ?? NSNull(), forKey:"Contractor")
-                    updateblog!.setObject(self.photo ?? NSNull(), forKey:"Photo")
-                    updateblog!.setObject(self.photo1 ?? NSNull(), forKey:"Photo1")
-                    updateblog!.setObject(self.photo2 ?? NSNull(), forKey:"Photo2")
-                    updateblog!.setObject(self.time ?? NSNull(), forKey:"Time")
-
-                    updateblog!.saveEventually()
-                    self.tableView!.reloadData()
-                    
-                    let alert = UIAlertController(title: "Upload Complete", message: "Successfully updated the data", preferredStyle: UIAlertControllerStyle.Alert)
-                    
-                    let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
-                    
-                    alert.addAction(alertActionTrue)
-                    self.presentViewController(alert, animated: true, completion: nil)
-                    
-                } else {
-                    
-                    let alert = UIAlertController(title: "Upload Failure", message: "Failure updated the data", preferredStyle: UIAlertControllerStyle.Alert)
-                    
-                    let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
-                    
-                    alert.addAction(alertActionTrue)
-                    self.presentViewController(alert, animated: true, completion: nil)
-                    
+                
+                let query = PFQuery(className:"Customer")
+                query.whereKey("objectId", equalTo:self.objectId!)
+                query.getFirstObjectInBackgroundWithBlock {(updateblog: PFObject?, error: NSError?) -> Void in
+                    if error == nil {
+                        updateblog!.setObject(self.custNo ?? NSNumber(integer:-1), forKey:"CustNo")
+                        updateblog!.setObject(self.leadNo ?? NSNumber(integer:-1), forKey:"LeadNo")
+                        updateblog!.setObject(myActive ?? NSNumber(integer:1), forKey:"Active")
+                        updateblog!.setObject(self.date.text ?? NSNull(), forKey:"Date")
+                        updateblog!.setObject(self.first.text ?? NSNull(), forKey:"First")
+                        updateblog!.setObject(self.last.text ?? NSNull(), forKey:"LastName")
+                        updateblog!.setObject(self.address.text ?? NSNull(), forKey:"Address")
+                        updateblog!.setObject(self.city.text ?? NSNull(), forKey:"City")
+                        updateblog!.setObject(self.state.text ?? NSNull(), forKey:"State")
+                        updateblog!.setObject(myZip ?? NSNumber(integer:-1), forKey:"Zip")
+                        updateblog!.setObject(self.phone.text ?? NSNull(), forKey:"Phone")
+                        updateblog!.setObject(myQuan ?? NSNumber(integer:-1), forKey:"Quan")
+                        updateblog!.setObject(self.email.text ?? NSNull(), forKey:"Email")
+                        updateblog!.setObject(myAmount ?? NSNumber(integer:-1), forKey:"Amount")
+                        updateblog!.setObject(self.spouse.text ?? NSNull(), forKey:"Spouse")
+                        updateblog!.setObject(self.aptDate.text ?? NSNull(), forKey:"Rate")
+                        updateblog!.setObject(mySale ?? NSNumber(integer:-1), forKey:"SalesNo")
+                        updateblog!.setObject(myJob ?? NSNumber(integer:-1), forKey:"JobNo")
+                        updateblog!.setObject(myAd ?? NSNumber(integer:-1), forKey:"ProductNo")
+                        updateblog!.setObject(self.start.text ?? NSNull(), forKey:"Start")
+                        updateblog!.setObject(self.complete.text ?? NSNull(), forKey:"Completion")
+                        updateblog!.setObject(self.comment.text ?? NSNull(), forKey:"Comments")
+                        updateblog!.setObject(self.company.text ?? NSNull(), forKey:"Contractor")
+                        updateblog!.setObject(self.photo ?? NSNull(), forKey:"Photo")
+                        updateblog!.setObject(self.photo1 ?? NSNull(), forKey:"Photo1")
+                        updateblog!.setObject(self.photo2 ?? NSNull(), forKey:"Photo2")
+                        updateblog!.setObject(self.time ?? NSNull(), forKey:"Time")
+                        
+                        updateblog!.saveEventually()
+                        self.tableView!.reloadData()
+                        
+                        self.simpleAlert("Upload Complete", message: "Successfully updated the data")
+                    } else {
+                        self.simpleAlert("Upload Failure", message: "Failure updating the data")
+                    }
                 }
-            }
-            self.navigationController?.popToRootViewControllerAnimated(true)
+                self.navigationController?.popToRootViewControllerAnimated(true)
                 
             } else { //Save Customer
                 
@@ -1095,28 +1070,11 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                 
                 saveblog.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
                     if success == true {
-                        
-                        let alert = UIAlertController(title: "Upload Complete", message: "Successfully updated the data", preferredStyle: UIAlertControllerStyle.Alert)
-                        let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
-                        
-                        alert.addAction(alertActionTrue)
-                        self.navigationController?.popViewControllerAnimated(true)
-                      
-                            self.presentViewController(alert, animated: true, completion: nil)
-                  
-
+                        self.simpleAlert("Upload Complete", message: "Successfully updated the data")
                     } else {
-                        
-                        let alert = UIAlertController(title: "Upload Failure", message: "Failure updated the data", preferredStyle: UIAlertControllerStyle.Alert)
-                        let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
-                        
-                        alert.addAction(alertActionTrue)
-         
-                            self.presentViewController(alert, animated: true, completion: nil)
-              
+                        self.simpleAlert("Upload Failure", message: "Failure updating the data")
                     }
                 }
-                
             }
             
         } else  if (self.formController == "Vendor") {
@@ -1134,57 +1092,42 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             let myLead =  numberFormatter.numberFromString(Lead! as String)
             
             if (self.status == "Edit") { //Edit Vendor
-            
-            let query = PFQuery(className:"Vendors")
-            query.whereKey("objectId", equalTo:self.objectId!)
-            query.getFirstObjectInBackgroundWithBlock {(updateblog: PFObject?, error: NSError?) -> Void in
-                if error == nil {
-                    updateblog!.setObject(myLead!, forKey:"VendorNo")
-                    updateblog!.setObject(myActive!, forKey:"Active")
-                    updateblog!.setObject(self.first.text ?? NSNull(), forKey:"Vendor")
-                    updateblog!.setObject(self.address.text ?? NSNull(), forKey:"Address")
-                    updateblog!.setObject(self.city.text ?? NSNull(), forKey:"City")
-                    updateblog!.setObject(self.state.text ?? NSNull(), forKey:"State")
-                    updateblog!.setObject(self.zip.text ?? NSNull(), forKey:"Zip")
-                    updateblog!.setObject(self.phone.text ?? NSNull(), forKey:"Phone")
-                    updateblog!.setObject(self.salesman.text ?? NSNull(), forKey:"Phone1")
-                    updateblog!.setObject(self.jobName.text ?? NSNull(), forKey:"Phone2")
-                    updateblog!.setObject(self.adName.text ?? NSNull(), forKey:"Phone3")
-                    updateblog!.setObject(self.email.text ?? NSNull(), forKey:"Email")
-                    updateblog!.setObject(self.last.text ?? NSNull(), forKey:"WebPage")
-                    updateblog!.setObject(self.amount.text ?? NSNull(), forKey:"Department")
-                    updateblog!.setObject(self.spouse.text ?? NSNull(), forKey:"Office")
-                    updateblog!.setObject(self.company.text ?? NSNull(), forKey:"Manager")
-                    updateblog!.setObject(self.date.text ?? NSNull(), forKey:"Profession")
-                    updateblog!.setObject(self.aptDate.text ?? NSNull(), forKey:"Assistant")
-                    updateblog!.setObject(self.comment.text ?? NSNull(), forKey:"Comments")
-                    
-                    updateblog!.saveEventually()
-                    self.tableView!.reloadData()
-                    
-                    let alert = UIAlertController(title: "Upload Complete", message: "Successfully updated the data", preferredStyle: UIAlertControllerStyle.Alert)
-                    
-                    let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
-                    
-                    alert.addAction(alertActionTrue)
-                  
-                        self.presentViewController(alert, animated: true, completion: nil)
-           
-                    
-                } else {
-                    
-                    let alert = UIAlertController(title: "Upload Failure", message: "Failure updated the data", preferredStyle: UIAlertControllerStyle.Alert)
-                    
-                    let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
-                    
-                    alert.addAction(alertActionTrue)
-                   
-                        self.presentViewController(alert, animated: true, completion: nil)
-                   
-                    
+                
+                let query = PFQuery(className:"Vendors")
+                query.whereKey("objectId", equalTo:self.objectId!)
+                query.getFirstObjectInBackgroundWithBlock {(updateblog: PFObject?, error: NSError?) -> Void in
+                    if error == nil {
+                        updateblog!.setObject(myLead!, forKey:"VendorNo")
+                        updateblog!.setObject(myActive!, forKey:"Active")
+                        updateblog!.setObject(self.first.text ?? NSNull(), forKey:"Vendor")
+                        updateblog!.setObject(self.address.text ?? NSNull(), forKey:"Address")
+                        updateblog!.setObject(self.city.text ?? NSNull(), forKey:"City")
+                        updateblog!.setObject(self.state.text ?? NSNull(), forKey:"State")
+                        updateblog!.setObject(self.zip.text ?? NSNull(), forKey:"Zip")
+                        updateblog!.setObject(self.phone.text ?? NSNull(), forKey:"Phone")
+                        updateblog!.setObject(self.salesman.text ?? NSNull(), forKey:"Phone1")
+                        updateblog!.setObject(self.jobName.text ?? NSNull(), forKey:"Phone2")
+                        updateblog!.setObject(self.adName.text ?? NSNull(), forKey:"Phone3")
+                        updateblog!.setObject(self.email.text ?? NSNull(), forKey:"Email")
+                        updateblog!.setObject(self.last.text ?? NSNull(), forKey:"WebPage")
+                        updateblog!.setObject(self.amount.text ?? NSNull(), forKey:"Department")
+                        updateblog!.setObject(self.spouse.text ?? NSNull(), forKey:"Office")
+                        updateblog!.setObject(self.company.text ?? NSNull(), forKey:"Manager")
+                        updateblog!.setObject(self.date.text ?? NSNull(), forKey:"Profession")
+                        updateblog!.setObject(self.aptDate.text ?? NSNull(), forKey:"Assistant")
+                        updateblog!.setObject(self.comment.text ?? NSNull(), forKey:"Comments")
+                        
+                        updateblog!.saveEventually()
+                        self.tableView!.reloadData()
+                        
+                        self.simpleAlert("Upload Complete", message: "Successfully updated the data")
+                        
+                    } else {
+                        
+                        self.simpleAlert("Upload Failure", message: "Failure updating the data")
+                    }
                 }
-            }
-            self.navigationController?.popToRootViewControllerAnimated(true)
+                self.navigationController?.popToRootViewControllerAnimated(true)
                 
             } else { //Save Vendor
                 
@@ -1213,27 +1156,14 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                 
                 saveVend.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
                     if success == true {
-                        
-                        let alert = UIAlertController(title: "Upload Complete", message: "Successfully updated the data", preferredStyle: UIAlertControllerStyle.Alert)
-                        let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
-                        
-                        alert.addAction(alertActionTrue)
-                        self.presentViewController(alert, animated: true, completion: nil)
-                        
-                        
+                        self.simpleAlert("Upload Complete", message: "Successfully updated the data")
                     } else {
                         
-                        let alert = UIAlertController(title: "Upload Failure", message: "Failure updated the data", preferredStyle: UIAlertControllerStyle.Alert)
-                        let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
-                        
-                        alert.addAction(alertActionTrue)
-                        self.presentViewController(alert, animated: true, completion: nil)
-                        
+                        self.simpleAlert("Upload Failure", message: "Failure updating the data")
                     }
                 }
-                
             }
-             self.navigationController?.popToRootViewControllerAnimated(true)
+            self.navigationController?.popToRootViewControllerAnimated(true)
             
         } else if (self.formController == "Employee") {
             
@@ -1243,7 +1173,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                 Active = "0"
             }
             let myActive =  numberFormatter.numberFromString(Active!)
-        
+            
             var Lead = (self.leadNo as? String)
             numberFormatter.numberStyle = .NoStyle
             if Lead == nil {
@@ -1252,54 +1182,42 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             let myLead =  numberFormatter.numberFromString(Lead!)
             
             if (self.status == "Edit") { //Edit Employee
-            
-            let query = PFQuery(className:"Employee")
-            query.whereKey("objectId", equalTo:self.objectId!)
-            query.getFirstObjectInBackgroundWithBlock {(updateblog: PFObject?, error: NSError?) -> Void in
-                if error == nil {
-                    updateblog!.setObject(myLead!, forKey:"EmployeeNo")
-                    updateblog!.setObject(myActive!, forKey:"Active")
-                    updateblog!.setObject(self.company.text ?? NSNull(), forKey:"Company")
-                    updateblog!.setObject(self.address.text ?? NSNull(), forKey:"Address")
-                    updateblog!.setObject(self.city.text ?? NSNull(), forKey:"City")
-                    updateblog!.setObject(self.state.text ?? NSNull(), forKey:"State")
-                    updateblog!.setObject(self.zip.text ?? NSNull(), forKey:"Zip")
-                    updateblog!.setObject(self.phone.text ?? NSNull(), forKey:"HomePhone")
-                    updateblog!.setObject(self.salesman.text ?? NSNull(), forKey:"WorkPhone")
-                    updateblog!.setObject(self.jobName.text ?? NSNull(), forKey:"CellPhone")
-                    updateblog!.setObject(self.adName.text ?? NSNull(), forKey:"SS")
-                    updateblog!.setObject(self.email.text ?? NSNull(), forKey:"Email")
-                    updateblog!.setObject(self.last.text ?? NSNull(), forKey:"Last")
-                    updateblog!.setObject(self.amount.text ?? NSNull(), forKey:"Department")
-                    updateblog!.setObject(self.spouse.text ?? NSNull(), forKey:"Country")
-                    updateblog!.setObject(self.first.text ?? NSNull(), forKey:"First")
-                    updateblog!.setObject(self.callback.text ?? NSNull(), forKey:"Manager")
-                    updateblog!.setObject(self.date.text ?? NSNull(), forKey:"Title")
-                    updateblog!.setObject(self.aptDate.text ?? NSNull(), forKey:"Middle")
-                    updateblog!.setObject(self.comment.text ?? NSNull(), forKey:"Comments")
-                    
-                    updateblog!.saveEventually()
-                    self.tableView!.reloadData()
-                    
-                    let alert = UIAlertController(title: "Upload Complete", message: "Successfully updated the data", preferredStyle: UIAlertControllerStyle.Alert)
-                    
-                    let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
-                    
-                    alert.addAction(alertActionTrue)
-                    self.presentViewController(alert, animated: true, completion: nil)
-                    
-                } else {
-                    
-                    let alert = UIAlertController(title: "Upload Failure", message: "Failure updated the data", preferredStyle: UIAlertControllerStyle.Alert)
-                    
-                    let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
-                    
-                    alert.addAction(alertActionTrue)
-                    self.presentViewController(alert, animated: true, completion: nil)
-                    
+                
+                let query = PFQuery(className:"Employee")
+                query.whereKey("objectId", equalTo:self.objectId!)
+                query.getFirstObjectInBackgroundWithBlock {(updateblog: PFObject?, error: NSError?) -> Void in
+                    if error == nil {
+                        updateblog!.setObject(myLead!, forKey:"EmployeeNo")
+                        updateblog!.setObject(myActive!, forKey:"Active")
+                        updateblog!.setObject(self.company.text ?? NSNull(), forKey:"Company")
+                        updateblog!.setObject(self.address.text ?? NSNull(), forKey:"Address")
+                        updateblog!.setObject(self.city.text ?? NSNull(), forKey:"City")
+                        updateblog!.setObject(self.state.text ?? NSNull(), forKey:"State")
+                        updateblog!.setObject(self.zip.text ?? NSNull(), forKey:"Zip")
+                        updateblog!.setObject(self.phone.text ?? NSNull(), forKey:"HomePhone")
+                        updateblog!.setObject(self.salesman.text ?? NSNull(), forKey:"WorkPhone")
+                        updateblog!.setObject(self.jobName.text ?? NSNull(), forKey:"CellPhone")
+                        updateblog!.setObject(self.adName.text ?? NSNull(), forKey:"SS")
+                        updateblog!.setObject(self.email.text ?? NSNull(), forKey:"Email")
+                        updateblog!.setObject(self.last.text ?? NSNull(), forKey:"Last")
+                        updateblog!.setObject(self.amount.text ?? NSNull(), forKey:"Department")
+                        updateblog!.setObject(self.spouse.text ?? NSNull(), forKey:"Country")
+                        updateblog!.setObject(self.first.text ?? NSNull(), forKey:"First")
+                        updateblog!.setObject(self.callback.text ?? NSNull(), forKey:"Manager")
+                        updateblog!.setObject(self.date.text ?? NSNull(), forKey:"Title")
+                        updateblog!.setObject(self.aptDate.text ?? NSNull(), forKey:"Middle")
+                        updateblog!.setObject(self.comment.text ?? NSNull(), forKey:"Comments")
+                        
+                        updateblog!.saveEventually()
+                        self.tableView!.reloadData()
+                        
+                        self.simpleAlert("Upload Complete", message: "Successfully updated the data")
+                    } else {
+                        
+                        self.simpleAlert("Upload Failure", message: "Failure updating the data")
+                    }
                 }
-            }
-            self.navigationController?.popToRootViewControllerAnimated(true)
+                self.navigationController?.popToRootViewControllerAnimated(true)
                 
             } else { //Save Employee
                 
@@ -1329,30 +1247,16 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                 
                 saveblog.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
                     if success == true {
-                        
-                        let alert = UIAlertController(title: "Upload Complete", message: "Successfully updated the data", preferredStyle: UIAlertControllerStyle.Alert)
-                        let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
-                        
-                        alert.addAction(alertActionTrue)
-                        self.navigationController?.popViewControllerAnimated(true)
-                        self.presentViewController(alert, animated: true, completion: nil)
+                        self.simpleAlert("Upload Complete", message: "Successfully updated the data")
                         
                     } else {
                         
-                        let alert = UIAlertController(title: "Upload Failure", message: "Failure updated the data", preferredStyle: UIAlertControllerStyle.Alert)
-                        let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
-                        
-                        alert.addAction(alertActionTrue)
-                        self.presentViewController(alert, animated: true, completion: nil)
+                        self.simpleAlert("Upload Failure", message: "Failure updating the data")
                     }
                 }
-                
             }
-            
         }
-        
     }
-    
 }
 
 extension EditData: LookupDataDelegate {

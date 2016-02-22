@@ -71,7 +71,6 @@ class StatisticController: UIViewController, UITableViewDelegate, UITableViewDat
         
         self.tableView!.delegate = self
         self.tableView!.dataSource = self
-        //self.tableView!.rowHeight = 65
         self.tableView!.estimatedRowHeight = 110
         self.tableView!.rowHeight = UITableViewAutomaticDimension
         self.tableView!.backgroundColor = UIColor(white:0.90, alpha:1.0)
@@ -88,9 +87,10 @@ class StatisticController: UIViewController, UITableViewDelegate, UITableViewDat
         self.navigationItem.rightBarButtonItems = buttons as? [UIBarButtonItem]
         
         self.refreshControl = UIRefreshControl()
-        refreshControl.backgroundColor = UIColor.blackColor()
+        refreshControl.backgroundColor = Color.Stat.navColor
         refreshControl.tintColor = UIColor.whiteColor()
-        self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        let attributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+        self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh", attributes: attributes)
         self.refreshControl.addTarget(self, action: "refreshData:", forControlEvents: UIControlEvents.ValueChanged)
         self.tableView!.addSubview(refreshControl)
         
@@ -100,7 +100,7 @@ class StatisticController: UIViewController, UITableViewDelegate, UITableViewDat
         super.viewWillAppear(animated)
         //navigationController?.hidesBarsOnSwipe = true
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
-        self.navigationController?.navigationBar.barTintColor = UIColor.brownColor()
+        self.navigationController?.navigationBar.barTintColor = Color.Stat.navColor
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -569,7 +569,7 @@ class StatisticController: UIViewController, UITableViewDelegate, UITableViewDat
         if (section == 0) {
             let vw = UIView()
             //vw.frame = CGRectMake(0 , 0, tableView.frame.width, 175)
-            vw.backgroundColor = UIColor.brownColor()
+            vw.backgroundColor = Color.Stat.navColor
             //tableView.tableHeaderView = vw
             /*
             photoImage = UIImageView(frame:CGRectMake(0, 0, vw.frame.size.width, 175))

@@ -338,6 +338,19 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
         self.resultsController.tableView.reloadData() */
     }
     
+    
+    // MARK: - AlertController
+    
+    func simpleAlert (title:String, message:String) {
+        
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        
+        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: nil))
+        
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    
+    
     // MARK: - Update Data
     
     func updateData() {
@@ -357,22 +370,11 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
                         updateblog!.saveEventually()
                         self.tableView!.reloadData()
                         
-                        let alert = UIAlertController(title: "Upload Complete", message: "Successfully updated the data", preferredStyle: UIAlertControllerStyle.Alert)
-                        
-                        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
-                        
-                        alert.addAction(okAction)
-                        self.presentViewController(alert, animated: true, completion: nil)
+                        self.simpleAlert("Upload Complete", message: "Successfully updated the data")
                         
                     } else {
                         
-                        let alert = UIAlertController(title: "Upload Failure", message: "Failure updated the data", preferredStyle: UIAlertControllerStyle.Alert)
-                        
-                        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
-                        
-                        alert.addAction(okAction)
-                        self.presentViewController(alert, animated: true, completion: nil)
-                        
+                        self.simpleAlert("Upload Failure", message: "Failure updated the data")
                     }
                 }
                 self.navigationController?.popToRootViewControllerAnimated(true)
@@ -388,21 +390,12 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
                 
                 saveblog.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
                     if success == true {
-                        
-                        let alert = UIAlertController(title: "Upload Complete", message: "Successfully updated the data", preferredStyle: UIAlertControllerStyle.Alert)
-                        let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
-                        
-                        alert.addAction(alertActionTrue)
+                        self.simpleAlert("Upload Complete", message: "Successfully updated the data")
                         self.navigationController?.popViewControllerAnimated(true)
-                        self.presentViewController(alert, animated: true, completion: nil)
                         
                     } else {
                         
-                        let alert = UIAlertController(title: "Upload Failure", message: "Failure updated the data", preferredStyle: UIAlertControllerStyle.Alert)
-                        let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
-                        
-                        alert.addAction(alertActionTrue)
-                        self.presentViewController(alert, animated: true, completion: nil)
+                        self.simpleAlert("Upload Failure", message: "Failure updated the data")
                     }
                 }
             }
@@ -422,22 +415,11 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
                         updateblog!.saveEventually()
                         self.tableView!.reloadData()
                         
-                        let alert = UIAlertController(title: "Upload Complete", message: "Successfully updated the data", preferredStyle: UIAlertControllerStyle.Alert)
-                        
-                        let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
-                        
-                        alert.addAction(alertActionTrue)
-                        self.presentViewController(alert, animated: true, completion: nil)
+                        self.simpleAlert("Upload Complete", message: "Successfully updated the data")
                         
                     } else {
                         
-                        let alert = UIAlertController(title: "Upload Failure", message: "Failure updated the data", preferredStyle: UIAlertControllerStyle.Alert)
-                        
-                        let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
-                        
-                        alert.addAction(alertActionTrue)
-                        self.presentViewController(alert, animated: true, completion: nil)
-                        
+                        self.simpleAlert("Upload Failure", message: "Failure updated the data")
                     }
                 }
                 self.navigationController?.popToRootViewControllerAnimated(true)
@@ -454,24 +436,14 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
                 
                 saveblog.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
                     if success == true {
-                        
-                        let alert = UIAlertController(title: "Upload Complete", message: "Successfully updated the data", preferredStyle: UIAlertControllerStyle.Alert)
-                        let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
-                        
-                        alert.addAction(alertActionTrue)
+                        self.simpleAlert("Upload Complete", message: "Successfully updated the data")
                         self.navigationController?.popViewControllerAnimated(true)
-                        self.presentViewController(alert, animated: true, completion: nil)
                         
                     } else {
                         
-                        let alert = UIAlertController(title: "Upload Failure", message: "Failure updated the data", preferredStyle: UIAlertControllerStyle.Alert)
-                        let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
-                        
-                        alert.addAction(alertActionTrue)
-                        self.presentViewController(alert, animated: true, completion: nil)
+                        self.simpleAlert("Upload Failure", message: "Failure updated the data")
                     }
                 }
-                
             }
             
         } else  if (self.formController == "Product") {
@@ -489,22 +461,11 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
                         updateblog!.saveEventually()
                         self.tableView!.reloadData()
                         
-                        let alert = UIAlertController(title: "Upload Complete", message: "Successfully updated the data", preferredStyle: UIAlertControllerStyle.Alert)
-                        
-                        let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
-                        
-                        alert.addAction(alertActionTrue)
-                        self.presentViewController(alert, animated: true, completion: nil)
+                        self.simpleAlert("Upload Complete", message: "Successfully updated the data")
                         
                     } else {
                         
-                        let alert = UIAlertController(title: "Upload Failure", message: "Failure updated the data", preferredStyle: UIAlertControllerStyle.Alert)
-                        
-                        let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
-                        
-                        alert.addAction(alertActionTrue)
-                        self.presentViewController(alert, animated: true, completion: nil)
-                        
+                        self.simpleAlert("Upload Failure", message: "Failure updated the data")
                     }
                 }
                 self.navigationController?.popToRootViewControllerAnimated(true)
@@ -520,21 +481,12 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
                 
                 saveblog.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
                     if success == true {
-                        
-                        let alert = UIAlertController(title: "Upload Complete", message: "Successfully updated the data", preferredStyle: UIAlertControllerStyle.Alert)
-                        let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
-                        
-                        alert.addAction(alertActionTrue)
+                        self.simpleAlert("Upload Complete", message: "Successfully updated the data")
                         self.navigationController?.popViewControllerAnimated(true)
-                        self.presentViewController(alert, animated: true, completion: nil)
                         
                     } else {
                         
-                        let alert = UIAlertController(title: "Upload Failure", message: "Failure updated the data", preferredStyle: UIAlertControllerStyle.Alert)
-                        let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
-                        
-                        alert.addAction(alertActionTrue)
-                        self.presentViewController(alert, animated: true, completion: nil)
+                        self.simpleAlert("Upload Failure", message: "Failure updated the data")
                     }
                 }
             }
@@ -554,22 +506,11 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
                         updateblog!.saveEventually()
                         self.tableView!.reloadData()
                         
-                        let alert = UIAlertController(title: "Upload Complete", message: "Successfully updated the data", preferredStyle: UIAlertControllerStyle.Alert)
-                        
-                        let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
-                        
-                        alert.addAction(alertActionTrue)
-                        self.presentViewController(alert, animated: true, completion: nil)
+                        self.simpleAlert("Upload Complete", message: "Successfully updated the data")
                         
                     } else {
                         
-                        let alert = UIAlertController(title: "Upload Failure", message: "Failure updated the data", preferredStyle: UIAlertControllerStyle.Alert)
-                        
-                        let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
-                        
-                        alert.addAction(alertActionTrue)
-                        self.presentViewController(alert, animated: true, completion: nil)
-                        
+                        self.simpleAlert("Upload Failure", message: "Failure updated the data")
                     }
                 }
                 self.navigationController?.popToRootViewControllerAnimated(true)
@@ -585,21 +526,12 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
                 
                 saveblog.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
                     if success == true {
-                        
-                        let alert = UIAlertController(title: "Upload Complete", message: "Successfully updated the data", preferredStyle: UIAlertControllerStyle.Alert)
-                        let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
-                        
-                        alert.addAction(alertActionTrue)
+                        self.simpleAlert("Upload Complete", message: "Successfully updated the data")
                         self.navigationController?.popViewControllerAnimated(true)
-                        self.presentViewController(alert, animated: true, completion: nil)
                         
                     } else {
                         
-                        let alert = UIAlertController(title: "Upload Failure", message: "Failure updated the data", preferredStyle: UIAlertControllerStyle.Alert)
-                        let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
-                        
-                        alert.addAction(alertActionTrue)
-                        self.presentViewController(alert, animated: true, completion: nil)
+                        self.simpleAlert("Upload Failure", message: "Failure updated the data")
                     }
                 }
             }

@@ -13,7 +13,7 @@ class Employee: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     
     let navColor = UIColor(red: 0.64, green: 0.54, blue: 0.50, alpha: 1.0)
     let labelColor = UIColor(red: 0.31, green: 0.23, blue: 0.17, alpha: 1.0)
-    //let labelColor1 = UIColor(red: 0.15, green: 0.15, blue: 0.15, alpha: 1.0)
+
     let searchScope = ["name","city","phone","active"]
     
     @IBOutlet weak var tableView: UITableView?
@@ -68,7 +68,8 @@ class Employee: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         self.refreshControl = UIRefreshControl()
         refreshControl.backgroundColor = navColor
         refreshControl.tintColor = UIColor.whiteColor()
-        self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        let attributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+        self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh", attributes: attributes)
         self.refreshControl.addTarget(self, action: "refreshData:", forControlEvents: UIControlEvents.ValueChanged)
         self.tableView!.addSubview(refreshControl)
         

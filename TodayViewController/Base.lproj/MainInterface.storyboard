@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label1" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="280" translatesAutoresizingMaskIntoConstraints="NO" id="GcN-lo-r42">
-                                <rect key="frame" x="6" y="2" width="158" height="23"/>
+                                <rect key="frame" x="15" y="2" width="158" height="23"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="158" id="ZE1-hq-gQ6"/>
                                 </constraints>
@@ -27,7 +27,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" text="Label2" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1gd-9a-Wrl">
-                                <rect key="frame" x="6" y="27" width="158" height="21"/>
+                                <rect key="frame" x="15" y="27" width="158" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="158" id="pON-IC-w7M"/>
                                 </constraints>
@@ -35,8 +35,12 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pJk-nt-ffB">
-                                <rect key="frame" x="212" y="24" width="46" height="21"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pJk-nt-ffB">
+                                <rect key="frame" x="260" y="27" width="50" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="BBQ-rR-zRu"/>
+                                    <constraint firstAttribute="height" constant="21" id="G1f-oX-IrG"/>
+                                </constraints>
                                 <state key="normal" title="Open"/>
                                 <connections>
                                     <action selector="openApp:" destination="M4Y-Lb-cyx" eventType="touchUpInside" id="75C-cC-xb9"/>
@@ -44,10 +48,12 @@
                             </button>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="1gd-9a-Wrl" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leading" constant="6" id="8RO-WW-9gQ"/>
+                            <constraint firstItem="1gd-9a-Wrl" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leading" constant="15" id="8RO-WW-9gQ"/>
                             <constraint firstItem="FKl-LY-JtV" firstAttribute="top" secondItem="1gd-9a-Wrl" secondAttribute="bottom" constant="2" id="RUL-Iu-iro"/>
+                            <constraint firstItem="FKl-LY-JtV" firstAttribute="top" secondItem="pJk-nt-ffB" secondAttribute="bottom" constant="2" id="cu9-3K-L2D"/>
                             <constraint firstItem="GcN-lo-r42" firstAttribute="top" secondItem="Ft6-oW-KC0" secondAttribute="bottom" constant="2" id="jf8-5s-Z5D"/>
-                            <constraint firstItem="GcN-lo-r42" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leading" constant="6" id="pPo-jg-yes"/>
+                            <constraint firstItem="GcN-lo-r42" firstAttribute="leading" secondItem="S3S-Oj-5AN" secondAttribute="leading" constant="15" id="pPo-jg-yes"/>
+                            <constraint firstAttribute="trailing" secondItem="pJk-nt-ffB" secondAttribute="trailing" constant="10" id="pS0-za-mw0"/>
                             <constraint firstItem="1gd-9a-Wrl" firstAttribute="top" secondItem="GcN-lo-r42" secondAttribute="bottom" constant="2" id="v3D-av-fSu"/>
                         </constraints>
                     </view>

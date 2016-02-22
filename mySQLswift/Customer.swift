@@ -63,9 +63,10 @@ class Customer: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         self.navigationItem.rightBarButtonItems = buttons as? [UIBarButtonItem]
 
         self.refreshControl = UIRefreshControl()
-        refreshControl.backgroundColor = UIColor.clearColor()
-        refreshControl.tintColor = UIColor.blackColor()
-        self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.backgroundColor = Color.Cust.navColor
+        refreshControl.tintColor = UIColor.whiteColor()
+        let attributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+        self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh", attributes: attributes)
         self.refreshControl.addTarget(self, action: "refreshData:", forControlEvents: UIControlEvents.ValueChanged)
         self.tableView!.addSubview(refreshControl)
         
