@@ -6,7 +6,7 @@
 //  Copyright © 2015 Peter Balsamo. All rights reserved.
 //
 
-import Foundation
+//import Foundation
 import UIKit
 import Parse
 import AVKit
@@ -28,6 +28,7 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
     var foundUsers = [String]()
     
     var playerViewController = AVPlayerViewController()
+    var player = AVPlayer()
     var imageDetailurl : NSString?
     var videoURL: NSURL?
     
@@ -180,8 +181,10 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
         }
         
         let value = self.imageFile.url
+        //print("\(value!)")
         let result1 = value!.containsString("movie.mp4")
         //if s!.rangeOfString("movie.mp4") != nil {
+        //print(result1)
         if (result1 == true) {
             
             playButton.alpha = 0.3
@@ -248,6 +251,14 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
     
     func playVideo(sender: UITapGestureRecognizer) {
         
+        //let path = NSBundle.mainBundle().pathForResource("emoji zone", ofType: "mp4")
+        let path = self.imageFile.url!
+        player = AVPlayer(URL: NSURL(fileURLWithPath: path))
+        playerViewController.player = player
+        self.presentViewController(playerViewController, animated: true) {
+            self.playerViewController.player?.play()
+        }
+        /*
         let url = NSURL.fileURLWithPath(self.imageFile.url!)
         //let url = NSURL.fileURLWithPath(self.imageDetailurl as! String)
         let player = AVPlayer(URL: url)
@@ -261,7 +272,7 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
         self.view.addSubview(playerViewController.view)
         self.addChildViewController(playerViewController)
         
-        player.play()
+        player.play() */
     }
     
     func finishedPlaying(myNotification:NSNotification) {

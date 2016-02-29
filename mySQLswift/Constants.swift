@@ -13,8 +13,9 @@ import Foundation
         static let NewsCust = "Customer News: Check out or new line of fabulous windows and siding."
         static let NewsVend = "Business News: Peter Balsamo Appointed to United's Board of Directors."
         static let NewsEmploy = "Employee News: Health benifits cancelled immediately, ineffect starting today."
+        static let BaseUrl = "http://lotpb.github.io/UnitedWebPage/index.html"
     }
-    
+
     struct Color {
         static let BlueColor = UIColor(red:0.0, green:122.0/255.0, blue:1.0, alpha: 1.0)
         static let DGrayColor = UIColor(white:0.45, alpha:1.0)

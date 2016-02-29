@@ -182,6 +182,17 @@ class UserDetailController: UIViewController, UINavigationControllerDelegate, UI
         picker.dismissViewControllerAnimated(true, completion: nil)
     }
     
+    // MARK: - AlertController
+    
+    func simpleAlert (title:String, message:String) {
+        
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        
+        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: nil))
+        
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    
     
     @IBAction func Update(sender: AnyObject) {
         
@@ -209,22 +220,11 @@ class UserDetailController: UIViewController, UINavigationControllerDelegate, UI
                         }
                     }
                 }
-                
-                let alert = UIAlertController(title: "Upload Complete", message: "Successfully updated the data", preferredStyle: UIAlertControllerStyle.Alert)
-                let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in
-                    self.navigationController?.popToRootViewControllerAnimated(true)
-                })
-                alert.addAction(alertActionTrue)
-                self.presentViewController(alert, animated: true, completion: nil)
-                
+                self.simpleAlert("Upload Complete", message: "Successfully updated the data")
+                self.navigationController?.popToRootViewControllerAnimated(true)
             } else {
-                
-                let alert = UIAlertController(title: "Upload Failure", message: "Failure updating the data", preferredStyle: UIAlertControllerStyle.Alert)
-                let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Destructive, handler: {(alert: UIAlertAction!) in
-                    self.navigationController?.popToRootViewControllerAnimated(true)
-                })
-                alert.addAction(alertActionTrue)
-                self.presentViewController(alert, animated: true, completion: nil)
+                self.simpleAlert("Upload Failure", message: "Failure updating the data")
+                self.navigationController?.popToRootViewControllerAnimated(true)
             }
         }
         self.activityIndicator.stopAnimating()

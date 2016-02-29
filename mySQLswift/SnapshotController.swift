@@ -205,7 +205,7 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
                 return result
             }
         } else if (indexPath.section == 2) {
-            
+            let result:CGFloat = 100
             switch (indexPath.row % 4)
             {
             case 0:
@@ -243,13 +243,13 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
                 return result
             }
         } else if (indexPath.section == 6) {
-            let result:CGFloat = 100
+    
             switch (indexPath.row % 4)
             {
             case 0:
-                return 44;
+            return 44;
             default:
-                return result
+            return result
             }
         } else if (indexPath.section == 7) {
             let result:CGFloat = 100
@@ -339,7 +339,6 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
                 cell.collectionView.delegate = self
                 cell.collectionView.dataSource = self
                 cell.collectionView.tag = 0
-                //cell.collectionView.reloadData()
                 
                 return cell
                 
@@ -360,22 +359,38 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
                 
             } else if (indexPath.row == 1) {
                 
-                cell.collectionView.backgroundColor = UIColor.clearColor()
-                
                 /*
                 let date1 = (_feedItems.firstObject? .valueForKey("createdAt") as? NSDate)!
                 let date2 = NSDate()
                 let diffDateComponents = NSCalendar.currentCalendar().components([NSCalendarUnit.Day], fromDate: date1, toDate: date2, options: NSCalendarOptions.init(rawValue: 0))
                 cell.snaptitleLabel?.text  = String(format: "%@, %d%@" , (_feedItems.firstObject? .valueForKey("newsDetail") as? String)!, diffDateComponents.day," days ago" ) */
                 
+                cell.collectionView.backgroundColor = UIColor.clearColor()
                 cell.snaptitleLabel?.text  = _feedItems.firstObject? .valueForKey("newsDetail") as? String
-  
                 cell.snapdetailLabel?.text = _feedItems.firstObject? .valueForKey("newsTitle") as? String
                 
                 return cell
             }
             
         }  else if (indexPath.section == 2) {
+            
+            if (indexPath.row == 0) {
+                
+                cell.textLabel!.text = "Top Blog Story";
+                cell.selectionStyle = UITableViewCellSelectionStyle.Gray
+                cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
+                
+                return cell
+            } else if (indexPath.row == 1) {
+                
+                cell.collectionView.backgroundColor = UIColor.clearColor()
+                cell.snaptitleLabel?.text = _feedItems6.firstObject? .valueForKey("PostBy") as? String
+                cell.snapdetailLabel?.text = _feedItems6.firstObject? .valueForKey("Subject") as? String
+                
+                return cell
+            }
+            
+        } else if (indexPath.section == 3) {
             
             if (indexPath.row == 0) {
                 
@@ -390,12 +405,11 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
                 cell.collectionView.delegate = self
                 cell.collectionView.dataSource = self
                 cell.collectionView.tag = 1
-                //cell.collectionView.reloadData()
                 
                 return cell
             }
             
-        }  else if (indexPath.section == 3) {
+        } else if (indexPath.section == 4) {
             
             if (indexPath.row == 0) {
                 
@@ -410,7 +424,6 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
                 cell.collectionView.delegate = self
                 cell.collectionView.dataSource = self
                 cell.collectionView.tag = 2
-                //cell.collectionView.reloadData()
                 
                 return cell
                 
@@ -421,7 +434,7 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
                 return cell
             }
             
-        } else if (indexPath.section == 4) {
+        } else if (indexPath.section == 5) {
             
             if (indexPath.row == 0) {
                 
@@ -436,12 +449,11 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
                 cell.collectionView.delegate = self
                 cell.collectionView.dataSource = self
                 cell.collectionView.tag = 3
-                //cell.collectionView.reloadData()
                 
                 return cell
             }
             
-        } else if (indexPath.section == 5) {
+        } else if (indexPath.section == 6) {
             
             if (indexPath.row == 0) {
                 
@@ -456,25 +468,6 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
                 cell.collectionView.delegate = self
                 cell.collectionView.dataSource = self
                 cell.collectionView.tag = 4
-                //cell.collectionView.reloadData()
-                
-                return cell
-            }
-            
-        } else if (indexPath.section == 6) {
-            
-            if (indexPath.row == 0) {
-                
-                cell.textLabel!.text = "Top Blog Story";
-                cell.selectionStyle = UITableViewCellSelectionStyle.Gray
-                cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
-                
-                return cell
-            } else if (indexPath.row == 1) {
-                
-                cell.collectionView.backgroundColor = UIColor.clearColor()
-                cell.snaptitleLabel?.text = _feedItems6[0] .valueForKey("PostBy") as? String
-                cell.snapdetailLabel?.text = _feedItems6[0] .valueForKey("Subject") as? String
                 
                 return cell
             }

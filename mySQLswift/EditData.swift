@@ -9,17 +9,19 @@
 import UIKit
 import Parse
 
-class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UITextFieldDelegate {
+class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate {
     //UIPickerViewDataSource, UIPickerViewDelegate,
     
-    //var DatePickerView : UIDatePicker = UIDatePicker()
-    //var pickOption = ["one", "two", "three", "seven", "fifteen"]
+    var datePickerView : UIDatePicker = UIDatePicker()
+    
+
+    var pickOption = ["one", "two", "three", "seven", "fifteen"]
+    
     @IBOutlet weak var tableView: UITableView?
     
     @IBOutlet weak var first: UITextField!
     @IBOutlet weak var last: UITextField!
     @IBOutlet weak var company: UITextField!
-    
     @IBOutlet weak var following: UILabel!
     @IBOutlet weak var activebutton: UIButton!
     @IBOutlet weak var profileImageView: UIImageView?
@@ -28,10 +30,6 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     var callbackArray : NSMutableArray = NSMutableArray()
     var contractorArray : NSMutableArray = NSMutableArray()
     var rateArray : NSMutableArray = NSMutableArray()
-    
-    var defaults = NSUserDefaults.standardUserDefaults()
-    var simpleStepper : UIStepper!
-    var lookupItem : String?
     
     var date : UITextField!
     var address : UITextField!
@@ -90,8 +88,10 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     var frm31 : NSString? //start
     var frm32 : NSString? //completion
     
+    var defaults = NSUserDefaults.standardUserDefaults()
+    var simpleStepper : UIStepper!
+    var lookupItem : String?
     var pasteBoard = UIPasteboard.generalPasteboard()
-    var refreshControl: UIRefreshControl!
     
     //var searchController: UISearchController!
     //var resultsController: UITableViewController!
@@ -103,27 +103,24 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        /*
         let titleButton: UIButton = UIButton(frame: CGRectMake(0, 0, 100, 32))
         titleButton.setTitle(String(format: "%@ %@", self.status!, self.formController!), forState: UIControlState.Normal)
         titleButton.titleLabel?.font = Font.navlabel
         titleButton.titleLabel?.textAlignment = NSTextAlignment.Center
         titleButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         titleButton.addTarget(self, action: Selector(), forControlEvents: UIControlEvents.TouchUpInside)
-        self.navigationItem.titleView = titleButton */
+        self.navigationItem.titleView = titleButton
         
         self.tableView!.delegate = self
         self.tableView!.dataSource = self
         self.tableView!.estimatedRowHeight = 44
         self.tableView!.rowHeight = UITableViewAutomaticDimension
         self.tableView!.backgroundColor = UIColor.whiteColor()
-        //self.automaticallyAdjustsScrollViewInsets = false
         self.tableView!.tableFooterView = UIView(frame: .zero)
-        
         
         let saveButton = UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: "updateData")
         let buttons:NSArray = [saveButton]
-        self.navigationItem.rightBarButtonItems = buttons as? [UIBarButtonItem] 
+        self.navigationItem.rightBarButtonItems = buttons as? [UIBarButtonItem]
         
         if (status == "New") {
             self.following!.text = "Following"
@@ -145,28 +142,24 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             }
         }
         
-        /*
-        let pickerView = UIPickerView()
-        pickerView.delegate = self
-        self.callback?.inputView = pickerView */
-        
-        passFieldData()
-        
-        if (self.status == "Edit") {
-            //parseData() //created a problem EditData wont load
-        }
-        //self.tableView!.reloadData()
-        
         profileImageView!.layer.cornerRadius = profileImageView!.frame.size.width/2
         profileImageView!.clipsToBounds = true
         
-        self.refreshControl = UIRefreshControl()
-        refreshControl.backgroundColor = UIColor.clearColor()
-        refreshControl.tintColor = UIColor.blackColor()
-        self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
-        self.refreshControl.addTarget(self, action: "refreshData:", forControlEvents: UIControlEvents.ValueChanged)
-        self.tableView!.addSubview(refreshControl)
         
+//        let pickerView = UIPickerView()
+//        pickerView.delegate = self
+//        self.callback?.inputView = pickerView
+        
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        passFieldData()
+        if (self.status == "Edit") {
+            parseData()
+        }
+
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -186,12 +179,6 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         // Dispose of any resources that can be recreated.
     }
     
-    // MARK: - refresh
-    
-    func refreshData(sender:AnyObject) {
-        parseData()
-        self.refreshControl?.endRefreshing()
-    }
     
     // MARK: - Table View
     
@@ -297,11 +284,13 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             
             if (self.formController == "Leads" || self.formController == "Customer") {
                 
-                //self.date?.inputView = DatePickerView
+                self.date?.inputView = datePickerView
                 if (self.status == "New") {
                     self.date?.text = dateString
                 }
-                //DatePickerView.addTarget(self, action: Selector("datePickerValueChanged:"), forControlEvents: UIControlEvents.ValueChanged)
+                datePickerView.datePickerMode = UIDatePickerMode.Date
+                datePickerView.addTarget(self, action: Selector("handleDatePicker:"), forControlEvents: UIControlEvents.ValueChanged)
+                datePickerView.backgroundColor = UIColor.whiteColor()
             }
             
             if (self.formController == "Vendor") {
@@ -395,7 +384,8 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                 self.aptDate!.tag = 4
                 self.aptDate!.placeholder = "Apt Date"
                 cell.textLabel!.text = "Apt Date"
-                self.aptDate!.inputView = nil //[self datePicker:4];
+                self.aptDate!.inputView = datePickerView
+                datePickerView.addTarget(self, action: Selector("handleDatePicker:"), forControlEvents: UIControlEvents.ValueChanged)
             }
             
             cell.contentView.addSubview(self.aptDate!)
@@ -568,20 +558,16 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                     cell.accessoryView = simpleStepper
                     simpleStepper.addTarget(self, action: "stepperValueDidChange:", forControlEvents: UIControlEvents.ValueChanged)
                 }
-                
             }
-                
             else if (self.formController == "Vendor") {
                 self.callback!.hidden = true //Field
                 self.callback!.placeholder = ""
                 cell.textLabel!.text = ""
             }
-                
             else if (self.formController == "Employee") {
                 self.callback!.placeholder = "Manager"
                 cell.textLabel!.text = "Manager"
             }
-                
             else {
                 self.callback!.placeholder = "Call Back"
                 cell.textLabel!.text = "Call Back"
@@ -610,7 +596,8 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             } else {
                 self.start!.text = self.frm31 as? String
             }
-            self.start!.inputView = nil //[self datePicker:14];
+            self.start!.inputView = datePickerView
+            datePickerView.addTarget(self, action: Selector("handleDatePicker:"), forControlEvents: UIControlEvents.ValueChanged)
             cell.textLabel!.text = "Start Date"
             cell.contentView.addSubview(self.start!)
             
@@ -624,7 +611,8 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             } else {
             self.complete!.text = self.frm32 as? String
             }
-            self.complete!.inputView = nil //self datePicker:15
+            self.complete!.inputView = datePickerView
+            datePickerView.addTarget(self, action: Selector("handleDatePicker:"), forControlEvents: UIControlEvents.ValueChanged)
             cell.textLabel!.text = "End Date"
             cell.contentView.addSubview(self.complete!)
             self.complete!.font = Font.celltitle
@@ -689,7 +677,8 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     
     
     // MARK: - PickView
-    /*
+    // FIXME:
+    
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         return 1
     }
@@ -704,30 +693,75 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         self.callback.text = pickOption[row]
-    } */
+    }
     
     
     // MARK: - DatePicker
+    // FIXME:
     
+    func showPickerInView(view: UIView, animated: Bool) {
+        /*
+        toolbar.items = toolbarItems()
+        toolbar.frame = CGRectMake(0, 0, view.frame.size.width, toolbarHeight)
+        picker.frame = CGRectMake(0, toolbarHeight, view.frame.size.width, picker.frame.size.height)
+        self.frame = CGRectMake(0, view.frame.size.height - picker.frame.size.height - toolbar.frame.size.height,
+            view.frame.size.width, picker.frame.size.height + toolbar.frame.size.height)
+        view.addSubview(self)
+        becomeFirstResponder()
+        showPickerAnimation(animated) */
+        
+        
+        /*
+        let inputView = UIView(frame: CGRectMake(0, 0, self.view.frame.width, 240))
+        datePickerView = UIDatePicker(frame: CGRectMake(0, 40, 0, 0))
+        datePickerView.datePickerMode = UIDatePickerMode.Date
+        inputView.addSubview(datePickerView) // add date picker to UIView
+        
+        let doneButton = UIButton(frame: CGRectMake((self.view.frame.size.width/2) - (100/2), 0, 100, 50))
+        doneButton.setTitle("Done", forState: UIControlState.Normal)
+        doneButton.setTitle("Done", forState: UIControlState.Highlighted)
+        doneButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+        doneButton.setTitleColor(UIColor.grayColor(), forState: UIControlState.Highlighted)
+        
+        inputView.addSubview(doneButton) // add Button to UIView
+        doneButton.addTarget(self, action: "doneButton:", forControlEvents: UIControlEvents.TouchUpInside)
+        
+         //sender.inputView = inputView
+        datePickerView.addTarget(self, action: Selector("handleDatePicker:"), forControlEvents: UIControlEvents.ValueChanged)
+        
+        handleDatePicker(datePickerView) // Set the date on start. */
+    }
+    
+    
+    
+    /*
     func textFieldEditing(sender: UITextField) {
+
+        let inputView = UIView(frame: CGRectMake(0, 0, self.view.frame.width, 240))
         
+        datePickerView = UIDatePicker(frame: CGRectMake(0, 40, 0, 0))
+        datePickerView.datePickerMode = UIDatePickerMode.Date
+        inputView.addSubview(datePickerView) // add date picker to UIView
         /*
-        let DatePickerView : UIDatePicker = UIDatePicker()
-        DatePickerView.datePickerMode = UIDatePickerMode.Date
-        self.date.inputView = DatePickerView */
+        let doneButton = UIButton(frame: CGRectMake((self.view.frame.size.width/2) - (100/2), 0, 100, 50))
+        doneButton.setTitle("Done", forState: UIControlState.Normal)
+        doneButton.setTitle("Done", forState: UIControlState.Highlighted)
+        doneButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
+        doneButton.setTitleColor(UIColor.grayColor(), forState: UIControlState.Highlighted) */
         
-        //let datePickerView:UIDatePicker = UIDatePicker()
-        //DatePickerView.datePickerMode = UIDatePickerMode.Date
-        //sender.inputView = DatePickerView
-        //DatePickerView.addTarget(self, action: Selector("datePickerValueChanged:"), forControlEvents: UIControlEvents.ValueChanged)
+        //inputView.addSubview(doneButton) // add Button to UIView
+        //doneButton.addTarget(self, action: "doneButton:", forControlEvents: UIControlEvents.TouchUpInside)
         
-    } 
+       // sender.inputView = inputView
+        //datePickerView.addTarget(self, action: Selector("handleDatePicker:"), forControlEvents: UIControlEvents.ValueChanged)
+        
+        //handleDatePicker(datePickerView) // Set the date on start.
+        
+    } */
     
-    func datePickerValueChanged(sender:UIDatePicker) {
-        /*
+    func handleDatePicker(sender: UIDatePicker) {
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
-        dateFormatter.timeStyle = NSDateFormatterStyle.NoStyle
         if (sender.tag == 0) {
             self.date?.text = dateFormatter.stringFromDate(sender.date)
         } else if (sender.tag == 4) {
@@ -736,8 +770,14 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             self.start?.text = dateFormatter.stringFromDate(sender.date)
         } else if (sender.tag == 15) {
             self.complete?.text = dateFormatter.stringFromDate(sender.date)
-        } */
+        }
     }
+    
+    func doneButton(sender:UIButton)
+    {
+        //datePicker.resignFirstResponder() // To resign the inputView on clicking done.
+    }
+    
     
     // MARK: - Field Header
     
@@ -783,13 +823,11 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                 self.company.inputView = nil //[self customPicker:3];
             }
         } else if (self.formController == "Vendor") {
-            
             self.first.placeholder = "Company"
             self.last.placeholder = "Webpage"
             self.company.placeholder = "Manager"
             
         } else if (formController == "Employee") {
-            
             self.first.placeholder = "First"
             self.last.placeholder = "Last"
             self.company.placeholder = "Subcontractor"

@@ -42,8 +42,6 @@ class NotificationDetailController: UIViewController, UITableViewDelegate, UITab
         //self.tableView!.estimatedRowHeight = 110
         //self.tableView!.rowHeight = UITableViewAutomaticDimension
         self.tableView!.backgroundColor = UIColor(white:0.90, alpha:1.0)
-
-        //self.navigationItem.leftBarButtonItem = self.editButtonItem()
         
         let trashButton = UIBarButtonItem(barButtonSystemItem: .Trash, target: self, action: "deleteButton:")
         let buttons:NSArray = [trashButton]
@@ -60,14 +58,14 @@ class NotificationDetailController: UIViewController, UITableViewDelegate, UITab
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        //navigationController?.hidesBarsOnSwipe = true
+
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.barTintColor = UIColor.brownColor()
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        //navigationController?.hidesBarsOnSwipe = false
+
     }
     
     override func didReceiveMemoryWarning() {
@@ -107,12 +105,7 @@ class NotificationDetailController: UIViewController, UITableViewDelegate, UITab
         
         let cell = tableView.dequeueReusableCellWithIdentifier("Cell",
             forIndexPath: indexPath)
-        /*
-        if cell == nil {
-            cell = UITableViewCell(style: UITableViewCellStyle.Subtitle, reuseIdentifier: kCellIdentifier)
-        } */
 
-        
         localNotifications = UIApplication.sharedApplication().scheduledLocalNotifications!
         localNotification = localNotifications.objectAtIndex(indexPath.row) as! UILocalNotification
         

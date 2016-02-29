@@ -20,7 +20,7 @@ class Blog: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var _feedheadItems : NSMutableArray = NSMutableArray()
     var filteredString : NSMutableArray = NSMutableArray()
     
-    var buttonView: UIView?
+    var buttonView: UIView!
     var likeButton: UIButton?
     var refreshControl: UIRefreshControl!
     let searchController = UISearchController(searchResultsController: nil)
@@ -193,7 +193,7 @@ class Blog: UIViewController, UITableViewDelegate, UITableViewDataSource {
             }
             cell.commentLabel?.text = "\(CommentCount!)"
         }
-
+        
         cell.replyButton.tintColor = UIColor.lightGrayColor()
         let replyimage : UIImage? = UIImage(named:"Commentfilled.png")!.imageWithRenderingMode(.AlwaysTemplate)
         cell.replyButton .setImage(replyimage, forState: .Normal)
@@ -202,7 +202,6 @@ class Blog: UIViewController, UITableViewDelegate, UITableViewDataSource {
         cell.likeButton.tintColor = UIColor.lightGrayColor()
         let likeimage : UIImage? = UIImage(named:"Thumb Up.png")!.imageWithRenderingMode(.AlwaysTemplate)
         cell.likeButton .setImage(likeimage, forState: .Normal)
-        //cell.likeButton .addTarget(self, action: "buttonPress:", forControlEvents: UIControlEvents.TouchDown)
         cell.likeButton .addTarget(self, action: "likeButton:", forControlEvents: UIControlEvents.TouchUpInside)
 
         cell.flagButton.tintColor = UIColor.lightGrayColor()
@@ -291,7 +290,7 @@ class Blog: UIViewController, UITableViewDelegate, UITableViewDataSource {
         myLabel3.textColor = UIColor.blackColor()
         myLabel3.textAlignment = NSTextAlignment.Center
         myLabel3.layer.masksToBounds = true
-        myLabel3.text = "Active"
+        myLabel3.text = String(format: "%@%d", "Events\n", 3)
         myLabel3.font = Font.headtitle
         myLabel3.layer.cornerRadius = 25.0
         myLabel3.layer.borderColor = Color.Blog.borderbtnColor
@@ -555,7 +554,7 @@ class Blog: UIViewController, UITableViewDelegate, UITableViewDataSource {
             VC!.subject = _feedItems[myIndexPath] .valueForKey("Subject") as? String
             VC!.msgDate = _feedItems[myIndexPath] .valueForKey("MsgDate") as? String
             VC!.rating = _feedItems[myIndexPath] .valueForKey("Rating") as? String
-            VC!.liked = _feedItems[myIndexPath] .valueForKey("Liked") as? String
+            VC!.liked = _feedItems[myIndexPath] .valueForKey("Liked") as? Int
             VC!.replyId = _feedItems[myIndexPath] .valueForKey("ReplyId") as? String
         }
         if segue.identifier == "blognewSegue" {

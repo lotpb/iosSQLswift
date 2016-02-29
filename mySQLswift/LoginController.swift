@@ -488,7 +488,7 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
         } else {
             print(error?.localizedDescription)
             NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-                self.showPasswordAlert()
+            self.showPasswordAlert()
             })
         }
         
@@ -496,27 +496,25 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
     
     func didAuthenticateWithTouchId() {
         
-        self.performSegueWithIdentifier("loginSegue", sender: nil)
-        print("Login complete.")
-        
         defaults.setObject("Peter Balsamo", forKey: "usernameKey")
         defaults.setObject("3911", forKey: "passwordKey")
         defaults.setObject("eunitedws@verizon.net", forKey: "emailKey")
         defaults.setBool(true, forKey: "registerKey")
-        
+        print("Login complete.")
+        self.performSegueWithIdentifier("loginSegue", sender: nil)
     }
     
     // MARK: Authenticate Password Alert
     
-    func showPasswordAlert()
-    {
+    func showPasswordAlert() {
+        
         let alertController = UIAlertController(title: "Touch ID Password", message: "Please enter your password.", preferredStyle: .Alert)
         
         let defaultAction = UIAlertAction(title: "OK", style: .Cancel) { (action) -> Void in
             
             if let textField = alertController.textFields?.first as UITextField?
             {
-                if textField.text == "veasoftware"
+                if textField.text == "Peter Balsamo"
                 {
                     print("Authentication successful! :) ")
                 }

@@ -251,7 +251,7 @@ class Employee: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         myLabel3.textColor = UIColor.blackColor()
         myLabel3.textAlignment = NSTextAlignment.Center
         myLabel3.layer.masksToBounds = true
-        myLabel3.text = "Active"
+        myLabel3.text = String(format: "%@%d", "Events\n", 3)
         myLabel3.font = Font.headtitle
         myLabel3.layer.cornerRadius = 25.0
         myLabel3.userInteractionEnabled = true

@@ -52,7 +52,7 @@ class Web: UIViewController, SFSafariViewControllerDelegate, WKNavigationDelegat
         webView.addObserver(self, forKeyPath: "loading", options: .New, context: nil)
         webView.addObserver(self, forKeyPath: "estimatedProgress", options: .New, context: nil)
         //webView.addObserver(self, forKeyPath: "title", options: .New, context: nil) //removes title on tabBar
-        
+
         webView.loadRequest(NSURLRequest(URL:NSURL(string:"http://www.cnn.com")!))
         
         backButton.enabled = false
@@ -64,6 +64,7 @@ class Web: UIViewController, SFSafariViewControllerDelegate, WKNavigationDelegat
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
     
     @IBAction func backButtonPressed(sender: UIBarButtonItem) {
         webView.goBack()

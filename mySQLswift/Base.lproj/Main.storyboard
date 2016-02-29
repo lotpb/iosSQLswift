@@ -1036,8 +1036,8 @@
                         <outlet property="newsTableView" destination="6h0-5o-j2S" id="RfZ-cm-DuX"/>
                         <outlet property="scrollWall" destination="Xnl-9p-diW" id="WDP-Z1-fRT"/>
                         <outlet property="tableView" destination="4uz-cU-1hg" id="Q26-VC-lMq"/>
-                        <segue destination="tk3-QQ-pUV" kind="show" identifier="editFormSegue" action="showDetailViewController:sender:" id="8OJ-nY-fNy"/>
                         <segue destination="gn7-Zo-9U9" kind="show" identifier="showmapSegue" id="iq5-iJ-gPC"/>
+                        <segue destination="tk3-QQ-pUV" kind="show" identifier="editFormSegue" id="1Wv-3R-kep"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="joE-Ra-hdb" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1204,7 +1204,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nel-ob-6Yt" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <searchDisplayController id="EP2-3U-sVA"/>
             </objects>
-            <point key="canvasLocation" x="709" y="842"/>
+            <point key="canvasLocation" x="670" y="836"/>
         </scene>
         <!--Social-->
         <scene sceneID="f58-dH-6sn">
@@ -1769,11 +1769,20 @@
                                                             <constraint firstAttribute="height" constant="50" id="gY5-LR-v1t"/>
                                                         </constraints>
                                                     </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Count" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qTW-DT-NQN">
+                                                        <rect key="frame" x="14" y="70" width="50" height="21"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
+                                                    <constraint firstItem="qTW-DT-NQN" firstAttribute="top" secondItem="o1f-GU-8tw" secondAttribute="bottom" constant="5" id="MEc-m9-X47"/>
                                                     <constraint firstAttribute="width" constant="70" id="Mg1-TJ-Qz2"/>
+                                                    <constraint firstItem="qTW-DT-NQN" firstAttribute="leading" secondItem="o1f-GU-8tw" secondAttribute="leading" id="QSk-OA-VDt"/>
                                                     <constraint firstItem="o1f-GU-8tw" firstAttribute="top" secondItem="uUv-1Q-mOk" secondAttribute="top" constant="15" id="a69-o0-bWz"/>
+                                                    <constraint firstItem="qTW-DT-NQN" firstAttribute="trailing" secondItem="o1f-GU-8tw" secondAttribute="trailing" id="cu5-tV-jJI"/>
                                                     <constraint firstAttribute="trailing" secondItem="o1f-GU-8tw" secondAttribute="trailing" constant="6" id="fMj-4Z-qEH"/>
                                                     <constraint firstItem="o1f-GU-8tw" firstAttribute="leading" secondItem="uUv-1Q-mOk" secondAttribute="leading" constant="14" id="xyC-e3-ucQ"/>
                                                 </constraints>
@@ -1929,6 +1938,7 @@
                         <outlet property="Like" destination="KHD-Ed-RCE" id="Suf-Fd-owX"/>
                         <outlet property="Share" destination="TgO-Vm-dnf" id="Q1o-eE-zZZ"/>
                         <outlet property="Update" destination="zfO-Xe-Y2k" id="xGH-Ax-l7Z"/>
+                        <outlet property="characterCountLabel" destination="qTW-DT-NQN" id="Eej-eV-hyr"/>
                         <outlet property="imageBlog" destination="o1f-GU-8tw" id="6mi-Wj-qMY"/>
                         <outlet property="myDatePicker" destination="nxT-jt-Hxb" id="lGc-Vm-cdn"/>
                         <outlet property="placeholderlabel" destination="zGi-Wh-lfN" id="Y4p-nl-M3D"/>
@@ -3225,7 +3235,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="z40-Ry-qp1">
-                                <rect key="frame" x="0.0" y="20" width="600" height="580"/>
+                                <rect key="frame" x="0.0" y="22" width="600" height="578"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Cell" rowHeight="88" id="pmf-fX-hWS" customClass="CustomTableCell" customModule="TheLight" customModuleProvider="target">
@@ -3353,7 +3363,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="z40-Ry-qp1" firstAttribute="leading" secondItem="VfX-7V-y81" secondAttribute="leading" id="G9T-bn-tWa"/>
-                            <constraint firstItem="z40-Ry-qp1" firstAttribute="top" secondItem="V0y-Sw-kXZ" secondAttribute="bottom" id="cHw-jn-ob9"/>
+                            <constraint firstItem="z40-Ry-qp1" firstAttribute="top" secondItem="V0y-Sw-kXZ" secondAttribute="bottom" constant="2" id="cHw-jn-ob9"/>
                             <constraint firstAttribute="bottomMargin" secondItem="z40-Ry-qp1" secondAttribute="bottom" id="nd1-VT-j8o"/>
                             <constraint firstAttribute="trailing" secondItem="z40-Ry-qp1" secondAttribute="trailing" id="xdk-MV-d6Z"/>
                         </constraints>
@@ -3605,7 +3615,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lqk-8w-ENc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2446" y="-2027"/>
+            <point key="canvasLocation" x="1371" y="140"/>
         </scene>
         <!--Map View Controller-->
         <scene sceneID="9hG-gy-AVq">
@@ -5018,16 +5028,16 @@
         <image name="profile-rabbit-toy.png" width="300" height="300"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="3cH-G6-11A"/>
-        <segue reference="nhd-UC-dO1"/>
-        <segue reference="cgw-US-5Dx"/>
         <segue reference="Mih-40-jc2"/>
-        <segue reference="LRB-pN-dPg"/>
-        <segue reference="8OJ-nY-fNy"/>
+        <segue reference="nhd-UC-dO1"/>
+        <segue reference="3cH-G6-11A"/>
         <segue reference="8pp-z3-NBJ"/>
-        <segue reference="44k-b4-h7F"/>
         <segue reference="hB9-3O-AVy"/>
+        <segue reference="44k-b4-h7F"/>
         <segue reference="ig8-5o-G8p"/>
         <segue reference="eo7-o3-O2c"/>
+        <segue reference="cgw-US-5Dx"/>
+        <segue reference="LRB-pN-dPg"/>
+        <segue reference="1Wv-3R-kep"/>
     </inferredMetricsTieBreakers>
 </document>

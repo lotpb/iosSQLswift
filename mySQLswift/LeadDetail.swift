@@ -8,7 +8,7 @@
 
 import UIKit
 import Parse
-import Contacts
+//import Contacts
 import ContactsUI
 import EventKit
 import MessageUI
@@ -236,6 +236,7 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         parseData()
         followButton()
         refreshData()
+        
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -634,6 +635,9 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         let email = UIAlertAction(title: "Send Email", style: .Default, handler: { (action) -> Void in
             self.sendEmail()
         })
+        let bday = UIAlertAction(title: "Birthday", style: .Default, handler: { (action) -> Void in
+            self.getBirthday()
+        })
         let buttonCancel = UIAlertAction(title: "Cancel", style: .Cancel) { (action) -> Void in
             //print("Cancel Button Pressed")
         }
@@ -650,6 +654,7 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         if !(formController == "Employee") {
             alertController.addAction(cal)
         }
+        alertController.addAction(bday)
         alertController.addAction(buttonCancel)
         
         if let popoverController = alertController.popoverPresentationController {
@@ -745,7 +750,7 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     func addEvent() {
         let eventStore = EKEventStore()
         
-        let itemText = "Meeting"
+        let itemText = defaults.stringForKey("eventtitleKey")!
         
         let startDate = NSDate().dateByAddingTimeInterval(60 * 60)
         let endDate = startDate.dateByAddingTimeInterval(60 * 60) // One hour
@@ -920,16 +925,54 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             let saveRequest = CNSaveRequest()
             saveRequest.addContact(newContact, toContainerWithIdentifier: nil)
             let contactStore = CNContactStore()
+            
+            /*
+            let predicate = CNContact.predicateForContactsMatchingName("Sam")
+            let toFetch = [CNContactGivenNameKey, CNContactFamilyNameKey]
+            let contacts = try contactStore.unifiedContactsMatchingPredicate(
+                predicate, keysToFetch: toFetch) */
+            
+
             try contactStore.executeSaveRequest(saveRequest)
             
             self.simpleAlert("Contact", message: "Contact successfully saved.")
         }
         catch {
             
-            self.simpleAlert("Contact", message: "Unable to Add the New Contact.")
+            self.simpleAlert("Contact", message: "Failed to add the contact.")
             
         }
         
+    }
+    
+    
+     // FIXME:
+    
+    func getBirthday() {
+        
+        let store = CNContactStore()
+        
+        //This line retrieves all contacts for the current name and gets the birthday and name properties
+        
+        let contacts:[CNContact] = try! store.unifiedContactsMatchingPredicate(CNContact.predicateForContactsMatchingName("\(self.name!)"), keysToFetch:[CNContactBirthdayKey, CNContactGivenNameKey, CNContactFamilyNameKey])
+        
+        //Get the first contact in the array of contacts (since you're only looking for 1 you don't need to loop through the contacts)
+        
+        let contact = contacts[0]
+        if (contact != 0) {
+
+            if let bday = contact.birthday?.date as NSDate! {
+                print(bday)
+                let formatter = NSDateFormatter()
+                formatter.timeZone = NSTimeZone(name: "UTC")
+                formatter.dateFormat = "MMM-dd-yyyy"
+                let stringDate = formatter.stringFromDate(contact.birthday!.date!)
+                
+                self.simpleAlert("\(self.name!) Birthday", message: stringDate)
+            } else {
+                self.simpleAlert("Alert", message: "No Birthdays")
+            }
+        }
     }
     
     
@@ -960,13 +1003,14 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         }
         
         if segue.identifier == "editFormSegue" {
+            
             let controller = segue.destinationViewController as? EditData
             
             if (formController == "Leads") {
                 
                 if (self.status == "Edit") {
                     
-                    controller!.formController = "Leads"
+                    controller!.formController = self.formController
                     controller!.status = "Edit"
                     controller!.objectId = self.objectId //Parse Only
                     controller!.leadNo = self.leadNo
@@ -1026,7 +1070,7 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                 }
                 
             } else if (formController == "Customer") {
-                controller!.formController = "Customer"
+                controller!.formController = self.formController
                 controller!.status = "Edit"
                 controller!.objectId = self.objectId //Parse Only
                 controller!.custNo = self.custNo
@@ -1061,7 +1105,7 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
               //controller!.frm34 = self.photo2
                 
             } else if (formController == "Vendor") {
-                controller!.formController = "Vendor"
+                controller!.formController = self.formController
                 controller!.status = "Edit"
                 controller!.objectId = self.objectId //Parse Only
                 controller!.leadNo = self.leadNo //vendorNo
@@ -1087,7 +1131,7 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                 controller!.frm30 = self.active
 
             } else if (formController == "Employee") {
-                controller!.formController = "Employee"
+                controller!.formController = self.formController
                 controller!.status = "Edit"
                 controller!.objectId = self.objectId //Parse Only
                 controller!.leadNo = self.leadNo //employeeNo

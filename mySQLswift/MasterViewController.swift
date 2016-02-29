@@ -11,6 +11,7 @@ import Parse
 import AVFoundation
 //import SwiftKeychainWrapper
 //import iAd
+//import EventKitUI
 
 class MasterViewController: UITableViewController, UISplitViewControllerDelegate, UISearchResultsUpdating {
 
@@ -31,6 +32,7 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
     let defaults = NSUserDefaults.standardUserDefaults()
 
     //var tempYQL : String!
+     //var store = EKEventStore()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -129,6 +131,36 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         // Dispose of any resources that can be recreated.
     }
     
+    
+    func setAlarm() {
+        /*
+        //get calendar
+        let calendar = NSCalendar.currentCalendar()
+        //get start and end date
+        let aDayBeforeComponents = NSDateComponents()
+        aDayBeforeComponents.day = -1
+        let aDayBefore : NSDate = calendar.dateByAddingComponents(aDayBeforeComponents, toDate: NSDate(), options: NSCalendarOptions(rawValue: 0))!
+        let yearAfterComponents = NSDateComponents()
+        yearAfterComponents.year = 1
+        let yearAfter : NSDate = calendar.dateByAddingComponents(yearAfterComponents, toDate: NSDate(), options: NSCalendarOptions(rawValue: 0))!
+        //create predicate
+        let predicate : NSPredicate = self.store.predicateForEventsWithStartDate(aDayBefore, endDate: yearAfter, calendars: nil)
+        //get related events
+        let events : NSArray = self.store.eventsMatchingPredicate(predicate)
+        
+        
+        //loop all events in events and add alarm to all
+        for i in events{
+            let eventWithAlarm = i as! EKEvent
+            let alarm = EKAlarm(relativeOffset: -2.0)
+            eventWithAlarm.addAlarm(alarm)
+            do {
+                try self.store.saveEvent(eventWithAlarm, span: .ThisEvent)
+            } catch _ {
+            }
+        } */
+    }
+    
     // MARK: - Button
     
     func actionButton(sender: AnyObject) {
@@ -149,6 +181,7 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
             self.performSegueWithIdentifier("codegenSegue", sender: self)
         })
         let buttonSocial = UIAlertAction(title: "Social", style: .Default, handler: { (action) -> Void in
+            //self.setAlarm()
             self.performSegueWithIdentifier("socialSegue", sender: self)
         })
         let buttonFive = UIAlertAction(title: "Logout", style: .Default, handler: { (action) -> Void in

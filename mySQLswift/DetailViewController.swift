@@ -277,8 +277,8 @@ class DetailViewController: UIViewController, RPPreviewViewControllerDelegate, A
     }
     
     func toggleTorch(on on: Bool) {
-        let device = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
         
+        let device = AVCaptureDevice.defaultDeviceWithMediaType(AVMediaTypeVideo)
         if device.hasTorch {
             do {
                 try device.lockForConfiguration()
@@ -393,6 +393,7 @@ class DetailViewController: UIViewController, RPPreviewViewControllerDelegate, A
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         selectedVoiceLanguage = row
     }
+    
     
  
     

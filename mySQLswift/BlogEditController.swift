@@ -45,8 +45,8 @@ class BlogEditController: UIViewController, UITableViewDelegate, UITableViewData
     var subject : NSString?
     var msgDate : NSString?
     var rating : NSString?
-    var liked : NSString?
     var replyId : NSString?
+    var liked : Int?
     var activityViewController:UIActivityViewController?
 
     override func viewDidLoad() {
@@ -92,9 +92,13 @@ class BlogEditController: UIViewController, UITableViewDelegate, UITableViewData
         self.toolBar!.layer.addSublayer(bottomBorder)
         self.toolBar!.layer.masksToBounds = true
         
-        self.Like!.tintColor = UIColor.lightGrayColor()
+        if (self.liked == nil) {
+            self.Like!.tintColor = UIColor.lightGrayColor()
+        } else {
+            self.Like!.tintColor = Color.Blog.buttonColor
+        }
         let replyimage : UIImage? = UIImage(named:"Thumb Up.png")!.imageWithRenderingMode(.AlwaysTemplate)
-        self.Like! .setImage(replyimage, forState: .Normal)
+        self.Like!.setImage(replyimage, forState: .Normal)
         self.Like!.setTitleColor(UIColor.grayColor(), forState: UIControlState.Normal)
         
         self.update!.setTitleColor(UIColor.grayColor(), forState: UIControlState.Normal)
@@ -191,6 +195,7 @@ class BlogEditController: UIViewController, UITableViewDelegate, UITableViewData
             cell.subtitleLabel!.text = self.subject as? String
             cell.msgDateLabel.text = dateFormatter.stringFromDate((date) as NSDate)
             
+            /*
             if (self.rating == "5" ) {
                 //self.activeImage!.image = UIImage(named:"iosStar.png")
                 self.Like!.setTitle("unLike", forState: UIControlState.Normal)
@@ -199,7 +204,7 @@ class BlogEditController: UIViewController, UITableViewDelegate, UITableViewData
                 //self.activeImage!.image = UIImage(named:"iosStarNA.png")
                 self.Like!.setTitle("Like", forState: UIControlState.Normal)
                 self.Like!.tintColor = UIColor.lightGrayColor()
-            }
+            } */
             
             /*
             let htmlString = "<font color=\"red\">This is  </font> <font color=\"blue\"> some text!</font>"
@@ -406,6 +411,7 @@ class BlogEditController: UIViewController, UITableViewDelegate, UITableViewData
             VC!.textcontentsubject = self.subject
             VC!.textcontentdate = self.msgDate
             VC!.textcontentrating = self.rating
+            VC!.liked = self.liked
         }
         
     }

@@ -9,7 +9,7 @@
 import UIKit
 import Parse
 
-class BlogNewController: UIViewController, UITextViewDelegate {
+class BlogNewController: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     
     let ipadtitle = UIFont.systemFontOfSize(18, weight: UIFontWeightLight)
     let ipadsubject = UIFont.systemFontOfSize(20, weight: UIFontWeightLight)
@@ -23,13 +23,14 @@ class BlogNewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var subject: UITextView?
     @IBOutlet weak var imageBlog: UIImageView?
     @IBOutlet weak var placeholderlabel: UILabel?
+    @IBOutlet weak var characterCountLabel: UILabel!
     
     var objectId : NSString?
     var msgNo : NSString?
     var postby : NSString?
     var msgDate : NSString?
     var rating : NSString?
-    var liked : NSString?
+    var liked : Int?
     var replyId : NSString?
     
     var textcontentobjectId : NSString?
@@ -111,10 +112,17 @@ class BlogNewController: UIViewController, UITextViewDelegate {
             self.subject!.text = self.textcontentsubject as? String
             self.postby = self.textcontentpostby
             self.rating = self.textcontentrating
+            if (self.liked == nil) {
+                self.Like!.tintColor = UIColor.whiteColor()
+            } else {
+                self.Like!.tintColor = Color.Blog.buttonColor
+            }
         }
         
         if (self.formStatus == "New") {
             self.placeholderlabel!.text = "Share an idea?"
+            self.Like!.tintColor = UIColor.whiteColor()
+            
         } else if (self.formStatus == "Reply") {
             self.placeholderlabel!.hidden = true
             self.subject!.text = self.textcontentsubject as? String
@@ -131,13 +139,15 @@ class BlogNewController: UIViewController, UITextViewDelegate {
             self.subject.attributedText = str; */
         }
         
-        self.Like!.tintColor = UIColor.whiteColor()
         let likeimage : UIImage? = UIImage(named:"Thumb Up.png")!.imageWithRenderingMode(.AlwaysTemplate)
         self.Like! .setImage(likeimage, forState: .Normal)
         self.Like!.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         
         self.myDatePicker!.hidden = true
         self.myDatePicker!.addTarget(self, action: Selector("dataPickerChanged:"), forControlEvents: UIControlEvents.ValueChanged)
+        
+        self.characterCountLabel.text = ""
+        self.characterCountLabel.textColor = UIColor.grayColor()
         
     }
     
@@ -211,14 +221,12 @@ class BlogNewController: UIViewController, UITextViewDelegate {
         if(self.rating == "4") {
             self.Like!.setTitle("unLike", forState: UIControlState.Normal)
             self.Like!.highlighted = true
-            //[self.Like setSelected:YES];
             sender.tintColor = UIColor.redColor()
             self.activeImage!.image = UIImage(named:"iosStar.png")
             self.rating = "5"
         } else {
             self.Like!.setTitle("Like", forState: UIControlState.Normal)
             self.Like!.highlighted = false
-            //[self.Like setSelected:NO];
             sender.tintColor = UIColor.whiteColor()
             self.activeImage!.image = UIImage(named:"iosStarNA.png")
             self.rating = "4"
@@ -253,22 +261,20 @@ class BlogNewController: UIViewController, UITextViewDelegate {
         }
     }
     
-    func textViewDidChange(textView:UITextView) {
-       /*
-        if subject!.text.isEmpty == false {
-            placeholderlabel?.hidden = true
-            placeholderlabel?.text = ""
-        } else {
-            placeholderlabel!.text = "Share an idea?"
-        } */
-    }
+    // MARK: Characters count
     
-    func doneBarButtonItemClicked() {
-        /*
-    // Dismiss the keyboard by removing it as the first responder.
-    [self.subject resignFirstResponder];
-    
-    [self.navigationItem setRightBarButtonItem:nil animated:YES]; */
+    func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
+        
+        let myTextViewString = self.subject!.text
+        characterCountLabel.text = "\(140 - myTextViewString.characters.count)"
+        
+        if range.length > 140 {
+            return false
+        }
+        
+        let newLength = (myTextViewString?.characters.count)! + range.length
+        
+        return newLength < 140
     }
     
     

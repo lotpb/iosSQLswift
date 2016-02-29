@@ -75,18 +75,14 @@ class UserViewController: UIViewController, UITableViewDelegate, UITableViewData
         self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         self.refreshControl.addTarget(self, action: "refreshData:", forControlEvents: UIControlEvents.ValueChanged)
         self.mapView!.addSubview(refreshControl)
-        
+  
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         
-        //if ((PFUser.currentUser()) == nil) {
-            //self.user = PFUser.user()
         user = PFUser.currentUser()!
         PFGeoPoint.geoPointForCurrentLocationInBackground {(geoPoint: PFGeoPoint?, error: NSError?) -> Void in
-            //self.user!.setObject(geoPoint!, forKey: "currentLocation");
-            //self.user!.saveInBackground();
             
             let span:MKCoordinateSpan = MKCoordinateSpanMake(0.40, 0.40)
             let location:CLLocationCoordinate2D = CLLocationCoordinate2DMake(geoPoint!.latitude, geoPoint!.longitude)
@@ -96,8 +92,6 @@ class UserViewController: UIViewController, UITableViewDelegate, UITableViewData
             self.mapView!.showsUserLocation = true //added
             self.refreshMap()
         }
-
-       // }
     }
     
     override func didReceiveMemoryWarning() {
@@ -376,20 +370,3 @@ class UserViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
 
 }
-//-----------------------end------------------------------
-/*
-// MARK: - UISearchBar Delegate
-extension News: UISearchBarDelegate {
-    
-    func searchBar(searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
-        filterContentForSearchText(searchBar.text!, scope: searchBar.scopeButtonTitles![selectedScope])
-    }
-}
-
-extension News: UISearchResultsUpdating {
-    func updateSearchResultsForSearchController(searchController: UISearchController) {
-        let searchBar = searchController.searchBar
-        let scope = searchBar.scopeButtonTitles![searchBar.selectedScopeButtonIndex]
-        filterContentForSearchText(searchController.searchBar.text!, scope: scope)
-    }
-} */

@@ -27,4 +27,11 @@ class CollectionViewCell: UICollectionViewCell {
     // Snapshot Controller / UserView Controller
     @IBOutlet weak var loadingSpinner: UIActivityIndicatorView?
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        self.layer.cornerRadius = 5.0
+        self.clipsToBounds = true
+    }
+    
 }

@@ -92,7 +92,7 @@ class Customer: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         // Dispose of any resources that can be recreated.
     }
     
-     // MARK:, // TODO: and // FIXME:
+    // MARK:, // TODO: and // FIXME:
     
     // MARK: - refresh
     
@@ -231,7 +231,6 @@ class Customer: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         myLabel.textColor = UIColor.whiteColor()
         myLabel.textAlignment = NSTextAlignment.Center
         myLabel.layer.masksToBounds = true
-        //let firstChar = "\(text.characters.first!)" //Swift 2.1
         myLabel.text = "Cust"
         myLabel.font = Font.headtitle
         myLabel.layer.cornerRadius = 25.0
@@ -299,7 +298,7 @@ class Customer: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         myLabel3.textColor = UIColor.blackColor()
         myLabel3.textAlignment = NSTextAlignment.Center
         myLabel3.layer.masksToBounds = true
-        myLabel3.text = "Active"
+        myLabel3.text = String(format: "%@%d", "Events\n", 3)
         myLabel3.font = Font.headtitle
         myLabel3.layer.cornerRadius = 25.0
         myLabel3.userInteractionEnabled = true

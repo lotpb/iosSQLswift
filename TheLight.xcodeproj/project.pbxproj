@@ -39,6 +39,7 @@
 		AF5C01E01C4931EE009BB817 /* TrackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF5C01DF1C4931EE009BB817 /* TrackCell.swift */; };
 		AF5C01E21C493204009BB817 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF5C01E11C493204009BB817 /* Track.swift */; };
 		AF5C01E41C49320E009BB817 /* Download.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF5C01E31C49320E009BB817 /* Download.swift */; };
+		AF6582721C7E1AB700838443 /* Function.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6582711C7E1AB700838443 /* Function.swift */; };
 		AF6C691B1C455BAE00CD6A36 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = AF6C691A1C455BAE00CD6A36 /* Settings.bundle */; };
 		AF6E27041C3AC52300612C25 /* EditData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6E27031C3AC52200612C25 /* EditData.swift */; };
 		AF7383EB1C302DD00049407C /* NotificationDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF7383EA1C302DD00049407C /* NotificationDetailController.swift */; };
@@ -248,6 +249,7 @@
 		AF5C01DF1C4931EE009BB817 /* TrackCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackCell.swift; sourceTree = "<group>"; };
 		AF5C01E11C493204009BB817 /* Track.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
 		AF5C01E31C49320E009BB817 /* Download.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Download.swift; sourceTree = "<group>"; };
+		AF6582711C7E1AB700838443 /* Function.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Function.swift; path = ../Function.swift; sourceTree = "<group>"; };
 		AF6C691A1C455BAE00CD6A36 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		AF6E27031C3AC52200612C25 /* EditData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditData.swift; sourceTree = "<group>"; };
 		AF7383EA1C302DD00049407C /* NotificationDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationDetailController.swift; sourceTree = "<group>"; };
@@ -472,6 +474,7 @@
 			isa = PBXGroup;
 			children = (
 				AFE6936E1C6A4D7E000BEDCE /* Constants.swift */,
+				AF6582711C7E1AB700838443 /* Function.swift */,
 				AF0369A41C173DDC00137D7E /* AppDelegate.swift */,
 				AF0369A61C173DDC00137D7E /* MasterViewController.swift */,
 				AF0369A81C173DDC00137D7E /* DetailViewController.swift */,
@@ -507,12 +510,12 @@
 			path = mySQLswiftUITests;
 			sourceTree = "<group>";
 		};
-		AF0754871C4344F400B03D38 /* lookup */ = {
+		AF0754871C4344F400B03D38 /* Lookup */ = {
 			isa = PBXGroup;
 			children = (
 				AF0754851C4336E200B03D38 /* LookupData.swift */,
 			);
-			name = lookup;
+			name = Lookup;
 			sourceTree = "<group>";
 		};
 		AF0DACA21C1F45D400B23CE5 /* Blog */ = {
@@ -669,7 +672,7 @@
 			children = (
 				AFF3C8F01C4EC45100D9B7BD /* Beacons */,
 				AF5C01E51C493245009BB817 /* Music */,
-				AF0754871C4344F400B03D38 /* lookup */,
+				AF0754871C4344F400B03D38 /* Lookup */,
 				AFC400281C60249F0095333E /* YouTube */,
 				AFD1A2FF1C1CCFCF00580F10 /* SocialController.swift */,
 				AFD754F11C4FCBF200021F97 /* ContactController.swift */,
@@ -1095,6 +1098,7 @@
 			files = (
 				AF0DACA11C1F43DB00B23CE5 /* BlogEditController.swift in Sources */,
 				AF6E27041C3AC52300612C25 /* EditData.swift in Sources */,
+				AF6582721C7E1AB700838443 /* Function.swift in Sources */,
 				AFD1A3001C1CCFCF00580F10 /* SocialController.swift in Sources */,
 				AFCAACE81C40961E00A52073 /* AdController.swift in Sources */,
 				AF1DE4B11C19CDBC002B24C5 /* LeadDetail.swift in Sources */,

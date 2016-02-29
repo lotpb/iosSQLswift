@@ -77,11 +77,12 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
     }
     
     override func viewWillAppear(animated: Bool) {
-        //self.clearsSelectionOnViewWillAppear = self.splitViewController!.collapsed
         super.viewWillAppear(animated)
         navigationController?.hidesBarsOnSwipe = true
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.barTintColor = Color.Lead.navColor
+        
+        animateTable()
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -117,13 +118,11 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if tableView == self.tableView {
-        //if (self.searchController.active) {
-            //return foundUsers.count
+
             return _feedItems.count
-            //return filteredString.count
+  
         } else {
-            //return _feedItems.count
-            //return foundUsers.count
+            
             return filteredString.count
         }
     }
@@ -177,7 +176,6 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
         }
         
         if (tableView == self.tableView) {
-        //if !(self.searchController.active) {
             
             cell.LeadtitleLabel!.text = _feedItems[indexPath.row] .valueForKey("LastName") as? String
             cell.LeadsubtitleLabel!.text = _feedItems[indexPath.row] .valueForKey("City") as? String
@@ -185,7 +183,7 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
             myLabel2.text = _feedItems[indexPath.row] .valueForKey("CallBack") as? String
             
         } else {
-            //cell.LeadtitleLabel!.text = foundUsers[indexPath.row]
+
             cell.LeadtitleLabel!.text = filteredString[indexPath.row] .valueForKey("LastName") as? String
             cell.LeadsubtitleLabel!.text = filteredString[indexPath.row] .valueForKey("City") as? String
             myLabel1.text = filteredString[indexPath.row] .valueForKey("Date") as? String
@@ -259,7 +257,7 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
         myLabel3.textColor = UIColor.blackColor()
         myLabel3.textAlignment = NSTextAlignment.Center
         myLabel3.layer.masksToBounds = true
-        myLabel3.text = "Active"
+        myLabel3.text = String(format: "%@%d", "Events\n", 3)
         myLabel3.font = Font.headtitle
         myLabel3.layer.cornerRadius = 25.0
         myLabel3.userInteractionEnabled = true
@@ -385,13 +383,7 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
 
             if error != nil {
                 
-                let myAlert = UIAlertController(title:"Alert", message:error?.localizedDescription, preferredStyle:UIAlertControllerStyle.Alert)
-                
-                let okAction = UIAlertAction(title: "Ok", style: UIAlertActionStyle.Default, handler: nil)
-                
-                myAlert.addAction(okAction)
-                
-                self.presentViewController(myAlert, animated: true, completion: nil)
+                self.simpleAlert("Alert", message: (error?.localizedDescription)!)
                 
                 return
             }
@@ -407,8 +399,6 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
                     
                     self.foundUsers.append(fullName)
                     print(fullName)
-                    //self.filteredString = self.foundUsers
-                    //self.filteredString = self.foundUsers.mutableCopy() as! NSMutableArray
                 }
                 
                 dispatch_async(dispatch_get_main_queue()) {
@@ -461,6 +451,44 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
         titleLabel = (_feedItems.objectAtIndex((sender.view!.tag)) .valueForKey("LastName") as? String)!
         self.performSegueWithIdentifier("leaduserSegue", sender: self)
     }
+    
+    
+    // MARK: - AlertController
+    
+    func simpleAlert (title:String, message:String) {
+        
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        
+        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: nil))
+        
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    
+    
+    func animateTable() {
+        
+        self.tableView!.reloadData()
+        
+        let cells = tableView!.visibleCells
+        let tableHeight: CGFloat = tableView!.bounds.size.height
+        
+        for i in cells {
+            let cell: UITableViewCell = i as UITableViewCell
+            cell.transform = CGAffineTransformMakeTranslation(0, tableHeight)
+        }
+        
+        var index = 0
+        
+        for a in cells {
+            let cell: UITableViewCell = a as UITableViewCell
+            UIView.animateWithDuration(1.0, delay: 0.05 * Double(index), usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: {
+                cell.transform = CGAffineTransformMakeTranslation(0, 0);
+                }, completion: nil)
+            
+            index += 1
+        }
+    }
+
     
     // MARK: - Segues
     
