@@ -61,13 +61,16 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         //self.automaticallyAdjustsScrollViewInsets = false
         //self.navigationItem.leftBarButtonItem = self.editButtonItem()
         
+        
+        // MARK: - SplitView
+        
         /*
         if let split = self.splitViewController {
             let controllers = split.viewControllers
             self.detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
         } */
 
-        self.splitViewController?.delegate = self; //added
+        self.splitViewController?.delegate = self //added
         self.splitViewController?.preferredDisplayMode = UISplitViewControllerDisplayMode.Automatic //added
         
         // MARK: - Sound
@@ -98,6 +101,7 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         } else {
             print("Keychain failed")
         }
+        
         
         //Parse
         
@@ -364,6 +368,7 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
         }
     }
+    
 
     // MARK: - UISplitViewControllerDelegate
     
@@ -444,6 +449,7 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         
         let resultsYQL = YQL.query("select * from weather.forecast where woeid=2446726")
         print(resultsYQL)
+        
         /*
         let YQLresults = resultsYQL?
             .objectForKey("query")!

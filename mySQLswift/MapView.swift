@@ -104,8 +104,8 @@ class MapView: UIViewController, MKMapViewDelegate,  CLLocationManagerDelegate {
     {
         
         locationManager = CLLocationManager()
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-        locationManager.delegate = self;
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.delegate = self
         
         let status = CLLocationManager.authorizationStatus()
         if status == .NotDetermined || status == .Denied || status == .AuthorizedWhenInUse {
@@ -197,14 +197,14 @@ class MapView: UIViewController, MKMapViewDelegate,  CLLocationManagerDelegate {
         
         for (var i = 0; i < self.route.steps.count; i++)
         {
-            let step:MKRouteStep = self.route.steps[i] as MKRouteStep;
+            let step:MKRouteStep = self.route.steps[i] as MKRouteStep
             let newStep:NSString = step.instructions
             let distStep:NSString = String(format:"%0.2f miles", step.distance/1609.344) as String
             self.allSteps = self.allSteps!.stringByAppendingString( "\(i+1). ")
             self.allSteps = self.allSteps!.stringByAppendingString(newStep as String)
-            self.allSteps = self.allSteps!.stringByAppendingString("  ");
+            self.allSteps = self.allSteps!.stringByAppendingString("  ")
             self.allSteps = self.allSteps!.stringByAppendingString(distStep as String)
-            self.allSteps = self.allSteps!.stringByAppendingString("\n\n");
+            self.allSteps = self.allSteps!.stringByAppendingString("\n\n")
             self.steps.text = self.allSteps as! String
         }
     }

@@ -385,7 +385,7 @@ class Employee: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     func parseData() {
         
         let query = PFQuery(className:"Employee")
-        query.limit = 100;
+        query.limit = 100
         query.orderByAscending("createdAt")
         query.cachePolicy = PFCachePolicy.CacheThenNetwork
         query.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, error: NSError?) -> Void in

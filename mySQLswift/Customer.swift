@@ -400,7 +400,7 @@ class Customer: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     func parseData() {
         
         let query = PFQuery(className:"Customer")
-        query.limit = 1000;
+        query.limit = 1000
         query.cachePolicy = PFCachePolicy.CacheThenNetwork
         query.orderByDescending("createdAt")
         query.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, error: NSError?) -> Void in

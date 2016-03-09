@@ -124,7 +124,7 @@ class UserDetailController: UIViewController, UINavigationControllerDelegate, UI
         }
         
         self.emailField!.keyboardType = UIKeyboardType.EmailAddress
-        self.phoneField!.keyboardType = UIKeyboardType.NumbersAndPunctuation;
+        self.phoneField!.keyboardType = UIKeyboardType.NumbersAndPunctuation
     }
 
     override func didReceiveMemoryWarning() {
@@ -195,7 +195,7 @@ class UserDetailController: UIViewController, UINavigationControllerDelegate, UI
     
     
     @IBAction func Update(sender: AnyObject) {
-        
+        // FIXME:
         activityIndicator.center = self.userimageView!.center
         activityIndicator.startAnimating()
         self.view.addSubview(activityIndicator)
@@ -208,8 +208,8 @@ class UserDetailController: UIViewController, UINavigationControllerDelegate, UI
         query.getFirstObjectInBackgroundWithBlock {(updateuser: PFObject?, error: NSError?) -> Void in
             if error == nil {
                 updateuser!.setObject(self.usernameField!.text!, forKey:"username")
-                updateuser!.setObject(self.usernameField!.text!, forKey:"email")
-                updateuser!.setObject(self.usernameField!.text!, forKey:"phone")
+                updateuser!.setObject(self.emailField!.text!, forKey:"email")
+                updateuser!.setObject(self.phoneField!.text!, forKey:"phone")
                 updateuser!.saveEventually()
                 
                 file!.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in

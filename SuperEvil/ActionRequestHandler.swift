@@ -17,7 +17,7 @@ class ActionRequestHandler: NSObject, NSExtensionRequestHandling {
         let item = NSExtensionItem()
         item.attachments = [attachment]
     
-        context.completeRequestReturningItems([item], completionHandler: nil);
+        context.completeRequestReturningItems([item], completionHandler: nil)
     }
     
 }

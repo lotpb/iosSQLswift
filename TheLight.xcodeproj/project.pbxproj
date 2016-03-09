@@ -28,6 +28,7 @@
 		AF1E6D561C1920FC0009230E /* CustomTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1E6D551C1920FC0009230E /* CustomTableCell.swift */; };
 		AF206E051C1B1FA800EA60D6 /* Tornado.caf in Resources */ = {isa = PBXBuildFile; fileRef = AF206E031C1B1FA800EA60D6 /* Tornado.caf */; };
 		AF206E061C1B1FA800EA60D6 /* A Whiter Shade Of Pale.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AF206E041C1B1FA800EA60D6 /* A Whiter Shade Of Pale.mp3 */; };
+		AF2513D21C9073F500B88724 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2513D11C9073F500B88724 /* SwiftyJSON.swift */; };
 		AF2817CB1C38794F00B2607A /* LeadUserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2817CA1C38794F00B2607A /* LeadUserController.swift */; };
 		AF2DB75E1C243EAA00AAE855 /* UserDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2DB75D1C243EAA00AAE855 /* UserDetailController.swift */; };
 		AF46FA841C2313EE00C27445 /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF46FA831C2313EE00C27445 /* UserViewController.swift */; };
@@ -238,6 +239,7 @@
 		AF1E6D551C1920FC0009230E /* CustomTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTableCell.swift; sourceTree = "<group>"; };
 		AF206E031C1B1FA800EA60D6 /* Tornado.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Tornado.caf; path = Music/Tornado.caf; sourceTree = "<group>"; };
 		AF206E041C1B1FA800EA60D6 /* A Whiter Shade Of Pale.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "A Whiter Shade Of Pale.mp3"; path = "Music/A Whiter Shade Of Pale.mp3"; sourceTree = "<group>"; };
+		AF2513D11C9073F500B88724 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		AF2817CA1C38794F00B2607A /* LeadUserController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeadUserController.swift; sourceTree = "<group>"; };
 		AF2DB75D1C243EAA00AAE855 /* UserDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDetailController.swift; sourceTree = "<group>"; };
 		AF46FA831C2313EE00C27445 /* UserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
@@ -557,6 +559,7 @@
 				AF0C77A21C2245BA0055DDE4 /* CollectionViewCell.swift */,
 				AF0D6B301C4AC5E900334D03 /* YQL.swift */,
 				AF5794B21C53EC6B006C456B /* KeychainWrapper.swift */,
+				AF2513D11C9073F500B88724 /* SwiftyJSON.swift */,
 				AF0369AD1C173DDC00137D7E /* Assets.xcassets */,
 				AF0369AF1C173DDC00137D7E /* LaunchScreen.storyboard */,
 				AF0369B21C173DDC00137D7E /* Info.plist */,
@@ -1139,6 +1142,7 @@
 				AFB5A71E1C2C499200F8BC56 /* Vendor.swift in Sources */,
 				AFC4002E1C6025700095333E /* PlayerViewController.swift in Sources */,
 				AFD754F41C4FFEB200021F97 /* UploadController.swift in Sources */,
+				AF2513D21C9073F500B88724 /* SwiftyJSON.swift in Sources */,
 				AF1E6D561C1920FC0009230E /* CustomTableCell.swift in Sources */,
 				AF46FA841C2313EE00C27445 /* UserViewController.swift in Sources */,
 				AF5C01E01C4931EE009BB817 /* TrackCell.swift in Sources */,

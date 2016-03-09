@@ -106,8 +106,8 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
         if ((PFUser.currentUser()) != nil) {
             let user = PFUser.currentUser()!
             PFGeoPoint.geoPointForCurrentLocationInBackground {(geoPoint: PFGeoPoint?, error: NSError?) -> Void in
-                user.setObject(geoPoint!, forKey: "currentLocation");
-                user.saveInBackground();
+                user.setObject(geoPoint!, forKey: "currentLocation")
+                user.saveInBackground()
                 
                 let theirLocation = CLLocationCoordinate2D(latitude: geoPoint!.latitude, longitude: geoPoint!.longitude)
                 let span = MKCoordinateSpanMake(0.40, 0.40)
@@ -415,7 +415,7 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
         self.registerBtn!.hidden = true
         self.emailField!.hidden = false
         
-        let email = self.emailField!.text;
+        let email = self.emailField!.text
         let finalEmail = email!.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceCharacterSet())
         
         PFUser.requestPasswordResetForEmailInBackground(finalEmail) { (success, error) -> Void in
@@ -447,7 +447,7 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
     
     @IBAction func authenticateUser(sender: AnyObject) {
         
-        //[self.passwordField resignFirstResponder];
+        //[self.passwordField resignFirstResponder]
         
         let context = LAContext()
         var error: NSError?
@@ -462,7 +462,7 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
                     //dispatch_async(dispatch_get_main_queue(), ^{
                     self.didAuthenticateWithTouchId()
                     print("Authentication successful! :) ")
-                    //[self showMessage:@"Authentication is successful" withTitle:@"Success"];
+                    //[self showMessage:@"Authentication is successful" withTitle:@"Success"]
                     // });
                 } else {
                     switch policyError!.code {

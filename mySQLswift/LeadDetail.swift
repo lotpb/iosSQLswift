@@ -677,7 +677,7 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                 
                 let application:UIApplication = UIApplication.sharedApplication()
                 if (application.canOpenURL(phoneCallURL)) {
-                    application.openURL(phoneCallURL);
+                    application.openURL(phoneCallURL)
                 }
             } else {
                 

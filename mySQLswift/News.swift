@@ -329,9 +329,15 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
     
     // MARK: - Segues
     
-    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath)
-    {
-        self.performSegueWithIdentifier("newsdetailseque", sender:self)
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        
+        imageObject = _feedItems.objectAtIndex(indexPath.row) as! PFObject
+        imageFile = imageObject.objectForKey("imageFile") as? PFFile
+        imageFile!.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError?) -> Void in
+            
+            self.selectedImage = UIImage(data: imageData!)
+            self.performSegueWithIdentifier("newsdetailseque", sender:self)
+        }
     }
     
 
@@ -342,14 +348,6 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
             let vc = segue.destinationViewController as? NewsDetailController
             let indexPaths = self.collectionView!.indexPathsForSelectedItems()!
             let indexPath = indexPaths[0] as NSIndexPath
-            
-            imageObject = _feedItems.objectAtIndex(indexPath.row) as! PFObject
-            imageFile = imageObject.objectForKey("imageFile") as? PFFile
-            
-            imageFile!.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError?) -> Void in
-                
-                self.selectedImage = UIImage(data: imageData!)
-            }
             
             vc!.objectId = self._feedItems[indexPath.row] .valueForKey("objectId") as? String
             vc!.newsTitle = (self._feedItems[indexPath.row] .valueForKey("newsTitle") as? String)!

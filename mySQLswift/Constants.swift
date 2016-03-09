@@ -71,7 +71,7 @@ import Foundation
         static let Edittitle = UIFont.systemFontOfSize(20, weight: UIFontWeightLight)
         //buttonFontSize,  labelFontSize, systemFontSize
         
-        //static let celltitle = UIFont.systemFontOfSize(20, weight: UIFontWeightRegular)
+      //static let celltitle = UIFont.systemFontOfSize(20, weight: UIFontWeightRegular)
         static let celltitle = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
         static let cellsubtitle = UIFont.systemFontOfSize(17, weight: UIFontWeightRegular)
         static let celllabel1 = UIFont.systemFontOfSize(16, weight: UIFontWeightRegular)

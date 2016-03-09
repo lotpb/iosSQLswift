@@ -132,7 +132,7 @@ class BlogNewController: UIViewController, UITextFieldDelegate, UITextViewDelega
             /*
             //not working below
             NSString *text = [self.subject.text stringByAppendingString:@" "];//add space end of string
-            NSString *a = @"@";
+            NSString *a = @"@"
             NSString *searchby = [a stringByAppendingString:self.textcontentpostby];
             NSMutableAttributedString * str = [[NSMutableAttributedString alloc] initWithString:text];
             [str addAttribute: NSForegroundColorAttributeName value:BLUECOLOR range:[text rangeOfString:searchby]];

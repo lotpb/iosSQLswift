@@ -155,20 +155,20 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
         
         if (indexPath.row == 0) {
             
-            let theSwitch = UISwitch(frame:CGRectZero);
-            theSwitch.addTarget(self, action: "changeSwitch:", forControlEvents: .ValueChanged);
+            let theSwitch = UISwitch(frame:CGRectZero)
+            theSwitch.addTarget(self, action: "changeSwitch:", forControlEvents: .ValueChanged)
             theSwitch.onTintColor = UIColor(red:0.0, green:122.0/255.0, blue:1.0, alpha: 1.0)
             theSwitch.tintColor = UIColor.lightGrayColor()
 
             if self.frm11 == "Active" {
                 theSwitch.on = true
-                //theSwitch.setOn(true, animated: false);
+                //theSwitch.setOn(true, animated: false)
                 self.active = (self.frm11 as? String)!
                 self.activeImage!.image = UIImage(named:"iosStar.png")
                 cell.textLabel!.text = "Active"
             } else {
                 theSwitch.on = false
-                //theSwitch.setOn(false, animated: false);
+                //theSwitch.setOn(false, animated: false)
                 self.active = ""
                 self.activeImage!.image = UIImage(named:"iosStarNA.png")
                 cell.textLabel!.text = "Inactive"

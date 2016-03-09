@@ -189,9 +189,9 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
             switch (indexPath.row % 4)
             {
             case 0:
-                return 44;
+                return 44
             case 2:
-                return 44;
+                return 44
             default:
                 return result
             }
@@ -200,7 +200,7 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
             switch (indexPath.row % 4)
             {
             case 0:
-                return 44;
+                return 44
             default:
                 return result
             }
@@ -209,7 +209,7 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
             switch (indexPath.row % 4)
             {
             case 0:
-                return 44;
+                return 44
             default:
                 return result
             }
@@ -218,9 +218,9 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
             switch (indexPath.row % 4)
             {
             case 0:
-                return 44;
+                return 44
             case 2:
-                return 44;
+                return 44
             default:
                 return result
             }
@@ -229,7 +229,7 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
             switch (indexPath.row % 4)
             {
             case 0:
-                return 44;
+                return 44
             default:
                 return result
             }
@@ -238,7 +238,7 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
             switch (indexPath.row % 4)
             {
             case 0:
-                return 44;
+                return 44
             default:
                 return result
             }
@@ -247,7 +247,7 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
             switch (indexPath.row % 4)
             {
             case 0:
-            return 44;
+            return 44
             default:
             return result
             }
@@ -256,7 +256,7 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
             switch (indexPath.row % 4)
             {
             case 0:
-                return 44;
+                return 44
             default:
                 return result
             }
@@ -265,7 +265,7 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
             switch (indexPath.row % 4)
             {
             case 0:
-                return 44;
+                return 44
             default:
                 return result
             }
@@ -344,7 +344,7 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
                 
             } else if (indexPath.row == 2) {
                 
-                cell.textLabel!.text = "myNews";
+                cell.textLabel!.text = "myNews"
                 
                 return cell
             }
@@ -376,7 +376,7 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
             
             if (indexPath.row == 0) {
                 
-                cell.textLabel!.text = "Top Blog Story";
+                cell.textLabel!.text = "Top Blog Story"
                 cell.selectionStyle = UITableViewCellSelectionStyle.Gray
                 cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
                 
@@ -429,7 +429,7 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
                 
             } else if (indexPath.row == 2) {
                 
-                cell.textLabel!.text = "myUser";
+                cell.textLabel!.text = "myUser"
                 
                 return cell
             }
@@ -476,7 +476,7 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
             
             if (indexPath.row == 0) {
                 
-                cell.textLabel!.text = "Top Notification";
+                cell.textLabel!.text = "Top Notification"
                 cell.selectionStyle = UITableViewCellSelectionStyle.Gray
                 cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
                 
@@ -500,7 +500,7 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
             
             if (indexPath.row == 0) {
                 
-                cell.textLabel!.text = "Top Calender Event";
+                cell.textLabel!.text = "Top Calender Event"
                 cell.selectionStyle = UITableViewCellSelectionStyle.Gray
                 cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
                 
@@ -548,7 +548,7 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
         } else if (collectionView.tag == 4) {
             return _feedItems5.count
         }
-        return 1;
+        return 1
     }
 
     

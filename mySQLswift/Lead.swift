@@ -90,6 +90,12 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
         navigationController?.hidesBarsOnSwipe = false
     }
     
+     // FIXME:
+    override func viewWillTransitionToSize(size: CGSize,
+        withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+            tableView!.reloadData()
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -464,6 +470,8 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
         self.presentViewController(alertController, animated: true, completion: nil)
     }
     
+    // MARK: - Animate Table
+    
     
     func animateTable() {
         
@@ -553,6 +561,11 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
             controller?.tbl13 = _feedItems[indexPath] .valueForKey("First") as? String
             controller?.tbl14 = _feedItems[indexPath] .valueForKey("Spouse") as? String
             controller?.tbl15 = _feedItems[indexPath] .valueForKey("Email") as? String
+            /*
+            let dateApt = _feedItems[indexPath] .valueForKey("AptDate") as? String
+            let dateFormat = NSDateFormatter()
+            dateFormat.dateFormat = "MMM d, yy"
+            controller?.tbl21 = NSString(format: "%@", dateFormat.dateFromString(dateApt!)!) */
             controller?.tbl21 = _feedItems[indexPath] .valueForKey("AptDate") as? String
             
             var SalesNo:Int? = _feedItems[indexPath] .valueForKey("SalesNo")as? Int
@@ -585,7 +598,7 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
             
             let dateUpdated = _feedItems[indexPath] .valueForKey("updatedAt") as! NSDate
             let dateFormat = NSDateFormatter()
-            dateFormat.dateFormat = "MMM dd yy"
+            dateFormat.dateFormat = "MMM d, yy"
             controller?.tbl16 = NSString(format: "%@", dateFormat.stringFromDate(dateUpdated)) as String
             
             controller?.tbl26 = _feedItems[indexPath] .valueForKey("Photo") as? String

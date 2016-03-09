@@ -134,30 +134,30 @@ class Web: UIViewController, SFSafariViewControllerDelegate, WKNavigationDelegat
         switch sender.selectedSegmentIndex {
         case 0:
              url = NSURL(string:"http://www.cnn.com")!
-             let request = NSURLRequest(URL: url!);
+             let request = NSURLRequest(URL: url!)
              webView.loadRequest(request)
         case 1:
              url = NSURL(string:"http://www.Drudgereport.com")!
-             let request = NSURLRequest(URL: url!);
+             let request = NSURLRequest(URL: url!)
              webView.loadRequest(request)
         case 2:
              url = NSURL(string:"http://www.cnet.com")!
-             let request = NSURLRequest(URL: url!);
+             let request = NSURLRequest(URL: url!)
              webView.loadRequest(request)
         case 3:
             url = NSURL(string:"http://lotpb.github.io/UnitedWebPage/index.html")!
-            let request = NSURLRequest(URL: url!);
+            let request = NSURLRequest(URL: url!)
             webView.loadRequest(request)
         case 4:
             url = NSURL(string:"http://finance.yahoo.com/mb/UPL/")!
-            let request = NSURLRequest(URL: url!);
+            let request = NSURLRequest(URL: url!)
             webView.loadRequest(request)
         case 5:
             url = NSURL(string:"http://stocktwits.com/The_Stock_Whisperer")!
-            let request = NSURLRequest(URL: url!);
+            let request = NSURLRequest(URL: url!)
             webView.loadRequest(request)
         default:
-            break;
+            break
         }
     }
 

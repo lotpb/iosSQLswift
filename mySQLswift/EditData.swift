@@ -10,13 +10,7 @@ import UIKit
 import Parse
 
 class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UIPickerViewDataSource, UIPickerViewDelegate, UITextFieldDelegate {
-    //UIPickerViewDataSource, UIPickerViewDelegate,
-    
-    var datePickerView : UIDatePicker = UIDatePicker()
-    
 
-    var pickOption = ["one", "two", "three", "seven", "fifteen"]
-    
     @IBOutlet weak var tableView: UITableView?
     
     @IBOutlet weak var first: UITextField!
@@ -26,10 +20,16 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     @IBOutlet weak var activebutton: UIButton!
     @IBOutlet weak var profileImageView: UIImageView?
     
-    var salesArray : NSMutableArray = NSMutableArray()
-    var callbackArray : NSMutableArray = NSMutableArray()
-    var contractorArray : NSMutableArray = NSMutableArray()
-    var rateArray : NSMutableArray = NSMutableArray()
+    //var salesArray : NSMutableArray = NSMutableArray()
+    //var callbackArray : NSMutableArray = NSMutableArray()
+    //var contractorArray : NSMutableArray = NSMutableArray()
+    //var rateArray : NSMutableArray = NSMutableArray()
+    
+    var datePickerView : UIDatePicker = UIDatePicker()
+    var pickerView : UIPickerView = UIPickerView()
+    var pickOption = ["Call", "Follow", "Looks Good", "Future", "Bought", "Dead", "Cancel", "Sold"]
+    var pickRate = ["A", "B", "C", "D", "F"]
+    var pickContract = ["A & S Home Improvement", "Islandwide Gutters", "Ashland Home Improvement", "John Kat Windows", "Jose Rosa", "Peter Balsamo"]
     
     var date : UITextField!
     var address : UITextField!
@@ -118,6 +118,9 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         self.tableView!.backgroundColor = UIColor.whiteColor()
         self.tableView!.tableFooterView = UIView(frame: .zero)
         
+        self.pickerView.delegate = self
+        self.pickerView.dataSource = self
+        
         let saveButton = UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: "updateData")
         let buttons:NSArray = [saveButton]
         self.navigationItem.rightBarButtonItems = buttons as? [UIBarButtonItem]
@@ -130,6 +133,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         }
         
         if (status == "Edit") {
+            parseLookup()
             if (frm30 == "1") { //if Active
                 
                 self.following.text = "Following"
@@ -145,10 +149,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         profileImageView!.layer.cornerRadius = profileImageView!.frame.size.width/2
         profileImageView!.clipsToBounds = true
         
-        
-//        let pickerView = UIPickerView()
-//        pickerView.delegate = self
-//        self.callback?.inputView = pickerView
+        //parsePick()
         
     }
     
@@ -156,10 +157,6 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         super.viewDidAppear(animated)
         
         passFieldData()
-        if (self.status == "Edit") {
-            parseData()
-        }
-
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -283,14 +280,13 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             }
             
             if (self.formController == "Leads" || self.formController == "Customer") {
-                
-                self.date?.inputView = datePickerView
                 if (self.status == "New") {
                     self.date?.text = dateString
                 }
+                self.date?.inputView = datePickerView
                 datePickerView.datePickerMode = UIDatePickerMode.Date
                 datePickerView.addTarget(self, action: Selector("handleDatePicker:"), forControlEvents: UIControlEvents.ValueChanged)
-                datePickerView.backgroundColor = UIColor.whiteColor()
+                //datePickerView.backgroundColor = UIColor.whiteColor()
             }
             
             if (self.formController == "Vendor") {
@@ -364,10 +360,12 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                 self.aptDate!.text = self.frm19 as? String
             }
             if (self.formController == "Customer") {
-                self.aptDate!.tag = 24
+                self.pickerView.tag = 24
                 self.aptDate!.placeholder = "Rate"
-                self.aptDate!.inputView = nil //[self customPicker:24];
                 cell.textLabel!.text = "Rate"
+                self.aptDate?.inputView = self.pickerView
+                self.pickerView.reloadAllComponents()
+                
                 
             } else if (self.formController == "Vendor") {
                 self.aptDate!.placeholder = "Assistant"
@@ -385,7 +383,9 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                 self.aptDate!.placeholder = "Apt Date"
                 cell.textLabel!.text = "Apt Date"
                 self.aptDate!.inputView = datePickerView
+                datePickerView.datePickerMode = UIDatePickerMode.Date
                 datePickerView.addTarget(self, action: Selector("handleDatePicker:"), forControlEvents: UIControlEvents.ValueChanged)
+                //datePickerView.backgroundColor = UIColor.whiteColor()
             }
             
             cell.contentView.addSubview(self.aptDate!)
@@ -425,7 +425,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                 self.salesman!.inputView = nil
             } else {
                 self.salesman!.placeholder = "Salesman"
-                self.salesman!.inputView = nil //[self customPicker:6];
+                self.salesman!.inputView = nil //[self customPicker:6]
                 cell.textLabel!.text = "Salesman"
                 cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
             }
@@ -489,6 +489,19 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         } else if(indexPath.row == 9) {
             
             self.amount = textframe
+            
+            if ((self.formController == "Leads") || (self.formController == "Customer")){
+                
+                let simpleStepper = UIStepper(frame:CGRectZero)
+                simpleStepper.tag = 9
+                // FIXME:
+                simpleStepper.value = 0 //Double(self.amount.text!)!
+                simpleStepper.stepValue = 100
+                simpleStepper.tintColor = UIColor.grayColor()
+                cell.accessoryView = simpleStepper
+                simpleStepper.addTarget(self, action: "stepperValueDidChange:", forControlEvents: UIControlEvents.ValueChanged)
+            }
+            
             self.amount!.placeholder = "Amount"
                 if self.frm24 == nil {
                     self.amount!.text = ""
@@ -540,6 +553,8 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             
         } else if (indexPath.row == 12) {
             self.callback = textframe
+            
+            
                 if self.frm27 == nil {
                     self.callback!.text = ""
                 } else {
@@ -551,7 +566,10 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                 cell.textLabel!.text = "# Windows"
                 
                 if (self.status == "Edit") {
-                    let simpleStepper = UIStepper(frame:CGRectZero);
+                    
+                    let simpleStepper = UIStepper(frame:CGRectZero)
+                    simpleStepper.tag = 12
+                    // FIXME:
                     simpleStepper.value = Double(self.callback.text!)!
                     simpleStepper.stepValue = 1
                     simpleStepper.tintColor = UIColor.grayColor()
@@ -571,7 +589,10 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             else {
                 self.callback!.placeholder = "Call Back"
                 cell.textLabel!.text = "Call Back"
-                self.callback!.inputView = nil //[self customPicker:12];
+                self.pickerView.tag = 12
+                //self.pickerView.reloadAllComponents()
+                self.callback?.inputView = self.pickerView
+                
             }
             
             cell.contentView.addSubview(self.callback!)
@@ -585,7 +606,6 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             }
             cell.textLabel!.text = "Comments"
             cell.contentView.addSubview(self.comment!)
-            self.comment!.font = Font.celltitle
             
         } else if(indexPath.row == 14) {
             self.start = textframe
@@ -615,7 +635,6 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             datePickerView.addTarget(self, action: Selector("handleDatePicker:"), forControlEvents: UIControlEvents.ValueChanged)
             cell.textLabel!.text = "End Date"
             cell.contentView.addSubview(self.complete!)
-            self.complete!.font = Font.celltitle
             }
         
         return cell
@@ -659,12 +678,16 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         }
     }
     
+    
     // MARK: - StepperValueChanged
     
     func stepperValueDidChange(sender: UIStepper) {
         
-        self.callback?.text = "\(Int(sender.value))"
-
+        if (sender.tag == 12) {
+            self.callback?.text = "\(Int(sender.value))"
+        } else if (sender.tag == 9) {
+            self.amount?.text = "\(Int(sender.value))"
+        }
     }
     
     
@@ -684,80 +707,47 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     }
     
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return pickOption.count
+        if (pickerView.tag == 12) {
+            return pickOption.count
+        } else if (pickerView.tag == 24) {
+            return pickRate.count
+        } else if (pickerView.tag == 3) {
+            return pickContract.count
+        }else {
+            return 0
+             //return callbackArray.count
+        }
     }
     
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return pickOption[row]
+        
+        if (pickerView.tag == 12) {
+            //return callbackArray[row] .valueForKey("CallBack") as? String
+            return "\(pickOption[row])"
+            //return pickOption[row]
+        } else if (pickerView.tag == 24) {
+            return "\(pickRate[row])"
+            //return pickRate[row]
+        } else if (pickerView.tag == 3) {
+            return "\(pickContract[row])"
+            //return pickContract[row]
+        }
+        return nil
     }
-    
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        self.callback.text = pickOption[row]
-    }
-    
-    
-    // MARK: - DatePicker
-    // FIXME:
-    
-    func showPickerInView(view: UIView, animated: Bool) {
-        /*
-        toolbar.items = toolbarItems()
-        toolbar.frame = CGRectMake(0, 0, view.frame.size.width, toolbarHeight)
-        picker.frame = CGRectMake(0, toolbarHeight, view.frame.size.width, picker.frame.size.height)
-        self.frame = CGRectMake(0, view.frame.size.height - picker.frame.size.height - toolbar.frame.size.height,
-            view.frame.size.width, picker.frame.size.height + toolbar.frame.size.height)
-        view.addSubview(self)
-        becomeFirstResponder()
-        showPickerAnimation(animated) */
-        
-        
-        /*
-        let inputView = UIView(frame: CGRectMake(0, 0, self.view.frame.width, 240))
-        datePickerView = UIDatePicker(frame: CGRectMake(0, 40, 0, 0))
-        datePickerView.datePickerMode = UIDatePickerMode.Date
-        inputView.addSubview(datePickerView) // add date picker to UIView
-        
-        let doneButton = UIButton(frame: CGRectMake((self.view.frame.size.width/2) - (100/2), 0, 100, 50))
-        doneButton.setTitle("Done", forState: UIControlState.Normal)
-        doneButton.setTitle("Done", forState: UIControlState.Highlighted)
-        doneButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
-        doneButton.setTitleColor(UIColor.grayColor(), forState: UIControlState.Highlighted)
-        
-        inputView.addSubview(doneButton) // add Button to UIView
-        doneButton.addTarget(self, action: "doneButton:", forControlEvents: UIControlEvents.TouchUpInside)
-        
-         //sender.inputView = inputView
-        datePickerView.addTarget(self, action: Selector("handleDatePicker:"), forControlEvents: UIControlEvents.ValueChanged)
-        
-        handleDatePicker(datePickerView) // Set the date on start. */
-    }
-    
-    
-    
-    /*
-    func textFieldEditing(sender: UITextField) {
 
-        let inputView = UIView(frame: CGRectMake(0, 0, self.view.frame.width, 240))
-        
-        datePickerView = UIDatePicker(frame: CGRectMake(0, 40, 0, 0))
-        datePickerView.datePickerMode = UIDatePickerMode.Date
-        inputView.addSubview(datePickerView) // add date picker to UIView
-        /*
-        let doneButton = UIButton(frame: CGRectMake((self.view.frame.size.width/2) - (100/2), 0, 100, 50))
-        doneButton.setTitle("Done", forState: UIControlState.Normal)
-        doneButton.setTitle("Done", forState: UIControlState.Highlighted)
-        doneButton.setTitleColor(UIColor.blackColor(), forState: UIControlState.Normal)
-        doneButton.setTitleColor(UIColor.grayColor(), forState: UIControlState.Highlighted) */
-        
-        //inputView.addSubview(doneButton) // add Button to UIView
-        //doneButton.addTarget(self, action: "doneButton:", forControlEvents: UIControlEvents.TouchUpInside)
-        
-       // sender.inputView = inputView
-        //datePickerView.addTarget(self, action: Selector("handleDatePicker:"), forControlEvents: UIControlEvents.ValueChanged)
-        
-        //handleDatePicker(datePickerView) // Set the date on start.
-        
-    } */
+    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        if (pickerView.tag == 12) {
+            //self.callback.text = callbackArray[row] .valueForKey("CallBack") as? String
+            self.callback.text = pickOption[row]
+        } else if (pickerView.tag == 24) {
+            self.aptDate.text = pickRate[row]
+        } else if (pickerView.tag == 3) {
+            self.company.text = pickContract[row]
+        }
+    }
+    
+    
+    // MARK: - Datepicker
     
     func handleDatePicker(sender: UIDatePicker) {
         let dateFormatter = NSDateFormatter()
@@ -773,13 +763,8 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         }
     }
     
-    func doneButton(sender:UIButton)
-    {
-        //datePicker.resignFirstResponder() // To resign the inputView on clicking done.
-    }
     
-    
-    // MARK: - Field Header
+    // MARK: - FieldData Header
     
     func passFieldData() {
         
@@ -816,11 +801,15 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         }
         
         if (formController == "Customer") {
+            
+            
             if (self.status == "New") {
                 self.company?.hidden = true
             } else {
+                self.pickerView.tag = 3
                 self.company.placeholder = "Contractor"
-                self.company.inputView = nil //[self customPicker:3];
+                self.company?.inputView = self.pickerView
+                self.pickerView.reloadAllComponents()
             }
         } else if (self.formController == "Vendor") {
             self.first.placeholder = "Company"
@@ -840,7 +829,27 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     
     // MARK: - Parse
     
-    func parseData() {
+    func parsePick() {
+        /*
+        //if (self.formController == "Leads") {
+            
+            let query = PFQuery(className:"Callback")
+            //query.orderByDescending("Callback")
+            query.cachePolicy = PFCachePolicy.CacheThenNetwork
+            query.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, error: NSError?) -> Void in
+                if error == nil {
+                    let temp: NSArray = objects! as NSArray
+                    self.callbackArray = temp.mutableCopy() as! NSMutableArray
+                    //self.pickerView.reloadAllComponents()
+                    //self.tableView!.reloadData()
+                } else {
+                    print("Error")
+                }
+            }
+       // } */
+    }
+    
+    func parseLookup() {
         
         if (self.formController == "Leads") {
             
@@ -891,11 +900,11 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     
     func simpleAlert (title:String, message:String) {
         
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        let alertController = UIAlertController(title:title, message:message, preferredStyle: UIAlertControllerStyle.Alert)
         
-        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: nil))
+        alertController.addAction(UIAlertAction(title:"OK", style:UIAlertActionStyle.Default,handler: nil))
         
-        self.presentViewController(alertController, animated: true, completion: nil)
+        self.presentViewController(alertController, animated:true, completion:nil)
     }
     
     
@@ -940,14 +949,36 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         let numberFormatter = NSNumberFormatter()
         
         if (self.formController == "Leads") {
-            
-            //let myLeadNo : NSNumber = numberFormatter.numberFromString(self.leadNo as! String)!
-            //let myActive : NSNumber = numberFormatter.numberFromString((self.frm30 as? String)!)!
+    
+            let myLead : NSNumber? = numberFormatter.numberFromString(self.leadNo as! String)!
+            let myActive : NSNumber = numberFormatter.numberFromString((self.frm30 as? String)!)!
             let myZip : NSNumber = numberFormatter.numberFromString(self.zip.text!)!
-            let myAmount : NSNumber = numberFormatter.numberFromString(self.amount.text!)!
             let mySale : NSNumber = numberFormatter.numberFromString(self.saleNo! as String)!
             let myJob : NSNumber = numberFormatter.numberFromString(self.jobNo! as String)!
             let myAd : NSNumber = numberFormatter.numberFromString(self.adNo! as String)!
+            
+            
+            var Amount = self.amount.text
+            numberFormatter.numberStyle = .NoStyle
+            if Amount == nil { Amount = "0" }
+            let myAmount = numberFormatter.numberFromString(Amount!)
+            print(myAmount) 
+            
+            /*
+            var Amount:NSNumber? = numberFormatter.numberFromString(self.amount.text!)
+            numberFormatter.numberStyle = .DecimalStyle
+            if Amount == nil {
+                Amount = 0
+            }
+            //let myAmount =  numberFormatter.stringFromNumber(Amount!)
+            let myAmount =  numberFormatter.stringFromNumber(Amount!)
+            print(myAmount)
+            
+            */
+            
+            
+            
+            
             
             if (self.status == "Edit") { //Edit Lead
                 
@@ -955,8 +986,8 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                 query.whereKey("objectId", equalTo:self.objectId!)
                 query.getFirstObjectInBackgroundWithBlock {(updateblog: PFObject?, error: NSError?) -> Void in
                     if error == nil {
-                        updateblog!.setObject(self.leadNo ?? NSNumber(integer:-1), forKey:"LeadNo")
-                        updateblog!.setObject(self.frm30 ?? NSNumber(integer:-1), forKey:"Active")
+                        updateblog!.setObject(myLead ?? NSNumber(integer:-1), forKey:"LeadNo")
+                        updateblog!.setObject(myActive ?? NSNumber(integer:-1), forKey:"Active")
                         updateblog!.setObject(self.date.text ?? NSNull(), forKey:"Date")
                         updateblog!.setObject(self.first.text ?? NSNull(), forKey:"First")
                         updateblog!.setObject(self.last.text ?? NSNull(), forKey:"LastName")
@@ -967,7 +998,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                         updateblog!.setObject(self.phone.text ?? NSNull(), forKey:"Phone")
                         updateblog!.setObject(self.aptDate.text ?? NSNull(), forKey:"AptDate")
                         updateblog!.setObject(self.email.text ?? NSNull(), forKey:"Email")
-                        updateblog!.setObject(myAmount ?? NSNumber(integer:-1), forKey:"Amount")
+                        //updateblog!.setObject(myAmount ?? NSNumber(integer:-1), forKey:"Amount")
                         updateblog!.setObject(self.spouse.text ?? NSNull(), forKey:"Spouse")
                         updateblog!.setObject(self.callback.text ?? NSNull(), forKey:"CallBack")
                         updateblog!.setObject(mySale ?? NSNumber(integer:-1), forKey:"SalesNo")
@@ -975,12 +1006,12 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                         updateblog!.setObject(myAd ?? NSNumber(integer:-1), forKey:"AdNo")
                         updateblog!.setObject(self.comment.text ?? NSNull(), forKey:"Coments")
                         //updateblog!.setObject(self.photo.text ?? NSNull(), forKey:"Photo")
-                        
                         updateblog!.saveEventually()
-                        self.tableView!.reloadData()
                         
                         self.simpleAlert("Upload Complete", message: "Successfully updated the data")
+                        
                     } else {
+                        
                         self.simpleAlert("Upload Failure", message: "Failure updating the data")
                     }
                 }
@@ -1020,16 +1051,25 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                     }
                 }
             }
+            self.navigationController?.popToRootViewControllerAnimated(true)
             
         } else  if (self.formController == "Customer") {
             
+            let myCust : NSNumber = numberFormatter.numberFromString(self.custNo as! String)!
+            let myLead : NSNumber = numberFormatter.numberFromString(self.leadNo as! String)!
             let myActive : NSNumber = numberFormatter.numberFromString(self.frm30! as String)!
             let myZip : NSNumber = numberFormatter.numberFromString(self.zip.text!)!
-            let myAmount : NSNumber = numberFormatter.numberFromString(self.amount.text!)!
             let myQuan : NSNumber = numberFormatter.numberFromString(self.callback.text!)!
             let mySale : NSNumber = numberFormatter.numberFromString(self.saleNo! as String)!
             let myJob : NSNumber = numberFormatter.numberFromString(self.jobNo! as String)!
             let myAd : NSNumber = numberFormatter.numberFromString(self.adNo! as String)!
+            
+            var Amount = (self.amount.text)
+            numberFormatter.numberStyle = .NoStyle
+            if Amount == nil {
+                Amount = "0"
+            }
+            let myAmount =  numberFormatter.numberFromString(Amount!)
             
             if (self.status == "Edit") { //Edit Customer
                 
@@ -1037,8 +1077,8 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                 query.whereKey("objectId", equalTo:self.objectId!)
                 query.getFirstObjectInBackgroundWithBlock {(updateblog: PFObject?, error: NSError?) -> Void in
                     if error == nil {
-                        updateblog!.setObject(self.custNo ?? NSNumber(integer:-1), forKey:"CustNo")
-                        updateblog!.setObject(self.leadNo ?? NSNumber(integer:-1), forKey:"LeadNo")
+                        updateblog!.setObject(myCust ?? NSNumber(integer:-1), forKey:"CustNo")
+                        updateblog!.setObject(myLead ?? NSNumber(integer:-1), forKey:"LeadNo")
                         updateblog!.setObject(myActive ?? NSNumber(integer:1), forKey:"Active")
                         updateblog!.setObject(self.date.text ?? NSNull(), forKey:"Date")
                         updateblog!.setObject(self.first.text ?? NSNull(), forKey:"First")
@@ -1064,12 +1104,12 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                         updateblog!.setObject(self.photo1 ?? NSNull(), forKey:"Photo1")
                         updateblog!.setObject(self.photo2 ?? NSNull(), forKey:"Photo2")
                         updateblog!.setObject(self.time ?? NSNull(), forKey:"Time")
-                        
                         updateblog!.saveEventually()
-                        self.tableView!.reloadData()
                         
                         self.simpleAlert("Upload Complete", message: "Successfully updated the data")
+                        
                     } else {
+                        
                         self.simpleAlert("Upload Failure", message: "Failure updating the data")
                     }
                 }
@@ -1078,8 +1118,8 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             } else { //Save Customer
                 
                 let saveblog:PFObject = PFObject(className:"Customer")
-                saveblog.setObject(self.custNo ?? NSNumber(integer:-1), forKey:"CustNo")
-                saveblog.setObject(self.leadNo ?? NSNumber(integer:-1), forKey:"LeadNo")
+                saveblog.setObject(myCust ?? NSNumber(integer:-1), forKey:"CustNo")
+                saveblog.setObject(myLead ?? NSNumber(integer:-1), forKey:"LeadNo")
                 saveblog.setObject(myActive ?? NSNumber(integer:1), forKey:"Active")
                 saveblog.setObject(self.date.text ?? NSNull(), forKey:"Date")
                 saveblog.setObject(self.first.text ?? NSNull(), forKey:"First")
@@ -1114,6 +1154,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                     }
                 }
             }
+            self.navigationController?.popToRootViewControllerAnimated(true)
             
         } else  if (self.formController == "Vendor") {
             
@@ -1154,9 +1195,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                         updateblog!.setObject(self.date.text ?? NSNull(), forKey:"Profession")
                         updateblog!.setObject(self.aptDate.text ?? NSNull(), forKey:"Assistant")
                         updateblog!.setObject(self.comment.text ?? NSNull(), forKey:"Comments")
-                        
                         updateblog!.saveEventually()
-                        self.tableView!.reloadData()
                         
                         self.simpleAlert("Upload Complete", message: "Successfully updated the data")
                         
@@ -1245,11 +1284,10 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                         updateblog!.setObject(self.date.text ?? NSNull(), forKey:"Title")
                         updateblog!.setObject(self.aptDate.text ?? NSNull(), forKey:"Middle")
                         updateblog!.setObject(self.comment.text ?? NSNull(), forKey:"Comments")
-                        
                         updateblog!.saveEventually()
-                        self.tableView!.reloadData()
-                        
+
                         self.simpleAlert("Upload Complete", message: "Successfully updated the data")
+                        
                     } else {
                         
                         self.simpleAlert("Upload Failure", message: "Failure updating the data")

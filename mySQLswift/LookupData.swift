@@ -40,14 +40,13 @@ class LookupData: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     var isFilltered = false
     var searchController: UISearchController!
     var resultsController: UITableViewController!
-    //var foundUsers = [String]()
     
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         let titleButton: UIButton = UIButton(frame: CGRectMake(0, 0, 100, 32))
-        titleButton.setTitle(String(format: "%@ %@", "Lookup", self.lookupItem!), forState: UIControlState.Normal)
+        titleButton.setTitle(String(format: "%@ %@", "Lookup", (self.lookupItem)!), forState: UIControlState.Normal)
         titleButton.titleLabel?.font = Font.navlabel
         titleButton.titleLabel?.textAlignment = NSTextAlignment.Center
         titleButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)

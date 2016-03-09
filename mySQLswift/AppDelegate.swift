@@ -29,8 +29,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
             "fontKey": "System",
             "fontsizeKey": "20pt",
             "nameColorKey": "Blue",
-            //"usernameKey": "Peter Balsamo",
-            //"passwordKey": "3911",
+            "usernameKey": "Peter Balsamo",
+            "passwordKey": "3911",
             "websiteKey": "http://lotpb.github.io/UnitedWebPage/index.html",
             "eventtitleKey": "Appt",
             "areacodeKey": "516",
@@ -60,7 +60,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 
         // MARK: - RegisterUserNotification
         
-        let mySettings = UIUserNotificationSettings(forTypes: [.Badge, .Sound, .Alert], categories: nil);
+        let mySettings = UIUserNotificationSettings(forTypes: [.Badge, .Sound, .Alert], categories: nil)
         UIApplication.sharedApplication().registerUserNotificationSettings( mySettings)
         
         application.applicationIconBadgeNumber = 0
@@ -116,7 +116,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     
     func application(application: UIApplication, performFetchWithCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
         
-            print("########### Received Background Fetch ###########");
+            print("########### Received Background Fetch ###########")
             
             let localNotification: UILocalNotification = UILocalNotification()
             localNotification.alertAction = "Background transfer service download!"

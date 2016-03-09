@@ -347,7 +347,7 @@ class UserViewController: UIViewController, UITableViewDelegate, UITableViewData
                 VC!.create = createString
                 VC!.email = self._feedItems[indexPath] .valueForKey("email") as? String
                 VC!.phone = self._feedItems[indexPath] .valueForKey("phone") as? String
-                VC!.userimage = self.selectedImage;
+                VC!.userimage = self.selectedImage
                 
             } else if self.formController == "CollectionView" {
                 
@@ -364,7 +364,7 @@ class UserViewController: UIViewController, UITableViewDelegate, UITableViewData
                 VC!.create = createString
                 VC!.email = self._feedItems[(indexPath.row)] .valueForKey("email") as? String
                 VC!.phone = self._feedItems[(indexPath.row)] .valueForKey("phone") as? String
-                VC!.userimage = self.selectedImage;
+                VC!.userimage = self.selectedImage
             }
         }
     }
