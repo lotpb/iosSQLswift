@@ -11,7 +11,7 @@ import Parse
 
 class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchResultsUpdating {
     
-    let searchScope = ["name","city","phone","date", "active"]
+    let searchScope = ["name","city","phone","date","active"]
     
     @IBOutlet weak var tableView: UITableView?
     
@@ -137,7 +137,7 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
         
         var cellIdentifier: String!
         
-        if tableView == self.tableView{
+        if tableView == self.tableView {
             cellIdentifier = "Cell"
 
         } else {

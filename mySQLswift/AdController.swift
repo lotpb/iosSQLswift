@@ -101,7 +101,7 @@ class AdController: UIViewController, UITableViewDelegate, UITableViewDataSource
     
     func newData() {
         isFormStat = true
-        self.performSegueWithIdentifier("newleadSegue", sender: self)
+        self.performSegueWithIdentifier("adDetailSegue", sender: self)
     }
     
     // MARK: - Table View
@@ -369,22 +369,18 @@ class AdController: UIViewController, UITableViewDelegate, UITableViewDataSource
         if segue.identifier == "adDetailSegue" {
             
             let VC = segue.destinationViewController as? NewEditData
-            let myIndexPath = self.tableView!.indexPathForSelectedRow!.row
-            
             VC!.formController = "Advertising"
             if (isFormStat == true) {
                 VC!.formStatus = "New"
             } else {
                 VC!.formStatus = "Edit"
+                let myIndexPath = self.tableView!.indexPathForSelectedRow!.row
+                VC!.objectId = _feedItems[myIndexPath] .valueForKey("objectId") as? String
+                VC!.frm11 = _feedItems[myIndexPath] .valueForKey("Active") as? String
+                VC!.frm12 = _feedItems[myIndexPath] .valueForKey("AdNo") as? String
+                VC!.frm13 = _feedItems[myIndexPath] .valueForKey("Advertiser") as? String
             }
-            
-            VC!.objectId = _feedItems[myIndexPath] .valueForKey("objectId") as? String
-            VC!.frm11 = _feedItems[myIndexPath] .valueForKey("Active") as? String
-            VC!.frm12 = _feedItems[myIndexPath] .valueForKey("AdNo") as? String
-            VC!.frm13 = _feedItems[myIndexPath] .valueForKey("Advertiser") as? String
-
         }
-        
     }
     
 }

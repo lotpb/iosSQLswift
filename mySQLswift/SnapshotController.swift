@@ -319,7 +319,7 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
         cell.snaptitleLabel?.text = ""
         cell.snaptitleLabel?.textColor = UIColor.lightGrayColor()
         
-        cell.snapdetailLabel?.numberOfLines = 0
+        cell.snapdetailLabel?.numberOfLines = 3
         cell.snapdetailLabel?.text = ""
         cell.snapdetailLabel?.textColor = UIColor.blackColor()
         //cell.selectionStyle = UITableViewCellSelectionStyle.None

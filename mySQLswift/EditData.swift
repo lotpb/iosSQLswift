@@ -20,16 +20,16 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     @IBOutlet weak var activebutton: UIButton!
     @IBOutlet weak var profileImageView: UIImageView?
     
+    var datePickerView : UIDatePicker = UIDatePicker()
+    var pickerView : UIPickerView = UIPickerView()
+    private var pickOption = ["Call", "Follow", "Looks Good", "Future", "Bought", "Dead", "Cancel", "Sold"]
+    private var pickRate = ["A", "B", "C", "D", "F"]
+    private var pickContract = ["A & S Home Improvement", "Islandwide Gutters", "Ashland Home Improvement", "John Kat Windows", "Jose Rosa", "Peter Balsamo"]
+    
     //var salesArray : NSMutableArray = NSMutableArray()
     //var callbackArray : NSMutableArray = NSMutableArray()
     //var contractorArray : NSMutableArray = NSMutableArray()
     //var rateArray : NSMutableArray = NSMutableArray()
-    
-    var datePickerView : UIDatePicker = UIDatePicker()
-    var pickerView : UIPickerView = UIPickerView()
-    var pickOption = ["Call", "Follow", "Looks Good", "Future", "Bought", "Dead", "Cancel", "Sold"]
-    var pickRate = ["A", "B", "C", "D", "F"]
-    var pickContract = ["A & S Home Improvement", "Islandwide Gutters", "Ashland Home Improvement", "John Kat Windows", "Jose Rosa", "Peter Balsamo"]
     
     var date : UITextField!
     var address : UITextField!
@@ -120,6 +120,9 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         
         self.pickerView.delegate = self
         self.pickerView.dataSource = self
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: ("updatePicker"), name: UITextFieldTextDidBeginEditingNotification, object: nil)
+        //self.pickerView.backgroundColor = UIColor.whiteColor()
+        //self.datePickerView.backgroundColor = UIColor.whiteColor()
         
         let saveButton = UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: "updateData")
         let buttons:NSArray = [saveButton]
@@ -149,8 +152,6 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         profileImageView!.layer.cornerRadius = profileImageView!.frame.size.width/2
         profileImageView!.clipsToBounds = true
         
-        //parsePick()
-        
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -168,6 +169,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
+         NSNotificationCenter.defaultCenter().removeObserver(self)
         //navigationController?.hidesBarsOnSwipe = false
     }
     
@@ -217,7 +219,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
             
             textframe = UITextField(frame:CGRect(x: 118, y: 7, width: 250, height: 30))
-            textviewframe = UITextView(frame:CGRect(x: 118, y: 7, width: 250, height: 95))
+            textviewframe = UITextView(frame:CGRect(x: 118, y: 7, width: 250, height: 85))
             textframe!.font = Font.Edittitle
             aptframe!.font = Font.Edittitle
             textviewframe!.font = Font.Edittitle
@@ -228,7 +230,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         } else {
             
             textframe = UITextField(frame:CGRect(x: 118, y: 7, width: 205, height: 30))
-            textviewframe = UITextView(frame:CGRect(x: 118, y: 7, width: 240, height: 95))
+            textviewframe = UITextView(frame:CGRect(x: 118, y: 7, width: 240, height: 85))
             textframe!.font = Font.Edittitle
             aptframe!.font = Font.Edittitle
             textviewframe!.font = Font.Edittitle
@@ -286,7 +288,6 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                 self.date?.inputView = datePickerView
                 datePickerView.datePickerMode = UIDatePickerMode.Date
                 datePickerView.addTarget(self, action: Selector("handleDatePicker:"), forControlEvents: UIControlEvents.ValueChanged)
-                //datePickerView.backgroundColor = UIColor.whiteColor()
             }
             
             if (self.formController == "Vendor") {
@@ -360,12 +361,9 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                 self.aptDate!.text = self.frm19 as? String
             }
             if (self.formController == "Customer") {
-                self.pickerView.tag = 24
                 self.aptDate!.placeholder = "Rate"
                 cell.textLabel!.text = "Rate"
                 self.aptDate?.inputView = self.pickerView
-                self.pickerView.reloadAllComponents()
-                
                 
             } else if (self.formController == "Vendor") {
                 self.aptDate!.placeholder = "Assistant"
@@ -589,10 +587,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             else {
                 self.callback!.placeholder = "Call Back"
                 cell.textLabel!.text = "Call Back"
-                self.pickerView.tag = 12
-                //self.pickerView.reloadAllComponents()
                 self.callback?.inputView = self.pickerView
-                
             }
             
             cell.contentView.addSubview(self.callback!)
@@ -623,7 +618,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             
         } else if(indexPath.row == 15) {
             self.complete = textframe
-            self.complete!.tag = 15
+            //self.complete!.tag = 15
             self.complete!.placeholder = "Completion Date"
             
             if self.frm32 == nil {
@@ -678,7 +673,6 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         }
     }
     
-    
     // MARK: - StepperValueChanged
     
     func stepperValueDidChange(sender: UIStepper) {
@@ -700,48 +694,47 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     
     
     // MARK: - PickView
-    // FIXME:
+    
+    func updatePicker(){
+        self.pickerView.reloadAllComponents()
+    }
     
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
         return 1
     }
     
     func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        if (pickerView.tag == 12) {
+        
+        if callback.isFirstResponder() {
             return pickOption.count
-        } else if (pickerView.tag == 24) {
+        } else if aptDate.isFirstResponder() {
             return pickRate.count
-        } else if (pickerView.tag == 3) {
+        } else if company.isFirstResponder() {
             return pickContract.count
-        }else {
+        } else {
             return 0
-             //return callbackArray.count
         }
     }
     
     func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         
-        if (pickerView.tag == 12) {
-            //return callbackArray[row] .valueForKey("CallBack") as? String
+        if callback.isFirstResponder() {
             return "\(pickOption[row])"
-            //return pickOption[row]
-        } else if (pickerView.tag == 24) {
+        } else if aptDate.isFirstResponder() {
             return "\(pickRate[row])"
-            //return pickRate[row]
-        } else if (pickerView.tag == 3) {
+        } else if company.isFirstResponder() {
             return "\(pickContract[row])"
-            //return pickContract[row]
         }
         return nil
     }
 
     func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        if (pickerView.tag == 12) {
-            //self.callback.text = callbackArray[row] .valueForKey("CallBack") as? String
+        
+        if callback.isFirstResponder() {
             self.callback.text = pickOption[row]
-        } else if (pickerView.tag == 24) {
+        } else if aptDate.isFirstResponder() {
             self.aptDate.text = pickRate[row]
-        } else if (pickerView.tag == 3) {
+        } else if company.isFirstResponder() {
             self.company.text = pickContract[row]
         }
     }
@@ -752,13 +745,14 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     func handleDatePicker(sender: UIDatePicker) {
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd"
-        if (sender.tag == 0) {
+        
+        if date.isFirstResponder() {
             self.date?.text = dateFormatter.stringFromDate(sender.date)
-        } else if (sender.tag == 4) {
+        } else if aptDate.isFirstResponder() {
             self.aptDate?.text = dateFormatter.stringFromDate(sender.date)
-        } else if (sender.tag == 14) {
+        } else if start.isFirstResponder() {
             self.start?.text = dateFormatter.stringFromDate(sender.date)
-        } else if (sender.tag == 15) {
+        } else if complete.isFirstResponder() {
             self.complete?.text = dateFormatter.stringFromDate(sender.date)
         }
     }
@@ -802,14 +796,11 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         
         if (formController == "Customer") {
             
-            
             if (self.status == "New") {
                 self.company?.hidden = true
             } else {
-                self.pickerView.tag = 3
                 self.company.placeholder = "Contractor"
                 self.company?.inputView = self.pickerView
-                self.pickerView.reloadAllComponents()
             }
         } else if (self.formController == "Vendor") {
             self.first.placeholder = "Company"
@@ -828,26 +819,6 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     }
     
     // MARK: - Parse
-    
-    func parsePick() {
-        /*
-        //if (self.formController == "Leads") {
-            
-            let query = PFQuery(className:"Callback")
-            //query.orderByDescending("Callback")
-            query.cachePolicy = PFCachePolicy.CacheThenNetwork
-            query.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, error: NSError?) -> Void in
-                if error == nil {
-                    let temp: NSArray = objects! as NSArray
-                    self.callbackArray = temp.mutableCopy() as! NSMutableArray
-                    //self.pickerView.reloadAllComponents()
-                    //self.tableView!.reloadData()
-                } else {
-                    print("Error")
-                }
-            }
-       // } */
-    }
     
     func parseLookup() {
         
@@ -939,7 +910,6 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             controller!.delegate = self
             controller!.lookupItem = lookupItem
         }
-
     }
     
     // MARK: - Update Data
@@ -956,7 +926,6 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             let mySale : NSNumber = numberFormatter.numberFromString(self.saleNo! as String)!
             let myJob : NSNumber = numberFormatter.numberFromString(self.jobNo! as String)!
             let myAd : NSNumber = numberFormatter.numberFromString(self.adNo! as String)!
-            
             
             var Amount = self.amount.text
             numberFormatter.numberStyle = .NoStyle
@@ -975,11 +944,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             print(myAmount)
             
             */
-            
-            
-            
-            
-            
+
             if (self.status == "Edit") { //Edit Lead
                 
                 let query = PFQuery(className:"Leads")

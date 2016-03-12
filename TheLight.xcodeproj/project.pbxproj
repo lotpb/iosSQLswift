@@ -28,6 +28,8 @@
 		AF1E6D561C1920FC0009230E /* CustomTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF1E6D551C1920FC0009230E /* CustomTableCell.swift */; };
 		AF206E051C1B1FA800EA60D6 /* Tornado.caf in Resources */ = {isa = PBXBuildFile; fileRef = AF206E031C1B1FA800EA60D6 /* Tornado.caf */; };
 		AF206E061C1B1FA800EA60D6 /* A Whiter Shade Of Pale.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AF206E041C1B1FA800EA60D6 /* A Whiter Shade Of Pale.mp3 */; };
+		AF221C8B1C93089400C9EF39 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AF221C8A1C93089400C9EF39 /* GoogleService-Info.plist */; };
+		AF221C8D1C930A6400C9EF39 /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AF221C8C1C930A6400C9EF39 /* AddressBook.framework */; };
 		AF2513D21C9073F500B88724 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2513D11C9073F500B88724 /* SwiftyJSON.swift */; };
 		AF2817CB1C38794F00B2607A /* LeadUserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2817CA1C38794F00B2607A /* LeadUserController.swift */; };
 		AF2DB75E1C243EAA00AAE855 /* UserDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF2DB75D1C243EAA00AAE855 /* UserDetailController.swift */; };
@@ -239,6 +241,8 @@
 		AF1E6D551C1920FC0009230E /* CustomTableCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomTableCell.swift; sourceTree = "<group>"; };
 		AF206E031C1B1FA800EA60D6 /* Tornado.caf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Tornado.caf; path = Music/Tornado.caf; sourceTree = "<group>"; };
 		AF206E041C1B1FA800EA60D6 /* A Whiter Shade Of Pale.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "A Whiter Shade Of Pale.mp3"; path = "Music/A Whiter Shade Of Pale.mp3"; sourceTree = "<group>"; };
+		AF221C8A1C93089400C9EF39 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		AF221C8C1C930A6400C9EF39 /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
 		AF2513D11C9073F500B88724 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 		AF2817CA1C38794F00B2607A /* LeadUserController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LeadUserController.swift; sourceTree = "<group>"; };
 		AF2DB75D1C243EAA00AAE855 /* UserDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserDetailController.swift; sourceTree = "<group>"; };
@@ -370,6 +374,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF221C8D1C930A6400C9EF39 /* AddressBook.framework in Frameworks */,
 				AF9A87821C1862900091B0E3 /* libsqlite3.dylib in Frameworks */,
 				AF9A87801C18621E0091B0E3 /* libz.1.dylib in Frameworks */,
 				AFE263921C17418B007BBB90 /* CFNetwork.framework in Frameworks */,
@@ -475,6 +480,7 @@
 		AF0369A31C173DDC00137D7E /* mySQLswift */ = {
 			isa = PBXGroup;
 			children = (
+				AF221C8A1C93089400C9EF39 /* GoogleService-Info.plist */,
 				AFE6936E1C6A4D7E000BEDCE /* Constants.swift */,
 				AF6582711C7E1AB700838443 /* Function.swift */,
 				AF0369A41C173DDC00137D7E /* AppDelegate.swift */,
@@ -629,6 +635,7 @@
 		AFAEAE411C775CE700DF86B1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AF221C8C1C930A6400C9EF39 /* AddressBook.framework */,
 				AFAEAE421C775CE700DF86B1 /* NotificationCenter.framework */,
 			);
 			name = Frameworks;
@@ -1022,6 +1029,7 @@
 				AFE2642B1C17DC11007BBB90 /* mySQLBLOG.png in Resources */,
 				AF6C691B1C455BAE00CD6A36 /* Settings.bundle in Resources */,
 				AFE2642A1C17DC11007BBB90 /* menu@2x.png in Resources */,
+				AF221C8B1C93089400C9EF39 /* GoogleService-Info.plist in Resources */,
 				AFE2640D1C17DC11007BBB90 /* bookmark.png in Resources */,
 				AFE2640F1C17DC11007BBB90 /* comments.png in Resources */,
 				AFE264131C17DC11007BBB90 /* news.png in Resources */,

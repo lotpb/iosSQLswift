@@ -54,10 +54,7 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
         self.tableView!.rowHeight = UITableViewAutomaticDimension
         self.tableView!.backgroundColor = UIColor(white:0.90, alpha:1.0)
         self.automaticallyAdjustsScrollViewInsets = false
-        //tableView!.contentInset = UIEdgeInsetsMake(20, 0, 0, 0)
-        //tableView!.tableFooterView = UIView(frame: .zero)
         
-        //users = []
         foundUsers = []
         resultsController = UITableViewController(style: .Plain)
         resultsController.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "UserFoundCell")
@@ -74,6 +71,10 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
         self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         self.refreshControl.addTarget(self, action: "refreshData:", forControlEvents: UIControlEvents.ValueChanged)
         self.tableView!.addSubview(refreshControl)
+        
+        if formStatus == "New" {
+            self.frm11 = "Active"
+        }
         
     }
     
@@ -101,11 +102,6 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
         self.refreshControl?.endRefreshing()
     }
     
-    // MARK: - Button
-    
-    func newData() {
-        self.performSegueWithIdentifier("newleadSegue", sender: self)
-    }
     
     // MARK: - Table View
     
@@ -148,7 +144,6 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
             self.salesman!.font = Font.celltitle
             self.salesNo!.font = Font.celltitle
         } else {
-            
             self.salesman?.font = Font.celltitle
             self.salesNo?.font = Font.celltitle
         }
@@ -264,7 +259,6 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
             else if (formController == "Job") {
                 cell.textLabel!.text = ""
             }
-            
         }
         return cell
     }
@@ -377,12 +371,11 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
                         self.simpleAlert("Upload Failure", message: "Failure updated the data")
                     }
                 }
-                self.navigationController?.popToRootViewControllerAnimated(true)
                 
             } else { //Save Salesman
                 
                 let saveblog:PFObject = PFObject(className:"Salesman")
-                saveblog.setObject(self.salesNo.text ?? NSNull(), forKey:"SalesNo")
+                saveblog.setObject("-1" ?? NSNull(), forKey:"SalesNo")
                 saveblog.setObject(self.salesman.text ?? NSNull(), forKey:"Salesman")
                 saveblog.setObject(self.active ?? NSNull(), forKey:"Active")
                 
@@ -399,6 +392,7 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
                     }
                 }
             }
+            self.navigationController?.popToRootViewControllerAnimated(true)
             
         } else  if (self.formController == "Job") {
             
@@ -422,13 +416,12 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
                         self.simpleAlert("Upload Failure", message: "Failure updated the data")
                     }
                 }
-                self.navigationController?.popToRootViewControllerAnimated(true)
     
             } else { //Save Job
                 
                 let saveblog:PFObject = PFObject(className:"Job")
 
-                saveblog.setObject(self.salesNo.text ?? NSNull(), forKey:"JobNo")
+                saveblog.setObject("-1" ?? NSNull(), forKey:"JobNo")
                 saveblog.setObject(self.salesman.text ?? NSNull(), forKey:"Description")
                 saveblog.setObject(self.active ?? NSNull(), forKey:"Active")
                 
@@ -445,6 +438,7 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
                     }
                 }
             }
+            self.navigationController?.popToRootViewControllerAnimated(true)
             
         } else  if (self.formController == "Product") {
             
@@ -468,12 +462,11 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
                         self.simpleAlert("Upload Failure", message: "Failure updated the data")
                     }
                 }
-                self.navigationController?.popToRootViewControllerAnimated(true)
                 
             } else { //Save Products
                 
                 let saveblog:PFObject = PFObject(className:"Product")
-                saveblog.setObject(self.salesNo.text ?? NSNull(), forKey:"ProductNo")
+                saveblog.setObject("-1" ?? NSNull(), forKey:"ProductNo")
                 saveblog.setObject(self.salesman.text ?? NSNull(), forKey:"Products")
                 saveblog.setObject(self.active ?? NSNull(), forKey:"Active")
                 
@@ -490,6 +483,7 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
                     }
                 }
             }
+            self.navigationController?.popToRootViewControllerAnimated(true)
             
         } else if (self.formController == "Advertising") {
             
@@ -513,12 +507,11 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
                         self.simpleAlert("Upload Failure", message: "Failure updated the data")
                     }
                 }
-                self.navigationController?.popToRootViewControllerAnimated(true)
                 
             } else { //Save Advertising
                 
                 let saveblog:PFObject = PFObject(className:"Advertising")
-                saveblog.setObject(self.salesNo.text ?? NSNull(), forKey:"AdNo")
+                saveblog.setObject("-1" ?? NSNull(), forKey:"AdNo")
                 saveblog.setObject(self.salesman.text ?? NSNull(), forKey:"Advertiser")
                 saveblog.setObject(self.active ?? NSNull(), forKey:"Active")
                 
@@ -535,7 +528,7 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
                     }
                 }
             }
-            
+            self.navigationController?.popToRootViewControllerAnimated(true)
         }
         
     }

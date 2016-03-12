@@ -2376,25 +2376,6 @@
                                 <rect key="frame" x="281" y="282" width="37" height="37"/>
                                 <color key="color" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             </activityIndicatorView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zLl-Fh-cgz">
-                                <rect key="frame" x="18" y="355" width="135" height="53"/>
-                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="135" id="3QG-AV-ggZ"/>
-                                    <constraint firstAttribute="height" constant="53" id="MPD-dU-s1K"/>
-                                </constraints>
-                                <state key="normal" title="Start Recording">
-                                    <color key="titleColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="3"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="startRecordingButtonTapped:" destination="ByR-Ik-3db" eventType="touchUpInside" id="TMv-X7-l6B"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xfS-cu-pSH">
                                 <rect key="frame" x="432" y="107" width="150" height="30"/>
                                 <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -2456,6 +2437,12 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="rate" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zE7-9W-lsK">
+                                <rect key="frame" x="66" y="217" width="42" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RWL-NI-pzh">
                                 <rect key="frame" x="512" y="219" width="70" height="21"/>
                                 <constraints>
@@ -2474,9 +2461,13 @@
                                     <action selector="RemoveItemFromCoreSpotlight:" destination="ByR-Ik-3db" eventType="touchUpInside" id="6Qs-0I-JsQ"/>
                                 </connections>
                             </button>
-                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C91-Hw-PxH">
-                                <rect key="frame" x="0.0" y="430" width="600" height="216"/>
-                            </pickerView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jqO-AS-eql">
+                                <rect key="frame" x="512" y="178" width="70" height="21"/>
+                                <state key="normal" title="Light off"/>
+                                <connections>
+                                    <action selector="lightoff:" destination="ByR-Ik-3db" eventType="touchUpInside" id="Z98-fW-qxE"/>
+                                </connections>
+                            </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Searching" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zg2-1X-nN4">
                                 <rect key="frame" x="20" y="295" width="77" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -2489,6 +2480,25 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zLl-Fh-cgz">
+                                <rect key="frame" x="18" y="355" width="135" height="53"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="135" id="3QG-AV-ggZ"/>
+                                    <constraint firstAttribute="height" constant="53" id="MPD-dU-s1K"/>
+                                </constraints>
+                                <state key="normal" title="Start Recording">
+                                    <color key="titleColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="startRecordingButtonTapped:" destination="ByR-Ik-3db" eventType="touchUpInside" id="TMv-X7-l6B"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="91k-0i-aZC">
                                 <rect key="frame" x="447" y="355" width="135" height="53"/>
                                 <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -2507,19 +2517,16 @@
                                     <action selector="stopRecordingButtonTapped:" destination="ByR-Ik-3db" eventType="touchUpInside" id="RbE-0H-LHj"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jqO-AS-eql">
-                                <rect key="frame" x="512" y="178" width="70" height="21"/>
-                                <state key="normal" title="Light off"/>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C91-Hw-PxH">
+                                <rect key="frame" x="0.0" y="415" width="600" height="172"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="172" id="vOi-s5-ZzV"/>
+                                </constraints>
                                 <connections>
-                                    <action selector="lightoff:" destination="ByR-Ik-3db" eventType="touchUpInside" id="Z98-fW-qxE"/>
+                                    <outlet property="dataSource" destination="ByR-Ik-3db" id="Ujs-Lf-L1l"/>
+                                    <outlet property="delegate" destination="ByR-Ik-3db" id="Qfx-3V-gIJ"/>
                                 </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="rate" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zE7-9W-lsK">
-                                <rect key="frame" x="66" y="217" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            </pickerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -2528,7 +2535,6 @@
                             <constraint firstItem="zLl-Fh-cgz" firstAttribute="top" secondItem="91k-0i-aZC" secondAttribute="top" id="41f-MM-H0l"/>
                             <constraint firstItem="jqO-AS-eql" firstAttribute="bottom" secondItem="XKQ-EB-4WD" secondAttribute="bottom" id="6iy-eM-8EL"/>
                             <constraint firstItem="zE7-9W-lsK" firstAttribute="leading" secondItem="RH6-Xs-ET4" secondAttribute="leading" id="75O-OA-YUM"/>
-                            <constraint firstItem="C91-Hw-PxH" firstAttribute="centerX" secondItem="aWK-je-B5S" secondAttribute="centerX" id="7ge-bb-Veb"/>
                             <constraint firstItem="jqO-AS-eql" firstAttribute="baseline" secondItem="XKQ-EB-4WD" secondAttribute="baseline" id="9nz-6b-luc"/>
                             <constraint firstItem="zLl-Fh-cgz" firstAttribute="top" secondItem="EiG-Sq-3yr" secondAttribute="bottom" constant="11" id="DUP-9X-Smy"/>
                             <constraint firstItem="91k-0i-aZC" firstAttribute="trailing" secondItem="xfS-cu-pSH" secondAttribute="trailing" id="DkC-PY-bcU"/>
@@ -2541,10 +2547,12 @@
                             <constraint firstItem="xfS-cu-pSH" firstAttribute="top" secondItem="eGX-BE-Hge" secondAttribute="bottom" constant="8" symbolic="YES" id="I6t-6l-CmF"/>
                             <constraint firstAttribute="leadingMargin" secondItem="EiG-Sq-3yr" secondAttribute="leading" id="IyD-Ci-oEx"/>
                             <constraint firstItem="5pN-gc-6lz" firstAttribute="leading" secondItem="bjn-OD-oTr" secondAttribute="leading" id="IyF-Sq-hRi"/>
+                            <constraint firstItem="C91-Hw-PxH" firstAttribute="top" secondItem="91k-0i-aZC" secondAttribute="bottom" constant="7" id="JPk-1e-vf2"/>
+                            <constraint firstItem="C91-Hw-PxH" firstAttribute="leading" secondItem="tK7-Px-oRG" secondAttribute="leading" id="MKv-Oh-CfM"/>
+                            <constraint firstItem="C91-Hw-PxH" firstAttribute="centerX" secondItem="eGX-BE-Hge" secondAttribute="centerX" id="NU3-cZ-U7J"/>
                             <constraint firstAttribute="trailingMargin" secondItem="eGX-BE-Hge" secondAttribute="trailing" constant="-2" id="O4e-ti-nO5"/>
                             <constraint firstItem="jqO-AS-eql" firstAttribute="firstBaseline" secondItem="XKQ-EB-4WD" secondAttribute="baseline" id="Q5u-tB-ngv"/>
                             <constraint firstItem="Zg2-1X-nN4" firstAttribute="top" secondItem="5pN-gc-6lz" secondAttribute="bottom" constant="14" id="Qup-4N-uV4"/>
-                            <constraint firstItem="C91-Hw-PxH" firstAttribute="top" secondItem="zLl-Fh-cgz" secondAttribute="bottom" constant="22" id="SB9-Pt-iJI"/>
                             <constraint firstItem="5pN-gc-6lz" firstAttribute="centerY" secondItem="RH6-Xs-ET4" secondAttribute="centerY" id="SET-0f-5Jf"/>
                             <constraint firstItem="xfS-cu-pSH" firstAttribute="trailing" secondItem="eGX-BE-Hge" secondAttribute="trailing" id="W1t-ne-446"/>
                             <constraint firstItem="TLj-qw-qzL" firstAttribute="bottom" secondItem="RH6-Xs-ET4" secondAttribute="bottom" id="WFd-bw-sFm"/>
@@ -2563,8 +2571,7 @@
                             <constraint firstItem="jqO-AS-eql" firstAttribute="height" secondItem="XKQ-EB-4WD" secondAttribute="height" id="hsG-0Z-axb"/>
                             <constraint firstItem="jqO-AS-eql" firstAttribute="trailing" secondItem="RWL-NI-pzh" secondAttribute="trailing" id="hvm-Vy-Psa"/>
                             <constraint firstItem="XKQ-EB-4WD" firstAttribute="leading" secondItem="KSH-MI-MMl" secondAttribute="trailing" constant="8" symbolic="YES" id="iHE-ke-paT"/>
-                            <constraint firstItem="C91-Hw-PxH" firstAttribute="centerX" secondItem="eGX-BE-Hge" secondAttribute="centerX" id="j4Q-DQ-nPa"/>
-                            <constraint firstItem="C91-Hw-PxH" firstAttribute="leading" secondItem="tK7-Px-oRG" secondAttribute="leading" id="jKB-VM-VxL"/>
+                            <constraint firstItem="C91-Hw-PxH" firstAttribute="centerX" secondItem="aWK-je-B5S" secondAttribute="centerX" id="k22-TN-9O2"/>
                             <constraint firstItem="jqO-AS-eql" firstAttribute="top" secondItem="XKQ-EB-4WD" secondAttribute="top" id="s2p-va-C9l"/>
                             <constraint firstItem="TLj-qw-qzL" firstAttribute="leading" secondItem="RWL-NI-pzh" secondAttribute="leading" id="tik-v0-VPP"/>
                             <constraint firstItem="eGX-BE-Hge" firstAttribute="top" secondItem="mix-CE-TXn" secondAttribute="bottom" constant="8" symbolic="YES" id="uBo-Np-Kur"/>
@@ -3629,7 +3636,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Fe3-WW-vfh">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Fe3-WW-vfh">
                                 <rect key="frame" x="0.0" y="20" width="600" height="318"/>
                                 <variation key="widthClass=compact" ambiguous="YES">
                                     <rect key="frame" x="0.0" y="0.0" width="0.0" height="0.0"/>
@@ -3787,7 +3794,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C8R-Pk-zsA" sceneMemberID="firstResponder"/>
                 <searchDisplayController id="TUU-8j-iIo"/>
             </objects>
-            <point key="canvasLocation" x="2106" y="-1331"/>
+            <point key="canvasLocation" x="2076" y="-1331"/>
         </scene>
         <!--Product Info-->
         <scene sceneID="ihu-4z-hy2">
@@ -4027,7 +4034,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BTx-Ne-fVb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3213" y="-2027"/>
+            <point key="canvasLocation" x="2805" y="-2027"/>
         </scene>
         <!--Statistics-->
         <scene sceneID="9iE-2x-5p5">

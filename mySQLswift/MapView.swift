@@ -157,7 +157,7 @@ class MapView: UIViewController, MKMapViewDelegate,  CLLocationManagerDelegate {
                 request.destination = MKMapItem(placemark: MKPlacemark(coordinate: CLLocationCoordinate2D(latitude: placemark.location!.coordinate.latitude, longitude: placemark.location!.coordinate.longitude), addressDictionary: nil))
                 
         // MARK:  AlternateRoutes
-                request.requestsAlternateRoutes = true
+                request.requestsAlternateRoutes = false
         // MARK:  transportType
                 request.transportType = .Automobile
                 

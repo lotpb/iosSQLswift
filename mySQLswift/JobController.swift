@@ -101,7 +101,7 @@ class JobController: UIViewController, UITableViewDelegate, UITableViewDataSourc
     
     func newData() {
         isFormStat = true
-        self.performSegueWithIdentifier("newleadSegue", sender: self)
+        self.performSegueWithIdentifier("jobDetailSegue", sender: self)
     }
     
     // MARK: - Table View
@@ -367,23 +367,20 @@ class JobController: UIViewController, UITableViewDelegate, UITableViewDataSourc
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         if segue.identifier == "jobDetailSegue" {
-           
-            let VC = segue.destinationViewController as? NewEditData
-            let myIndexPath = self.tableView!.indexPathForSelectedRow!.row
             
+            let VC = segue.destinationViewController as? NewEditData
             VC!.formController = "Jobs"
             if (isFormStat == true) {
                 VC!.formStatus = "New"
             } else {
                 VC!.formStatus = "Edit"
+                let myIndexPath = self.tableView!.indexPathForSelectedRow!.row
+                VC!.objectId = _feedItems[myIndexPath] .valueForKey("objectId") as? String
+                VC!.frm11 = _feedItems[myIndexPath] .valueForKey("Active") as? String
+                VC!.frm12 = _feedItems[myIndexPath] .valueForKey("JobNo") as? String
+                VC!.frm13 = _feedItems[myIndexPath] .valueForKey("Description") as? String
             }
-            
-            VC!.objectId = _feedItems[myIndexPath] .valueForKey("objectId") as? String
-            VC!.frm11 = _feedItems[myIndexPath] .valueForKey("Active") as? String
-            VC!.frm12 = _feedItems[myIndexPath] .valueForKey("JobNo") as? String
-            VC!.frm13 = _feedItems[myIndexPath] .valueForKey("Description") as? String
         }
-        
     }
     
 }

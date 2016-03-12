@@ -25,9 +25,6 @@ class DetailViewController: UIViewController, RPPreviewViewControllerDelegate, A
     @IBOutlet weak private var processingView: UIActivityIndicatorView!
     private let recorder = RPScreenRecorder.sharedRecorder()
     
-    //let session = AVAudioSession.sharedInstance()
-    //var recorder: AVAudioRecorder?
-    
     private var locationManager = CLLocationManager()
     
     private let identifier = "com.TheLight" //added CoreSpotlight
@@ -46,8 +43,10 @@ class DetailViewController: UIViewController, RPPreviewViewControllerDelegate, A
     @IBOutlet weak var subject: UITextView?
     
     @IBOutlet weak var languagePick: UIPickerView?
-    var arrVoiceLanguages: [Dictionary<String, String!>] = []
-    var selectedVoiceLanguage = 0
+    let languageList = ["United States", "United Kingdom", "Italy", "Israel", "Australia", "China", "French", "German"]
+    let languageCodeList = ["en-US", "en-GB", "it-IT", "he-IL", "en-AU", "zh-CN", "fr-FR", "de-DE"]
+    var langNum : Int!
+    //var langRate : Float!
     
     var defaults = NSUserDefaults.standardUserDefaults()
     
@@ -109,7 +108,11 @@ class DetailViewController: UIViewController, RPPreviewViewControllerDelegate, A
         myLabel.addGestureRecognizer(tap)
         view.addSubview(myLabel)
         
-        //prepareVoiceList()
+        langNum = 1
+        languagePick!.selectRow(langNum, inComponent: 0, animated: true)
+        
+        //langRate = 0.4
+        //ratetext!.text = langRate as String
         
     }
     
@@ -329,12 +332,34 @@ class DetailViewController: UIViewController, RPPreviewViewControllerDelegate, A
     @IBAction func speak(sender: AnyObject) {
         let string = subject!.text
         let utterance = AVSpeechUtterance(string: string!)
-        utterance.voice = AVSpeechSynthesisVoice(language: "en-GB")
-        utterance.rate = 0.4
+        utterance.voice = AVSpeechSynthesisVoice(language: languageCodeList[langNum])
+        utterance.rate = 0.4 //langRate
         
         let synthesizer = AVSpeechSynthesizer()
         synthesizer.delegate = self
         synthesizer.speakUtterance(utterance)
+    }
+    
+    
+    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    
+    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+
+        return languageList.count
+    }
+    
+    
+    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+
+        return languageList[row]
+    }
+    
+    
+    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        langNum = row
     }
     
     
@@ -355,43 +380,6 @@ class DetailViewController: UIViewController, RPPreviewViewControllerDelegate, A
     
     func locationManager(locationManager: CLLocationManager, didFailWithError error: NSError) {
         print("Failed to find user's location: \(error.localizedDescription)")
-    }
-    
-    // MARK: UIPickerView method implementation
-
-    func prepareVoiceList() {
-        for voice in AVSpeechSynthesisVoice.speechVoices() {
-            let voiceLanguageCode = (voice as AVSpeechSynthesisVoice).language
-            
-            let languageName = NSLocale.currentLocale().displayNameForKey(NSLocaleIdentifier, value: voiceLanguageCode)
-            
-            let dictionary = ["languageName": languageName, "languageCode": voiceLanguageCode]
-     
-            arrVoiceLanguages.append(dictionary as! Dictionary<String, String!>)
-        }
-    }
-    
-    
-    
-    func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    
-    func pickerView(pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return arrVoiceLanguages.count
-    }
-    
-    
-    func pickerView(pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        let voiceLanguagesDictionary = arrVoiceLanguages[row] as Dictionary<String, String!>
-        
-        return voiceLanguagesDictionary["languageName"]
-    }
-    
-    
-    func pickerView(pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        selectedVoiceLanguage = row
     }
     
     

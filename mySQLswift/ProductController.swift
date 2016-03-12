@@ -100,7 +100,7 @@ class ProductController: UIViewController, UITableViewDelegate, UITableViewDataS
     
     func newData() {
         isFormStat = true
-        self.performSegueWithIdentifier("newleadSegue", sender: self)
+        self.performSegueWithIdentifier("prodDetailSegue", sender: self)
     }
     
     // MARK: - Table View
@@ -368,22 +368,18 @@ class ProductController: UIViewController, UITableViewDelegate, UITableViewDataS
         if segue.identifier == "prodDetailSegue" {
             
             let VC = segue.destinationViewController as? NewEditData
-            let myIndexPath = self.tableView!.indexPathForSelectedRow!.row
-            
             VC!.formController = "Product"
             if (isFormStat == true) {
                 VC!.formStatus = "New"
             } else {
                 VC!.formStatus = "Edit"
+                let myIndexPath = self.tableView!.indexPathForSelectedRow!.row
+                VC!.objectId = _feedItems[myIndexPath] .valueForKey("objectId") as? String
+                VC!.frm11 = _feedItems[myIndexPath] .valueForKey("Active") as? String
+                VC!.frm12 = _feedItems[myIndexPath] .valueForKey("ProductNo") as? String
+                VC!.frm13 = _feedItems[myIndexPath] .valueForKey("Products") as? String
             }
-            
-            VC!.objectId = _feedItems[myIndexPath] .valueForKey("objectId") as? String
-            VC!.frm11 = _feedItems[myIndexPath] .valueForKey("Active") as? String
-            VC!.frm12 = _feedItems[myIndexPath] .valueForKey("ProductNo") as? String
-            VC!.frm13 = _feedItems[myIndexPath] .valueForKey("Products") as? String
-            
         }
-        
     }
     
 }
