@@ -131,7 +131,6 @@ class ProductController: UIViewController, UITableViewDelegate, UITableViewDataS
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier) as! CustomTableCell
         cell.selectionStyle = UITableViewCellSelectionStyle.None
         
-        //cell.LeadsubtitleLabel!.textColor = UIColor.grayColor()
         
         if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
             cell.prodtitleLabel!.font = Font.celltitle
@@ -378,6 +377,7 @@ class ProductController: UIViewController, UITableViewDelegate, UITableViewDataS
                 VC!.frm11 = _feedItems[myIndexPath] .valueForKey("Active") as? String
                 VC!.frm12 = _feedItems[myIndexPath] .valueForKey("ProductNo") as? String
                 VC!.frm13 = _feedItems[myIndexPath] .valueForKey("Products") as? String
+                VC!.frm14 = _feedItems[myIndexPath] .valueForKey("Price") as? Int
             }
         }
     }

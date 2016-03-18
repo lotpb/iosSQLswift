@@ -30,6 +30,8 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
     var foundUsers = [String]()
     
     let defaults = NSUserDefaults.standardUserDefaults()
+    
+    var resultsYQL:NSDictionary? = nil
 
     //var tempYQL : String!
      //var store = EKEventStore()
@@ -57,9 +59,6 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         let addButton = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: "actionButton:")
         let buttons:NSArray = [addButton, searchButton]
         self.navigationItem.rightBarButtonItems = buttons as? [UIBarButtonItem]
-        
-        //self.automaticallyAdjustsScrollViewInsets = false
-        //self.navigationItem.leftBarButtonItem = self.editButtonItem()
         
         
         // MARK: - SplitView
@@ -133,6 +132,14 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    
+    // MARK: - UISplitViewControllerDelegate
+    
+    func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController: UIViewController, ontoPrimaryViewController primaryViewController: UIViewController) -> Bool { //added
+        
+        return true
     }
     
     
@@ -211,6 +218,7 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
     }
     
     func statButton() {
+        
         self.performSegueWithIdentifier("statisticSegue", sender: self)
     }
 
@@ -369,13 +377,6 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         }
     }
     
-
-    // MARK: - UISplitViewControllerDelegate
-    
-    func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController: UIViewController, ontoPrimaryViewController primaryViewController: UIViewController) -> Bool { //added
-        
-        return true
-    }
     
      // MARK: - playSound
     
@@ -386,7 +387,7 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
             player = try AVAudioPlayer(contentsOfURL: NSURL(fileURLWithPath: audioPath!))
         }
         catch {
-            print("Something bad happened. Try catching specific errors to narrow things down")
+            self.simpleAlert("Alert", message: "Something bad happened. Try catching specific errors to narrow things down")
         }
         player.play()
         
@@ -429,17 +430,11 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         let query = PFQuery(className:"Version")
         //query.cachePolicy = PFCachePolicy.CacheThenNetwork
         query.getFirstObjectInBackgroundWithBlock {(object: PFObject?, error: NSError?) -> Void in
-            let versionId = object?.objectForKey("VersionId") as! String?
             
+            let versionId = object?.objectForKey("VersionId") as! String?
             if (versionId != self.defaults.stringForKey("versionKey")) {
                 
-                let alert = UIAlertController(title: "New Version!!", message: "A new version of app is available to download", preferredStyle: UIAlertControllerStyle.Alert)
-                
-                let update = UIAlertAction(title: "Update", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in })
-                
-                alert.addAction(update)
-                self.presentViewController(alert, animated: true, completion: nil)
-                
+                self.simpleAlert("New Version!!", message: "A new version of app is available to download")
             }
         }
     }
@@ -447,25 +442,37 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
 
     func updateYahoo() {
         
-        let resultsYQL = YQL.query("select * from weather.forecast where woeid=2446726")
-        print(resultsYQL)
+        resultsYQL = YQL.query("select * from weather.forecast where woeid=2446726")
+        //print(resultsYQL)
         
-        /*
-        let YQLresults = resultsYQL?
+       /*
+        let YQLresults = resultsYQL
             .objectForKey("query")!
             .objectForKey("results")!
             .objectForKey("channel")!
             .objectForKey("item")!
-            .objectForKey("condition") as? NSDictionary
-        let YQLtext = YQLresults!.objectForKey("text") as? String
-        let YQLtemp = YQLresults!.objectForKey("temp")as? String
+            .objectForKey("condition")
+        let YQLtext =  YQLresults!.objectForKey("text") as! String
+        let YQLtemp = YQLresults!.objectForKey("temp") as! String
         
         print("Todays Weather: \(YQLtext) \(YQLtemp)") */
         
-/*
+        /*
         let stockresults = YQL.query("select * from yahoo.finance.quote where symbol in (\"^IXIC\",\"SPY\")")
         print(stockresults) */
         
+    }
+    
+    
+    // MARK: - AlertController
+    
+    func simpleAlert (title:String, message:String) {
+        
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        
+        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: nil))
+        
+        self.presentViewController(alertController, animated: true, completion: nil)
     }
 
     
@@ -518,28 +525,7 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
     
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        /*
-        let menuTableViewController = segue.sourceViewController as! MenuTableViewController
-        if let selectedIndexPath = menuTableViewController.tableView.indexPathForSelectedRow {
-            currentItem = menuItems[selectedIndexPath.row]
-        } */
-        
-       /*
-        if segue.identifier == "showleadSegue" {
-            //self.performSegueWithIdentifier("showleadSegue", sender: self)
-            
-        }
-        
-        if segue.identifier == "showDetail" {
-            /*
-            if let indexPath = self.tableView.indexPathForSelectedRow {
-            let object = objects[indexPath.row] as! NSDate
-            let controller = (segue.destinationViewController as! UINavigationController).topViewController as! DetailViewController
-            controller.detailItem = object
-            controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
-            controller.navigationItem.leftItemsSupplementBackButton = true
-            } */
-        } */
+
     }
 
 }

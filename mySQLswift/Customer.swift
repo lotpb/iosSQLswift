@@ -75,7 +75,6 @@ class Customer: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     }
     
     override func viewWillAppear(animated: Bool) {
-        //self.clearsSelectionOnViewWillAppear = self.splitViewController!.collapsed
         super.viewWillAppear(animated)
         navigationController?.hidesBarsOnSwipe = true
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
@@ -91,8 +90,6 @@ class Customer: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-    // MARK:, // TODO: and // FIXME:
     
     // MARK: - refresh
     
@@ -204,13 +201,12 @@ class Customer: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         cell.custreplyButton.tintColor = UIColor.lightGrayColor()
         let replyimage : UIImage? = UIImage(named:"Commentfilled.png")!.imageWithRenderingMode(.AlwaysTemplate)
         cell.custreplyButton .setImage(replyimage, forState: .Normal)
-        cell.custreplyButton .addTarget(self, action: "flagButton:", forControlEvents: UIControlEvents.TouchUpInside)
+        cell.custreplyButton .addTarget(self, action: Selector(), forControlEvents: UIControlEvents.TouchUpInside)
         
         cell.custlikeButton.tintColor = UIColor.lightGrayColor()
         let likeimage : UIImage? = UIImage(named:"Thumb Up.png")!.imageWithRenderingMode(.AlwaysTemplate)
         cell.custlikeButton .setImage(likeimage, forState: .Normal)
-        cell.custlikeButton .addTarget(self, action: "buttonPress:", forControlEvents: UIControlEvents.TouchUpInside)
-        cell.custlikeButton .addTarget(self, action: "likeButton:", forControlEvents: UIControlEvents.TouchUpInside)
+        cell.custlikeButton .addTarget(self, action: Selector(), forControlEvents: UIControlEvents.TouchUpInside)
         
         cell.custreplyLabel.text! = ""
         
@@ -251,7 +247,6 @@ class Customer: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
-        //let vw = UIView(frame: CGRect(x: 0.0, y: 0.0, width: tableView.frame.size.width, height: 0))
         let vw = UIView()
         vw.backgroundColor = Color.Cust.navColor
         //self.tableView!.tableHeaderView = vw

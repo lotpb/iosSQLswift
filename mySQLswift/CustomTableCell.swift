@@ -35,9 +35,13 @@ class CustomTableCell: UITableViewCell {
     @IBOutlet weak var userImageView: UIImageView!
     
     // Lead Controller
-    @IBOutlet weak var LeadtitleLabel: UILabel!
-    @IBOutlet weak var LeadsubtitleLabel: UILabel!
-    @IBOutlet weak var LeadImageView: UIImageView!
+    @IBOutlet weak var leadtitleLabel: UILabel!
+    @IBOutlet weak var leadsubtitleLabel: UILabel!
+    @IBOutlet weak var leadImageView: UIImageView!
+    @IBOutlet weak var leadreplyButton: UIButton!
+    @IBOutlet weak var leadlikeButton: UIButton!
+    @IBOutlet weak var leadreplyLabel: UILabel!
+    @IBOutlet weak var leadlikeLabel: UILabel!
     
     // LeadDetailController
     @IBOutlet weak var leadtitleDetail: UILabel!

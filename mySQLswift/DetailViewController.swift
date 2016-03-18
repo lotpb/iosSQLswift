@@ -19,6 +19,13 @@ import MobileCoreServices //added CoreSpotlight
 class DetailViewController: UIViewController, RPPreviewViewControllerDelegate, AVSpeechSynthesizerDelegate, CLLocationManagerDelegate, UIPickerViewDelegate, UIPickerViewDataSource, RPScreenRecorderDelegate {
     
     let headtitle = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
+    let textviewText = "Chadi sucks in Basketball, he has no picks and certainly has no rolls"
+    
+    @IBOutlet weak var languagePick: UIPickerView?
+    let languageList = ["Hindi", "Russian", "Greek", "United States", "United Kingdom", "Italy", "Israel", "Arabic", "China", "French", "German"]
+    let languageCodeList = ["hi-IN", "ru-RU", "el-GR", "en-US", "en-GB", "it-IT", "he-IL", "ar-SA", "zh-CN", "fr-FR", "de-DE"]
+    var langNum : Int!
+    //var langRate : Float!
     
     @IBOutlet weak private var startRecordingButton: UIButton!
     @IBOutlet weak private var stopRecordingButton: UIButton!
@@ -26,11 +33,10 @@ class DetailViewController: UIViewController, RPPreviewViewControllerDelegate, A
     private let recorder = RPScreenRecorder.sharedRecorder()
     
     private var locationManager = CLLocationManager()
-    
     private let identifier = "com.TheLight" //added CoreSpotlight
     private let domainIdentifier = "com.lotpb.github.io/UnitedWebPage/index.html"
     private var activity: NSUserActivity!
-
+    
     @IBOutlet weak var latitudeText: UILabel!
     @IBOutlet weak var longitudeText: UILabel!
     @IBOutlet weak var speechButton: UIButton!
@@ -39,15 +45,8 @@ class DetailViewController: UIViewController, RPPreviewViewControllerDelegate, A
     @IBOutlet weak var volume: UITextField?
     @IBOutlet weak var pitch: UITextField?
     @IBOutlet weak var ratetext: UITextField?
-    
     @IBOutlet weak var subject: UITextView?
-    
-    @IBOutlet weak var languagePick: UIPickerView?
-    let languageList = ["United States", "United Kingdom", "Italy", "Israel", "Australia", "China", "French", "German"]
-    let languageCodeList = ["en-US", "en-GB", "it-IT", "he-IL", "en-AU", "zh-CN", "fr-FR", "de-DE"]
-    var langNum : Int!
-    //var langRate : Float!
-    
+
     var defaults = NSUserDefaults.standardUserDefaults()
     
     //below has nothing
@@ -106,11 +105,12 @@ class DetailViewController: UIViewController, RPPreviewViewControllerDelegate, A
         myLabel.userInteractionEnabled = true
         let tap = UITapGestureRecognizer(target: self, action:Selector("speak:"))
         myLabel.addGestureRecognizer(tap)
-        view.addSubview(myLabel)
+        self.view.addSubview(myLabel)
         
-        langNum = 1
+        self.subject!.text = textviewText
+        
+        langNum = 4
         languagePick!.selectRow(langNum, inComponent: 0, animated: true)
-        
         //langRate = 0.4
         //ratetext!.text = langRate as String
         
@@ -317,7 +317,7 @@ class DetailViewController: UIViewController, RPPreviewViewControllerDelegate, A
     }
     
     
-    // MARK: - speak red text
+    // MARK: - Speak red text
     
     func speechSynthesizer(synthesizer: AVSpeechSynthesizer, willSpeakRangeOfSpeechString characterRange: NSRange, utterance: AVSpeechUtterance) {
         let mutableAttributedString = NSMutableAttributedString(string: utterance.speechString)
@@ -339,6 +339,8 @@ class DetailViewController: UIViewController, RPPreviewViewControllerDelegate, A
         synthesizer.delegate = self
         synthesizer.speakUtterance(utterance)
     }
+    
+    // MARK:  Pickerview
     
     
     func numberOfComponentsInPickerView(pickerView: UIPickerView) -> Int {

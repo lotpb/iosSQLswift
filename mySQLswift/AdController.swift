@@ -132,8 +132,6 @@ class AdController: UIViewController, UITableViewDelegate, UITableViewDataSource
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier) as! CustomTableCell
         cell.selectionStyle = UITableViewCellSelectionStyle.None
         
-        //cell.LeadsubtitleLabel!.textColor = UIColor.grayColor()
-        
         if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
             cell.adtitleLabel!.font = Font.celltitle
         } else {

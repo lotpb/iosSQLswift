@@ -19,24 +19,6 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
     let ipadtitle = UIFont.systemFontOfSize(20, weight: UIFontWeightRegular)
     let celltitle = UIFont.systemFontOfSize(18, weight: UIFontWeightRegular)
     
-    let userImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.contentMode = .ScaleAspectFit
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.layer.masksToBounds = true
-        return imageView
-    }()
-    
-    /*
-    let nameLabel: UILabel = {
-        let label = UILabel()
-        label.font = UIFont.boldSystemFontOfSize(20)
-        label.textAlignment = .Center
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }() */
-    
-
     @IBOutlet weak var mapView: MKMapView?
     
     @IBOutlet weak var forgotPassword: UIButton?
@@ -56,9 +38,17 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
     var user : PFUser?
     var userimage : UIImage?
     
+    //Facebook
     let fbButton = FBSDKLoginButton()
+    let userImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = .ScaleAspectFit
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.layer.masksToBounds = true
+        return imageView
+    }()
     
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -69,18 +59,18 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
             self.forgotPassword!.hidden = true
             self.authentButton!.hidden = true
             self.emailField!.hidden = false
-            self.phoneField!.hidden = false//
+            self.phoneField!.hidden = false
             
         } else {
             //Keychain
             self.usernameField!.text = KeychainWrapper.stringForKey("usernameKey")
             self.passwordField!.text = KeychainWrapper.stringForKey("passwordKey")
-            self.reEnterPasswordField!.hidden = true//
-            self.registerBtn!.hidden = false //
-            self.emailField!.hidden = true//
-            self.phoneField!.hidden = true//
-            self.forgotPassword!.hidden = false//
-            self.backloginBtn!.hidden = true //
+            self.reEnterPasswordField!.hidden = true
+            self.registerBtn!.hidden = false
+            self.emailField!.hidden = true
+            self.phoneField!.hidden = true
+            self.forgotPassword!.hidden = false
+            self.backloginBtn!.hidden = true
         }
         
         if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
@@ -103,20 +93,6 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
         self.emailField!.keyboardType = UIKeyboardType.EmailAddress
         self.phoneField!.keyboardType = UIKeyboardType.NumbersAndPunctuation
         
-        if ((PFUser.currentUser()) != nil) {
-            let user = PFUser.currentUser()!
-            PFGeoPoint.geoPointForCurrentLocationInBackground {(geoPoint: PFGeoPoint?, error: NSError?) -> Void in
-                user.setObject(geoPoint!, forKey: "currentLocation")
-                user.saveInBackground()
-                
-                let theirLocation = CLLocationCoordinate2D(latitude: geoPoint!.latitude, longitude: geoPoint!.longitude)
-                let span = MKCoordinateSpanMake(0.40, 0.40)
-                let region = MKCoordinateRegionMake(theirLocation, span)
-                self.mapView!.setRegion(region, animated: true)
-                
-                self.refreshMap()
-            }
-        }
         
         //Facebook
         
@@ -128,6 +104,8 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
         if (FBSDKAccessToken.currentAccessToken() != nil) {
             fetchProfile()
         }
+        
+        self.passwordField!.text = ""
         
 
     }
@@ -151,14 +129,8 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
         PFUser.logInWithUsernameInBackground(usernameField!.text!, password: passwordField!.text!) { user, error in
             if user != nil {
                 
-                self.performSegueWithIdentifier("loginSegue", sender: nil)
-                self.defaults.setObject(self.usernameField!.text, forKey: "usernameKey")
-                self.defaults.setObject(self.passwordField!.text, forKey: "passwordKey")
-                if (self.emailField!.text != nil) {
-                    self.defaults.setObject(self.emailField!.text, forKey: "emailKey")
-                }
-                self.defaults.setBool(true, forKey: "registerKey")
-
+                self.refreshLocation()
+                
             } else {
                 
                 self.simpleAlert("Oooops", message: "Your username and password does not match")
@@ -265,13 +237,10 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
     {
         if error == nil
         {
-            self.performSegueWithIdentifier("loginSegue", sender: nil)
             print("Login complete.")
+            fetchProfile()
             
-            defaults.setObject("Peter Balsamo", forKey: "usernameKey")
-            defaults.setObject("3911", forKey: "passwordKey")
-            defaults.setObject("eunitedws@verizon.net", forKey: "emailKey")
-            defaults.setBool(true, forKey: "registerKey")
+            self.refreshLocation()
       
         } else {
             print(error.localizedDescription)
@@ -326,80 +295,7 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
             
         })
         
-        /*
-        FBSDKGraphRequest.init(graphPath: "me", parameters: ["fields":"first_name, last_name, picture.type(large)"]).startWithCompletionHandler { (connection, result, error) -> Void in
-        
-        let strFirstName: String = (result.objectForKey("first_name") as? String)!
-        let strLastName: String = (result.objectForKey("last_name") as? String)!
-        
-        let strPictureURL: String = (result.objectForKey("picture")?.objectForKey("data")?.objectForKey("url") as? String)!
-        
-        //self.lblName.text = "Welcome, \(strFirstName) \(strLastName)"
-        self.lblName.text = "\(strFirstName) \(strLastName)"
-        
-        self.ivUserProfileImage.image = UIImage(data: NSData(contentsOfURL: NSURL(string: strPictureURL)!)!)
-        
-        defaults.setObject(self.lblName.text, forKey: "usernameKey")
-        //defaults.setObject("eunitedws@verizon.net", forKey: "emailKey")
-        
-        } */
-        
-        
-        
-        /*
-        let requestParameters = ["fields": "id, email, first_name, last_name"]
-        let userDetails = FBSDKGraphRequest(graphPath: "me", parameters: requestParameters)
-        userDetails.startWithCompletionHandler { (connection, result, error:NSError!) -> Void in
-        
-        if(error != nil) {
-        print("\(error.localizedDescription)")
-        return
-        }
-        
-        if(result != nil) {
-        
-        let userId:String = result["id"] as! String
-        let userFirstName:String? = result["first_name"] as? String
-        let userLastName:String? = result["last_name"] as? String
-        let userEmail:String? = result["email"] as? String
-        
-        print("\(userEmail)")
-        
-        let myUser:PFUser = PFUser.currentUser()!
-        // Save first name
-        if(userFirstName != nil) {
-        myUser.setObject(userFirstName!, forKey: "username")
-        }
-        //Save last name
-        if(userLastName != nil) {
-        myUser.setObject(userLastName!, forKey: "username")
-        }
-        // Save email address
-        if(userEmail != nil) {
-        myUser.setObject(userEmail!, forKey: "email")
-        }
-        
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)) {
-        
-        // Get Facebook profile picture
-        let userProfile = "https://graph.facebook.com/" + userId + "/picture?type=large"
-        let profilePictureUrl = NSURL(string: userProfile)
-        let profilePictureData = NSData(contentsOfURL: profilePictureUrl!)
-        if(profilePictureData != nil) {
-        let profileFileObject = PFFile(data:profilePictureData!)
-        myUser.setObject(profileFileObject!, forKey: "imageFile")
-        }
-        myUser.saveInBackgroundWithBlock({ (success:Bool, error:NSError?) -> Void in
-        
-        if(success)
-        {
-        print("User details are now updated")
-        }
-        })
-        }
-        }
-        } */
-        
+
     }
 
     
@@ -496,12 +392,17 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
     
     func didAuthenticateWithTouchId() {
         
-        defaults.setObject("Peter Balsamo", forKey: "usernameKey")
-        defaults.setObject("3911", forKey: "passwordKey")
-        defaults.setObject("eunitedws@verizon.net", forKey: "emailKey")
-        defaults.setBool(true, forKey: "registerKey")
-        print("Login complete.")
-        self.performSegueWithIdentifier("loginSegue", sender: nil)
+        self.usernameField!.text = "Peter Balsamo"
+        self.passwordField!.text = "3911"
+        self.emailField!.text = "eunitedws@verizon.net"
+        self.phoneField!.text = "(516)241-4786"
+
+        PFUser.logInWithUsernameInBackground(usernameField!.text!, password: passwordField!.text!) { user, error in
+            if user != nil {
+                
+                self.refreshLocation()
+            }
+        }
     }
     
     // MARK: Authenticate Password Alert
@@ -550,19 +451,26 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
     
     // MARK: Map
     
-    func refreshMap() {
-        
-        //let geoPoint = PFGeoPoint(latitude: self.mapView!.centerCoordinate.latitude, longitude:self.mapView!.centerCoordinate.longitude)
-        //let myParseId = PFUser.currentUser()!.objectId //PFUser.currentUser().objectId
-        //var radius = 100.0
+    func refreshLocation() {
         
         PFGeoPoint.geoPointForCurrentLocationInBackground {
             (geoPoint: PFGeoPoint?, error: NSError?) -> Void in
             if error == nil {
-                // do something with the new geoPoint
+                PFUser.currentUser()!.setValue(geoPoint, forKey: "currentLocation")
+                PFUser.currentUser()!.saveInBackground()
+                self.performSegueWithIdentifier("loginSegue", sender: nil)
             }
         }
+        self.defaults.setObject(self.usernameField!.text, forKey: "usernameKey")
+        self.defaults.setObject(self.passwordField!.text, forKey: "passwordKey")
+        self.defaults.setObject(self.phoneField!.text, forKey: "phone")
+        
+        if (self.emailField!.text != nil) {
+            self.defaults.setObject(self.emailField!.text, forKey: "emailKey")
+        }
+        self.defaults.setBool(true, forKey: "registerKey")
     }
+    
     
 }
 

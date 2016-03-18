@@ -109,9 +109,6 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
         let buttons:NSArray = [searchButton]
         self.navigationItem.rightBarButtonItems = buttons as? [UIBarButtonItem]
         
-        /*
-        let homeButton = UIBarButtonItem(barButtonSystemItem: .Done, target: self, action: Selector("homeButton"))
-        self.navigationItem.leftBarButtonItem = homeButton */
         
         parseData()
         
@@ -150,12 +147,6 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
         parseData()
         self.refreshControl?.endRefreshing()
     }
-    
-    // MARK: - Button
-    /*
-    func homeButton() {
-        self.performSegueWithIdentifier("donehomeSegue", sender: self)
-    } */
     
     
     // MARK: UICollectionViewDelegateFlowLayout

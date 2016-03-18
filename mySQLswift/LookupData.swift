@@ -33,7 +33,7 @@ class LookupData: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     var adproductArray : NSMutableArray = NSMutableArray()
     var filteredString : NSMutableArray = NSMutableArray()
     
-    var lookupItem : String?
+    var lookupItem : String!
     
     var refreshControl: UIRefreshControl!
     

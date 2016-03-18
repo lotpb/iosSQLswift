@@ -131,8 +131,6 @@ class SalesmanController: UIViewController, UITableViewDelegate, UITableViewData
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier) as! CustomTableCell
         cell.selectionStyle = UITableViewCellSelectionStyle.None
         
-        //cell.LeadsubtitleLabel!.textColor = UIColor.grayColor()
-        
         if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
             cell.salestitleLabel!.font = Font.celltitle
         } else {

@@ -44,10 +44,9 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
 
         self.tableView!.delegate = self
         self.tableView!.dataSource = self
-        self.tableView!.rowHeight = 65
-        //self.tableView!.estimatedRowHeight = 110
-        //self.tableView!.rowHeight = UITableViewAutomaticDimension
-        self.tableView!.backgroundColor = UIColor(white:0.90, alpha:1.0)
+        self.tableView!.estimatedRowHeight = 89
+        self.tableView!.rowHeight = UITableViewAutomaticDimension
+        self.tableView!.backgroundColor = UIColor.clearColor()
         self.automaticallyAdjustsScrollViewInsets = false
         
         //users = []
@@ -57,15 +56,11 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
         resultsController.tableView.dataSource = self
         resultsController.tableView.delegate = self
         
-        //self.navigationItem.leftBarButtonItem = self.editButtonItem()
-        
         let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "newData")
         let searchButton = UIBarButtonItem(barButtonSystemItem: .Search, target: self, action: "searchButton:")
         let buttons:NSArray = [addButton,searchButton]
         self.navigationItem.rightBarButtonItems = buttons as? [UIBarButtonItem]
-        
-        parseData()
-        
+
         self.refreshControl = UIRefreshControl()
         refreshControl.backgroundColor = Color.Lead.navColor
         refreshControl.tintColor = UIColor.whiteColor()
@@ -73,6 +68,8 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
         self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh", attributes: attributes)
         self.refreshControl.addTarget(self, action: "refreshData:", forControlEvents: UIControlEvents.ValueChanged)
         self.tableView!.addSubview(refreshControl)
+        
+        parseData()
         
     }
     
@@ -82,7 +79,7 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.barTintColor = Color.Lead.navColor
         
-        animateTable()
+        //animateTable()
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -90,16 +87,13 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
         navigationController?.hidesBarsOnSwipe = false
     }
     
-     // FIXME:
-    override func viewWillTransitionToSize(size: CGSize,
-        withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
-            tableView!.reloadData()
-    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    // MARK:, // TODO: and // FIXME:
     
     // MARK: - Refresh
     
@@ -112,6 +106,7 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
     // MARK: - Button
     
     func newData() {
+        
         self.performSegueWithIdentifier("newleadSegue", sender: self)
     }
     
@@ -164,36 +159,67 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
         myLabel2.font = Font.headtitle
         cell.addSubview(myLabel2)
         
-        cell.LeadsubtitleLabel!.textColor = UIColor.grayColor()
+        cell.leadsubtitleLabel!.textColor = UIColor.grayColor()
         
         if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
             
-            cell.LeadtitleLabel!.font = Font.celltitle
-            cell.LeadsubtitleLabel!.font = Font.cellsubtitle
+            cell.leadtitleLabel!.font = Font.celltitle
+            cell.leadsubtitleLabel!.font = Font.cellsubtitle
+            cell.leadreplyLabel.font = Font.cellreply
+            cell.leadlikeLabel.font = Font.celllike
             myLabel1.font = Font.celllabel1
             myLabel2.font = Font.celllabel2
             
         } else {
             
-            cell.LeadtitleLabel!.font = Font.celltitle
-            cell.LeadsubtitleLabel!.font =  Font.cellsubtitle
+            cell.leadtitleLabel!.font = Font.celltitle
+            cell.leadsubtitleLabel!.font =  Font.cellsubtitle
+            cell.leadreplyLabel.font = Font.cellreply
+            cell.leadlikeLabel.font = Font.celllike
             myLabel1.font = Font.celllabel1
             myLabel2.font = Font.celllabel2
         }
         
         if (tableView == self.tableView) {
             
-            cell.LeadtitleLabel!.text = _feedItems[indexPath.row] .valueForKey("LastName") as? String
-            cell.LeadsubtitleLabel!.text = _feedItems[indexPath.row] .valueForKey("City") as? String
+            cell.leadtitleLabel!.text = _feedItems[indexPath.row] .valueForKey("LastName") as? String
+            cell.leadsubtitleLabel!.text = _feedItems[indexPath.row] .valueForKey("City") as? String
             myLabel1.text = _feedItems[indexPath.row] .valueForKey("Date") as? String
             myLabel2.text = _feedItems[indexPath.row] .valueForKey("CallBack") as? String
             
         } else {
 
-            cell.LeadtitleLabel!.text = filteredString[indexPath.row] .valueForKey("LastName") as? String
-            cell.LeadsubtitleLabel!.text = filteredString[indexPath.row] .valueForKey("City") as? String
+            cell.leadtitleLabel!.text = filteredString[indexPath.row] .valueForKey("LastName") as? String
+            cell.leadsubtitleLabel!.text = filteredString[indexPath.row] .valueForKey("City") as? String
             myLabel1.text = filteredString[indexPath.row] .valueForKey("Date") as? String
             myLabel2.text = filteredString[indexPath.row] .valueForKey("CallBack") as? String
+        }
+        
+        cell.leadreplyButton.tintColor = UIColor.lightGrayColor()
+        let replyimage : UIImage? = UIImage(named:"Commentfilled.png")!.imageWithRenderingMode(.AlwaysTemplate)
+        cell.leadreplyButton .setImage(replyimage, forState: .Normal)
+        cell.leadreplyButton .addTarget(self, action: Selector(), forControlEvents: UIControlEvents.TouchUpInside)
+        
+        cell.leadlikeButton.tintColor = UIColor.lightGrayColor()
+        let likeimage : UIImage? = UIImage(named:"Thumb Up.png")!.imageWithRenderingMode(.AlwaysTemplate)
+        cell.leadlikeButton .setImage(likeimage, forState: .Normal)
+        cell.leadlikeButton .addTarget(self, action: Selector(), forControlEvents: UIControlEvents.TouchUpInside)
+        
+        cell.leadreplyLabel.text! = ""
+        
+        if (_feedItems[indexPath.row] .valueForKey("Coments") as? String == nil) {
+            cell.leadreplyButton!.tintColor = UIColor.lightGrayColor()
+        } else {
+            cell.leadreplyButton!.tintColor = Color.Cust.buttonColor
+        }
+        
+        if (_feedItems[indexPath.row] .valueForKey("Active") as? Int == 1 ) {
+            cell.leadlikeButton!.tintColor = Color.Cust.buttonColor
+            cell.leadlikeLabel.text! = "Active"
+            cell.leadlikeLabel.adjustsFontSizeToFitWidth = true
+        } else {
+            cell.leadlikeButton!.tintColor = UIColor.lightGrayColor()
+            cell.leadlikeLabel.text! = ""
         }
         
         let myLabel:UILabel = UILabel(frame: CGRectMake(10, 10, 50, 50))
@@ -223,7 +249,7 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
         
         let vw = UIView()
         vw.backgroundColor = Color.Lead.navColor
-        tableView.tableHeaderView = vw
+        //tableView.tableHeaderView = vw
         
         let myLabel1:UILabel = UILabel(frame: CGRectMake(10, 15, 50, 50))
         myLabel1.numberOfLines = 0
@@ -472,7 +498,7 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
     
     // MARK: - Animate Table
     
-    
+    /*
     func animateTable() {
         
         self.tableView!.reloadData()
@@ -495,7 +521,7 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
             
             index += 1
         }
-    }
+    } */
 
     
     // MARK: - Segues

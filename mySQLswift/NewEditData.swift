@@ -21,10 +21,12 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
     var frm11 : NSString?
     var frm12 : NSString?
     var frm13 : NSString?
+    var frm14 : Int?
     
     var salesNo : UITextField!
     var salesman : UITextField!
     var textframe: UITextField!
+    var price: UITextField!
     
     var image : UIImage!
     var activeImage: UIImageView?
@@ -110,10 +112,9 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        if formStatus == "New" {
-            return 2
-        } else if (formStatus == "Edit") &&  (formStatus == "New") {
+        if (formController == "Product") {
+            return 5
+        } else if (formController == "Salesman") {
             return 4
         } else {
             return 3
@@ -122,8 +123,10 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat
     {
-        if indexPath.row == 3 {
-            return 100
+        if (formController == "Product") && (indexPath.row == 4) {
+            return 200
+        } else if (formController == "Salesman") && (indexPath.row == 3) {
+            return 200
         }
         return 44
     }
@@ -133,7 +136,7 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
         let CellIdentifier: String = "Cell"
         
         let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier)! as UITableViewCell
-
+        
         cell.selectionStyle = UITableViewCellSelectionStyle.None
         
         textframe = UITextField(frame:CGRect(x: 130, y: 7, width: 175, height: 30))
@@ -141,11 +144,13 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
         
         if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
             
-            self.salesman!.font = Font.celltitle
-            self.salesNo!.font = Font.celltitle
+            self.salesman?.font = Font.celltitle
+            self.salesNo?.font = Font.celltitle
+            self.price?.font = Font.celltitle
         } else {
             self.salesman?.font = Font.celltitle
             self.salesNo?.font = Font.celltitle
+            self.price?.font = Font.celltitle
         }
         
         if (indexPath.row == 0) {
@@ -154,21 +159,19 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
             theSwitch.addTarget(self, action: "changeSwitch:", forControlEvents: .ValueChanged)
             theSwitch.onTintColor = UIColor(red:0.0, green:122.0/255.0, blue:1.0, alpha: 1.0)
             theSwitch.tintColor = UIColor.lightGrayColor()
-
+            
             if self.frm11 == "Active" {
                 theSwitch.on = true
-                //theSwitch.setOn(true, animated: false)
                 self.active = (self.frm11 as? String)!
                 self.activeImage!.image = UIImage(named:"iosStar.png")
                 cell.textLabel!.text = "Active"
             } else {
                 theSwitch.on = false
-                //theSwitch.setOn(false, animated: false)
                 self.active = ""
                 self.activeImage!.image = UIImage(named:"iosStarNA.png")
                 cell.textLabel!.text = "Inactive"
             }
-
+            
             self.activeImage?.contentMode = UIViewContentMode.ScaleAspectFill
             cell.addSubview(theSwitch)
             cell.accessoryView = theSwitch
@@ -202,7 +205,7 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
                 cell.textLabel!.text = "Advertiser"
             }
                 
-            else if (formController == "Job") {
+            else if (formController == "Jobs") {
                 self.salesman.placeholder = "Description"
                 cell.textLabel!.text = "Description"
             }
@@ -210,9 +213,9 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
             cell.contentView.addSubview(self.salesman!)
             
         } else if (indexPath.row == 2) {
-   
+            
             self.salesNo = textframe
-
+            
             if self.frm12 == nil {
                 self.salesNo?.text = ""
             } else {
@@ -234,7 +237,7 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
                 cell.textLabel!.text = "AdNo"
             }
                 
-            else if (formController == "Job") {
+            else if (formController == "Jobs") {
                 self.salesNo.placeholder = "JobNo"
                 cell.textLabel!.text = "JobNo"
             }
@@ -242,22 +245,35 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
             cell.contentView.addSubview(self.salesNo)
             
         } else if (indexPath.row == 3) {
+            self.price = textframe
+            self.price!.adjustsFontSizeToFitWidth = true
             
             if (formController == "Salesman") {
-                cell.textLabel!.text = ""
+                cell.textLabel!.text = "Photo"
                 cell.imageView!.image = self.image
             }
                 
             else if (formController == "Product") {
-                cell.textLabel!.text = ""
-            }
+                self.price.placeholder = "Price"
+                cell.textLabel!.text = "Price"
+
+                if self.frm14 == nil {
+                    self.price!.text = "None"
+                } else {
+                    var Price:Int? = self.frm14! as Int
+                    if Price == nil {
+                        Price = 0
+                    }
+                    self.price!.text = "\(Price!)"
+                }
                 
-            else if (formController == "Advertising") {
-                cell.textLabel!.text = ""
+                cell.contentView.addSubview(self.price)
             }
-                
-            else if (formController == "Job") {
-                cell.textLabel!.text = ""
+        } else if (indexPath.row == 4) {
+            
+            if (formController == "Product") {
+                cell.textLabel!.text = "Photo"
+                cell.imageView!.image = self.image
             }
         }
         return cell
@@ -333,6 +349,20 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
     }
     
     
+    // MARK: - Switch
+    
+    func changeSwitch(sender: UISwitch) {
+        
+        if (sender.on) {
+            self.frm11 = "Active"
+        } else {
+            self.frm11 = ""
+        }
+        self.tableView!.reloadData()
+        
+    }
+    
+    
     // MARK: - AlertController
     
     func simpleAlert (title:String, message:String) {
@@ -394,7 +424,7 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
             }
             self.navigationController?.popToRootViewControllerAnimated(true)
             
-        } else  if (self.formController == "Job") {
+        } else  if (formController == "Jobs") {
             
             if (self.formStatus == "Edit") { //Edit Job
                 
@@ -442,12 +472,16 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
             
         } else  if (self.formController == "Product") {
             
+            let numberFormatter = NSNumberFormatter()
+            let myPrice : NSNumber = numberFormatter.numberFromString(self.price.text!)!
+            
             if (self.formStatus == "Edit") { //Edit Products
                 
                 let query = PFQuery(className:"Product")
                 query.whereKey("objectId", equalTo:self.objectId!)
                 query.getFirstObjectInBackgroundWithBlock {(updateblog: PFObject?, error: NSError?) -> Void in
                     if error == nil {
+                        updateblog!.setObject(myPrice ?? NSNumber(integer:-1), forKey:"Price")
                         updateblog!.setObject(self.salesNo.text ?? NSNull(), forKey:"ProductNo")
                         updateblog!.setObject(self.salesman.text ?? NSNull(), forKey:"Products")
                         updateblog!.setObject(self.active ?? NSNull(), forKey:"Active")
@@ -466,6 +500,7 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
             } else { //Save Products
                 
                 let saveblog:PFObject = PFObject(className:"Product")
+                saveblog.setObject(myPrice ?? NSNumber(integer:-1), forKey:"Price")
                 saveblog.setObject("-1" ?? NSNull(), forKey:"ProductNo")
                 saveblog.setObject(self.salesman.text ?? NSNull(), forKey:"Products")
                 saveblog.setObject(self.active ?? NSNull(), forKey:"Active")

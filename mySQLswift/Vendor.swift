@@ -132,34 +132,34 @@ class Vendor: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier) as! CustomTableCell
         cell.selectionStyle = UITableViewCellSelectionStyle.None
         
-        cell.LeadsubtitleLabel!.textColor = UIColor.grayColor()
+        cell.leadsubtitleLabel!.textColor = UIColor.grayColor()
         
         if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
-            cell.LeadtitleLabel!.font = Font.celltitle
-            cell.LeadsubtitleLabel!.font = Font.cellsubtitle
+            cell.leadtitleLabel!.font = Font.celltitle
+            cell.leadsubtitleLabel!.font = Font.cellsubtitle
 
         } else {
-            cell.LeadtitleLabel!.font = Font.celltitle
-            cell.LeadsubtitleLabel!.font = Font.cellsubtitle
+            cell.leadtitleLabel!.font = Font.celltitle
+            cell.leadsubtitleLabel!.font = Font.cellsubtitle
         }
         
         if (tableView == self.tableView) {
             
-            cell.LeadtitleLabel!.text = _feedItems[indexPath.row] .valueForKey("Vendor") as? String
+            cell.leadtitleLabel!.text = _feedItems[indexPath.row] .valueForKey("Vendor") as? String
             var numNo:Int? = _feedItems[indexPath.row] .valueForKey("VendorNo")as? Int
             if numNo == nil {
                 numNo = 0
             }
-            cell.LeadsubtitleLabel.text = "\(numNo!)"
+            cell.leadsubtitleLabel.text = "\(numNo!)"
  
         } else {
             
-            cell.LeadtitleLabel!.text = filteredString[indexPath.row] .valueForKey("Vendor") as? String
+            cell.leadtitleLabel!.text = filteredString[indexPath.row] .valueForKey("Vendor") as? String
             var numNo:Int? = filteredString[indexPath.row] .valueForKey("VendorNo")as? Int
             if numNo == nil {
                 numNo = 0
             }
-            cell.LeadsubtitleLabel.text = "\(numNo!)"
+            cell.leadsubtitleLabel.text = "\(numNo!)"
 
         }
         

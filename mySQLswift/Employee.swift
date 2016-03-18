@@ -144,25 +144,25 @@ class Employee: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         myLabel1.font = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
         cell.addSubview(myLabel1) */
         
-        cell.LeadsubtitleLabel!.textColor = UIColor.grayColor()
+        cell.leadsubtitleLabel!.textColor = UIColor.grayColor()
         
         if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
             
-            cell.LeadtitleLabel!.font = Font.celltitle
-            cell.LeadsubtitleLabel!.font = Font.cellsubtitle
+            cell.leadtitleLabel!.font = Font.celltitle
+            cell.leadsubtitleLabel!.font = Font.cellsubtitle
 
         } else {
-            cell.LeadtitleLabel!.font = Font.celltitle
-            cell.LeadsubtitleLabel!.font = Font.cellsubtitle
+            cell.leadtitleLabel!.font = Font.celltitle
+            cell.leadsubtitleLabel!.font = Font.cellsubtitle
            
         }
         
         if (tableView == self.tableView) {
             
-            cell.LeadtitleLabel!.text = String(format: "%@ %@ %@", (_feedItems[indexPath.row] .valueForKey("First") as? String)!,
+            cell.leadtitleLabel!.text = String(format: "%@ %@ %@", (_feedItems[indexPath.row] .valueForKey("First") as? String)!,
                 (_feedItems[indexPath.row] .valueForKey("Last") as? String)!,
                 (_feedItems[indexPath.row] .valueForKey("Company") as? String)!)
-            cell.LeadsubtitleLabel!.text = _feedItems[indexPath.row] .valueForKey("Title") as? String
+            cell.leadsubtitleLabel!.text = _feedItems[indexPath.row] .valueForKey("Title") as? String
             /*
             var numNo:Int? = _feedItems[indexPath.row] .valueForKey("EmployeeNo")as? Int
             if numNo == nil {
@@ -172,8 +172,8 @@ class Employee: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             
         } else {
 
-            cell.LeadtitleLabel!.text = String(format: "%@ %@ %@", (filteredString[indexPath.row] .valueForKey("First") as? String)!, (filteredString[indexPath.row] .valueForKey("Last") as? String)!, (filteredString[indexPath.row] .valueForKey("Company") as? String)!)
-            cell.LeadsubtitleLabel!.text = filteredString[indexPath.row] .valueForKey("Title") as? String
+            cell.leadtitleLabel!.text = String(format: "%@ %@ %@", (filteredString[indexPath.row] .valueForKey("First") as? String)!, (filteredString[indexPath.row] .valueForKey("Last") as? String)!, (filteredString[indexPath.row] .valueForKey("Company") as? String)!)
+            cell.leadsubtitleLabel!.text = filteredString[indexPath.row] .valueForKey("Title") as? String
             /*
             var numNo:Int? = filteredString[indexPath.row] .valueForKey("EmployeeNo")as? Int
             if numNo == nil {

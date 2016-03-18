@@ -16,9 +16,9 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     @IBOutlet weak var first: UITextField!
     @IBOutlet weak var last: UITextField!
     @IBOutlet weak var company: UITextField!
-    @IBOutlet weak var following: UILabel!
-    @IBOutlet weak var activebutton: UIButton!
     @IBOutlet weak var profileImageView: UIImageView?
+    
+    var activeImage: UIImageView?
     
     var datePickerView : UIDatePicker = UIDatePicker()
     var pickerView : UIPickerView = UIPickerView()
@@ -93,12 +93,6 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     var lookupItem : String?
     var pasteBoard = UIPasteboard.generalPasteboard()
     
-    //var searchController: UISearchController!
-    //var resultsController: UITableViewController!
-    //var foundUsers = [String]()
-    
-    //var active : NSString?
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -129,24 +123,11 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         self.navigationItem.rightBarButtonItems = buttons as? [UIBarButtonItem]
         
         if (status == "New") {
-            self.following!.text = "Following"
             self.frm30 = "1"
-            let replyimage : UIImage? = UIImage(named:"iosStar.png")!
-            self.activebutton!.setImage(replyimage, forState: .Normal)
         }
         
         if (status == "Edit") {
             parseLookup()
-            if (frm30 == "1") { //if Active
-                
-                self.following.text = "Following"
-                let replyimage : UIImage? = UIImage(named:"iosStar.png")!
-                self.activebutton!.setImage(replyimage, forState: .Normal)
-            } else {
-                self.following.text = "Follow"
-                let replyimage : UIImage? = UIImage(named:"iosStarNA.png")!
-                self.activebutton.setImage(replyimage, forState: .Normal)
-            }
         }
         
         profileImageView!.layer.cornerRadius = profileImageView!.frame.size.width/2
@@ -188,15 +169,15 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if (self.formController == "Customer") {
-            return 16
+            return 17
         } else {
-            return 14
+            return 15
         }
     }
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat
     {
-        if indexPath.row == 13 {
+        if indexPath.row == 14 {
             return 100
         }
         return 44
@@ -220,6 +201,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             
             textframe = UITextField(frame:CGRect(x: 118, y: 7, width: 250, height: 30))
             textviewframe = UITextView(frame:CGRect(x: 118, y: 7, width: 250, height: 85))
+            activeImage = UIImageView(frame:CGRect(x: 118, y: 10, width: 18, height: 22))
             textframe!.font = Font.Edittitle
             aptframe!.font = Font.Edittitle
             textviewframe!.font = Font.Edittitle
@@ -231,6 +213,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             
             textframe = UITextField(frame:CGRect(x: 118, y: 7, width: 205, height: 30))
             textviewframe = UITextView(frame:CGRect(x: 118, y: 7, width: 240, height: 85))
+            activeImage = UIImageView(frame:CGRect(x: 118, y: 10, width: 18, height: 22))
             textframe!.font = Font.Edittitle
             aptframe!.font = Font.Edittitle
             textviewframe!.font = Font.Edittitle
@@ -272,6 +255,28 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         
         if (indexPath.row == 0) {
             
+            let theSwitch = UISwitch(frame:CGRectZero)
+            theSwitch.onTintColor = UIColor(red:0.0, green:122.0/255.0, blue:1.0, alpha: 1.0)
+            theSwitch.tintColor = UIColor.lightGrayColor()
+            theSwitch.addTarget(self, action: "changeSwitch:", forControlEvents: .ValueChanged)
+            
+            if self.frm30 == "1" {
+                theSwitch.on = true
+                self.activeImage!.image = UIImage(named:"iosStar.png")
+                cell.textLabel!.text = "Active"
+            } else {
+                theSwitch.on = false
+                self.activeImage!.image = UIImage(named:"iosStarNA.png")
+                cell.textLabel!.text = "Inactive"
+            }
+            
+            self.activeImage?.contentMode = UIViewContentMode.ScaleAspectFill
+            cell.addSubview(theSwitch)
+            cell.accessoryView = theSwitch
+            cell.contentView.addSubview(activeImage!)
+            
+        } else if (indexPath.row == 1) {
+            
             self.date = textframe
             self.date!.tag = 0
             
@@ -305,7 +310,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             
             cell.contentView.addSubview(self.date!)
             
-        } else if (indexPath.row == 1) {
+        } else if (indexPath.row == 2) {
             
             self.address = textframe
             if self.frm14 == nil {
@@ -317,7 +322,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             cell.textLabel!.text = "Address"
             cell.contentView.addSubview(self.address!)
             
-        } else if (indexPath.row == 2) {
+        } else if (indexPath.row == 3) {
             
             self.city = textframe
             if self.frm15 == nil {
@@ -330,7 +335,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             cell.textLabel!.text = "City"
             cell.contentView.addSubview(self.city!)
             
-        } else if (indexPath.row == 3) {
+        } else if (indexPath.row == 4) {
             
             self.state = textframe
             if self.frm16 == nil {
@@ -352,7 +357,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             
             cell.contentView.addSubview(self.zip!)
             
-        } else if (indexPath.row == 4) {
+        } else if (indexPath.row == 5) {
             
             self.aptDate = textframe
             if self.frm19 == nil {
@@ -388,7 +393,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             
             cell.contentView.addSubview(self.aptDate!)
             
-        } else if (indexPath.row == 5) {
+        } else if (indexPath.row == 6) {
             
             self.phone = textframe
             self.phone!.placeholder = "Phone"
@@ -400,11 +405,10 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             cell.textLabel!.text = "Phone"
             cell.contentView.addSubview(self.phone!)
             
-        } else if (indexPath.row == 6) {
+        } else if (indexPath.row == 7) {
             
             self.salesman = textframe
             self.salesman!.adjustsFontSizeToFitWidth = true
-            self.salesman!.tag = 6
             
             if self.frm21 == nil {
                 self.salesman!.text = ""
@@ -415,22 +419,20 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             if (self.formController == "Vendor") {
                 self.salesman!.placeholder = "Phone 1"
                 cell.textLabel!.text = "Phone 1"
-                self.salesman!.inputView = nil
                 
             } else if (self.formController == "Employee") {
                 self.salesman!.placeholder = "Work Phone"
                 cell.textLabel!.text = "Work Phone"
-                self.salesman!.inputView = nil
+                
             } else {
                 self.salesman!.placeholder = "Salesman"
-                self.salesman!.inputView = nil //[self customPicker:6]
                 cell.textLabel!.text = "Salesman"
                 cell.accessoryType = UITableViewCellAccessoryType.DisclosureIndicator
             }
             
             cell.contentView.addSubview(self.salesman!)
             
-        } else if (indexPath.row == 7) {
+        } else if (indexPath.row == 8) {
             
             self.jobName = textframe
             if self.frm22 == nil {
@@ -454,7 +456,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             
             cell.contentView.addSubview(self.jobName!)
             
-        } else if (indexPath.row == 8) {
+        } else if (indexPath.row == 9) {
             self.adName = textframe
             self.adName!.placeholder = "Advertiser"
             if self.frm23 == nil {
@@ -484,20 +486,22 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             
             cell.contentView.addSubview(self.adName!)
             
-        } else if(indexPath.row == 9) {
+        } else if(indexPath.row == 10) {
             
             self.amount = textframe
             
             if ((self.formController == "Leads") || (self.formController == "Customer")){
-                
-                let simpleStepper = UIStepper(frame:CGRectZero)
-                simpleStepper.tag = 9
-                // FIXME:
-                simpleStepper.value = 0 //Double(self.amount.text!)!
-                simpleStepper.stepValue = 100
-                simpleStepper.tintColor = UIColor.grayColor()
-                cell.accessoryView = simpleStepper
-                simpleStepper.addTarget(self, action: "stepperValueDidChange:", forControlEvents: UIControlEvents.ValueChanged)
+                if (self.status == "New") {
+                    let simpleStepper = UIStepper(frame:CGRectZero)
+                    simpleStepper.tag = 10
+                    simpleStepper.value = 0 //Double(self.amount.text!)!
+                    simpleStepper.minimumValue = 0
+                    simpleStepper.maximumValue = 10000
+                    simpleStepper.stepValue = 100
+                    simpleStepper.tintColor = UIColor.grayColor()
+                    cell.accessoryView = simpleStepper
+                    simpleStepper.addTarget(self, action: "stepperValueDidChange:", forControlEvents: UIControlEvents.ValueChanged)
+                }
             }
             
             self.amount!.placeholder = "Amount"
@@ -515,7 +519,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             
             cell.contentView.addSubview(self.amount!)
             
-        } else if (indexPath.row == 10) {
+        } else if (indexPath.row == 11) {
             
             self.email = textframe
             self.email!.placeholder = "Email"
@@ -527,7 +531,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             cell.textLabel!.text = "Email"
             cell.contentView.addSubview(self.email!)
             
-        } else if(indexPath.row == 11) {
+        } else if(indexPath.row == 12) {
             self.spouse = textframe
             self.spouse!.placeholder = "Spouse"
             
@@ -549,7 +553,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             
             cell.contentView.addSubview(self.spouse!)
             
-        } else if (indexPath.row == 12) {
+        } else if (indexPath.row == 13) {
             self.callback = textframe
             
             
@@ -562,18 +566,19 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             if (self.formController == "Customer") {
                 self.callback!.placeholder = "Quan"
                 cell.textLabel!.text = "# Windows"
-                
+             
+                let simpleStepper = UIStepper(frame:CGRectZero)
+                simpleStepper.tag = 13
                 if (self.status == "Edit") {
-                    
-                    let simpleStepper = UIStepper(frame:CGRectZero)
-                    simpleStepper.tag = 12
-                    // FIXME:
                     simpleStepper.value = Double(self.callback.text!)!
-                    simpleStepper.stepValue = 1
-                    simpleStepper.tintColor = UIColor.grayColor()
-                    cell.accessoryView = simpleStepper
-                    simpleStepper.addTarget(self, action: "stepperValueDidChange:", forControlEvents: UIControlEvents.ValueChanged)
+                } else {
+                    simpleStepper.value = 0
                 }
+                
+                simpleStepper.stepValue = 1
+                simpleStepper.tintColor = UIColor.grayColor()
+                cell.accessoryView = simpleStepper
+                simpleStepper.addTarget(self, action: "stepperValueDidChange:", forControlEvents: UIControlEvents.ValueChanged)
             }
             else if (self.formController == "Vendor") {
                 self.callback!.hidden = true //Field
@@ -592,7 +597,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             
             cell.contentView.addSubview(self.callback!)
             
-        } else if (indexPath.row == 13) {
+        } else if (indexPath.row == 14) {
             self.comment = textviewframe
             if self.frm28 == nil {
                 self.comment!.text = ""
@@ -602,7 +607,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             cell.textLabel!.text = "Comments"
             cell.contentView.addSubview(self.comment!)
             
-        } else if(indexPath.row == 14) {
+        } else if(indexPath.row == 15) {
             self.start = textframe
             self.start!.tag = 14
             self.start!.placeholder = "Start Date"
@@ -616,7 +621,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             cell.textLabel!.text = "Start Date"
             cell.contentView.addSubview(self.start!)
             
-        } else if(indexPath.row == 15) {
+        } else if(indexPath.row == 16) {
             self.complete = textframe
             //self.complete!.tag = 15
             self.complete!.placeholder = "Completion Date"
@@ -656,30 +661,14 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         pasteBoard.string = cell!.textLabel?.text
     }
     
-    // MARK: - Button
-    
-    @IBAction func activeButton(sender: UIButton) {
-        
-        if(self.frm30 == "1") {
-            self.following.text = "Following"
-            self.frm30 = "1"
-            let replyimage : UIImage? = UIImage(named:"iosStar.png")
-            self.activebutton.setImage(replyimage, forState: .Normal)
-        } else {
-            self.following.text = "Follow"
-            self.frm30 = "0"
-            let replyimage : UIImage? = UIImage(named:"iosStarNA.png")
-            self.activebutton.setImage(replyimage, forState: .Normal)
-        }
-    }
     
     // MARK: - StepperValueChanged
     
     func stepperValueDidChange(sender: UIStepper) {
         
-        if (sender.tag == 12) {
+        if (sender.tag == 13) {
             self.callback?.text = "\(Int(sender.value))"
-        } else if (sender.tag == 9) {
+        } else if (sender.tag == 10) {
             self.amount?.text = "\(Int(sender.value))"
         }
     }
@@ -879,20 +868,33 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     }
     
     
+    // MARK: - Switch
+    
+    func changeSwitch(sender: UISwitch) {
+        
+        if (sender.on) {
+            self.frm30 = "1"
+        } else {
+            self.frm30 = "0"
+        }
+        self.tableView!.reloadData()
+    }
+    
+    
     // MARK: - Segues
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        if (indexPath.row == 2) {
+        if (indexPath.row == 3) {
             lookupItem = "City"
         }
-        if (indexPath.row == 6) {
+        if (indexPath.row == 7) {
             lookupItem = "Salesman"
         }
-        if (indexPath.row == 7) {
+        if (indexPath.row == 8) {
             lookupItem = "Job"
         }
-        if (indexPath.row == 8) {
+        if (indexPath.row == 9) {
             if (self.formController == "Customer") {
                 lookupItem = "Product"
             } else {

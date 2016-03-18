@@ -283,7 +283,7 @@ class BlogEditController: UIViewController, UITableViewDelegate, UITableViewData
             cell.replytitleLabel!.text = _feedItems1[indexPath.row] .valueForKey("PostBy") as? String
             cell.replysubtitleLabel!.text = _feedItems1[indexPath.row] .valueForKey("Subject") as? String
             cell.replydateLabel!.text = String(format: "%d%@", diffDateComponents.day," days ago" )
-            var Liked:Int? = _feedItems1[indexPath.row] .valueForKey("Liked")as? Int
+            var Liked:Int? = _feedItems1[indexPath.row] .valueForKey("Liked") as? Int
             if Liked == nil {
                 Liked = 0
             }

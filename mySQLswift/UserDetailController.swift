@@ -221,12 +221,14 @@ class UserDetailController: UIViewController, UINavigationControllerDelegate, UI
                     }
                 }
                 self.simpleAlert("Upload Complete", message: "Successfully updated the data")
-                self.navigationController?.popToRootViewControllerAnimated(true)
+
             } else {
+                
                 self.simpleAlert("Upload Failure", message: "Failure updating the data")
-                self.navigationController?.popToRootViewControllerAnimated(true)
+                
             }
         }
+        self.navigationController?.popToRootViewControllerAnimated(true)
         self.activityIndicator.stopAnimating()
         self.activityIndicator.removeFromSuperview()
     }

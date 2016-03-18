@@ -143,6 +143,20 @@ class NotificationController: UIViewController {
         
     }
     
+    func promoNotification() {
+        
+        let localNotification: UILocalNotification = UILocalNotification()
+        localNotification.alertAction = "TheLight!"
+        localNotification.alertBody = "Forget Something? Come back and SAVE 15% with Promo Code MYCART"
+        localNotification.fireDate = NSDate(timeIntervalSinceNow: 15)
+        localNotification.timeZone = NSTimeZone.defaultTimeZone()
+        localNotification.userInfo = ["CustomField1": "w00t"]
+        localNotification.applicationIconBadgeNumber = UIApplication.sharedApplication().applicationIconBadgeNumber + 1
+        localNotification.soundName = "Tornado.caf"
+        UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
+        
+    }
+    
     
     //Here we are going to set the value of second to zero
     func fixedNotificationDate(dateToFix: NSDate) -> NSDate {
@@ -172,6 +186,10 @@ class NotificationController: UIViewController {
         let heyYou = UIAlertAction(title: "Hey You", style: .Default, handler: { (action) -> Void in
             self.HeyYouNotification()
         })
+        
+        let promo = UIAlertAction(title: "Promo Code", style: .Default, handler: { (action) -> Void in
+            self.promoNotification()
+        })
         let buttonCancel = UIAlertAction(title: "Cancel", style: .Cancel) { (action) -> Void in
             //print("Cancel Button Pressed")
         }
@@ -179,6 +197,7 @@ class NotificationController: UIViewController {
         alertController.addAction(buttonSix)
         alertController.addAction(newBog)
         alertController.addAction(heyYou)
+        alertController.addAction(promo)
         alertController.addAction(buttonCancel)
         
         if let popoverController = alertController.popoverPresentationController {

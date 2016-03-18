@@ -196,7 +196,28 @@ UIImagePickerControllerDelegate {
         
         picker.dismissViewControllerAnimated(true, completion: nil)
     }
+    
+    func finishedPlaying(myNotification:NSNotification) {
         
+        let stopedPlayerItem: AVPlayerItem = myNotification.object as! AVPlayerItem
+        stopedPlayerItem.seekToTime(kCMTimeZero)
+    }
+    
+    
+    // MARK: - AlertController
+    
+    func simpleAlert (title:String, message:String) {
+        
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
+        
+        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: nil))
+        
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    
+    // MARK: - Update Data
+    
+    
     @IBAction func uploadImage(sender: AnyObject) {
         
         self.navigationItem.rightBarButtonItem!.enabled = false
@@ -206,10 +227,10 @@ UIImagePickerControllerDelegate {
         activityIndicator.startAnimating()
         self.view.addSubview(activityIndicator)
         
-        if (pickImage == true) {
+        if (pickImage == true) {//image
             pictureData = UIImageJPEGRepresentation(self.imgToUpload!.image!, 1.0)
             file = PFFile(name: "img", data: pictureData!)
-        } else {
+        } else { //video
             pictureData =  NSData(contentsOfURL: videoURL!)
             file = PFFile(name: "movie.mp4", data: pictureData!)
         }
@@ -225,21 +246,21 @@ UIImagePickerControllerDelegate {
                     updateblog!.setObject(self.commentDetail.text!, forKey:"storyText")
                     updateblog!.setObject(PFUser.currentUser()!.username!, forKey:"username")
                     updateblog!.saveEventually()
-                    
+                    /*
                     self.file!.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
                         if success {
                             updateblog!.setObject(self.file!, forKey:"imageFile")
                             updateblog!.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
                             }
                         }
-                    }
+                    } */
                     
-                    let alert = UIAlertController(title: "Upload Complete", message: "Successfully updated the data", preferredStyle: UIAlertControllerStyle.Alert)
-                    let alertActionTrue = UIAlertAction(title: "OK", style: UIAlertActionStyle.Default, handler: {(alert: UIAlertAction!) in
-                        self.navigationController?.popToRootViewControllerAnimated(true)
-                    })
-                    alert.addAction(alertActionTrue)
-                    self.presentViewController(alert, animated: true, completion: nil)
+                    self.simpleAlert("Upload Complete", message: "Successfully updated the data")
+                    
+                } else {
+                    
+                    self.simpleAlert("Upload Failure", message: "Failure updated the data")
+                    
                 }
             }
 
@@ -256,23 +277,21 @@ UIImagePickerControllerDelegate {
                     updateuser.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
                         
                         if success {
-                            self.navigationController?.popViewControllerAnimated(true)
+                            
+                            self.simpleAlert("Save Complete", message: "Successfully saved the data")
+                            
                         } else {
+                            
                             print("Error: \(error) \(error!.userInfo)")
                         }
                     }
                 }
             }
         }
+        self.navigationController?.popToRootViewControllerAnimated(true)
         self.activityIndicator.stopAnimating()
         self.activityIndicator.removeFromSuperview()
 
-    }
-    
-    func finishedPlaying(myNotification:NSNotification) {
-        
-        let stopedPlayerItem: AVPlayerItem = myNotification.object as! AVPlayerItem
-        stopedPlayerItem.seekToTime(kCMTimeZero)
     }
 
 
