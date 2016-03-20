@@ -141,7 +141,7 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     var messageBody:NSString?
     
     var photoImage: UIImageView!
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -224,7 +224,6 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         let buttons:NSArray = [editButton,actionButton]
         self.navigationItem.rightBarButtonItems = buttons as? [UIBarButtonItem]
         
-        
         let topBorder = CALayer()
         let width = CGFloat(2.0)
         topBorder.borderColor = UIColor.lightGrayColor().CGColor
@@ -283,12 +282,10 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         
         if(self.active == "1") {
             self.following!.text = "Following"
-            //self.active! = "1"
             let replyimage : UIImage? = UIImage(named:"iosStar.png")
             self.activebutton!.setImage(replyimage, forState: .Normal)
         } else {
             self.following!.text = "Follow"
-            //self.active! = "0"
             let replyimage : UIImage? = UIImage(named:"iosStarNA.png")
             self.activebutton!.setImage(replyimage, forState: .Normal)
         }
@@ -454,11 +451,6 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         } else {
             city = "City"
         }
-        if self.amount != nil {
-            labelamount.text = amount
-        } else {
-            amount = "None"
-        }
         if self.photo != nil {
             p1 = self.photo
         } else {
@@ -512,6 +504,14 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     
         if (self.formController == "Leads" || self.formController == "Customer") {
             
+            let formatter = NSNumberFormatter()
+            var Amount:NSNumber? = formatter.numberFromString(amount! as String)
+            formatter.numberStyle = .CurrencyStyle
+            if Amount == nil {
+                Amount = 0
+            }
+            labelamount.text =  formatter.stringFromNumber(Amount!)
+            
             if self.salesman != nil {
                 t22 = self.salesman
             } else {
@@ -531,6 +531,12 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             }
             
         } else {
+            
+            if self.amount != nil {
+                labelamount.text = self.amount
+            } else {
+                labelamount.text = "None"
+            }
             
             if self.tbl22 != nil {
                 t22 = self.tbl22
@@ -963,10 +969,10 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
 
             if let bday = contact.birthday?.date as NSDate! {
                 print(bday)
-                let formatter = NSDateFormatter()
-                formatter.timeZone = NSTimeZone(name: "UTC")
-                formatter.dateFormat = "MMM-dd-yyyy"
-                let stringDate = formatter.stringFromDate(contact.birthday!.date!)
+                let dateFormatter = NSDateFormatter()
+                dateFormatter.timeZone = NSTimeZone(name: "UTC")
+                dateFormatter.dateFormat = "MMM-dd-yyyy"
+                let stringDate = dateFormatter.stringFromDate(contact.birthday!.date!)
                 
                 self.simpleAlert("\(self.name!) Birthday", message: stringDate)
             } else {

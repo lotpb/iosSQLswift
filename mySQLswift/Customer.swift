@@ -203,19 +203,24 @@ class Customer: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         cell.custreplyButton .setImage(replyimage, forState: .Normal)
         cell.custreplyButton .addTarget(self, action: Selector(), forControlEvents: UIControlEvents.TouchUpInside)
         
-        cell.custlikeButton.tintColor = UIColor.lightGrayColor()
-        let likeimage : UIImage? = UIImage(named:"Thumb Up.png")!.imageWithRenderingMode(.AlwaysTemplate)
-        cell.custlikeButton .setImage(likeimage, forState: .Normal)
-        cell.custlikeButton .addTarget(self, action: Selector(), forControlEvents: UIControlEvents.TouchUpInside)
-        
-        cell.custreplyLabel.text! = ""
-        
         if (_feedItems[indexPath.row] .valueForKey("Comments") as? String == nil) {
             cell.custreplyButton!.tintColor = UIColor.lightGrayColor()
         } else {
             cell.custreplyButton!.tintColor = Color.Cust.buttonColor
         }
         
+        if (_feedItems[indexPath.row] .valueForKey("Active") as? Int == 1 ) {
+            cell.custreplyLabel.text! = "Active"
+            cell.custreplyLabel.adjustsFontSizeToFitWidth = true
+        } else {
+            cell.custreplyLabel.text! = ""
+        }
+        
+        cell.custlikeButton.tintColor = UIColor.lightGrayColor()
+        let likeimage : UIImage? = UIImage(named:"Thumb Up.png")!.imageWithRenderingMode(.AlwaysTemplate)
+        cell.custlikeButton .setImage(likeimage, forState: .Normal)
+        cell.custlikeButton .addTarget(self, action: Selector(), forControlEvents: UIControlEvents.TouchUpInside)
+
         if (_feedItems[indexPath.row] .valueForKey("Rate") as? String == "A" ) {
             cell.custlikeButton!.tintColor = Color.Cust.buttonColor
         } else {
@@ -449,6 +454,7 @@ class Customer: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         if segue.identifier == "custdetailSegue" {
             
             let formatter = NSNumberFormatter()
+            formatter.numberStyle = .NoStyle
             
             let controller = segue.destinationViewController as? LeadDetail
             controller!.formController = "Customer"
@@ -456,74 +462,71 @@ class Customer: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             controller?.objectId = _feedItems[indexPath] .valueForKey("objectId") as? String
             
             var CustNo:Int? = _feedItems[indexPath] .valueForKey("CustNo") as? Int
-            formatter.numberStyle = .NoStyle
             if CustNo == nil {
                 CustNo = 0
             }
             controller?.custNo =  formatter.stringFromNumber(CustNo!)
             
             var LeadNo:Int? = _feedItems[indexPath] .valueForKey("LeadNo") as? Int
-            formatter.numberStyle = .NoStyle
             if LeadNo == nil {
                 LeadNo = 0
             }
             controller?.leadNo =  formatter.stringFromNumber(LeadNo!)
             
-            controller?.date = _feedItems[indexPath] .valueForKey("Date") as? String
-            controller?.name = _feedItems[indexPath] .valueForKey("LastName") as? String
-            controller?.address = _feedItems[indexPath] .valueForKey("Address") as? String
-            controller?.city = _feedItems[indexPath] .valueForKey("City") as? String
-            controller?.state = _feedItems[indexPath] .valueForKey("State") as? String
-            
             var Zip:Int? = _feedItems[indexPath] .valueForKey("Zip")as? Int
-            formatter.numberStyle = .NoStyle
             if Zip == nil {
                 Zip = 0
             }
             controller?.zip =  formatter.stringFromNumber(Zip!)
             
             var Amount:Int? = _feedItems[indexPath] .valueForKey("Amount")as? Int
-            formatter.numberStyle = .CurrencyStyle
             if Amount == nil {
                 Amount = 0
             }
             controller?.amount =  formatter.stringFromNumber(Amount!)
             
-            controller?.tbl11 = _feedItems[indexPath] .valueForKey("Contractor") as? String
-            controller?.tbl12 = _feedItems[indexPath] .valueForKey("Phone") as? String
-            controller?.tbl13 = _feedItems[indexPath] .valueForKey("First") as? String
-            controller?.tbl14 = _feedItems[indexPath] .valueForKey("Spouse") as? String
-            controller?.tbl15 = _feedItems[indexPath] .valueForKey("Email") as? String
-            controller?.tbl21 = _feedItems[indexPath] .valueForKey("Start") as? String
-            
             var SalesNo:Int? = _feedItems[indexPath] .valueForKey("SalesNo")as? Int
-            formatter.numberStyle = .NoStyle
             if SalesNo == nil {
                 SalesNo = 0
             }
             controller?.tbl22 = formatter.stringFromNumber(SalesNo!)
             
             var JobNo:Int? = _feedItems[indexPath] .valueForKey("JobNo")as? Int
-            formatter.numberStyle = .NoStyle
             if JobNo == nil {
                 JobNo = 0
             }
             controller?.tbl23 = formatter.stringFromNumber(JobNo!)
             
             var AdNo:Int? = _feedItems[indexPath] .valueForKey("ProductNo")as? Int
-            formatter.numberStyle = .NoStyle
             if AdNo == nil {
                 AdNo = 0
             }
             controller?.tbl24 = formatter.stringFromNumber(AdNo!)
             
             var Quan:Int? = _feedItems[indexPath] .valueForKey("Quan")as? Int
-            formatter.numberStyle = .NoStyle
             if Quan == nil {
                 Quan = 0
             }
             controller?.tbl25 = formatter.stringFromNumber(Quan!)
             
+            var Active:Int? = _feedItems[indexPath] .valueForKey("Active")as? Int
+            if Active == nil {
+                Active = 0
+            }
+            controller?.active = formatter.stringFromNumber(Active!)
+            
+            controller?.date = _feedItems[indexPath] .valueForKey("Date") as? String
+            controller?.name = _feedItems[indexPath] .valueForKey("LastName") as? String
+            controller?.address = _feedItems[indexPath] .valueForKey("Address") as? String
+            controller?.city = _feedItems[indexPath] .valueForKey("City") as? String
+            controller?.state = _feedItems[indexPath] .valueForKey("State") as? String
+            controller?.tbl11 = _feedItems[indexPath] .valueForKey("Contractor") as? String
+            controller?.tbl12 = _feedItems[indexPath] .valueForKey("Phone") as? String
+            controller?.tbl13 = _feedItems[indexPath] .valueForKey("First") as? String
+            controller?.tbl14 = _feedItems[indexPath] .valueForKey("Spouse") as? String
+            controller?.tbl15 = _feedItems[indexPath] .valueForKey("Email") as? String
+            controller?.tbl21 = _feedItems[indexPath] .valueForKey("Start") as? String
+
             let dateUpdated = _feedItems[indexPath] .valueForKey("updatedAt") as! NSDate
             let dateFormat = NSDateFormatter()
             dateFormat.dateFormat = "MMM dd yy"
@@ -533,13 +536,6 @@ class Customer: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             controller?.complete = _feedItems[indexPath] .valueForKey("Completion") as? String
             controller?.photo = _feedItems[indexPath] .valueForKey("Photo") as? String
             controller?.comments = _feedItems[indexPath] .valueForKey("Comments") as? String
-            
-            var Active:Int? = _feedItems[indexPath] .valueForKey("Active")as? Int
-            formatter.numberStyle = .NoStyle
-            if Active == nil {
-                Active = 0
-            }
-            controller?.active = formatter.stringFromNumber(Active!)
             
             controller?.l11 = "Contractor"; controller?.l12 = "Phone"
             controller?.l13 = "First"; controller?.l14 = "Spouse"

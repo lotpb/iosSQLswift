@@ -549,6 +549,7 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
         if segue.identifier == "showDetail2" {
             
             let formatter = NSNumberFormatter()
+            formatter.numberStyle = .NoStyle
             
             let controller = segue.destinationViewController as? LeadDetail
             controller!.formController = "Leads"
@@ -556,77 +557,69 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
             controller?.objectId = _feedItems[indexPath] .valueForKey("objectId") as? String
             
             var LeadNo:Int? = _feedItems[indexPath] .valueForKey("LeadNo") as? Int
-            formatter.numberStyle = .NoStyle
             if LeadNo == nil {
                 LeadNo = 0
             }
             controller?.leadNo =  formatter.stringFromNumber(LeadNo!)
 
-            controller?.date = _feedItems[indexPath] .valueForKey("Date") as? String
-            controller?.name = _feedItems[indexPath] .valueForKey("LastName") as? String
-            controller?.address = _feedItems[indexPath] .valueForKey("Address") as? String
-            controller?.city = _feedItems[indexPath] .valueForKey("City") as? String
-            controller?.state = _feedItems[indexPath] .valueForKey("State") as? String
-            
             var Zip:Int? = _feedItems[indexPath] .valueForKey("Zip")as? Int
-            formatter.numberStyle = .NoStyle
             if Zip == nil {
                 Zip = 0
             }
             controller?.zip =  formatter.stringFromNumber(Zip!)
             
             var Amount:Int? = _feedItems[indexPath] .valueForKey("Amount")as? Int
-            formatter.numberStyle = .CurrencyStyle
             if Amount == nil {
                 Amount = 0
             }
             controller?.amount =  formatter.stringFromNumber(Amount!)
             
-            controller?.tbl11 = _feedItems[indexPath] .valueForKey("CallBack") as? String
-            controller?.tbl12 = _feedItems[indexPath] .valueForKey("Phone") as? String
-            controller?.tbl13 = _feedItems[indexPath] .valueForKey("First") as? String
-            controller?.tbl14 = _feedItems[indexPath] .valueForKey("Spouse") as? String
-            controller?.tbl15 = _feedItems[indexPath] .valueForKey("Email") as? String
-            /*
-            let dateApt = _feedItems[indexPath] .valueForKey("AptDate") as? String
-            let dateFormat = NSDateFormatter()
-            dateFormat.dateFormat = "MMM d, yy"
-            controller?.tbl21 = NSString(format: "%@", dateFormat.dateFromString(dateApt!)!) */
-            controller?.tbl21 = _feedItems[indexPath] .valueForKey("AptDate") as? String
-            
             var SalesNo:Int? = _feedItems[indexPath] .valueForKey("SalesNo")as? Int
-            formatter.numberStyle = .NoStyle
             if SalesNo == nil {
                 SalesNo = 0
             }
             controller?.tbl22 = formatter.stringFromNumber(SalesNo!)
             
             var JobNo:Int? = _feedItems[indexPath] .valueForKey("JobNo")as? Int
-            formatter.numberStyle = .NoStyle
             if JobNo == nil {
                 JobNo = 0
             }
             controller?.tbl23 = formatter.stringFromNumber(JobNo!)
             
             var AdNo:Int? = _feedItems[indexPath] .valueForKey("AdNo")as? Int
-            formatter.numberStyle = .NoStyle
             if AdNo == nil {
                 AdNo = 0
             }
             controller?.tbl24 = formatter.stringFromNumber(AdNo!)
             
             var Active:Int? = _feedItems[indexPath] .valueForKey("Active")as? Int
-            formatter.numberStyle = .NoStyle
             if Active == nil {
                 Active = 0
             }
             controller?.tbl25 = formatter.stringFromNumber(Active!)
+            
+            /*
+            let dateApt = _feedItems[indexPath] .valueForKey("AptDate") as! String
+            let dateFormat = NSDateFormatter()
+            dateFormat.dateFormat = "MMM d, yy"
+            controller?.tbl21 = NSString(format: "%@", dateFormat.dateFromString("\(dateApt)")!) */
+            controller?.tbl21 = _feedItems[indexPath] .valueForKey("AptDate") as? String
             
             let dateUpdated = _feedItems[indexPath] .valueForKey("updatedAt") as! NSDate
             let dateFormat = NSDateFormatter()
             dateFormat.dateFormat = "MMM d, yy"
             controller?.tbl16 = NSString(format: "%@", dateFormat.stringFromDate(dateUpdated)) as String
             
+            controller?.date = _feedItems[indexPath] .valueForKey("Date") as? String
+            controller?.name = _feedItems[indexPath] .valueForKey("LastName") as? String
+            controller?.address = _feedItems[indexPath] .valueForKey("Address") as? String
+            controller?.city = _feedItems[indexPath] .valueForKey("City") as? String
+            controller?.state = _feedItems[indexPath] .valueForKey("State") as? String
+            controller?.tbl11 = _feedItems[indexPath] .valueForKey("CallBack") as? String
+            controller?.tbl12 = _feedItems[indexPath] .valueForKey("Phone") as? String
+            controller?.tbl13 = _feedItems[indexPath] .valueForKey("First") as? String
+            controller?.tbl14 = _feedItems[indexPath] .valueForKey("Spouse") as? String
+            controller?.tbl15 = _feedItems[indexPath] .valueForKey("Email") as? String
             controller?.tbl26 = _feedItems[indexPath] .valueForKey("Photo") as? String
             controller?.comments = _feedItems[indexPath] .valueForKey("Coments") as? String
             controller?.active = formatter.stringFromNumber(Active!)

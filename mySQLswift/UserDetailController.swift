@@ -30,6 +30,7 @@ class UserDetailController: UIViewController, UINavigationControllerDelegate, UI
     @IBOutlet weak var usernameField : UITextField?
     @IBOutlet weak var emailField : UITextField?
     @IBOutlet weak var phoneField : UITextField?
+    @IBOutlet weak var mapLabel: UILabel!
     
     var objectId : NSString?
     var username : NSString?
@@ -37,16 +38,15 @@ class UserDetailController: UIViewController, UINavigationControllerDelegate, UI
     var email : NSString?
     var phone : NSString?
     
-    var query : PFQuery?
     var user : PFUser?
-    var userquery: PFObject?
+    var userquery : PFObject?
     var userimage : UIImage?
     var pickImage : UIImage?
     var pictureData : NSData?
     
     var imagePicker: UIImagePickerController!
     
-    var activityIndicator : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 150, 150)) as UIActivityIndicatorView
+    var activityIndicator : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 50, 50)) as UIActivityIndicatorView
 
 
     override func viewDidLoad() {
@@ -97,11 +97,13 @@ class UserDetailController: UIViewController, UINavigationControllerDelegate, UI
             self.emailField!.font = ipadtitle
             self.phoneField!.font = ipadtitle
             self.createLabel!.font = ipadlabel
+            self.mapLabel!.font = Font.Snapshot.celltitle
         } else {
             self.usernameField!.font = celltitle
             self.emailField!.font = celltitle
             self.phoneField!.font = celltitle
             self.createLabel!.font = celllabel
+            self.mapLabel!.font = Font.Snapshot.celltitle
         }
         
         let query = PFUser.query()
@@ -195,48 +197,33 @@ class UserDetailController: UIViewController, UINavigationControllerDelegate, UI
     
     
     @IBAction func Update(sender: AnyObject) {
-        // FIXME:
-        activityIndicator.center = self.userimageView!.center
-        activityIndicator.startAnimating()
+        
+        self.activityIndicator.center = self.userimageView!.center
+        self.activityIndicator.startAnimating()
         self.view.addSubview(activityIndicator)
         
         pictureData = UIImageJPEGRepresentation(self.userimageView!.image!, 1.0)
         let file = PFFile(name: "img", data: pictureData!)
-        
-        let query = PFUser.query()!
-        query.whereKey("objectId", equalTo:self.objectId!)
-        query.getFirstObjectInBackgroundWithBlock {(updateuser: PFObject?, error: NSError?) -> Void in
-            if error == nil {
-                updateuser!.setObject(self.usernameField!.text!, forKey:"username")
-                updateuser!.setObject(self.emailField!.text!, forKey:"email")
-                updateuser!.setObject(self.phoneField!.text!, forKey:"phone")
-                updateuser!.saveEventually()
-                
-                file!.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
-                    if success {
-                        self.user = PFUser.currentUser()
-                        self.user!.setObject(file!, forKey:"imageFile")
-                        self.user!.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
-                        }
-                    }
+
+        file!.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
+            if success {
+                self.user = PFUser.currentUser()
+                self.user!.setObject(self.usernameField!.text!, forKey:"username")
+                self.user!.setObject(self.emailField!.text!, forKey:"email")
+                self.user!.setObject(self.phoneField!.text!, forKey:"phone")
+                self.user!.setObject(file!, forKey:"imageFile")
+                self.user!.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
                 }
                 self.simpleAlert("Upload Complete", message: "Successfully updated the data")
-
             } else {
-                
                 self.simpleAlert("Upload Failure", message: "Failure updating the data")
                 
             }
         }
-        self.navigationController?.popToRootViewControllerAnimated(true)
-        self.activityIndicator.stopAnimating()
-        self.activityIndicator.removeFromSuperview()
+        //self.navigationController?.popToRootViewControllerAnimated(true)
+        activityIndicator.stopAnimating()
+        activityIndicator.removeFromSuperview()
     }
     
-    // MARK: - Navigation
-
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
-    }
     
 }

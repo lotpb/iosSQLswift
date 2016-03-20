@@ -196,21 +196,27 @@
                                                 </connections>
                                             </button>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KKb-1v-2QT" userLabel="MapView">
-                                                <rect key="frame" x="0.0" y="372" width="600" height="225"/>
+                                                <rect key="frame" x="0.0" y="372" width="600" height="250"/>
                                                 <subviews>
                                                     <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Tra-9Y-k5F">
-                                                        <rect key="frame" x="10" y="18" width="580" height="190"/>
+                                                        <rect key="frame" x="10" y="40" width="580" height="190"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="190" id="kZL-aN-jjn"/>
                                                         </constraints>
                                                     </mapView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Map" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wln-Uc-QKn">
+                                                        <rect key="frame" x="20" y="10" width="42" height="21"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
-                                                    <constraint firstItem="Tra-9Y-k5F" firstAttribute="centerY" secondItem="KKb-1v-2QT" secondAttribute="centerY" constant="0.5" id="K7H-zv-Tjw"/>
+                                                    <constraint firstItem="Tra-9Y-k5F" firstAttribute="centerY" secondItem="KKb-1v-2QT" secondAttribute="centerY" constant="10" id="K7H-zv-Tjw"/>
                                                     <constraint firstItem="Tra-9Y-k5F" firstAttribute="leading" secondItem="KKb-1v-2QT" secondAttribute="leading" constant="10" id="SMV-dB-NEE"/>
                                                     <constraint firstItem="Tra-9Y-k5F" firstAttribute="centerX" secondItem="KKb-1v-2QT" secondAttribute="centerX" id="Tpc-QY-Z8Z"/>
-                                                    <constraint firstItem="Tra-9Y-k5F" firstAttribute="top" secondItem="KKb-1v-2QT" secondAttribute="top" constant="18" id="sMg-ue-q6B"/>
+                                                    <constraint firstItem="Tra-9Y-k5F" firstAttribute="top" secondItem="KKb-1v-2QT" secondAttribute="top" constant="40" id="sMg-ue-q6B"/>
                                                 </constraints>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vbA-Ud-zWO">
@@ -241,7 +247,7 @@
                                             <constraint firstItem="huJ-Gs-8qi" firstAttribute="leading" secondItem="dNA-n9-kjh" secondAttribute="leading" constant="125" id="9Qr-2V-4bF"/>
                                             <constraint firstItem="72D-hy-td9" firstAttribute="top" secondItem="dNA-n9-kjh" secondAttribute="top" constant="187" id="Amv-W5-HS6"/>
                                             <constraint firstItem="72D-hy-td9" firstAttribute="leading" secondItem="oiZ-FG-Xbw" secondAttribute="trailing" constant="20" id="B2M-s1-GRk"/>
-                                            <constraint firstAttribute="bottom" secondItem="KKb-1v-2QT" secondAttribute="bottom" constant="16" id="Fbh-Fb-Brg"/>
+                                            <constraint firstAttribute="bottom" secondItem="KKb-1v-2QT" secondAttribute="bottom" constant="-9" id="Fbh-Fb-Brg"/>
                                             <constraint firstItem="vbA-Ud-zWO" firstAttribute="top" secondItem="dNA-n9-kjh" secondAttribute="top" constant="103" id="FwR-m2-aUy"/>
                                             <constraint firstItem="72D-hy-td9" firstAttribute="centerY" secondItem="oiZ-FG-Xbw" secondAttribute="centerY" id="IXy-8O-Z7e"/>
                                             <constraint firstItem="vbA-Ud-zWO" firstAttribute="top" secondItem="huJ-Gs-8qi" secondAttribute="bottom" constant="30" id="J9k-yG-BJz"/>
@@ -249,7 +255,7 @@
                                             <constraint firstItem="Sy0-OM-Ysz" firstAttribute="leading" secondItem="oiZ-FG-Xbw" secondAttribute="leading" id="NAc-Bw-xzs"/>
                                             <constraint firstItem="vbA-Ud-zWO" firstAttribute="leading" secondItem="huJ-Gs-8qi" secondAttribute="trailing" constant="21" id="Nfz-xf-wPV"/>
                                             <constraint firstItem="RY3-iw-DXH" firstAttribute="centerY" secondItem="5jR-iD-FSn" secondAttribute="centerY" id="Pqk-nO-KwN"/>
-                                            <constraint firstAttribute="bottom" secondItem="KKb-1v-2QT" secondAttribute="bottom" constant="16" id="QUI-RE-cSg"/>
+                                            <constraint firstAttribute="bottom" secondItem="KKb-1v-2QT" secondAttribute="bottom" constant="-9" id="QUI-RE-cSg"/>
                                             <constraint firstItem="LMN-QO-6fC" firstAttribute="leading" secondItem="Sy0-OM-Ysz" secondAttribute="trailing" constant="40" id="TG1-5W-eZS"/>
                                             <constraint firstItem="vbA-Ud-zWO" firstAttribute="top" secondItem="dNA-n9-kjh" secondAttribute="top" constant="41" id="Taw-uA-pNL"/>
                                             <constraint firstItem="RY3-iw-DXH" firstAttribute="trailing" secondItem="LMN-QO-6fC" secondAttribute="trailing" id="X4u-4d-oBl"/>
@@ -314,6 +320,7 @@
                         <outlet property="createLabel" destination="CJ0-gw-3V3" id="Uzr-Vx-2RT"/>
                         <outlet property="emailField" destination="RY3-iw-DXH" id="gej-qu-PqN"/>
                         <outlet property="mainView" destination="dNA-n9-kjh" id="Nmm-fq-JKC"/>
+                        <outlet property="mapLabel" destination="wln-Uc-QKn" id="14g-1y-Sk0"/>
                         <outlet property="mapView" destination="Tra-9Y-k5F" id="JdR-vQ-KKV"/>
                         <outlet property="phoneField" destination="LMN-QO-6fC" id="2fr-Vc-aQl"/>
                         <outlet property="pickFile" destination="vbA-Ud-zWO" id="KDf-yX-jT1"/>

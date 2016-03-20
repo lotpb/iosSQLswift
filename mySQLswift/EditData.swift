@@ -256,9 +256,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         if (indexPath.row == 0) {
             
             let theSwitch = UISwitch(frame:CGRectZero)
-            theSwitch.onTintColor = UIColor(red:0.0, green:122.0/255.0, blue:1.0, alpha: 1.0)
-            theSwitch.tintColor = UIColor.lightGrayColor()
-            theSwitch.addTarget(self, action: "changeSwitch:", forControlEvents: .ValueChanged)
+            self.activeImage?.contentMode = UIViewContentMode.ScaleAspectFill
             
             if self.frm30 == "1" {
                 theSwitch.on = true
@@ -269,8 +267,10 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                 self.activeImage!.image = UIImage(named:"iosStarNA.png")
                 cell.textLabel!.text = "Inactive"
             }
-            
-            self.activeImage?.contentMode = UIViewContentMode.ScaleAspectFill
+            theSwitch.onTintColor = UIColor(red:0.0, green:122.0/255.0, blue:1.0, alpha: 1.0)
+            theSwitch.tintColor = UIColor.lightGrayColor()
+            theSwitch.addTarget(self, action: "changeSwitch:", forControlEvents: .ValueChanged)
+
             cell.addSubview(theSwitch)
             cell.accessoryView = theSwitch
             cell.contentView.addSubview(activeImage!)
@@ -490,7 +490,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             
             self.amount = textframe
             
-            if ((self.formController == "Leads") || (self.formController == "Customer")){
+            if ((self.formController == "Leads") || (self.formController == "Customer")) {
                 if (self.status == "New") {
                     let simpleStepper = UIStepper(frame:CGRectZero)
                     simpleStepper.tag = 10
@@ -555,8 +555,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             
         } else if (indexPath.row == 13) {
             self.callback = textframe
-            
-            
+
                 if self.frm27 == nil {
                     self.callback!.text = ""
                 } else {
@@ -609,7 +608,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             
         } else if(indexPath.row == 15) {
             self.start = textframe
-            self.start!.tag = 14
+            //self.start!.tag = 15
             self.start!.placeholder = "Start Date"
             if self.frm31 == nil {
                 self.start!.text = ""
@@ -623,7 +622,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             
         } else if(indexPath.row == 16) {
             self.complete = textframe
-            //self.complete!.tag = 15
+            //self.complete!.tag = 16
             self.complete!.placeholder = "Completion Date"
             
             if self.frm32 == nil {
@@ -659,6 +658,19 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         
         let cell = tableView.cellForRowAtIndexPath(indexPath)
         pasteBoard.string = cell!.textLabel?.text
+    }
+    
+    
+    // MARK: - Switch
+    
+    func changeSwitch(sender: UISwitch) {
+        
+        if (sender.on) {
+            self.frm30 = "1"
+        } else {
+            self.frm30 = "0"
+        }
+        self.tableView!.reloadData()
     }
     
     
@@ -868,31 +880,21 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     }
     
     
-    // MARK: - Switch
-    
-    func changeSwitch(sender: UISwitch) {
-        
-        if (sender.on) {
-            self.frm30 = "1"
-        } else {
-            self.frm30 = "0"
-        }
-        self.tableView!.reloadData()
-    }
-    
-    
     // MARK: - Segues
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         if (indexPath.row == 3) {
             lookupItem = "City"
+            self.performSegueWithIdentifier("lookupDataSegue", sender: self)
         }
         if (indexPath.row == 7) {
             lookupItem = "Salesman"
+            self.performSegueWithIdentifier("lookupDataSegue", sender: self)
         }
         if (indexPath.row == 8) {
             lookupItem = "Job"
+            self.performSegueWithIdentifier("lookupDataSegue", sender: self)
         }
         if (indexPath.row == 9) {
             if (self.formController == "Customer") {
@@ -900,8 +902,9 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             } else {
                 lookupItem = "Advertiser"
             }
+            self.performSegueWithIdentifier("lookupDataSegue", sender: self)
         }
-        self.performSegueWithIdentifier("lookupDataSegue", sender: self)
+        
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {

@@ -208,25 +208,15 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
         user.signUpInBackgroundWithBlock { succeeded, error in
             if (succeeded) {
                 
-                self.defaults.setObject(self.usernameField!.text, forKey: "usernameKey")
-                self.defaults.setObject(self.passwordField!.text, forKey: "passwordKey")
-                if ((self.emailField!.text == nil) == 0) {
-                    self.defaults.setObject(self.emailField!.text, forKey: "emailKey")
-                }
-                self.defaults.setBool(true, forKey: "registerKey")
-
-                self.simpleAlert("Success", message: "You have registered a new user")
-                
+                self.refreshLocation()
                 self.usernameField!.text = nil
                 self.passwordField!.text = nil
                 self.emailField!.text = nil
                 self.phoneField!.text = nil
-                
-                self.performSegueWithIdentifier("loginSegue", sender: nil)
+                self.simpleAlert("Success", message: "You have registered a new user")
                 
             } else {
                 print("Error: \(error) \(error!.userInfo)")
-                
             }
         }
     }
@@ -331,6 +321,7 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
         if self.passwordField!.text == self.reEnterPasswordField!.text {
             
             registerNewUser()
+            
         } else {
             
             self.simpleAlert("Oooops", message: "Your entered passwords do not match")
