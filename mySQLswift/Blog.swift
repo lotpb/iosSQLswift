@@ -50,8 +50,8 @@ class Blog: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
         //self.navigationItem.leftBarButtonItem = self.editButtonItem()
         
-        let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action:"newButton:")
-        let searchButton = UIBarButtonItem(barButtonSystemItem: .Search, target: self, action:"searchButton:")
+        let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action:#selector(Blog.newButton(_:)))
+        let searchButton = UIBarButtonItem(barButtonSystemItem: .Search, target: self, action:#selector(Blog.searchButton(_:)))
         let buttons:NSArray = [addButton,searchButton]
         self.navigationItem.rightBarButtonItems = buttons as? [UIBarButtonItem]
 
@@ -69,7 +69,7 @@ class Blog: UIViewController, UITableViewDelegate, UITableViewDataSource {
         let attributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
         self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh", attributes: attributes)
         //self.refreshControl.attributedTitle = NSAttributedString(string: "Last updated on \(NSDate())", attributes: attributes)
-        self.refreshControl.addTarget(self, action: "refreshData:", forControlEvents: UIControlEvents.ValueChanged)
+        self.refreshControl.addTarget(self, action: #selector(Blog.refreshData(_:)), forControlEvents: UIControlEvents.ValueChanged)
         self.tableView!.addSubview(refreshControl)
 
     }
@@ -161,7 +161,7 @@ class Blog: UIViewController, UITableViewDelegate, UITableViewDataSource {
         cell.blogImageView?.userInteractionEnabled = true
         cell.blogImageView?.tag = indexPath.row
         
-        let tap = UITapGestureRecognizer(target: self, action:Selector("imgLoadSegue:"))
+        let tap = UITapGestureRecognizer(target: self, action:#selector(Blog.imgLoadSegue(_:)))
         cell.blogImageView.addGestureRecognizer(tap)
         
         let dateStr = _feedItems[indexPath.row] .valueForKey("MsgDate") as? String
@@ -197,22 +197,22 @@ class Blog: UIViewController, UITableViewDelegate, UITableViewDataSource {
         cell.replyButton.tintColor = UIColor.lightGrayColor()
         let replyimage : UIImage? = UIImage(named:"Commentfilled.png")!.imageWithRenderingMode(.AlwaysTemplate)
         cell.replyButton .setImage(replyimage, forState: .Normal)
-        cell.replyButton .addTarget(self, action: "replyButton:", forControlEvents: UIControlEvents.TouchUpInside)
+        cell.replyButton .addTarget(self, action: #selector(Blog.replyButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         
         cell.likeButton.tintColor = UIColor.lightGrayColor()
         let likeimage : UIImage? = UIImage(named:"Thumb Up.png")!.imageWithRenderingMode(.AlwaysTemplate)
         cell.likeButton .setImage(likeimage, forState: .Normal)
-        cell.likeButton .addTarget(self, action: "likeButton:", forControlEvents: UIControlEvents.TouchUpInside)
+        cell.likeButton .addTarget(self, action: #selector(Blog.likeButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
 
         cell.flagButton.tintColor = UIColor.lightGrayColor()
         let reportimage : UIImage? = UIImage(named:"Flag.png")!.imageWithRenderingMode(.AlwaysTemplate)
         cell.flagButton .setImage(reportimage, forState: .Normal)
-        cell.flagButton .addTarget(self, action: "flagButton:", forControlEvents: UIControlEvents.TouchUpInside)
+        cell.flagButton .addTarget(self, action: #selector(Blog.flagButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
   
         cell.actionBtn.tintColor = UIColor.lightGrayColor()
         let actionimage : UIImage? = UIImage(named:"Upload50.png")!.imageWithRenderingMode(.AlwaysTemplate)
         cell.actionBtn .setImage(actionimage, forState: .Normal)
-        cell.actionBtn .addTarget(self, action: "showShare:", forControlEvents: UIControlEvents.TouchUpInside)
+        cell.actionBtn .addTarget(self, action: #selector(Blog.showShare(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         
         if !(cell.numLabel.text! == "0") {
             cell.numLabel.textColor = Color.Blog.buttonColor

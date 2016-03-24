@@ -58,7 +58,7 @@ class MapView: UIViewController, MKMapViewDelegate,  CLLocationManagerDelegate {
         btnLayer3.masksToBounds = true
         btnLayer3.cornerRadius = 9.0
         
-        let actionButton = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: "shareButton")
+        let actionButton = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: #selector(MapView.shareButton))
         let buttons:NSArray = [actionButton]
         self.navigationItem.rightBarButtonItems = buttons as? [UIBarButtonItem]
         
@@ -195,7 +195,7 @@ class MapView: UIViewController, MKMapViewDelegate,  CLLocationManagerDelegate {
         mapView.setVisibleMapRect(polylineBoundingRect, edgePadding: UIEdgeInsetsMake(10.0, 10.0, 10.0, 10.0), animated: false)
         } */
         
-        for (var i = 0; i < self.route.steps.count; i++)
+        for (var i = 0; i < self.route.steps.count; i += 1)
         {
             let step:MKRouteStep = self.route.steps[i] as MKRouteStep
             let newStep:NSString = step.instructions

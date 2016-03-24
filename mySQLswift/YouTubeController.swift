@@ -172,7 +172,7 @@ class YouTubeController: UIViewController, UITableViewDelegate, UITableViewDataS
                     let items: Array<Dictionary<NSObject, AnyObject>> = resultsDict["items"] as! Array<Dictionary<NSObject, AnyObject>>
                     
                     // Loop through all search results and keep just the necessary data.
-                    for var i=0; i<items.count; ++i {
+                    for i in 0 ..< items.count {
                         let snippetDict = items[i]["snippet"] as! Dictionary<NSObject, AnyObject>
                         
                         // Gather the proper data depending on whether we're searching for channels or for videos.
@@ -281,7 +281,7 @@ class YouTubeController: UIViewController, UITableViewDelegate, UITableViewDataS
                     self.tblVideos.reloadData()
                     
                     // Load the next channel data (if exist).
-                    ++self.channelIndex
+                    self.channelIndex += 1
                     if self.channelIndex < self.desiredChannelsArray.count {
                         self.getChannelDetails(useChannelIDParam)
                     }
@@ -321,7 +321,7 @@ class YouTubeController: UIViewController, UITableViewDelegate, UITableViewDataS
                     let items: Array<Dictionary<NSObject, AnyObject>> = resultsDict["items"] as! Array<Dictionary<NSObject, AnyObject>>
                     
                     // Use a loop to go through all video items.
-                    for var i=0; i<items.count; ++i {
+                    for i in 0 ..< items.count {
                         let playlistSnippetDict = (items[i] as Dictionary<NSObject, AnyObject>)["snippet"] as! Dictionary<NSObject, AnyObject>
                         
                         // Initialize a new dictionary and store the data of interest.

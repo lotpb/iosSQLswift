@@ -11,8 +11,9 @@ import Parse
 import MapKit
 import CoreLocation
 import MobileCoreServices //kUTTypeImage
+import MessageUI
 
-class UserDetailController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, MKMapViewDelegate, UITextFieldDelegate {
+class UserDetailController: UIViewController, UINavigationControllerDelegate, UIImagePickerControllerDelegate, MKMapViewDelegate, MFMailComposeViewControllerDelegate, UITextFieldDelegate {
     
     let ipadtitle = UIFont.systemFontOfSize(20, weight: UIFontWeightLight)
     let ipadlabel = UIFont.systemFontOfSize(16, weight: UIFontWeightLight)
@@ -20,17 +21,24 @@ class UserDetailController: UIViewController, UINavigationControllerDelegate, UI
     let celltitle = UIFont.systemFontOfSize(18, weight: UIFontWeightLight)
     let celllabel = UIFont.systemFontOfSize(14, weight: UIFontWeightLight)
     
+    let defaults = NSUserDefaults.standardUserDefaults()
+    
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var mainView: UIView?
     @IBOutlet weak var userimageView: UIImageView?
-    @IBOutlet weak var pickFile: UIButton?
-    @IBOutlet weak var selectCamera: UIButton?
-    @IBOutlet weak var update: UIButton?
+
     @IBOutlet weak var createLabel: UILabel?
     @IBOutlet weak var usernameField : UITextField?
     @IBOutlet weak var emailField : UITextField?
     @IBOutlet weak var phoneField : UITextField?
     @IBOutlet weak var mapLabel: UILabel!
+    
+    @IBOutlet weak var pickFile: UIButton?
+    @IBOutlet weak var selectCamera: UIButton?
+    @IBOutlet weak var updateBtn: UIButton?
+    @IBOutlet weak var callBtn: UIButton?
+    @IBOutlet weak var emailBtn: UIButton?
+
     
     var objectId : NSString?
     var username : NSString?
@@ -47,6 +55,10 @@ class UserDetailController: UIViewController, UINavigationControllerDelegate, UI
     var imagePicker: UIImagePickerController!
     
     var activityIndicator : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 50, 50)) as UIActivityIndicatorView
+    
+    //var getEmail : NSString?
+    var emailTitle :NSString?
+    var messageBody:NSString?
 
 
     override func viewDidLoad() {
@@ -62,7 +74,22 @@ class UserDetailController: UIViewController, UINavigationControllerDelegate, UI
         
         mapView.delegate = self
         mapView!.layer.borderColor = UIColor.lightGrayColor().CGColor
-        mapView!.layer.borderWidth = 0.5
+        mapView!.layer.borderWidth = 1.0
+        
+        callBtn!.layer.cornerRadius = 24.0
+        callBtn!.layer.borderColor = Color.BlueColor.CGColor
+        callBtn!.layer.borderWidth = 3.0
+        callBtn!.setTitleColor(Color.BlueColor, forState: UIControlState.Normal)
+        
+        updateBtn!.layer.cornerRadius = 24.0
+        updateBtn!.layer.borderColor = Color.BlueColor.CGColor
+        updateBtn!.layer.borderWidth = 3.0
+        updateBtn!.setTitleColor(Color.BlueColor, forState: UIControlState.Normal)
+        
+        emailBtn!.layer.cornerRadius = 24.0
+        emailBtn!.layer.borderColor = Color.BlueColor.CGColor
+        emailBtn!.layer.borderWidth = 3.0
+        emailBtn!.setTitleColor(Color.BlueColor, forState: UIControlState.Normal)
         
         self.usernameField?.text = self.username as? String
         self.emailField?.text = self.email as? String
@@ -125,6 +152,9 @@ class UserDetailController: UIViewController, UINavigationControllerDelegate, UI
             print("")
         }
         
+        emailTitle = defaults.stringForKey("emailtitleKey")
+        messageBody = defaults.stringForKey("emailmessageKey")
+        
         self.emailField!.keyboardType = UIKeyboardType.EmailAddress
         self.phoneField!.keyboardType = UIKeyboardType.NumbersAndPunctuation
     }
@@ -183,6 +213,62 @@ class UserDetailController: UIViewController, UINavigationControllerDelegate, UI
         
         picker.dismissViewControllerAnimated(true, completion: nil)
     }
+    
+    
+    // MARK: - Call Phone
+    
+    @IBAction func callPhone(sender: AnyObject) {
+        
+        let phoneNo : NSString?
+        if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Phone {
+            
+            phoneNo = self.phoneField!.text
+            if let phoneCallURL:NSURL = NSURL(string:"telprompt:\(phoneNo!)") {
+                
+                let application:UIApplication = UIApplication.sharedApplication()
+                if (application.canOpenURL(phoneCallURL)) {
+                    application.openURL(phoneCallURL)
+                }
+            } else {
+                
+                self.simpleAlert("Alert", message: "Call facility is not available!!!")
+            }
+        } else {
+            
+            self.simpleAlert("Alert", message: "Your device doesn't support this feature.")
+        }
+    }
+    
+    
+    // MARK: - Send Email
+    
+    @IBAction func sendEmail(sender: AnyObject) {
+       
+            if ((self.emailField != NSNull()) && ( self.emailField != 0 )) {
+                
+                self.getEmail((emailField?.text)!)
+                
+            } else {
+                
+                self.simpleAlert("Alert", message: "Your field doesn't have valid email.")
+            }
+        }
+    
+    func getEmail(emailfield: NSString) {
+        
+        let email = MFMailComposeViewController()
+        email.mailComposeDelegate = self
+        email.setToRecipients([emailfield as String])
+        email.setSubject((emailTitle as? String)!)
+        email.setMessageBody((messageBody as? String)!, isHTML:true)
+        email.modalTransitionStyle = UIModalTransitionStyle.FlipHorizontal
+        self.presentViewController(email, animated: true, completion: nil)
+    }
+    
+    func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     
     // MARK: - AlertController
     

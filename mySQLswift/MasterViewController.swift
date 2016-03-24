@@ -25,13 +25,13 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
     var objects = [AnyObject]()
     
     var searchController: UISearchController!
-    //var searchController: UISearchController!
+
     var resultsController: UITableViewController!
     var foundUsers = [String]()
     
     let defaults = NSUserDefaults.standardUserDefaults()
     
-    var resultsYQL:NSDictionary? = nil
+    var resultsWeatherYQL:NSDictionary? = nil
 
     //var tempYQL : String!
      //var store = EKEventStore()
@@ -55,8 +55,8 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         resultsController.tableView.dataSource = self
         resultsController.tableView.delegate = self
         
-        let searchButton = UIBarButtonItem(barButtonSystemItem: .Search, target: self, action: "searchButton:")
-        let addButton = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: "actionButton:")
+        let searchButton = UIBarButtonItem(barButtonSystemItem: .Search, target: self, action: #selector(MasterViewController.searchButton(_:)))
+        let addButton = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: #selector(MasterViewController.actionButton(_:)))
         let buttons:NSArray = [addButton, searchButton]
         self.navigationItem.rightBarButtonItems = buttons as? [UIBarButtonItem]
         
@@ -354,7 +354,7 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         statButton.setTitle("Statistics", forState: .Normal)
         statButton.backgroundColor = UIColor.grayColor()
         statButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
-        statButton.addTarget(self, action:Selector("statButton"), forControlEvents: UIControlEvents.TouchUpInside)
+        statButton.addTarget(self, action:#selector(MasterViewController.statButton), forControlEvents: UIControlEvents.TouchUpInside)
         let btnLayer3: CALayer = statButton.layer
         btnLayer3.masksToBounds = true
         btnLayer3.cornerRadius = 9.0
@@ -442,18 +442,18 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
 
     func updateYahoo() {
         
-        resultsYQL = YQL.query("select * from weather.forecast where woeid=2446726")
+        resultsWeatherYQL = YQL.query("select * from weather.forecast where woeid=2446726")
         //print(resultsYQL)
         
-       /*
-        let YQLresults = resultsYQL
+        /*
+        let YQLresults = resultsWeatherYQL!
             .objectForKey("query")!
             .objectForKey("results")!
             .objectForKey("channel")!
             .objectForKey("item")!
-            .objectForKey("condition")
-        let YQLtext =  YQLresults!.objectForKey("text") as! String
-        let YQLtemp = YQLresults!.objectForKey("temp") as! String
+            .objectForKey("condition")!
+        let YQLtext = YQLresults.objectForKey("text") as! String
+        let YQLtemp = YQLresults.objectForKey("temp")as! String
         
         print("Todays Weather: \(YQLtext) \(YQLtemp)") */
         

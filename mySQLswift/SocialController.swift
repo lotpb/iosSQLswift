@@ -98,7 +98,6 @@ class SocialController: UIViewController, UITextViewDelegate {
             
         }
         
-        
         actionSheet.addAction(tweetAction)
         actionSheet.addAction(facebookPostAction)
         actionSheet.addAction(moreAction)

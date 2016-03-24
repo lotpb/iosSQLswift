@@ -56,8 +56,8 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
         resultsController.tableView.dataSource = self
         resultsController.tableView.delegate = self
         
-        let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "newData")
-        let searchButton = UIBarButtonItem(barButtonSystemItem: .Search, target: self, action: "searchButton:")
+        let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(Lead.newData))
+        let searchButton = UIBarButtonItem(barButtonSystemItem: .Search, target: self, action: #selector(Lead.searchButton(_:)))
         let buttons:NSArray = [addButton,searchButton]
         self.navigationItem.rightBarButtonItems = buttons as? [UIBarButtonItem]
 
@@ -66,7 +66,7 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
         refreshControl.tintColor = UIColor.whiteColor()
         let attributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
         self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh", attributes: attributes)
-        self.refreshControl.addTarget(self, action: "refreshData:", forControlEvents: UIControlEvents.ValueChanged)
+        self.refreshControl.addTarget(self, action: #selector(Lead.refreshData(_:)), forControlEvents: UIControlEvents.ValueChanged)
         self.tableView!.addSubview(refreshControl)
         
         parseData()
@@ -207,7 +207,7 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
         
         cell.leadreplyLabel.text! = ""
         
-        if (_feedItems[indexPath.row] .valueForKey("Coments") as? String == nil) {
+        if (_feedItems[indexPath.row] .valueForKey("Coments") as? String == nil) || (_feedItems[indexPath.row] .valueForKey("Coments") as? String == "") {
             cell.leadreplyButton!.tintColor = UIColor.lightGrayColor()
         } else {
             cell.leadreplyButton!.tintColor = Color.Cust.buttonColor
@@ -234,7 +234,7 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
         myLabel.tag = indexPath.row
         cell.addSubview(myLabel)
         
-        let tap = UITapGestureRecognizer(target: self, action: Selector("imgLoadSegue:"))
+        let tap = UITapGestureRecognizer(target: self, action: #selector(Lead.imgLoadSegue(_:)))
         myLabel.addGestureRecognizer(tap)
         
         return cell
@@ -353,7 +353,7 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
     
     func tableView(tableView: UITableView, canPerformAction action: Selector, forRowAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) -> Bool {
         
-        if (action == Selector("copy:")) {
+        if (action == #selector(NSObject.copy(_:))) {
             return true
         }
         return false

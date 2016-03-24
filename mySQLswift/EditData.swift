@@ -114,11 +114,11 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         
         self.pickerView.delegate = self
         self.pickerView.dataSource = self
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: ("updatePicker"), name: UITextFieldTextDidBeginEditingNotification, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: (#selector(EditData.updatePicker)), name: UITextFieldTextDidBeginEditingNotification, object: nil)
         //self.pickerView.backgroundColor = UIColor.whiteColor()
         //self.datePickerView.backgroundColor = UIColor.whiteColor()
         
-        let saveButton = UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: "updateData")
+        let saveButton = UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: #selector(EditData.updateData))
         let buttons:NSArray = [saveButton]
         self.navigationItem.rightBarButtonItems = buttons as? [UIBarButtonItem]
         
@@ -269,7 +269,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             }
             theSwitch.onTintColor = UIColor(red:0.0, green:122.0/255.0, blue:1.0, alpha: 1.0)
             theSwitch.tintColor = UIColor.lightGrayColor()
-            theSwitch.addTarget(self, action: "changeSwitch:", forControlEvents: .ValueChanged)
+            theSwitch.addTarget(self, action: #selector(EditData.changeSwitch(_:)), forControlEvents: .ValueChanged)
 
             cell.addSubview(theSwitch)
             cell.accessoryView = theSwitch
@@ -292,7 +292,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                 }
                 self.date?.inputView = datePickerView
                 datePickerView.datePickerMode = UIDatePickerMode.Date
-                datePickerView.addTarget(self, action: Selector("handleDatePicker:"), forControlEvents: UIControlEvents.ValueChanged)
+                datePickerView.addTarget(self, action: #selector(EditData.handleDatePicker(_:)), forControlEvents: UIControlEvents.ValueChanged)
             }
             
             if (self.formController == "Vendor") {
@@ -387,7 +387,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                 cell.textLabel!.text = "Apt Date"
                 self.aptDate!.inputView = datePickerView
                 datePickerView.datePickerMode = UIDatePickerMode.Date
-                datePickerView.addTarget(self, action: Selector("handleDatePicker:"), forControlEvents: UIControlEvents.ValueChanged)
+                datePickerView.addTarget(self, action: #selector(EditData.handleDatePicker(_:)), forControlEvents: UIControlEvents.ValueChanged)
                 //datePickerView.backgroundColor = UIColor.whiteColor()
             }
             
@@ -500,7 +500,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                     simpleStepper.stepValue = 100
                     simpleStepper.tintColor = UIColor.grayColor()
                     cell.accessoryView = simpleStepper
-                    simpleStepper.addTarget(self, action: "stepperValueDidChange:", forControlEvents: UIControlEvents.ValueChanged)
+                    simpleStepper.addTarget(self, action: #selector(EditData.stepperValueDidChange(_:)), forControlEvents: UIControlEvents.ValueChanged)
                 }
             }
             
@@ -577,7 +577,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                 simpleStepper.stepValue = 1
                 simpleStepper.tintColor = UIColor.grayColor()
                 cell.accessoryView = simpleStepper
-                simpleStepper.addTarget(self, action: "stepperValueDidChange:", forControlEvents: UIControlEvents.ValueChanged)
+                simpleStepper.addTarget(self, action: #selector(EditData.stepperValueDidChange(_:)), forControlEvents: UIControlEvents.ValueChanged)
             }
             else if (self.formController == "Vendor") {
                 self.callback!.hidden = true //Field
@@ -616,7 +616,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                 self.start!.text = self.frm31 as? String
             }
             self.start!.inputView = datePickerView
-            datePickerView.addTarget(self, action: Selector("handleDatePicker:"), forControlEvents: UIControlEvents.ValueChanged)
+            datePickerView.addTarget(self, action: #selector(EditData.handleDatePicker(_:)), forControlEvents: UIControlEvents.ValueChanged)
             cell.textLabel!.text = "Start Date"
             cell.contentView.addSubview(self.start!)
             
@@ -631,7 +631,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             self.complete!.text = self.frm32 as? String
             }
             self.complete!.inputView = datePickerView
-            datePickerView.addTarget(self, action: Selector("handleDatePicker:"), forControlEvents: UIControlEvents.ValueChanged)
+            datePickerView.addTarget(self, action: #selector(EditData.handleDatePicker(_:)), forControlEvents: UIControlEvents.ValueChanged)
             cell.textLabel!.text = "End Date"
             cell.contentView.addSubview(self.complete!)
             }
@@ -648,7 +648,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     
     func tableView(tableView: UITableView, canPerformAction action: Selector, forRowAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) -> Bool {
         
-        if (action == Selector("copy:")) {
+        if (action == #selector(NSObject.copy(_:))) {
             return true
         }
         return false

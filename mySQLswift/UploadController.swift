@@ -89,14 +89,21 @@ UIImagePickerControllerDelegate {
         self.imgToUpload.userInteractionEnabled = true
         
         self.clearButton.setTitle("Clear", forState: UIControlState.Normal)
-        self.clearButton .addTarget(self, action: "clearBtn", forControlEvents: UIControlEvents.TouchUpInside)
+        self.clearButton .addTarget(self, action: #selector(UploadController.clearBtn), forControlEvents: UIControlEvents.TouchUpInside)
         self.clearButton.tintColor = UIColor(white:0.45, alpha:1.0)
+        self.clearButton.layer.cornerRadius = 12.0
+        self.clearButton.layer.borderColor = UIColor(white:0.45, alpha:1.0).CGColor
+        self.clearButton.layer.borderWidth = 2.0
+        
         self.selectPic.tintColor = UIColor(white:0.45, alpha:1.0)
+        self.selectPic.layer.cornerRadius = 12.0
+        self.selectPic.layer.borderColor = UIColor(white:0.45, alpha:1.0).CGColor
+        self.selectPic.layer.borderWidth = 2.0
         
     }
     
     override func viewWillAppear(animated: Bool) {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: "finishedPlaying:", name: AVPlayerItemDidPlayToEndTimeNotification, object: self.playerViewController)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UploadController.finishedPlaying(_:)), name: AVPlayerItemDidPlayToEndTimeNotification, object: self.playerViewController)
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -177,7 +184,7 @@ UIImagePickerControllerDelegate {
             player.play()
             
             // FIXME:
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: "moviePlayBackDidFinish", name: AVPlayerItemDidPlayToEndTimeNotification, object: playerViewController)
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: Selector(), name: AVPlayerItemDidPlayToEndTimeNotification, object: playerViewController)
             
         } else if mediaType.isEqualToString(kUTTypeImage as String) {
             

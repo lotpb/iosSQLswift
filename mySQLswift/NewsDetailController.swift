@@ -50,7 +50,7 @@ class NewsDetailController: UIViewController {
         self.scrollView.maximumZoomScale = 6.0
         self.newsImageview.backgroundColor = UIColor.blackColor()
         
-        let editItem = UIBarButtonItem(barButtonSystemItem: .Edit, target: self, action: "editData:")
+        let editItem = UIBarButtonItem(barButtonSystemItem: .Edit, target: self, action: #selector(NewsDetailController.editData(_:)))
         let buttons:NSArray = [editItem]
         self.navigationItem.rightBarButtonItems = buttons as? [UIBarButtonItem]
 
@@ -95,7 +95,7 @@ class NewsDetailController: UIViewController {
             let playbutton : UIImage? = UIImage(named:"play_button.png")!.imageWithRenderingMode(.AlwaysTemplate)
             playButton .setImage(playbutton, forState: .Normal)
             playButton.userInteractionEnabled = true
-            let tap = UITapGestureRecognizer(target: self, action: Selector("playVideo:"))
+            let tap = UITapGestureRecognizer(target: self, action: Selector())
             playButton.addGestureRecognizer(tap)
             self.newsImageview.addSubview(playButton)
             

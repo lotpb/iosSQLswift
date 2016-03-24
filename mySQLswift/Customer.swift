@@ -57,8 +57,8 @@ class Customer: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         resultsController.tableView.dataSource = self
         resultsController.tableView.delegate = self
         
-        let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "newData")
-        let searchButton = UIBarButtonItem(barButtonSystemItem: .Search, target: self, action: Selector("searchButton:"))
+        let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(Customer.newData))
+        let searchButton = UIBarButtonItem(barButtonSystemItem: .Search, target: self, action: #selector(Customer.searchButton(_:)))
         let buttons:NSArray = [addButton,searchButton]
         self.navigationItem.rightBarButtonItems = buttons as? [UIBarButtonItem]
 
@@ -67,7 +67,7 @@ class Customer: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         refreshControl.tintColor = UIColor.whiteColor()
         let attributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
         self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh", attributes: attributes)
-        self.refreshControl.addTarget(self, action: "refreshData:", forControlEvents: UIControlEvents.ValueChanged)
+        self.refreshControl.addTarget(self, action: #selector(Customer.refreshData(_:)), forControlEvents: UIControlEvents.ValueChanged)
         self.tableView!.addSubview(refreshControl)
         
         parseData()
@@ -203,7 +203,7 @@ class Customer: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         cell.custreplyButton .setImage(replyimage, forState: .Normal)
         cell.custreplyButton .addTarget(self, action: Selector(), forControlEvents: UIControlEvents.TouchUpInside)
         
-        if (_feedItems[indexPath.row] .valueForKey("Comments") as? String == nil) {
+        if (_feedItems[indexPath.row] .valueForKey("Comments") as? String == nil) || (_feedItems[indexPath.row] .valueForKey("Comments") as? String == "") {
             cell.custreplyButton!.tintColor = UIColor.lightGrayColor()
         } else {
             cell.custreplyButton!.tintColor = Color.Cust.buttonColor
@@ -239,7 +239,7 @@ class Customer: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         myLabel.tag = indexPath.row
         cell.addSubview(myLabel)
         
-        let tap = UITapGestureRecognizer(target: self, action: Selector("imgLoadSegue:"))
+        let tap = UITapGestureRecognizer(target: self, action: #selector(Customer.imgLoadSegue(_:)))
         myLabel.addGestureRecognizer(tap)
         
         return cell

@@ -8,8 +8,8 @@
 
 import UIKit
 import Parse
-import FBSDKCoreKit
-import ParseFacebookUtilsV4
+import FBSDKLoginKit
+//import FBSDKShareKit
 import MapKit
 import LocalAuthentication
 
@@ -40,6 +40,7 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
     
     //Facebook
     let fbButton = FBSDKLoginButton()
+    
     let userImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .ScaleAspectFit
@@ -93,19 +94,15 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
         self.emailField!.keyboardType = UIKeyboardType.EmailAddress
         self.phoneField!.keyboardType = UIKeyboardType.NumbersAndPunctuation
         
+        self.passwordField!.text = ""
         
         //Facebook
         
         fbButton.frame = CGRectMake(10, 490, 100, 25)
-        fbButton.readPermissions = ["email"] //["public_profile", "email", "user_friends", "user_birthday", "user_location"]
         fbButton.delegate = self
         self.view.addSubview(fbButton)
         
-        if (FBSDKAccessToken.currentAccessToken() != nil) {
-            fetchProfile()
-        }
-        
-        self.passwordField!.text = ""
+        getFacebookUserInfo()
         
 
     }
@@ -222,27 +219,48 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
     }
     
     // MARK: - Facebook
-    
+
     func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!)
     {
-        if error == nil
-        {
-            print("Login complete.")
-            fetchProfile()
-            
-            self.refreshLocation()
-      
-        } else {
-            print(error.localizedDescription)
-        }
+        print("didCompleteWithResult")
+        self.performSegueWithIdentifier("loginSegue", sender: nil)
+        //getFacebookUserInfo()
+    }
+    
+    func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
         
+        print("loginButtonDidLogOut")
+        //imageView.image = UIImage(named: "fb-art.jpg")
+        //label.text = "Not Logged In"
     }
     
-    func loginButtonDidLogOut(loginButton: FBSDKLoginButton!)
-    {
-        print("User logged out...")
+    func getFacebookUserInfo() {
+        if(FBSDKAccessToken.currentAccessToken() != nil)
+        {
+            
+        //fbButton.readPermissions = ["public_profile", "email", "user_friends", "user_birthday", "user_location"]
+            
+            
+            //print permissions, such as public_profile
+            print(FBSDKAccessToken.currentAccessToken().permissions)
+            let graphRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields" : "id, name, email, first_name, last_name, picture.type(large)"])
+            graphRequest.startWithCompletionHandler({ (connection, result, error) -> Void in
+                
+                self.usernameField!.text = result.valueForKey("name") as? String
+                self.emailField!.text = result.valueForKey("email") as? String
+                self.passwordField!.text = result.valueForKey("id") as? String
+                
+                let FBid = result.valueForKey("id") as? String
+                
+                let url = NSURL(string: "https://graph.facebook.com/\(FBid!)/picture?type=large&return_ssl_resources=1")
+                self.userImageView.image = UIImage(data: NSData(contentsOfURL: url!)!)
+                
+                //self.performSegueWithIdentifier("loginSegue", sender: nil)
+            })
+        }
     }
     
+    /*
     func fetchProfile() {
         
         let parameters = ["fields": "email, first_name, last_name, picture.type(large)"]
@@ -285,8 +303,10 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
             
         })
         
-
-    }
+        self.performSegueWithIdentifier("loginSegue", sender: nil)
+        //self.refreshLocation()
+    
+    } */
 
     
     // MARK: - Password

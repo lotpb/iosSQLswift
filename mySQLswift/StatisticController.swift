@@ -82,7 +82,7 @@ class StatisticController: UIViewController, UITableViewDelegate, UITableViewDat
         resultsController.tableView.dataSource = self
         resultsController.tableView.delegate = self
         
-        let searchButton = UIBarButtonItem(barButtonSystemItem: .Search, target: self, action: "updateData")
+        let searchButton = UIBarButtonItem(barButtonSystemItem: .Search, target: self, action: Selector())
         let buttons:NSArray = [searchButton]
         self.navigationItem.rightBarButtonItems = buttons as? [UIBarButtonItem]
         
@@ -91,7 +91,7 @@ class StatisticController: UIViewController, UITableViewDelegate, UITableViewDat
         refreshControl.tintColor = UIColor.whiteColor()
         let attributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
         self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh", attributes: attributes)
-        self.refreshControl.addTarget(self, action: "refreshData:", forControlEvents: UIControlEvents.ValueChanged)
+        self.refreshControl.addTarget(self, action: #selector(StatisticController.refreshData(_:)), forControlEvents: UIControlEvents.ValueChanged)
         self.tableView!.addSubview(refreshControl)
         
     }
@@ -587,7 +587,7 @@ class StatisticController: UIViewController, UITableViewDelegate, UITableViewDat
             segmentedControl.backgroundColor = UIColor.brownColor()
             segmentedControl.tintColor = UIColor.whiteColor()
             segmentedControl.selectedSegmentIndex = 1
-            segmentedControl.addTarget(self, action: "segmentedControlAction", forControlEvents: .ValueChanged)
+            segmentedControl.addTarget(self, action: #selector(StatisticController.segmentedControlAction(_:)), forControlEvents: .ValueChanged)
             vw.addSubview(segmentedControl)
             
             let myLabel1:UILabel = UILabel(frame: CGRectMake(tableView.frame.size.width/2-45, 3, 90, 45))

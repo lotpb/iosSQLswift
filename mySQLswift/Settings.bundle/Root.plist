@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>StringsTable</key>
-	<string>Root</string>
 	<key>PreferenceSpecifiers</key>
 	<array>
 		<dict>
@@ -28,14 +26,6 @@
 		</dict>
 		<dict>
 			<key>Type</key>
-			<string>PSChildPaneSpecifier</string>
-			<key>Title</key>
-			<string>Edit Profile</string>
-			<key>File</key>
-			<string>EditProfile</string>
-		</dict>
-		<dict>
-			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
 			<string>Parse Data</string>
@@ -56,6 +46,14 @@
 		</dict>
 		<dict>
 			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+			<key>Title</key>
+			<string>Notification Settings</string>
+			<key>File</key>
+			<string>Notification</string>
+		</dict>
+		<dict>
+			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
 			<string>General</string>
@@ -64,9 +62,9 @@
 			<key>Type</key>
 			<string>PSChildPaneSpecifier</string>
 			<key>Title</key>
-			<string>About</string>
+			<string>Personal Info</string>
 			<key>File</key>
-			<string>About</string>
+			<string>Profile</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -190,81 +188,7 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
-			<string>PERSONAL INFO</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSTextFieldSpecifier</string>
-			<key>Title</key>
-			<string>Last Name</string>
-			<key>Key</key>
-			<string>lastNameKey</string>
-			<key>DefaultValue</key>
-			<string>Balsamo</string>
-			<key>File</key>
-			<string>EditProfile</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSTextFieldSpecifier</string>
-			<key>Title</key>
-			<string>First Name</string>
-			<key>Key</key>
-			<string>firstNameKey</string>
-			<key>DefaultValue</key>
-			<string>Peter</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSTextFieldSpecifier</string>
-			<key>Title</key>
-			<string>Website</string>
-			<key>Key</key>
-			<string>websiteKey</string>
-			<key>DefaultValue</key>
-			<string>leadsonline.comuv.com</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-			<key>Title</key>
-			<string>PRIVATE INFO</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSTextFieldSpecifier</string>
-			<key>Title</key>
-			<string>Email</string>
-			<key>Key</key>
-			<string>emailKey</string>
-			<key>DefaultValue</key>
-			<string>eunitedws@verizon.net</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSTextFieldSpecifier</string>
-			<key>Title</key>
-			<string>User Name</string>
-			<key>Key</key>
-			<string>usernameKey</string>
-			<key>DefaultValue</key>
-			<string>Peter Balsamo</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSTextFieldSpecifier</string>
-			<key>Title</key>
-			<string>Password</string>
-			<key>Key</key>
-			<string>passwordKey</string>
-			<key>DefaultValue</key>
-			<string>3911</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-			<key>Title</key>
-			<string>Location</string>
+			<string>Map</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -387,5 +311,7 @@
 			<string>&lt;h2&gt;Learning iOS Programming!&lt;/h2&gt;</string>
 		</dict>
 	</array>
+	<key>StringsTable</key>
+	<string>Root</string>
 </dict>
 </plist>

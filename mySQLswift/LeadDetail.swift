@@ -135,8 +135,8 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     //var itemText : UITextField?
     
     var savedEventId : NSString?
-    var getEmail : NSString?
     
+    var getEmail : NSString?
     var emailTitle :NSString?
     var messageBody:NSString?
     
@@ -214,13 +214,13 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         
         self.mapbutton!.backgroundColor = Color.BlueColor
         self.mapbutton!.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
-        self.mapbutton!.addTarget(self, action: "mapButton", forControlEvents: UIControlEvents.TouchUpInside)
+        self.mapbutton!.addTarget(self, action: #selector(LeadDetail.mapButton), forControlEvents: UIControlEvents.TouchUpInside)
         let btnLayer3: CALayer = self.mapbutton!.layer
         btnLayer3.masksToBounds = true
         btnLayer3.cornerRadius = 9.0
         
-        let editButton = UIBarButtonItem(barButtonSystemItem: .Edit, target: self, action: "editButton")
-        let actionButton = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: "actionButton:")
+        let editButton = UIBarButtonItem(barButtonSystemItem: .Edit, target: self, action: #selector(LeadDetail.editButton))
+        let actionButton = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: #selector(LeadDetail.actionButton(_:)))
         let buttons:NSArray = [editButton,actionButton]
         self.navigationItem.rightBarButtonItems = buttons as? [UIBarButtonItem]
         

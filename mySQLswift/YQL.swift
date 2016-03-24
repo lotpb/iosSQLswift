@@ -9,7 +9,7 @@
 import Foundation
 
 struct YQL {
-    
+
     private static let prefix:NSString = "http://query.yahooapis.com/v1/public/yql?&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=&q="
     
     static func query(statement:String) -> NSDictionary? {

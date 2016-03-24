@@ -79,7 +79,7 @@ class DetailViewController: UIViewController, RPPreviewViewControllerDelegate, A
         titleButton.addTarget(self, action: Selector(), forControlEvents: UIControlEvents.TouchUpInside)
         self.navigationItem.titleView = titleButton
         
-        let searchButton = UIBarButtonItem(title: "Light", style: .Plain, target: self, action: "lightcamera")
+        let searchButton = UIBarButtonItem(title: "Light", style: .Plain, target: self, action: #selector(DetailViewController.lightcamera))
         let buttons:NSArray = [searchButton]
         self.navigationItem.rightBarButtonItems = buttons as? [UIBarButtonItem]
         
@@ -103,7 +103,7 @@ class DetailViewController: UIViewController, RPPreviewViewControllerDelegate, A
         myLabel.font = headtitle
         myLabel.layer.cornerRadius = 30.0
         myLabel.userInteractionEnabled = true
-        let tap = UITapGestureRecognizer(target: self, action:Selector("speak:"))
+        let tap = UITapGestureRecognizer(target: self, action:#selector(DetailViewController.speak(_:)))
         myLabel.addGestureRecognizer(tap)
         self.view.addSubview(myLabel)
         

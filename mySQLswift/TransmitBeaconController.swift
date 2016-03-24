@@ -33,7 +33,7 @@ class TransmitBeaconController: UIViewController, CBPeripheralManagerDelegate {
         
         btnAction.layer.cornerRadius = btnAction.frame.size.width / 2
         
-        let swipeDownGestureRecognizer = UISwipeGestureRecognizer(target: self, action: "handleSwipeGestureRecognizer:")
+        let swipeDownGestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(TransmitBeaconController.handleSwipeGestureRecognizer(_:)))
         swipeDownGestureRecognizer.direction = UISwipeGestureRecognizerDirection.Down
         view.addGestureRecognizer(swipeDownGestureRecognizer)
         

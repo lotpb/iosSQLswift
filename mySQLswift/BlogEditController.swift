@@ -103,8 +103,8 @@ class BlogEditController: UIViewController, UITableViewDelegate, UITableViewData
         
         self.update!.setTitleColor(UIColor.grayColor(), forState: UIControlState.Normal)
         
-        let actionButton = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: "shareButton:")
-        let trashButton = UIBarButtonItem(barButtonSystemItem: .Trash, target: self, action: "deleteButton:")
+        let actionButton = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: #selector(BlogEditController.shareButton(_:)))
+        let trashButton = UIBarButtonItem(barButtonSystemItem: .Trash, target: self, action: #selector(BlogEditController.deleteButton(_:)))
         let buttons:NSArray = [actionButton,trashButton]
         self.navigationItem.rightBarButtonItems = buttons as? [UIBarButtonItem]
         
@@ -114,7 +114,7 @@ class BlogEditController: UIViewController, UITableViewDelegate, UITableViewData
         refreshControl.backgroundColor = UIColor.clearColor()
         refreshControl.tintColor = UIColor.blackColor()
         self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
-        self.refreshControl.addTarget(self, action: "refreshData:", forControlEvents: UIControlEvents.ValueChanged)
+        self.refreshControl.addTarget(self, action: #selector(BlogEditController.refreshData(_:)), forControlEvents: UIControlEvents.ValueChanged)
         self.tableView!.addSubview(refreshControl)
     
     }
@@ -292,7 +292,7 @@ class BlogEditController: UIViewController, UITableViewDelegate, UITableViewData
             cell.replylikeButton.tintColor = UIColor.lightGrayColor()
             let replyimage : UIImage? = UIImage(named:"Thumb Up.png")!.imageWithRenderingMode(.AlwaysTemplate)
             cell.replylikeButton .setImage(replyimage, forState: .Normal)
-            cell.replylikeButton .addTarget(self, action: "likeButton:", forControlEvents: UIControlEvents.TouchUpInside)
+            cell.replylikeButton .addTarget(self, action: #selector(BlogEditController.likeButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
             
             if !(cell.replynumLabel.text == "0") {
                 cell.replynumLabel.textColor = UIColor.redColor()

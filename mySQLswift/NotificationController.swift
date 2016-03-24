@@ -28,8 +28,8 @@ class NotificationController: UIViewController {
         //titleButton.addTarget(self, action: Selector(), forControlEvents: UIControlEvents.TouchUpInside)
         self.navigationItem.titleView = titleButton
 
-        let actionButton = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: "actionButton:")
-        let editButton = UIBarButtonItem(barButtonSystemItem: .Edit, target: self, action: Selector("editButton:"))
+        let actionButton = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: #selector(NotificationController.actionButton(_:)))
+        let editButton = UIBarButtonItem(barButtonSystemItem: .Edit, target: self, action: #selector(NotificationController.editButton(_:)))
         let buttons:NSArray = [editButton, actionButton]
         self.navigationItem.rightBarButtonItems = buttons as? [UIBarButtonItem]
         

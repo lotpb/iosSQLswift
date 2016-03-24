@@ -50,8 +50,8 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
         
         self.collectionView!.backgroundColor = UIColor(white:0.90, alpha:1.0)
         
-        let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action:"newButton:")
-        let searchButton = UIBarButtonItem(barButtonSystemItem: .Search, target: self, action:"searchButton:")
+        let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action:#selector(News.newButton(_:)))
+        let searchButton = UIBarButtonItem(barButtonSystemItem: .Search, target: self, action:#selector(News.searchButton(_:)))
         let buttons:NSArray = [addButton,searchButton]
         self.navigationItem.rightBarButtonItems = buttons as? [UIBarButtonItem]
         
@@ -62,7 +62,7 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
         refreshControl.tintColor = UIColor.whiteColor()
         let attributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
         self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh", attributes: attributes)
-        self.refreshControl.addTarget(self, action: "refreshData:", forControlEvents: UIControlEvents.ValueChanged)
+        self.refreshControl.addTarget(self, action: #selector(News.refreshData(_:)), forControlEvents: UIControlEvents.ValueChanged)
         self.collectionView!.addSubview(refreshControl)
         
     }
@@ -80,7 +80,7 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
             self.navigationController?.navigationBar.barTintColor = Color.News.navColor
         }
         
-         NSNotificationCenter.defaultCenter().addObserver(self, selector: "finishedPlaying:", name: AVPlayerItemDidPlayToEndTimeNotification, object: self.playerViewController)
+         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(News.finishedPlaying(_:)), name: AVPlayerItemDidPlayToEndTimeNotification, object: self.playerViewController)
     }
 
     override func didReceiveMemoryWarning() {
@@ -161,12 +161,12 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
         cell.actionBtn.tintColor = UIColor.lightGrayColor()
         let imagebutton : UIImage? = UIImage(named:"Upload50.png")!.imageWithRenderingMode(.AlwaysTemplate)
         cell.actionBtn .setImage(imagebutton, forState: .Normal)
-        cell.actionBtn .addTarget(self, action: "shareButton:", forControlEvents: UIControlEvents.TouchUpInside)
+        cell.actionBtn .addTarget(self, action: #selector(News.shareButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         
         cell.likeButton.tintColor = UIColor.lightGrayColor()
         let likeimage : UIImage? = UIImage(named:"Thumb Up.png")!.imageWithRenderingMode(.AlwaysTemplate)
         cell.likeButton .setImage(likeimage, forState: .Normal)
-        cell.likeButton .addTarget(self, action: "likeButton:", forControlEvents: UIControlEvents.TouchUpInside)
+        cell.likeButton .addTarget(self, action: #selector(News.likeButton(_:)), forControlEvents: UIControlEvents.TouchUpInside)
         
         var Liked:Int? = _feedItems[indexPath.row] .valueForKey("Liked")as? Int
         if Liked == nil {
@@ -194,7 +194,7 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
             let playimage : UIImage? = UIImage(named:"play_button.png")!.imageWithRenderingMode(.AlwaysTemplate)
             playButton .setImage(playimage, forState: .Normal)
             //playButton .setTitle(urlLabel!.text, forState: UIControlState.Normal)
-            let tap = UITapGestureRecognizer(target: self, action: Selector("playVideo:"))
+            let tap = UITapGestureRecognizer(target: self, action: #selector(News.playVideo(_:)))
             playButton.addGestureRecognizer(tap)
             cell.imageView.addSubview(playButton)
             

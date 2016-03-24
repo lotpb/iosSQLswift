@@ -70,7 +70,7 @@ class LeadUserController: UIViewController, UITableViewDelegate, UITableViewData
         self.comments = "90 percent of my picks made $$$. The stock whisper has traded over 1000 traders worldwide"
         }
         
-        let shareButton = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: "insertNewObject:")
+        let shareButton = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: Selector())
         let buttons:NSArray = [shareButton]
         self.navigationItem.rightBarButtonItems = buttons as? [UIBarButtonItem]
         
@@ -78,7 +78,7 @@ class LeadUserController: UIViewController, UITableViewDelegate, UITableViewData
         refreshControl.backgroundColor = UIColor.clearColor()
         refreshControl.tintColor = UIColor.blackColor()
         self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
-        self.refreshControl.addTarget(self, action: "refreshData:", forControlEvents: UIControlEvents.ValueChanged)
+        self.refreshControl.addTarget(self, action: #selector(LeadUserController.refreshData(_:)), forControlEvents: UIControlEvents.ValueChanged)
         self.tableView!.addSubview(refreshControl)
         
         emptyLabel = UILabel(frame: self.view.bounds)
@@ -388,7 +388,7 @@ class LeadUserController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(tableView: UITableView, canPerformAction action: Selector, forRowAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) -> Bool {
         
-        if (action == Selector("copy:")) {
+        if (action == #selector(NSObject.copy(_:))) {
             return true
         }
         return false

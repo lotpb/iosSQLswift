@@ -73,7 +73,7 @@ class UserViewController: UIViewController, UITableViewDelegate, UITableViewData
         refreshControl.backgroundColor = UIColor.clearColor()
         refreshControl.tintColor = UIColor.blackColor()
         self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
-        self.refreshControl.addTarget(self, action: "refreshData:", forControlEvents: UIControlEvents.ValueChanged)
+        self.refreshControl.addTarget(self, action: #selector(UserViewController.refreshData(_:)), forControlEvents: UIControlEvents.ValueChanged)
         self.mapView!.addSubview(refreshControl)
   
     }
@@ -207,7 +207,7 @@ class UserViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(tableView: UITableView, canPerformAction action: Selector, forRowAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) -> Bool {
         
-        if (action == Selector("copy:")) {
+        if (action == #selector(NSObject.copy(_:))) {
             return true
         }
         return false

@@ -29,7 +29,7 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
     var price: UITextField!
     
     var image : UIImage!
-    var activeImage: UIImageView?
+    var activeImage: UIImageView!
     
     var objects = [AnyObject]()
     var pasteBoard = UIPasteboard.generalPasteboard()
@@ -63,7 +63,7 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
         resultsController.tableView.dataSource = self
         resultsController.tableView.delegate = self
         
-        let saveButton = UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: "updateData")
+        let saveButton = UIBarButtonItem(barButtonSystemItem: .Save, target: self, action: #selector(NewEditData.updateData))
         let buttons:NSArray = [saveButton]
         self.navigationItem.rightBarButtonItems = buttons as? [UIBarButtonItem]
 
@@ -71,7 +71,7 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
         refreshControl.backgroundColor = UIColor.clearColor()
         refreshControl.tintColor = UIColor.blackColor()
         self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
-        self.refreshControl.addTarget(self, action: "refreshData:", forControlEvents: UIControlEvents.ValueChanged)
+        self.refreshControl.addTarget(self, action: #selector(NewEditData.refreshData(_:)), forControlEvents: UIControlEvents.ValueChanged)
         self.tableView!.addSubview(refreshControl)
         
         if formStatus == "New" {
@@ -156,7 +156,7 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
         if (indexPath.row == 0) {
             
             let theSwitch = UISwitch(frame:CGRectZero)
-            theSwitch.addTarget(self, action: "changeSwitch:", forControlEvents: .ValueChanged)
+            theSwitch.addTarget(self, action: #selector(NewEditData.changeSwitch(_:)), forControlEvents: .ValueChanged)
             theSwitch.onTintColor = UIColor(red:0.0, green:122.0/255.0, blue:1.0, alpha: 1.0)
             theSwitch.tintColor = UIColor.lightGrayColor()
             
@@ -181,6 +181,7 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
             
             self.salesman = textframe
             self.salesman!.adjustsFontSizeToFitWidth = true
+            
             if self.frm13 == nil {
                 
                 self.salesman!.text = ""
@@ -249,7 +250,7 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
             self.price!.adjustsFontSizeToFitWidth = true
             
             if (formController == "Salesman") {
-                cell.textLabel!.text = "Photo"
+                cell.textLabel!.text = ""
                 cell.imageView!.image = self.image
             }
                 
@@ -304,7 +305,7 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
     
     func tableView(tableView: UITableView, canPerformAction action: Selector, forRowAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) -> Bool {
         
-        if (action == Selector("copy:")) {
+        if (action == #selector(NSObject.copy(_:))) {
             return true
         }
         return false

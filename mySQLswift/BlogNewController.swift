@@ -42,6 +42,12 @@ class BlogNewController: UIViewController, UITextFieldDelegate, UITextViewDelega
     
     var formStatus : NSString?
     var activeImage : UIImageView? //star
+    
+    /*
+    lazy var tapRecognizer: UITapGestureRecognizer = {
+        var recognizer = UITapGestureRecognizer(target:self, action: #selector(self.dismissKeyboard))
+        return recognizer
+    }() */
 
   
     override func viewDidLoad() {
@@ -144,7 +150,7 @@ class BlogNewController: UIViewController, UITextFieldDelegate, UITextViewDelega
         self.Like!.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         
         self.myDatePicker!.hidden = true
-        self.myDatePicker!.addTarget(self, action: Selector("dataPickerChanged:"), forControlEvents: UIControlEvents.ValueChanged)
+        self.myDatePicker!.addTarget(self, action: Selector(), forControlEvents: UIControlEvents.ValueChanged)
         
         self.characterCountLabel.text = ""
         self.characterCountLabel.textColor = UIColor.grayColor()
@@ -242,6 +248,13 @@ class BlogNewController: UIViewController, UITextFieldDelegate, UITextViewDelega
         let strDate = dateFormatter.stringFromDate(myDatePicker.date)
         self.msgDate = strDate
     }
+    
+    /*
+    // MARK: Keyboard dismissal
+    
+    func dismissKeyboard() {
+        subject!.resignFirstResponder()
+    } */
     
     
     // MARK: - textView delegate
@@ -341,8 +354,8 @@ class BlogNewController: UIViewController, UITextFieldDelegate, UITextViewDelega
             }
         }
         
-        // Set ACL permissions for added security
-        PFACL.setDefaultACL(PFACL(), withAccessForCurrentUser: true)
+        //Set ACL permissions for added security
+        //PFACL.setDefaultACL(PFACL(), withAccessForCurrentUser: true)
         
         saveblog.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
             if success == true {

@@ -15,6 +15,7 @@ class SalesmanController: UIViewController, UITableViewDelegate, UITableViewData
     
     @IBOutlet weak var tableView: UITableView?
     var isFormStat = false
+    var selectedImage: UIImage?
     
     var _feedItems : NSMutableArray = NSMutableArray()
     var _feedheadItems : NSMutableArray = NSMutableArray()
@@ -54,8 +55,8 @@ class SalesmanController: UIViewController, UITableViewDelegate, UITableViewData
         
         //self.navigationItem.leftBarButtonItem = self.editButtonItem()
         
-        let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "newData")
-        let searchButton = UIBarButtonItem(barButtonSystemItem: .Search, target: self, action: "searchButton:")
+        let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(SalesmanController.newData))
+        let searchButton = UIBarButtonItem(barButtonSystemItem: .Search, target: self, action: #selector(SalesmanController.searchButton(_:)))
         let buttons:NSArray = [addButton,searchButton]
         self.navigationItem.rightBarButtonItems = buttons as? [UIBarButtonItem]
         
@@ -66,21 +67,21 @@ class SalesmanController: UIViewController, UITableViewDelegate, UITableViewData
         refreshControl.tintColor = UIColor.whiteColor()
         let attributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
         self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh", attributes: attributes)
-        self.refreshControl.addTarget(self, action: "refreshData:", forControlEvents: UIControlEvents.ValueChanged)
+        self.refreshControl.addTarget(self, action: #selector(SalesmanController.refreshData(_:)), forControlEvents: UIControlEvents.ValueChanged)
         self.tableView!.addSubview(refreshControl)
         
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.hidesBarsOnSwipe = true
+        //navigationController?.hidesBarsOnSwipe = true
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.barTintColor = Color.Table.navColor
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        navigationController?.hidesBarsOnSwipe = false
+        //navigationController?.hidesBarsOnSwipe = false
     }
     
     override func didReceiveMemoryWarning() {
@@ -276,7 +277,7 @@ class SalesmanController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(tableView: UITableView, canPerformAction action: Selector, forRowAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) -> Bool {
         
-        if (action == Selector("copy:")) {
+        if (action == #selector(NSObject.copy(_:))) {
             return true
         }
         return false
@@ -352,14 +353,27 @@ class SalesmanController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
+        self.selectedImage = nil
         if tableView == resultsController.tableView {
             //userDetails = foundUsers[indexPath.row]
             //self.performSegueWithIdentifier("PushDetailsVC", sender: self)
         } else {
+            
             isFormStat = false
-            self.performSegueWithIdentifier("salesDetailSegue", sender: self)
+            let imageObject = _feedItems.objectAtIndex(indexPath.row) as? PFObject
+            if let imageFile = imageObject!.objectForKey("imageFile") as? PFFile {
+                
+                imageFile.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError?) -> Void in
+                    
+                    self.selectedImage = UIImage(data: imageData!)
+                    self.performSegueWithIdentifier("salesDetailSegue", sender: self)
+                }
+            } else {
+                self.performSegueWithIdentifier("salesDetailSegue", sender: self)
+            }
         }
     }
+    
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
@@ -376,6 +390,7 @@ class SalesmanController: UIViewController, UITableViewDelegate, UITableViewData
                 VC!.frm11 = _feedItems[myIndexPath] .valueForKey("Active") as? String
                 VC!.frm12 = _feedItems[myIndexPath] .valueForKey("SalesNo") as? String
                 VC!.frm13 = _feedItems[myIndexPath] .valueForKey("Salesman") as? String
+                VC!.image = self.selectedImage
             }
         }
     }

@@ -25,7 +25,7 @@ class MusicController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     
     lazy var tapRecognizer: UITapGestureRecognizer = {
-        var recognizer = UITapGestureRecognizer(target:self, action: "dismissKeyboard")
+        var recognizer = UITapGestureRecognizer(target:self, action: #selector(MusicController.dismissKeyboard))
         return recognizer
     }()
     
@@ -165,7 +165,7 @@ class MusicController: UIViewController {
             let playerViewController = AVPlayerViewController()
             playerViewController.player = videoPlayer
             
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: "finishedPlaying:", name: AVPlayerItemDidPlayToEndTimeNotification, object: videoPlayer!.currentItem)
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MusicController.finishedPlaying(_:)), name: AVPlayerItemDidPlayToEndTimeNotification, object: videoPlayer!.currentItem)
             
             self.presentViewController(playerViewController, animated: true)
                 {

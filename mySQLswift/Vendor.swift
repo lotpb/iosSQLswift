@@ -55,8 +55,8 @@ class Vendor: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
         resultsController.tableView.dataSource = self
         resultsController.tableView.delegate = self
         
-        let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "newData")
-        let searchButton = UIBarButtonItem(barButtonSystemItem: .Search, target: self, action: "searchButton:")
+        let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(Vendor.newData))
+        let searchButton = UIBarButtonItem(barButtonSystemItem: .Search, target: self, action: #selector(Vendor.searchButton(_:)))
         let buttons:NSArray = [addButton,searchButton]
         self.navigationItem.rightBarButtonItems = buttons as? [UIBarButtonItem]
         
@@ -67,7 +67,7 @@ class Vendor: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
         refreshControl.tintColor = UIColor.whiteColor()
         let attributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
         self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh", attributes: attributes)
-        self.refreshControl.addTarget(self, action: "refreshData:", forControlEvents: UIControlEvents.ValueChanged)
+        self.refreshControl.addTarget(self, action: #selector(Vendor.refreshData(_:)), forControlEvents: UIControlEvents.ValueChanged)
         self.tableView!.addSubview(refreshControl)
         
     }
@@ -285,7 +285,7 @@ class Vendor: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
     }
     
     func tableView(tableView: UITableView, canPerformAction action: Selector, forRowAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) -> Bool {
-        if (action == Selector("copy:")) {
+        if (action == #selector(NSObject.copy(_:))) {
             return true
         }
         return false

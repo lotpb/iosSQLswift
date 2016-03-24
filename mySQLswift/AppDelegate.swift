@@ -9,7 +9,6 @@
 import UIKit
 import Parse
 import FBSDKCoreKit
-import ParseFacebookUtilsV4
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
@@ -46,8 +45,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         Parse.setApplicationId("lMUWcnNfBE2HcaGb2zhgfcTgDLKifbyi6dgmEK3M", clientKey: "UVyAQYRpcfZdkCa5Jzoza5fTIPdELFChJ7TVbSeX")
         
         PFAnalytics.trackAppOpenedWithLaunchOptions(launchOptions)
-            
-        PFFacebookUtils.initializeFacebookWithApplicationLaunchOptions(launchOptions)
             
         }
 
@@ -90,17 +87,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
             
         }
         
-        
         // MARK: - SplitViewController
+        
         /*
         // Override point for customization after application launch.
         let splitViewController = self.window!.rootViewController as! UISplitViewController
         let navigationController = splitViewController.viewControllers[splitViewController.viewControllers.count-1] as! UINavigationController
         navigationController.topViewController!.navigationItem.leftBarButtonItem = splitViewController.displayModeButtonItem()
         splitViewController.delegate = self */
-        
-        
+
         customizeAppearance()
+        
+        // MARK: - Facebook
+        
+        FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
         return true
     }
@@ -128,11 +128,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
             completionHandler(UIBackgroundFetchResult.NewData)
     }
     
-    // MARK: - Facebook
-    
-    func application(application: UIApplication, url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
-            return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
-    }
     
      // MARK: - Music Controller
     

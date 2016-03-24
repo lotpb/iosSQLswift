@@ -15,6 +15,7 @@ class ProductController: UIViewController, UITableViewDelegate, UITableViewDataS
     
     @IBOutlet weak var tableView: UITableView?
     var isFormStat = false
+    var selectedImage: UIImage?
     
     var _feedItems : NSMutableArray = NSMutableArray()
     var _feedheadItems : NSMutableArray = NSMutableArray()
@@ -41,22 +42,17 @@ class ProductController: UIViewController, UITableViewDelegate, UITableViewDataS
         self.tableView!.delegate = self
         self.tableView!.dataSource = self
         self.tableView!.rowHeight = 65
-        //self.tableView!.estimatedRowHeight = 110
-        //self.tableView!.rowHeight = UITableViewAutomaticDimension
         self.tableView!.backgroundColor = UIColor(white:0.90, alpha:1.0)
         self.automaticallyAdjustsScrollViewInsets = false
-        
-        //users = []
+
         foundUsers = []
         resultsController = UITableViewController(style: .Plain)
         resultsController.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "UserFoundCell")
         resultsController.tableView.dataSource = self
         resultsController.tableView.delegate = self
         
-        //self.navigationItem.leftBarButtonItem = self.editButtonItem()
-        
-        let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: "newData")
-        let searchButton = UIBarButtonItem(barButtonSystemItem: .Search, target: self, action: "searchButton:")
+        let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(ProductController.newData))
+        let searchButton = UIBarButtonItem(barButtonSystemItem: .Search, target: self, action: #selector(ProductController.searchButton(_:)))
         let buttons:NSArray = [addButton,searchButton]
         self.navigationItem.rightBarButtonItems = buttons as? [UIBarButtonItem]
         
@@ -67,21 +63,21 @@ class ProductController: UIViewController, UITableViewDelegate, UITableViewDataS
         refreshControl.tintColor = UIColor.whiteColor()
         let attributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
         self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh", attributes: attributes)
-        self.refreshControl.addTarget(self, action: "refreshData:", forControlEvents: UIControlEvents.ValueChanged)
+        self.refreshControl.addTarget(self, action: #selector(ProductController.refreshData(_:)), forControlEvents: UIControlEvents.ValueChanged)
         self.tableView!.addSubview(refreshControl)
         
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.hidesBarsOnSwipe = true
+        //navigationController?.hidesBarsOnSwipe = true
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.barTintColor = Color.Table.navColor
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        navigationController?.hidesBarsOnSwipe = false
+        //navigationController?.hidesBarsOnSwipe = false
     }
     
     override func didReceiveMemoryWarning() {
@@ -139,7 +135,7 @@ class ProductController: UIViewController, UITableViewDelegate, UITableViewDataS
         }
         
         if (tableView == self.tableView) {
-            
+           
             cell.prodtitleLabel!.text = _feedItems[indexPath.row] .valueForKey("Products") as? String
             
         } else {
@@ -277,7 +273,7 @@ class ProductController: UIViewController, UITableViewDelegate, UITableViewDataS
     
     func tableView(tableView: UITableView, canPerformAction action: Selector, forRowAtIndexPath indexPath: NSIndexPath, withSender sender: AnyObject?) -> Bool {
         
-        if (action == Selector("copy:")) {
+        if (action == #selector(NSObject.copy(_:))) {
             return true
         }
         return false
@@ -353,12 +349,24 @@ class ProductController: UIViewController, UITableViewDelegate, UITableViewDataS
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
+        self.selectedImage = nil
         if tableView == resultsController.tableView {
             //userDetails = foundUsers[indexPath.row]
             //self.performSegueWithIdentifier("PushDetailsVC", sender: self)
         } else {
+            
             isFormStat = false
-            self.performSegueWithIdentifier("prodDetailSegue", sender: self)
+            let imageObject = _feedItems.objectAtIndex(indexPath.row) as? PFObject
+            if let imageFile = imageObject!.objectForKey("imageFile") as? PFFile {
+                
+                imageFile.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError?) -> Void in
+                    
+                    self.selectedImage = UIImage(data: imageData!)
+                    self.performSegueWithIdentifier("prodDetailSegue", sender: self)
+                }
+            } else {
+                self.performSegueWithIdentifier("prodDetailSegue", sender: self)
+            }
         }
     }
     
@@ -378,6 +386,7 @@ class ProductController: UIViewController, UITableViewDelegate, UITableViewDataS
                 VC!.frm12 = _feedItems[myIndexPath] .valueForKey("ProductNo") as? String
                 VC!.frm13 = _feedItems[myIndexPath] .valueForKey("Products") as? String
                 VC!.frm14 = _feedItems[myIndexPath] .valueForKey("Price") as? Int
+                VC!.image = self.selectedImage
             }
         }
     }
