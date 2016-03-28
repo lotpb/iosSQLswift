@@ -67,6 +67,11 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
         
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        refreshData(self)
+    }
+    
     override func viewWillDisappear(animated: Bool) {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }

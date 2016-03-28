@@ -235,11 +235,11 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
     }
     
     func getFacebookUserInfo() {
+        
         if(FBSDKAccessToken.currentAccessToken() != nil)
         {
             
-        //fbButton.readPermissions = ["public_profile", "email", "user_friends", "user_birthday", "user_location"]
-            
+            //fbButton.readPermissions = ["public_profile", "email", "user_friends", "user_birthday", "user_location"]
             
             //print permissions, such as public_profile
             print(FBSDKAccessToken.currentAccessToken().permissions)

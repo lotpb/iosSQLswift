@@ -185,6 +185,8 @@ class LeadUserController: UIViewController, UITableViewDelegate, UITableViewData
             
         } else {
             
+            let formatter = NSNumberFormatter()
+            formatter.numberStyle = .CurrencyStyle
             cell.blogtitleLabel!.text = _feedItems[indexPath.row] .valueForKey("LastName") as? String
             cell.blogsubtitleLabel!.text = _feedItems[indexPath.row] .valueForKey("City") as? String
             cell.blogmsgDateLabel!.text = dateFormatter.stringFromDate(date)as String!
@@ -192,7 +194,7 @@ class LeadUserController: UIViewController, UITableViewDelegate, UITableViewData
             if CommentCount == nil {
                 CommentCount = 0
             }
-            cell.commentLabel?.text = "\(CommentCount!)"
+            cell.commentLabel?.text = formatter.stringFromNumber(CommentCount!)
         }
         
         cell.actionBtn.tintColor = UIColor.lightGrayColor()

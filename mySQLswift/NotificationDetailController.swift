@@ -42,15 +42,17 @@ class NotificationDetailController: UIViewController, UITableViewDelegate, UITab
         //self.tableView!.estimatedRowHeight = 110
         //self.tableView!.rowHeight = UITableViewAutomaticDimension
         self.tableView!.backgroundColor = UIColor(white:0.90, alpha:1.0)
+        //self.tableView!.tableFooterView = UIView(frame: .zero)
         
         let trashButton = UIBarButtonItem(barButtonSystemItem: .Trash, target: self, action: #selector(NotificationDetailController.deleteButton(_:)))
         let buttons:NSArray = [trashButton]
         self.navigationItem.rightBarButtonItems = buttons as? [UIBarButtonItem]
         
         self.refreshControl = UIRefreshControl()
-        refreshControl.backgroundColor = UIColor.clearColor()
-        refreshControl.tintColor = UIColor.blackColor()
-        self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl.backgroundColor = UIColor.orangeColor()
+        refreshControl.tintColor = UIColor.whiteColor()
+        let attributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+        self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh", attributes: attributes)
         self.refreshControl.addTarget(self, action: #selector(NotificationDetailController.refreshData(_:)), forControlEvents: UIControlEvents.ValueChanged)
         self.tableView!.addSubview(refreshControl)
         
@@ -60,7 +62,7 @@ class NotificationDetailController: UIViewController, UITableViewDelegate, UITab
         super.viewWillAppear(animated)
 
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
-        self.navigationController?.navigationBar.barTintColor = UIColor.brownColor()
+        self.navigationController?.navigationBar.barTintColor = UIColor.orangeColor()
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -103,15 +105,14 @@ class NotificationDetailController: UIViewController, UITableViewDelegate, UITab
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell",
-            forIndexPath: indexPath)
-
-        localNotifications = UIApplication.sharedApplication().scheduledLocalNotifications!
-        localNotification = localNotifications.objectAtIndex(indexPath.row) as! UILocalNotification
+        let CellIdentifier: String = "Cell"
         
+        let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier)! as UITableViewCell
+
         cell.textLabel!.textColor = UIColor.grayColor()
         
         if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
+            
             cell.textLabel!.font = ipadtitle
             cell.detailTextLabel!.font = ipadsubtitle
 
@@ -120,32 +121,28 @@ class NotificationDetailController: UIViewController, UITableViewDelegate, UITab
             cell.detailTextLabel!.font = celltitle
         }
         
-
-        cell.textLabel!.text = localNotification.fireDate?.description
-        cell.detailTextLabel!.text = localNotification.alertBody
-        cell.detailTextLabel!.numberOfLines = 2
         
-        /*
-        let myLabel:UILabel = UILabel(frame: CGRectMake(10, 10, 50, 50))
-        myLabel.backgroundColor = UIColor(white:0.45, alpha:1.0)
-        myLabel.textColor = UIColor.whiteColor()
-        myLabel.textAlignment = NSTextAlignment.Center
-        myLabel.layer.masksToBounds = true
-        myLabel.text = "Page"
-        myLabel.font = headtitle
-        myLabel.layer.cornerRadius = 25.0
-        myLabel.userInteractionEnabled = true
-        cell.addSubview(myLabel) */
-        
-        /*
-        let imageName : UIImage = UIImage(named: "Thumb Up.png")!
-        cell.imageView?.image = imageName
-        cell.imageView!.userInteractionEnabled = true
-        cell.imageView!.tag = indexPath.row */
+        if (UIApplication.sharedApplication().scheduledLocalNotifications!.count == 0) {
+            
+            cell.textLabel!.text = "You have no pending Notifications :)"
+            cell.detailTextLabel!.text = "You have no pending Notifications :)"
+            
+        } else {
+            
+            localNotifications = UIApplication.sharedApplication().scheduledLocalNotifications!
+            localNotification = localNotifications.objectAtIndex(indexPath.row) as! UILocalNotification
+            
+            //cell.textLabel!.text = "You have no pending Notifications :)"
+            //cell.detailTextLabel!.text = "You have no pending Notifications :)"
+            
+            cell.textLabel!.text = localNotification.fireDate?.description
+            cell.detailTextLabel!.text = localNotification.alertBody
+            cell.detailTextLabel!.numberOfLines = 2
+        }
         
         return cell
     }
-    
+    /*
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 90.0
     }
@@ -153,7 +150,7 @@ class NotificationDetailController: UIViewController, UITableViewDelegate, UITab
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         let vw = UIView()
-        vw.backgroundColor = UIColor.brownColor()
+        vw.backgroundColor = UIColor.orangeColor()
         //tableView.tableHeaderView = vw
         
         let myLabel1:UILabel = UILabel(frame: CGRectMake(10, 15, 50, 50))
@@ -194,7 +191,7 @@ class NotificationDetailController: UIViewController, UITableViewDelegate, UITab
         myLabel3.textColor = UIColor.blackColor()
         myLabel3.textAlignment = NSTextAlignment.Center
         myLabel3.layer.masksToBounds = true
-        myLabel3.text = ""
+        myLabel3.text = "Events"
         myLabel3.font = Font.headtitle
         myLabel3.layer.cornerRadius = 25.0
         myLabel3.userInteractionEnabled = true
@@ -205,7 +202,7 @@ class NotificationDetailController: UIViewController, UITableViewDelegate, UITab
         vw.addSubview(separatorLineView3)
         
         return vw
-    }
+    } */
     
     func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         // Return false if you do not want the specified item to be editable.

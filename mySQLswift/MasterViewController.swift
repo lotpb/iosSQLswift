@@ -125,7 +125,7 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
     override class func initialize() {
         var onceToken: dispatch_once_t = 0
         dispatch_once(&onceToken) {
-            //self.versionCheck()
+            //versionCheck()
         }
     }
 
@@ -352,12 +352,12 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         
         let statButton:UIButton = UIButton(frame: CGRectMake(tableView.frame.size.width-100, 95, 90, 30))
         statButton.setTitle("Statistics", forState: .Normal)
-        statButton.backgroundColor = UIColor.grayColor()
+        statButton.backgroundColor = Color.MGrayColor
         statButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         statButton.addTarget(self, action:#selector(MasterViewController.statButton), forControlEvents: UIControlEvents.TouchUpInside)
-        let btnLayer3: CALayer = statButton.layer
-        btnLayer3.masksToBounds = true
-        btnLayer3.cornerRadius = 9.0
+        statButton.layer.cornerRadius = 15.0
+        statButton.layer.borderColor = UIColor.blackColor().CGColor
+        statButton.layer.borderWidth = 1.0
         vw.addSubview(statButton)
         
         return vw

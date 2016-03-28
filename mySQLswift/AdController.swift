@@ -40,13 +40,11 @@ class AdController: UIViewController, UITableViewDelegate, UITableViewDataSource
         
         self.tableView!.delegate = self
         self.tableView!.dataSource = self
-        self.tableView!.rowHeight = 65
-        //self.tableView!.estimatedRowHeight = 110
-        //self.tableView!.rowHeight = UITableViewAutomaticDimension
+        self.tableView!.estimatedRowHeight = 65
+        self.tableView!.rowHeight = UITableViewAutomaticDimension
         self.tableView!.backgroundColor = UIColor(white:0.90, alpha:1.0)
         self.automaticallyAdjustsScrollViewInsets = false
         
-        //users = []
         foundUsers = []
         resultsController = UITableViewController(style: .Plain)
         resultsController.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "UserFoundCell")
@@ -172,7 +170,7 @@ class AdController: UIViewController, UITableViewDelegate, UITableViewDataSource
         
         let vw = UIView()
         vw.backgroundColor = Color.Table.navColor
-        tableView.tableHeaderView = vw
+        //tableView.tableHeaderView = vw
         
         let myLabel1:UILabel = UILabel(frame: CGRectMake(10, 15, 50, 50))
         myLabel1.numberOfLines = 0

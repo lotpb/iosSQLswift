@@ -29,6 +29,7 @@ UIImagePickerControllerDelegate {
     @IBOutlet weak var selectPic: UIButton!
     
     var pickImage = false
+    var editImage = false
     var playerViewController = AVPlayerViewController()
     var imagePicker: UIImagePickerController!
     var activityIndicator : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 150, 150)) as UIActivityIndicatorView
@@ -76,6 +77,13 @@ UIImagePickerControllerDelegate {
         }
         
         if (self.formStat == "Update") {
+            // FIXME:
+            if (newsImage != nil) {
+                pickImage = true
+            } else {
+                pickImage = false
+            }
+            
             self.commentTitle.text = self.newstitle
             self.commentDetail.text = self.newsStory
             self.commentSorce.text = self.newsdetail
@@ -132,25 +140,6 @@ UIImagePickerControllerDelegate {
     }
     
     // MARK: - Button
-    /*
-    @IBAction func selectCamera(sender: AnyObject) {
-        
-        if UIImagePickerController.isSourceTypeAvailable(.Camera) {
-            
-            imagePicker = UIImagePickerController()
-            imagePicker.sourceType = .Camera
-            imagePicker.mediaTypes = [kUTTypeImage as String]
-            imagePicker.allowsEditing = true
-            imagePicker.delegate = self
-            imagePicker.showsCameraControls = true
-            //imagePicker.videoMaximumDuration = 10.0
-            imagePicker.videoQuality = UIImagePickerControllerQualityType.TypeHigh
-            self.presentViewController(imagePicker, animated: true, completion: nil)
-            
-        } else {
-            print("Camera is not available")
-        }
-    } */
     
     @IBAction func selectImage(sender: AnyObject) {
         
@@ -166,6 +155,7 @@ UIImagePickerControllerDelegate {
     
     func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String: AnyObject]) {
         
+        self.editImage = true
         let mediaType = info[UIImagePickerControllerMediaType] as! NSString
         self.dismissViewControllerAnimated(true, completion: nil)
         
@@ -238,6 +228,7 @@ UIImagePickerControllerDelegate {
             pictureData = UIImageJPEGRepresentation(self.imgToUpload!.image!, 1.0)
             file = PFFile(name: "img", data: pictureData!)
         } else { //video
+
             pictureData =  NSData(contentsOfURL: videoURL!)
             file = PFFile(name: "movie.mp4", data: pictureData!)
         }
@@ -253,16 +244,20 @@ UIImagePickerControllerDelegate {
                     updateblog!.setObject(self.commentDetail.text!, forKey:"storyText")
                     updateblog!.setObject(PFUser.currentUser()!.username!, forKey:"username")
                     updateblog!.saveEventually()
-                    /*
-                    self.file!.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
-                        if success {
-                            updateblog!.setObject(self.file!, forKey:"imageFile")
-                            updateblog!.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
+                    
+                    if self.editImage == true {
+                        
+                        self.file!.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
+                            if success {
+                                updateblog!.setObject(self.file!, forKey:"imageFile")
+                                updateblog!.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
+                                }
                             }
                         }
-                    } */
+                        
+                    }
                     
-                    self.simpleAlert("Upload Complete", message: "Successfully updated the data")
+                    //self.simpleAlert("Upload Complete", message: "Successfully updated the data")
                     
                 } else {
                     
@@ -270,7 +265,7 @@ UIImagePickerControllerDelegate {
                     
                 }
             }
-
+            
         } else {
             
             file!.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
@@ -285,20 +280,23 @@ UIImagePickerControllerDelegate {
                         
                         if success {
                             
-                            self.simpleAlert("Save Complete", message: "Successfully saved the data")
+                            self.simpleAlert("Upload Complete", message: "Successfully saved the data")
                             
                         } else {
                             
                             print("Error: \(error) \(error!.userInfo)")
                         }
                     }
+                } else {
+                    
+                    self.simpleAlert("Upload Failure", message: "Failure updated the data")
+                    
                 }
             }
         }
         self.navigationController?.popToRootViewControllerAnimated(true)
         self.activityIndicator.stopAnimating()
         self.activityIndicator.removeFromSuperview()
-
     }
 
 

@@ -20,7 +20,7 @@ class Blog: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var _feedheadItems : NSMutableArray = NSMutableArray()
     var filteredString : NSMutableArray = NSMutableArray()
     
-    var buttonView: UIView!
+    var buttonView: UIView?
     var likeButton: UIButton?
     var refreshControl: UIRefreshControl!
     let searchController = UISearchController(searchResultsController: nil)
@@ -76,13 +76,17 @@ class Blog: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        refreshData(self)
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
             self.navigationController?.navigationBar.barTintColor = UIColor.blackColor()
         } else {
             self.navigationController?.navigationBar.barTintColor = Color.Blog.navColor
         }
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        refreshData(self)
     }
     
     override func didReceiveMemoryWarning() {

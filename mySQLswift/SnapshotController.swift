@@ -61,10 +61,6 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
     var _feedItems6 : NSMutableArray = NSMutableArray() //blog
     var refreshControl: UIRefreshControl!
     
-    //var filteredString : NSMutableArray = NSMutableArray()
-    //var objects = [AnyObject]()
-    //let searchController = UISearchController(searchResultsController: nil)
-    
     var imageObject :PFObject!
     var imageFile :PFFile!
     

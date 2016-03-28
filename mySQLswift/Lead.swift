@@ -49,7 +49,6 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
         self.tableView!.backgroundColor = UIColor.clearColor()
         self.automaticallyAdjustsScrollViewInsets = false
         
-        //users = []
         foundUsers = []
         resultsController = UITableViewController(style: .Plain)
         resultsController.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "UserFoundCell")

@@ -34,9 +34,14 @@ class NotificationController: UIViewController {
         self.navigationItem.rightBarButtonItems = buttons as? [UIBarButtonItem]
         
         self.customMessage.clearButtonMode = .Always
-        self.customMessage.clearButtonMode = .WhileEditing
         self.customMessage!.font = celltitle
         self.customMessage.placeholder = "enter notification"
+        
+        self.saveButton.setTitleColor(UIColor.orangeColor(), forState: UIControlState.Normal)
+        self.saveButton.backgroundColor = UIColor.whiteColor()
+        self.saveButton.layer.cornerRadius = 24.0
+        self.saveButton.layer.borderColor = UIColor.orangeColor().CGColor
+        self.saveButton.layer.borderWidth = 3.0
         
         UITextField.appearance().tintColor = UIColor.orangeColor()
 

@@ -195,6 +195,7 @@ class MapView: UIViewController, MKMapViewDelegate,  CLLocationManagerDelegate {
         mapView.setVisibleMapRect(polylineBoundingRect, edgePadding: UIEdgeInsetsMake(10.0, 10.0, 10.0, 10.0), animated: false)
         } */
         
+        //for i in self.route.steps.count...1 {
         for (var i = 0; i < self.route.steps.count; i += 1)
         {
             let step:MKRouteStep = self.route.steps[i] as MKRouteStep

@@ -23,7 +23,7 @@ class BlogNewController: UIViewController, UITextFieldDelegate, UITextViewDelega
     @IBOutlet weak var subject: UITextView?
     @IBOutlet weak var imageBlog: UIImageView?
     @IBOutlet weak var placeholderlabel: UILabel?
-    @IBOutlet weak var characterCountLabel: UILabel!
+    @IBOutlet weak var characterCountLabel: UILabel?
     
     var objectId : NSString?
     var msgNo : NSString?
@@ -152,9 +152,13 @@ class BlogNewController: UIViewController, UITextFieldDelegate, UITextViewDelega
         self.myDatePicker!.hidden = true
         self.myDatePicker!.addTarget(self, action: Selector(), forControlEvents: UIControlEvents.ValueChanged)
         
-        self.characterCountLabel.text = ""
-        self.characterCountLabel.textColor = UIColor.grayColor()
+        self.characterCountLabel!.text = ""
+        self.characterCountLabel!.textColor = UIColor.grayColor()
         
+    }
+    
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
     }
     
     
@@ -279,7 +283,7 @@ class BlogNewController: UIViewController, UITextFieldDelegate, UITextViewDelega
     func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
         
         let myTextViewString = self.subject!.text
-        characterCountLabel.text = "\(140 - myTextViewString.characters.count)"
+        characterCountLabel!.text = "\(140 - myTextViewString.characters.count)"
         
         if range.length > 140 {
             return false
@@ -320,7 +324,8 @@ class BlogNewController: UIViewController, UITextFieldDelegate, UITextViewDelega
                 updateblog!.setObject(self.replyId ?? NSNull(), forKey:"ReplyId")
                 updateblog!.saveEventually()
                 
-                self.simpleAlert("Upload Complete", message: "Successfully updated the data")
+                self.navigationController?.popToRootViewControllerAnimated(true)
+                //self.simpleAlert("Upload Complete", message: "Successfully updated the data")
                 
             } else {
                 
@@ -328,9 +333,7 @@ class BlogNewController: UIViewController, UITextFieldDelegate, UITextViewDelega
 
             }
         }
-        self.navigationController?.popToRootViewControllerAnimated(true)
         //self.navigationController?.popViewControllerAnimated(true)
-
     }
     
     @IBAction func saveData(sender: UIButton) {
@@ -359,15 +362,13 @@ class BlogNewController: UIViewController, UITextFieldDelegate, UITextViewDelega
         
         saveblog.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
             if success == true {
+                self.navigationController?.popToRootViewControllerAnimated(true)
                 self.simpleAlert("Upload Complete", message: "Successfully updated the data")
-                self.navigationController?.popViewControllerAnimated(true)
                 
             } else {
                 
                 self.simpleAlert("Upload Failure", message: "Failure updated the data")
             }
-            //self.navigationController?.popToRootViewControllerAnimated(true)
-            //self.navigationController?.popViewControllerAnimated(true)
         }
     }
     

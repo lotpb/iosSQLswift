@@ -46,24 +46,24 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     var tableData4 : NSMutableArray = NSMutableArray()
     
     @IBOutlet weak var scrollWall: UIScrollView?
-    @IBOutlet weak var mainView: UIView!
-    @IBOutlet weak var tableView: UIView!
-    @IBOutlet weak var mySwitch: UISwitch!
-    @IBOutlet weak var activebutton: UIButton!
-    @IBOutlet weak var mapbutton: UIButton!
+    @IBOutlet weak var mainView: UIView?
+    @IBOutlet weak var tableView: UIView?
+    @IBOutlet weak var mySwitch: UISwitch?
+    @IBOutlet weak var activebutton: UIButton?
+    @IBOutlet weak var mapbutton: UIButton?
     
-    @IBOutlet weak var listTableView: UITableView!
-    @IBOutlet weak var listTableView2: UITableView!
-    @IBOutlet weak var newsTableView: UITableView!
+    @IBOutlet weak var listTableView: UITableView?
+    @IBOutlet weak var listTableView2: UITableView?
+    @IBOutlet weak var newsTableView: UITableView?
     
-    @IBOutlet weak var labelNo: UILabel!
-    @IBOutlet weak var labelname: UILabel!
-    @IBOutlet weak var labelamount: UILabel!
-    @IBOutlet weak var labeldate: UILabel!
-    @IBOutlet weak var labeladdress: UILabel!
-    @IBOutlet weak var labelcity: UILabel!
-    @IBOutlet weak var following: UILabel!
-    @IBOutlet weak var labeldatetext: UILabel!
+    @IBOutlet private weak var labelNo: UILabel?
+    @IBOutlet private weak var labelname: UILabel?
+    @IBOutlet private weak var labelamount: UILabel?
+    @IBOutlet private weak var labeldate: UILabel?
+    @IBOutlet private weak var labeladdress: UILabel?
+    @IBOutlet private weak var labelcity: UILabel?
+    @IBOutlet private weak var following: UILabel?
+    @IBOutlet private weak var labeldatetext: UILabel?
     
     var formController : String?
     var status : NSString?
@@ -229,8 +229,8 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         topBorder.borderColor = UIColor.lightGrayColor().CGColor
         topBorder.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 0.5)
         topBorder.borderWidth = width
-        tableView.layer.addSublayer(topBorder)
-        tableView.layer.masksToBounds = true
+        tableView!.layer.addSublayer(topBorder)
+        tableView!.layer.masksToBounds = true
         
         parseData()
         followButton()
@@ -249,11 +249,11 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.barTintColor = UIColor(white:0.45, alpha:1.0)
-        self.labelname.text = ""
-        self.labelamount.text = ""
-        self.labeldate.text = ""
-        self.labeladdress.text = ""
-        self.labelcity.text = ""
+        self.labelname!.text = ""
+        self.labelamount!.text = ""
+        self.labeldate!.text = ""
+        self.labeladdress!.text = ""
+        self.labelcity!.text = ""
     }
     
     override func didReceiveMemoryWarning() {
@@ -421,21 +421,21 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         self.labelname!.adjustsFontSizeToFitWidth = true
         
         if self.leadNo != nil {
-            self.labelNo.text = leadNo
+            self.labelNo!.text = leadNo
         } else {
-           self.labelNo.text = "None" 
+           self.labelNo!.text = "None" 
         }
         if self.date != nil {
-            self.labeldate.text = date
+            self.labeldate!.text = date
         }
         if self.l1datetext != nil {
-            self.labeldatetext.text = l1datetext as? String
+            self.labeldatetext!.text = l1datetext as? String
         }
         if self.name != nil {
-            self.labelname.text = name
+            self.labelname!.text = name
         }
         if self.address != nil {
-            self.labeladdress.text = address
+            self.labeladdress!.text = address
         }
         if self.city == nil {
             city = "City"
@@ -447,7 +447,7 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             zip = "Zip"
         }
         if self.city != nil {
-            self.labelcity.text = String(format: "%@ %@ %@", city!, state!, zip!)
+            self.labelcity!.text = String(format: "%@ %@ %@", city!, state!, zip!)
         } else {
             city = "City"
         }
@@ -510,7 +510,7 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             if Amount == nil {
                 Amount = 0
             }
-            labelamount.text =  formatter.stringFromNumber(Amount!)
+            labelamount!.text =  formatter.stringFromNumber(Amount!)
             
             if self.salesman != nil {
                 t22 = self.salesman
@@ -533,9 +533,9 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         } else {
             
             if self.amount != nil {
-                labelamount.text = self.amount
+                labelamount!.text = self.amount
             } else {
-                labelamount.text = "None"
+                labelamount!.text = "None"
             }
             
             if self.tbl22 != nil {

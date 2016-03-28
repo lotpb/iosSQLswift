@@ -95,7 +95,7 @@ class DetailViewController: UIViewController, RPPreviewViewControllerDelegate, A
 
         
         let myLabel:UILabel = UILabel(frame: CGRectMake(20, 70, 60, 60))
-        myLabel.backgroundColor = UIColor.orangeColor() //UIColor(red: 0.02, green: 0.36, blue: 0.53, alpha: 1.0)
+        myLabel.backgroundColor = UIColor.orangeColor()
         myLabel.textColor = UIColor.whiteColor()
         myLabel.textAlignment = NSTextAlignment.Center
         myLabel.layer.masksToBounds = true

@@ -978,14 +978,15 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                         //updateblog!.setObject(self.photo.text ?? NSNull(), forKey:"Photo")
                         updateblog!.saveEventually()
                         
-                        self.simpleAlert("Upload Complete", message: "Successfully updated the data")
+                        self.navigationController?.popToRootViewControllerAnimated(true)
+                        //self.simpleAlert("Upload Complete", message: "Successfully updated the data")
                         
                     } else {
                         
                         self.simpleAlert("Upload Failure", message: "Failure updating the data")
                     }
                 }
-                self.navigationController?.popToRootViewControllerAnimated(true)
+                //self.navigationController?.popToRootViewControllerAnimated(true)
                 
             } else { //Save Lead
                 
@@ -1076,14 +1077,14 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                         updateblog!.setObject(self.time ?? NSNull(), forKey:"Time")
                         updateblog!.saveEventually()
                         
-                        self.simpleAlert("Upload Complete", message: "Successfully updated the data")
+                        self.navigationController?.popToRootViewControllerAnimated(true)
+                        //self.simpleAlert("Upload Complete", message: "Successfully updated the data")
                         
                     } else {
                         
                         self.simpleAlert("Upload Failure", message: "Failure updating the data")
                     }
                 }
-                self.navigationController?.popToRootViewControllerAnimated(true)
                 
             } else { //Save Customer
                 
@@ -1167,15 +1168,15 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                         updateblog!.setObject(self.comment.text ?? NSNull(), forKey:"Comments")
                         updateblog!.saveEventually()
                         
-                        self.simpleAlert("Upload Complete", message: "Successfully updated the data")
+                        self.navigationController?.popToRootViewControllerAnimated(true)
+                        //self.simpleAlert("Upload Complete", message: "Successfully updated the data")
                         
                     } else {
                         
                         self.simpleAlert("Upload Failure", message: "Failure updating the data")
                     }
                 }
-                self.navigationController?.popToRootViewControllerAnimated(true)
-                
+               
             } else { //Save Vendor
                 
                 let saveVend:PFObject = PFObject(className:"Vendors")
@@ -1255,15 +1256,15 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                         updateblog!.setObject(self.aptDate.text ?? NSNull(), forKey:"Middle")
                         updateblog!.setObject(self.comment.text ?? NSNull(), forKey:"Comments")
                         updateblog!.saveEventually()
-
-                        self.simpleAlert("Upload Complete", message: "Successfully updated the data")
+                        
+                        self.navigationController?.popToRootViewControllerAnimated(true)
+                        //self.simpleAlert("Upload Complete", message: "Successfully updated the data")
                         
                     } else {
                         
                         self.simpleAlert("Upload Failure", message: "Failure updating the data")
                     }
                 }
-                self.navigationController?.popToRootViewControllerAnimated(true)
                 
             } else { //Save Employee
                 

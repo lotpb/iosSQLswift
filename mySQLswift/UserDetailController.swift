@@ -53,8 +53,9 @@ class UserDetailController: UIViewController, UINavigationControllerDelegate, UI
     var pictureData : NSData?
     
     var imagePicker: UIImagePickerController!
-    
-    var activityIndicator : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 50, 50)) as UIActivityIndicatorView
+
+    var activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.Gray)
+    //var activityIndicator : UIActivityIndicatorView = UIActivityIndicatorView(frame: CGRectMake(0,0, 50, 50)) as UIActivityIndicatorView
     
     //var getEmail : NSString?
     var emailTitle :NSString?
@@ -284,32 +285,35 @@ class UserDetailController: UIViewController, UINavigationControllerDelegate, UI
     
     @IBAction func Update(sender: AnyObject) {
         
-        self.activityIndicator.center = self.userimageView!.center
-        self.activityIndicator.startAnimating()
-        self.view.addSubview(activityIndicator)
-        
-        pictureData = UIImageJPEGRepresentation(self.userimageView!.image!, 1.0)
-        let file = PFFile(name: "img", data: pictureData!)
-
-        file!.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
-            if success {
-                self.user = PFUser.currentUser()
-                self.user!.setObject(self.usernameField!.text!, forKey:"username")
-                self.user!.setObject(self.emailField!.text!, forKey:"email")
-                self.user!.setObject(self.phoneField!.text!, forKey:"phone")
-                self.user!.setObject(file!, forKey:"imageFile")
-                self.user!.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
+        self.user = PFUser.currentUser()
+        if self.usernameField!.text! == self.user?.username {
+            
+            self.activityIndicator.center = self.userimageView!.center
+            self.activityIndicator.startAnimating()
+            self.view.addSubview(activityIndicator)
+            
+            pictureData = UIImageJPEGRepresentation(self.userimageView!.image!, 1.0)
+            let file = PFFile(name: "img", data: pictureData!)
+            
+            file!.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
+                if success {
+                    self.user!.setObject(self.usernameField!.text!, forKey:"username")
+                    self.user!.setObject(self.emailField!.text!, forKey:"email")
+                    self.user!.setObject(self.phoneField!.text!, forKey:"phone")
+                    self.user!.setObject(file!, forKey:"imageFile")
+                    self.user!.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
+                    }
+                    self.simpleAlert("Upload Complete", message: "Successfully updated the data")
+                } else {
+                    self.simpleAlert("Upload Failure", message: "Failure updating the data")
                 }
-                self.simpleAlert("Upload Complete", message: "Successfully updated the data")
-            } else {
-                self.simpleAlert("Upload Failure", message: "Failure updating the data")
-                
             }
+            //self.navigationController?.popToRootViewControllerAnimated(true)
+            activityIndicator.stopAnimating()
+            activityIndicator.removeFromSuperview()
+        } else {
+            self.simpleAlert("Alert", message: "User is not valid to edit data")
         }
-        //self.navigationController?.popToRootViewControllerAnimated(true)
-        activityIndicator.stopAnimating()
-        activityIndicator.removeFromSuperview()
     }
-    
     
 }

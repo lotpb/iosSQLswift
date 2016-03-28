@@ -141,13 +141,7 @@
                                                 <rect key="frame" x="125" y="25" width="120" height="120"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="120" id="6eT-fG-Pu2"/>
-                                                    <constraint firstAttribute="height" constant="100" id="WDf-4d-WCo"/>
                                                 </constraints>
-                                                <variation key="default">
-                                                    <mask key="constraints">
-                                                        <exclude reference="WDf-4d-WCo"/>
-                                                    </mask>
-                                                </variation>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="UserName" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oiZ-FG-Xbw">
                                                 <rect key="frame" x="16" y="191" width="89" height="21"/>
@@ -207,7 +201,7 @@
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Map" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wln-Uc-QKn">
                                                         <rect key="frame" x="20" y="10" width="42" height="21"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
@@ -2247,10 +2241,11 @@
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E8b-lb-WE6">
-                                                <rect key="frame" x="250" y="140" width="99" height="30"/>
+                                                <rect key="frame" x="250" y="140" width="100" height="48"/>
                                                 <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="99" id="AmE-u4-W4d"/>
+                                                    <constraint firstAttribute="width" constant="100" id="EYC-di-Gnm"/>
+                                                    <constraint firstAttribute="height" constant="48" id="zle-Cb-uMN"/>
                                                 </constraints>
                                                 <state key="normal" title="Save">
                                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -2269,16 +2264,16 @@
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstItem="AwU-b0-vrU" firstAttribute="centerX" secondItem="E8b-lb-WE6" secondAttribute="centerX" id="60u-cK-KDH"/>
                                             <constraint firstItem="AwU-b0-vrU" firstAttribute="centerX" secondItem="PWr-r9-JoR" secondAttribute="centerX" id="G3o-AL-DRl"/>
                                             <constraint firstItem="AwU-b0-vrU" firstAttribute="top" secondItem="PWr-r9-JoR" secondAttribute="top" constant="25" id="J67-MR-i2j"/>
+                                            <constraint firstItem="E8b-lb-WE6" firstAttribute="centerX" secondItem="CXt-8M-r2w" secondAttribute="centerX" id="LOm-M7-aph"/>
                                             <constraint firstAttribute="height" constant="555" id="NLf-sY-Rb3"/>
                                             <constraint firstItem="7Po-fN-ILj" firstAttribute="top" secondItem="PWr-r9-JoR" secondAttribute="top" constant="200" id="O88-gW-CnH"/>
                                             <constraint firstItem="CXt-8M-r2w" firstAttribute="top" secondItem="AwU-b0-vrU" secondAttribute="bottom" constant="22" id="TDQ-Vj-GHu"/>
+                                            <constraint firstItem="7Po-fN-ILj" firstAttribute="top" secondItem="E8b-lb-WE6" secondAttribute="bottom" constant="12" id="l1m-pD-Uuh"/>
                                             <constraint firstItem="7Po-fN-ILj" firstAttribute="leading" secondItem="CXt-8M-r2w" secondAttribute="leading" id="mzK-1A-kpS"/>
                                             <constraint firstItem="AwU-b0-vrU" firstAttribute="centerX" secondItem="CXt-8M-r2w" secondAttribute="centerX" id="pkC-Kt-vk4"/>
                                             <constraint firstItem="AwU-b0-vrU" firstAttribute="centerX" secondItem="7Po-fN-ILj" secondAttribute="centerX" id="qfS-fv-y9g"/>
-                                            <constraint firstItem="7Po-fN-ILj" firstAttribute="top" secondItem="E8b-lb-WE6" secondAttribute="bottom" constant="30" id="zLg-sH-DU0"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -5002,15 +4997,7 @@
                             <constraint firstItem="kG2-no-MjK" firstAttribute="leading" secondItem="e6N-iz-sic" secondAttribute="leading" id="Ll7-25-mfk"/>
                             <constraint firstAttribute="trailing" secondItem="kG2-no-MjK" secondAttribute="trailing" id="YZs-Iq-DJQ"/>
                             <constraint firstItem="kG2-no-MjK" firstAttribute="bottom" secondItem="znj-yE-C72" secondAttribute="top" id="dBk-XJ-Mta"/>
-                            <constraint firstItem="kG2-no-MjK" firstAttribute="top" secondItem="1KD-Lr-N7a" secondAttribute="bottom" id="o7C-V3-tVE"/>
-                            <constraint firstItem="kG2-no-MjK" firstAttribute="bottom" secondItem="znj-yE-C72" secondAttribute="top" id="sJI-T0-0Cz"/>
                         </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="o7C-V3-tVE"/>
-                                <exclude reference="sJI-T0-0Cz"/>
-                            </mask>
-                        </variation>
                     </view>
                     <navigationItem key="navigationItem" title="Upload" id="wNh-if-cx0">
                         <barButtonItem key="rightBarButtonItem" title="Send" id="MqO-2A-37D">
