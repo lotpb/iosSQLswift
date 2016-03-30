@@ -72,6 +72,11 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
         
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        refreshData(self)
+    }
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.hidesBarsOnSwipe = true
@@ -320,7 +325,7 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
                     if error == nil {
                         for object in objects! {
                             object.deleteInBackground()
-                            self.refreshData(self)
+                            //self.refreshData(self)
                         }
                     }
                 })

@@ -97,6 +97,8 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        clearFormData()
+        
         let titleButton: UIButton = UIButton(frame: CGRectMake(0, 0, 100, 32))
         titleButton.setTitle(String(format: "%@ %@", self.status!, self.formController!), forState: UIControlState.Normal)
         titleButton.titleLabel?.font = Font.navlabel
@@ -139,6 +141,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         super.viewDidAppear(animated)
         
         passFieldData()
+        loadFormData()
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -880,6 +883,47 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     }
     
     
+    // MARK: - Load Form Data
+    
+    func loadFormData() {
+        
+        if (self.first.text == "") {
+            self.first.text = defaults.stringForKey("first")
+        }
+        if (self.last.text == "") {
+            self.last.text = defaults.stringForKey("last")
+        }
+        if (self.company.text == "") {
+            self.company.text = defaults.stringForKey("company")
+        }
+        
+    }
+    
+    // MARK: Clear Form Data
+    
+    func clearFormData() {
+        
+            self.defaults.removeObjectForKey("first")
+            self.defaults.removeObjectForKey("last")
+            self.defaults.removeObjectForKey("company")
+    }
+    
+    // MARK: Save Form Data
+    
+    func saveFormData() {
+        
+        if (self.first.text != "") {
+            self.defaults.setObject(self.first.text, forKey: "first")
+        }
+        if (self.last.text != "") {
+            self.defaults.setObject(self.last.text, forKey: "last")
+        }
+        if (self.company.text != "") {
+            self.defaults.setObject(self.company.text, forKey: "company")
+        }
+    }
+    
+    
     // MARK: - Segues
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -910,7 +954,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
         if segue.identifier == "lookupDataSegue" {
-            
+            saveFormData()
             let controller = segue.destinationViewController as? LookupData
             controller!.delegate = self
             controller!.lookupItem = lookupItem
@@ -922,21 +966,36 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     func updateData() {
         
         let numberFormatter = NSNumberFormatter()
+        numberFormatter.numberStyle = .NoStyle
         
         if (self.formController == "Leads") {
     
-            let myLead : NSNumber? = numberFormatter.numberFromString(self.leadNo as! String)!
             let myActive : NSNumber = numberFormatter.numberFromString((self.frm30 as? String)!)!
-            let myZip : NSNumber = numberFormatter.numberFromString(self.zip.text!)!
-            let mySale : NSNumber = numberFormatter.numberFromString(self.saleNo! as String)!
-            let myJob : NSNumber = numberFormatter.numberFromString(self.jobNo! as String)!
-            let myAd : NSNumber = numberFormatter.numberFromString(self.adNo! as String)!
+            //let myZip : NSNumber = numberFormatter.numberFromString(self.zip.text!)!
+            
+            var Lead = self.leadNo
+            if Lead == nil { Lead = "" }
+            let myLead = numberFormatter.numberFromString(Lead as! String)
             
             var Amount = self.amount.text
-            numberFormatter.numberStyle = .NoStyle
-            if Amount == nil { Amount = "0" }
+            if Amount == nil { Amount = "" }
             let myAmount = numberFormatter.numberFromString(Amount!)
-            print(myAmount) 
+            
+            var Zip = self.zip.text
+            if Zip == nil { Zip = "" }
+            let myZip = numberFormatter.numberFromString(Zip!)
+            
+            var Sale = self.saleNo
+            if Sale == nil { Sale = "" }
+            let mySale = numberFormatter.numberFromString(Sale as! String)
+            
+            var Job = self.jobNo
+            if Job == nil { Job = "" }
+            let myJob = numberFormatter.numberFromString(Job as! String)
+            
+            var Ad = self.adNo
+            if Ad == nil { Ad = "" }
+            let myAd = numberFormatter.numberFromString(Ad as! String)
             
             /*
             var Amount:NSNumber? = numberFormatter.numberFromString(self.amount.text!)
@@ -947,7 +1006,6 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             //let myAmount =  numberFormatter.stringFromNumber(Amount!)
             let myAmount =  numberFormatter.stringFromNumber(Amount!)
             print(myAmount)
-            
             */
 
             if (self.status == "Edit") { //Edit Lead
@@ -992,7 +1050,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                 
                 let saveblog:PFObject = PFObject(className:"Leads")
                 saveblog.setObject(self.leadNo ?? NSNumber(integer:-1), forKey:"LeadNo")
-                saveblog.setObject(self.frm30 ?? NSNumber(integer:1), forKey:"Active")
+                saveblog.setObject(myActive ?? NSNumber(integer:1), forKey:"Active")
                 saveblog.setObject(self.date.text ?? NSNull(), forKey:"Date")
                 saveblog.setObject(self.first.text ?? NSNull(), forKey:"First")
                 saveblog.setObject(self.last.text ?? NSNull(), forKey:"LastName")
@@ -1003,7 +1061,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                 saveblog.setObject(self.phone.text ?? NSNull(), forKey:"Phone")
                 saveblog.setObject(self.aptDate.text ?? NSNull(), forKey:"AptDate")
                 saveblog.setObject(self.email.text ?? NSNull(), forKey:"Email")
-                saveblog.setObject(myAmount ?? NSNumber(integer:-1), forKey:"Amount")
+                saveblog.setObject(myAmount ?? NSNumber(integer:0), forKey:"Amount")
                 saveblog.setObject(self.spouse.text ?? NSNull(), forKey:"Spouse")
                 saveblog.setObject(self.callback.text ?? NSNull(), forKey:"CallBack")
                 saveblog.setObject(mySale ?? NSNumber(integer:-1), forKey:"SalesNo")
@@ -1012,7 +1070,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                 saveblog.setObject(self.comment.text ?? NSNull(), forKey:"Coments")
                 saveblog.setObject(self.photo ?? NSNull(), forKey:"Photo")
                 
-                PFACL.setDefaultACL(PFACL(), withAccessForCurrentUser: true)
+                //PFACL.setDefaultACL(PFACL(), withAccessForCurrentUser: true)
                 
                 saveblog.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
                     if success == true {
@@ -1024,23 +1082,46 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             }
             self.navigationController?.popToRootViewControllerAnimated(true)
             
-        } else  if (self.formController == "Customer") {
+        } else if (self.formController == "Customer") {
             
-            let myCust : NSNumber = numberFormatter.numberFromString(self.custNo as! String)!
-            let myLead : NSNumber = numberFormatter.numberFromString(self.leadNo as! String)!
             let myActive : NSNumber = numberFormatter.numberFromString(self.frm30! as String)!
-            let myZip : NSNumber = numberFormatter.numberFromString(self.zip.text!)!
-            let myQuan : NSNumber = numberFormatter.numberFromString(self.callback.text!)!
+            //let myZip : NSNumber = numberFormatter.numberFromString(self.zip.text!)!
+            /*
             let mySale : NSNumber = numberFormatter.numberFromString(self.saleNo! as String)!
             let myJob : NSNumber = numberFormatter.numberFromString(self.jobNo! as String)!
-            let myAd : NSNumber = numberFormatter.numberFromString(self.adNo! as String)!
+            let myAd : NSNumber = numberFormatter.numberFromString(self.adNo! as String)! */
+            
+            var Cust = self.custNo
+            if Cust == nil { Cust = "" }
+            let myCust = numberFormatter.numberFromString(Cust as! String)
+            
+            var Lead = self.leadNo
+            if Lead == nil { Lead = "" }
+            let myLead = numberFormatter.numberFromString(Lead as! String)
             
             var Amount = (self.amount.text)
-            numberFormatter.numberStyle = .NoStyle
-            if Amount == nil {
-                Amount = "0"
-            }
+            if Amount == nil { Amount = "" }
             let myAmount =  numberFormatter.numberFromString(Amount!)
+            
+            var Zip = self.zip.text
+            if Zip == nil { Zip = "" }
+            let myZip = numberFormatter.numberFromString(Zip!)
+            
+            var Sale = self.saleNo
+            if Sale == nil { Sale = "" }
+            let mySale = numberFormatter.numberFromString(Sale! as String)
+            
+            var Job = self.jobNo
+            if Job == nil { Job = "" }
+            let myJob = numberFormatter.numberFromString(Job! as String)
+            
+            var Ad = self.adNo
+            if Ad == nil { Ad = "" }
+            let myAd = numberFormatter.numberFromString(Ad! as String)
+            
+            var Quan = self.callback.text
+            if Quan == nil { Quan = "" }
+            let myQuan = numberFormatter.numberFromString(Quan! as String)
             
             if (self.status == "Edit") { //Edit Customer
                 
@@ -1104,8 +1185,8 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                 saveblog.setObject(self.aptDate.text ?? NSNull(), forKey:"Rate")
                 saveblog.setObject(mySale ?? NSNumber(integer:-1), forKey:"SalesNo")
                 saveblog.setObject(myJob ?? NSNumber(integer:-1), forKey:"JobNo")
-                saveblog.setObject(myAd ?? NSNumber(integer:-1), forKey:"AdNo")
-                saveblog.setObject(myAmount ?? NSNumber(integer:-1), forKey:"Amount")
+                saveblog.setObject(myAd ?? NSNumber(integer:-1), forKey:"ProductNo")
+                saveblog.setObject(myAmount ?? NSNumber(integer:0), forKey:"Amount")
                 saveblog.setObject(myQuan ?? NSNumber(integer:-1), forKey:"Quan")
                 saveblog.setObject(self.email.text ?? NSNull(), forKey:"Email")
                 saveblog.setObject(self.spouse.text ?? NSNull(), forKey:"Spouse")
@@ -1130,15 +1211,11 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         } else  if (self.formController == "Vendor") {
             
             var Active = (self.frm30 as? String)
-            numberFormatter.numberStyle = .NoStyle
             if Active == nil { Active = "0" }
             let myActive =  numberFormatter.numberFromString(Active!)
             
             var Lead = (self.leadNo)
-            numberFormatter.numberStyle = .NoStyle
-            if Lead == nil {
-                Lead = "-1"
-            }
+            if Lead == nil { Lead = "-1" }
             let myLead =  numberFormatter.numberFromString(Lead! as String)
             
             if (self.status == "Edit") { //Edit Vendor
@@ -1216,17 +1293,11 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         } else if (self.formController == "Employee") {
             
             var Active = (self.frm30 as? String)
-            numberFormatter.numberStyle = .NoStyle
-            if Active == nil {
-                Active = "0"
-            }
+            if Active == nil { Active = "0" }
             let myActive =  numberFormatter.numberFromString(Active!)
             
             var Lead = (self.leadNo as? String)
-            numberFormatter.numberStyle = .NoStyle
-            if Lead == nil {
-                Lead = "-1"
-            }
+            if Lead == nil { Lead = "-1" }
             let myLead =  numberFormatter.numberFromString(Lead!)
             
             if (self.status == "Edit") { //Edit Employee
@@ -1302,7 +1373,9 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                     }
                 }
             }
+            self.navigationController?.popToRootViewControllerAnimated(true)
         }
+        //clearFormData()
     }
 }
 
@@ -1317,19 +1390,19 @@ extension EditData: LookupDataDelegate {
         self.zip!.text = passedData as String
     }
     func salesFromController(passedData: NSString) {
-        self.saleNo! = passedData as String
+        self.saleNo = passedData as String
     }
     func salesNameFromController(passedData: NSString) {
         self.salesman!.text = passedData as String
     }
     func jobFromController(passedData: NSString) {
-        self.jobNo! = passedData as String
+        self.jobNo = passedData as String
     }
     func jobNameFromController(passedData: NSString) {
         self.jobName!.text = passedData as String
     }
     func productFromController(passedData: NSString) {
-        self.adNo! = passedData as String
+        self.adNo = passedData as String
     }
     func productNameFromController(passedData: NSString) {
         self.adName!.text = passedData as String

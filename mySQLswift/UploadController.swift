@@ -224,7 +224,7 @@ UIImagePickerControllerDelegate {
         activityIndicator.startAnimating()
         self.view.addSubview(activityIndicator)
         
-        if (pickImage == true) {//image
+        if (pickImage == true) { //image
             pictureData = UIImageJPEGRepresentation(self.imgToUpload!.image!, 1.0)
             file = PFFile(name: "img", data: pictureData!)
         } else { //video

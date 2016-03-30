@@ -72,6 +72,11 @@ class Vendor: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
         
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        refreshData(self)
+    }
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.hidesBarsOnSwipe = true
@@ -256,7 +261,7 @@ class Vendor: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
                     if error == nil {
                         for object in objects! {
                             object.deleteInBackground()
-                            self.refreshData(self)
+                            //self.refreshData(self)
                         }
                     }
                 })

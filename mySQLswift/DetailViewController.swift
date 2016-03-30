@@ -47,7 +47,7 @@ class DetailViewController: UIViewController, RPPreviewViewControllerDelegate, A
     @IBOutlet weak var ratetext: UITextField?
     @IBOutlet weak var subject: UITextView?
 
-    var defaults = NSUserDefaults.standardUserDefaults()
+    //var defaults = NSUserDefaults.standardUserDefaults()
     
     //below has nothing
     var detailItem: AnyObject? { //dont delete for splitview

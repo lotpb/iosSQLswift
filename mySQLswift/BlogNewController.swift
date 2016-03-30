@@ -13,6 +13,7 @@ class BlogNewController: UIViewController, UITextFieldDelegate, UITextViewDelega
     
     let ipadtitle = UIFont.systemFontOfSize(18, weight: UIFontWeightLight)
     let ipadsubject = UIFont.systemFontOfSize(20, weight: UIFontWeightLight)
+    let CharacterLimit = 140
     
     @IBOutlet weak var tableView: UITableView?
     @IBOutlet weak var Share: UIButton?
@@ -278,20 +279,20 @@ class BlogNewController: UIViewController, UITextFieldDelegate, UITextViewDelega
         }
     }
     
-    // MARK: Characters count
+    // MARK: Characters Limit
     
     func textView(textView: UITextView, shouldChangeTextInRange range: NSRange, replacementText text: String) -> Bool {
         
         let myTextViewString = self.subject!.text
-        characterCountLabel!.text = "\(140 - myTextViewString.characters.count)"
+        characterCountLabel!.text = "\(CharacterLimit - myTextViewString.characters.count)"
         
-        if range.length > 140 {
+        if range.length > CharacterLimit {
             return false
         }
         
         let newLength = (myTextViewString?.characters.count)! + range.length
         
-        return newLength < 140
+        return newLength < CharacterLimit
     }
     
     

@@ -75,6 +75,11 @@ class Employee: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        refreshData(self)
+    }
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.hidesBarsOnSwipe = true
@@ -283,7 +288,7 @@ class Employee: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                     if error == nil {
                         for object in objects! {
                             object.deleteInBackground()
-                            self.refreshData(self)
+                            //self.refreshData(self)
                         }
                     }
                 })

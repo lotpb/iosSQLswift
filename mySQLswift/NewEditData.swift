@@ -273,8 +273,14 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
         } else if (indexPath.row == 4) {
             
             if (formController == "Product") {
-                cell.textLabel!.text = "Photo"
-                cell.imageView!.image = self.image
+                //if self.image == nil {
+                    //indexPath.row == 4
+                    //cell.textLabel!.text = "Photo"
+                    //cell.imageView!.image = self.image
+                //} else {
+                    cell.textLabel!.text = "Photo"
+                    cell.imageView!.image = self.image
+                //}
             }
         }
         return cell
