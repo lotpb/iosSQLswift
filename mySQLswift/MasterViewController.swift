@@ -110,7 +110,7 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         
         // MARK: - YQL
         
-        self.updateYahoo()
+        //self.updateYahoo()
         self.versionCheck()
     }
 

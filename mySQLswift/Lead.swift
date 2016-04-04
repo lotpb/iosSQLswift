@@ -214,11 +214,11 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
         if (_feedItems[indexPath.row] .valueForKey("Coments") as? String == nil) || (_feedItems[indexPath.row] .valueForKey("Coments") as? String == "") {
             cell.leadreplyButton!.tintColor = UIColor.lightGrayColor()
         } else {
-            cell.leadreplyButton!.tintColor = Color.Cust.buttonColor
+            cell.leadreplyButton!.tintColor = Color.Lead.buttonColor
         }
         
         if (_feedItems[indexPath.row] .valueForKey("Active") as? Int == 1 ) {
-            cell.leadlikeButton!.tintColor = Color.Cust.buttonColor
+            cell.leadlikeButton!.tintColor = Color.Lead.buttonColor
             cell.leadlikeLabel.text! = "Active"
             cell.leadlikeLabel.adjustsFontSizeToFitWidth = true
         } else {
@@ -246,7 +246,11 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
-        return 90.0
+        if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Phone {
+            return 90.0
+        } else {
+            return 0.0
+        }
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

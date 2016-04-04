@@ -208,9 +208,6 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             textframe!.font = Font.Edittitle
             aptframe!.font = Font.Edittitle
             textviewframe!.font = Font.Edittitle
-            self.first!.font = Font.Edittitle
-            self.last!.font = Font.Edittitle
-            self.company!.font = Font.Edittitle
 
         } else {
             
@@ -220,9 +217,6 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             textframe!.font = Font.Edittitle
             aptframe!.font = Font.Edittitle
             textviewframe!.font = Font.Edittitle
-            self.first!.font = Font.Edittitle
-            self.last!.font = Font.Edittitle
-            self.company!.font = Font.Edittitle
         }
         
         textframe!.autocorrectionType = UITextAutocorrectionType.No
@@ -529,7 +523,8 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             if self.frm25 == nil {
                 self.email!.text = ""
             } else {
-                self.email!.text = self.frm25 as? String
+                let myString = self.frm25 as? String
+                self.email!.text = myString!.removeWhiteSpace() //extension
             }
             cell.textLabel!.text = "Email"
             cell.contentView.addSubview(self.email!)
@@ -641,6 +636,18 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         
         return cell
     }
+    
+    // MARK: - Table Header/Footer
+    
+    
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 20.0
+    }
+    
+    func tableView(tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 40.0
+    }
+    
     
     // MARK: - Content Menu
     
@@ -766,6 +773,10 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     
     func passFieldData() {
         
+        self.first.font = Font.Edittitle
+        self.last.font = Font.Edittitle
+        self.company.font = Font.Edittitle
+        
         if (self.formController == "Leads" || self.formController == "Customer") {
             self.last.borderStyle = UITextBorderStyle.RoundedRect
             self.last.layer.borderColor = UIColor(red:151/255.0, green:193/255.0, blue:252/255.0, alpha: 1.0).CGColor
@@ -781,19 +792,22 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         }
         
         if self.frm11 != nil {
-            self.first.text = self.frm11 as? String
+            let myString1 = self.frm11 as? String
+            self.first.text = myString1!.removeWhiteSpace()
         } else {
             self.first.text = ""
         }
         
         if self.frm12 != nil {
-            self.last.text = self.frm12 as? String
+            let myString2 = self.frm12 as? String
+            self.last.text = myString2!.removeWhiteSpace()
         } else {
             self.last.text = ""
         }
         
         if self.frm13 != nil {
-            self.company.text = self.frm13 as? String
+            let myString3 = self.frm13 as? String
+            self.company.text = myString3!.removeWhiteSpace()
         } else {
             self.company.text = ""
         }
@@ -896,7 +910,6 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         if (self.company.text == "") {
             self.company.text = defaults.stringForKey("company")
         }
-        
     }
     
     // MARK: Clear Form Data
@@ -921,6 +934,28 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         if (self.company.text != "") {
             self.defaults.setObject(self.company.text, forKey: "company")
         }
+    }
+    
+    
+    // MARK: - Move Keyboard
+    // FIXME:
+    
+    func textFieldDidBeginEditing(textField: UITextField) {
+        animateViewMoving(true, moveValue: 100)
+    }
+    
+    func textFieldDidEndEditing(textField: UITextField) {
+        animateViewMoving(false, moveValue: 100)
+    }
+    
+    func animateViewMoving (up:Bool, moveValue :CGFloat){
+        let movementDuration:NSTimeInterval = 0.3
+        let movement:CGFloat = ( up ? -moveValue : moveValue)
+        UIView.beginAnimations( "animateView", context: nil)
+        UIView.setAnimationBeginsFromCurrentState(true)
+        UIView.setAnimationDuration(movementDuration )
+        self.view.frame = CGRectOffset(self.view.frame, 0,  movement)
+        UIView.commitAnimations()
     }
     
     
@@ -971,7 +1006,6 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         if (self.formController == "Leads") {
     
             let myActive : NSNumber = numberFormatter.numberFromString((self.frm30 as? String)!)!
-            //let myZip : NSNumber = numberFormatter.numberFromString(self.zip.text!)!
             
             var Lead = self.leadNo
             if Lead == nil { Lead = "" }
@@ -996,17 +1030,6 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             var Ad = self.adNo
             if Ad == nil { Ad = "" }
             let myAd = numberFormatter.numberFromString(Ad as! String)
-            
-            /*
-            var Amount:NSNumber? = numberFormatter.numberFromString(self.amount.text!)
-            numberFormatter.numberStyle = .DecimalStyle
-            if Amount == nil {
-                Amount = 0
-            }
-            //let myAmount =  numberFormatter.stringFromNumber(Amount!)
-            let myAmount =  numberFormatter.stringFromNumber(Amount!)
-            print(myAmount)
-            */
 
             if (self.status == "Edit") { //Edit Lead
                 
@@ -1026,7 +1049,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                         updateblog!.setObject(self.phone.text ?? NSNull(), forKey:"Phone")
                         updateblog!.setObject(self.aptDate.text ?? NSNull(), forKey:"AptDate")
                         updateblog!.setObject(self.email.text ?? NSNull(), forKey:"Email")
-                        //updateblog!.setObject(myAmount ?? NSNumber(integer:-1), forKey:"Amount")
+                        updateblog!.setObject(myAmount ?? NSNumber(integer:-1), forKey:"Amount")
                         updateblog!.setObject(self.spouse.text ?? NSNull(), forKey:"Spouse")
                         updateblog!.setObject(self.callback.text ?? NSNull(), forKey:"CallBack")
                         updateblog!.setObject(mySale ?? NSNumber(integer:-1), forKey:"SalesNo")
@@ -1070,26 +1093,20 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                 saveblog.setObject(self.comment.text ?? NSNull(), forKey:"Coments")
                 saveblog.setObject(self.photo ?? NSNull(), forKey:"Photo")
                 
-                //PFACL.setDefaultACL(PFACL(), withAccessForCurrentUser: true)
+                PFACL.setDefaultACL(PFACL(), withAccessForCurrentUser: true)
                 
                 saveblog.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
                     if success == true {
-                        self.simpleAlert("Upload Complete", message: "Successfully updated the data")
+                        self.navigationController?.popToRootViewControllerAnimated(true)
+                        //self.simpleAlert("Upload Complete", message: "Successfully updated the data")
                     } else {
                         self.simpleAlert("Upload Failure", message: "Failure updating the data")
                     }
                 }
             }
-            self.navigationController?.popToRootViewControllerAnimated(true)
-            
         } else if (self.formController == "Customer") {
             
             let myActive : NSNumber = numberFormatter.numberFromString(self.frm30! as String)!
-            //let myZip : NSNumber = numberFormatter.numberFromString(self.zip.text!)!
-            /*
-            let mySale : NSNumber = numberFormatter.numberFromString(self.saleNo! as String)!
-            let myJob : NSNumber = numberFormatter.numberFromString(self.jobNo! as String)!
-            let myAd : NSNumber = numberFormatter.numberFromString(self.adNo! as String)! */
             
             var Cust = self.custNo
             if Cust == nil { Cust = "" }
@@ -1166,7 +1183,6 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                         self.simpleAlert("Upload Failure", message: "Failure updating the data")
                     }
                 }
-                
             } else { //Save Customer
                 
                 let saveblog:PFObject = PFObject(className:"Customer")
@@ -1192,7 +1208,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                 saveblog.setObject(self.spouse.text ?? NSNull(), forKey:"Spouse")
                 saveblog.setObject(self.callback.text ?? NSNull(), forKey:"CallBack")
                 saveblog.setObject(self.start.text ?? NSNull(), forKey:"Start")
-                saveblog.setObject(self.complete.text ?? NSNull(), forKey:"Complete")
+                saveblog.setObject(self.complete.text ?? NSNull(), forKey:"Completion")
                 saveblog.setObject(self.comment.text ?? NSNull(), forKey:"Comment")
                 saveblog.setObject(NSNull(), forKey:"Photo")
                 
@@ -1200,14 +1216,13 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                 
                 saveblog.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
                     if success == true {
-                        self.simpleAlert("Upload Complete", message: "Successfully updated the data")
+                        self.navigationController?.popToRootViewControllerAnimated(true)
+                        //self.simpleAlert("Upload Complete", message: "Successfully updated the data")
                     } else {
                         self.simpleAlert("Upload Failure", message: "Failure updating the data")
                     }
                 }
             }
-            self.navigationController?.popToRootViewControllerAnimated(true)
-            
         } else  if (self.formController == "Vendor") {
             
             var Active = (self.frm30 as? String)
@@ -1253,7 +1268,6 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                         self.simpleAlert("Upload Failure", message: "Failure updating the data")
                     }
                 }
-               
             } else { //Save Vendor
                 
                 let saveVend:PFObject = PFObject(className:"Vendors")
@@ -1281,15 +1295,14 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                 
                 saveVend.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
                     if success == true {
-                        self.simpleAlert("Upload Complete", message: "Successfully updated the data")
+                        self.navigationController?.popToRootViewControllerAnimated(true)
+                        //self.simpleAlert("Upload Complete", message: "Successfully updated the data")
                     } else {
                         
                         self.simpleAlert("Upload Failure", message: "Failure updating the data")
                     }
                 }
             }
-            self.navigationController?.popToRootViewControllerAnimated(true)
-            
         } else if (self.formController == "Employee") {
             
             var Active = (self.frm30 as? String)
@@ -1336,7 +1349,6 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                         self.simpleAlert("Upload Failure", message: "Failure updating the data")
                     }
                 }
-                
             } else { //Save Employee
                 
                 let saveblog:PFObject = PFObject(className:"Employee")
@@ -1365,7 +1377,8 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                 
                 saveblog.saveInBackgroundWithBlock { (success: Bool, error: NSError?) -> Void in
                     if success == true {
-                        self.simpleAlert("Upload Complete", message: "Successfully updated the data")
+                        self.navigationController?.popToRootViewControllerAnimated(true)
+                        //self.simpleAlert("Upload Complete", message: "Successfully updated the data")
                         
                     } else {
                         
@@ -1373,38 +1386,43 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
                     }
                 }
             }
-            self.navigationController?.popToRootViewControllerAnimated(true)
         }
-        //clearFormData()
+    }
+}
+
+public extension String {
+    
+    func removeWhiteSpace() -> String {
+        return self.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
     }
 }
 
 extension EditData: LookupDataDelegate {
     func cityFromController(passedData: NSString) {
-        self.city!.text = passedData as String
+        self.city.text = passedData as String
     }
     func stateFromController(passedData: NSString) {
-        self.state!.text = passedData as String
+        self.state.text = passedData as String
     }
     func zipFromController(passedData: NSString) {
-        self.zip!.text = passedData as String
+        self.zip.text = passedData as String
     }
     func salesFromController(passedData: NSString) {
         self.saleNo = passedData as String
     }
     func salesNameFromController(passedData: NSString) {
-        self.salesman!.text = passedData as String
+        self.salesman.text = passedData as String
     }
     func jobFromController(passedData: NSString) {
         self.jobNo = passedData as String
     }
     func jobNameFromController(passedData: NSString) {
-        self.jobName!.text = passedData as String
+        self.jobName.text = passedData as String
     }
     func productFromController(passedData: NSString) {
         self.adNo = passedData as String
     }
     func productNameFromController(passedData: NSString) {
-        self.adName!.text = passedData as String
+        self.adName.text = passedData as String
     }
 }

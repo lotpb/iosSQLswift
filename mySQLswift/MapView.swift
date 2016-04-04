@@ -187,17 +187,9 @@ class MapView: UIViewController, MKMapViewDelegate,  CLLocationManagerDelegate {
         self.travelDistance.text = String(format:"Distance: %0.1f Miles", route.distance/1609.344) as String
         self.mapView.addOverlay(route.polyline, level: MKOverlayLevel.AboveRoads)
         
-        /*
-        if mapView.overlays.count == 1 {
-        mapView.setVisibleMapRect(route.polyline.boundingMapRect, edgePadding: UIEdgeInsetsMake(10.0, 10.0, 10.0, 10.0), animated: false)
-        } else {
-        let polylineBoundingRect =  MKMapRectUnion(mapView.visibleMapRect, route.polyline.boundingMapRect)
-        mapView.setVisibleMapRect(polylineBoundingRect, edgePadding: UIEdgeInsetsMake(10.0, 10.0, 10.0, 10.0), animated: false)
-        } */
         
-        //for i in self.route.steps.count...1 {
-        for (var i = 0; i < self.route.steps.count; i += 1)
-        {
+        for i in 0 ..< self.route.steps.count {
+            
             let step:MKRouteStep = self.route.steps[i] as MKRouteStep
             let newStep:NSString = step.instructions
             let distStep:NSString = String(format:"%0.2f miles", step.distance/1609.344) as String
@@ -208,6 +200,14 @@ class MapView: UIViewController, MKMapViewDelegate,  CLLocationManagerDelegate {
             self.allSteps = self.allSteps!.stringByAppendingString("\n\n")
             self.steps.text = self.allSteps as! String
         }
+        
+        /*
+         if mapView.overlays.count == 1 {
+         mapView.setVisibleMapRect(route.polyline.boundingMapRect, edgePadding: UIEdgeInsetsMake(10.0, 10.0, 10.0, 10.0), animated: false)
+         } else {
+         let polylineBoundingRect =  MKMapRectUnion(mapView.visibleMapRect, route.polyline.boundingMapRect)
+         mapView.setVisibleMapRect(polylineBoundingRect, edgePadding: UIEdgeInsetsMake(10.0, 10.0, 10.0, 10.0), animated: false)
+         } */
     }
     
     // MARK: - Map Annotation

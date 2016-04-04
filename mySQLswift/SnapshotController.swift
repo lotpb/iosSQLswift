@@ -144,27 +144,6 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
         self.refreshControl?.endRefreshing()
     }
     
-    
-    // MARK: UICollectionViewDelegateFlowLayout
-    
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
-        if (collectionView.tag == 0) {
-            return CGSize(width: 150, height: 130)
-        } else if (collectionView.tag == 1) {
-            return CGSize(width: 150, height: 130)
-        } else if (collectionView.tag == 2) {
-            return CGSize(width: 120, height: 130)
-        }
-        return CGSize(width: 90, height: 130)
-    }
-    
-    /*
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
-    //let frame : CGRect = self.view.frame
-    //let margin  = (frame.width - 90 * 3) / 6.0
-    return UIEdgeInsetsMake(0, 10, 0, 50) // margin between cells
-    } */
-    
 
     // MARK: - Table View
     
@@ -517,6 +496,28 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
         
         return cell
     }
+    
+    
+    // MARK: UICollectionView
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        if (collectionView.tag == 0) {
+            return CGSize(width: 150, height: 130)
+        } else if (collectionView.tag == 1) {
+            return CGSize(width: 150, height: 130)
+        } else if (collectionView.tag == 2) {
+            return CGSize(width: 120, height: 130)
+        }
+        return CGSize(width: 90, height: 130)
+    }
+    
+    /*
+     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAtIndex section: Int) -> UIEdgeInsets {
+     //let frame : CGRect = self.view.frame
+     //let margin  = (frame.width - 90 * 3) / 6.0
+     return UIEdgeInsetsMake(0, 10, 0, 50) // margin between cells
+     } */
+    
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return 1

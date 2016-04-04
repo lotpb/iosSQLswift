@@ -183,7 +183,12 @@ class Vendor: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 90.0
+        
+        if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Phone {
+            return 90.0
+        } else {
+            return 0.0
+        }
     }
     
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

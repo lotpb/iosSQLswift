@@ -131,8 +131,6 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     var salesman : NSString?
     var jobdescription : NSString?
     var advertiser : NSString?
-    //var dateInput : UITextField?
-    //var itemText : UITextField?
     
     var savedEventId : NSString?
     
@@ -938,7 +936,6 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             let contacts = try contactStore.unifiedContactsMatchingPredicate(
                 predicate, keysToFetch: toFetch) */
             
-
             try contactStore.executeSaveRequest(saveRequest)
             
             self.simpleAlert("Contact", message: "Contact successfully saved.")
@@ -1005,7 +1002,6 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             controller!.mapcity = self.city
             controller!.mapstate = self.state
             controller!.mapzip = self.zip
-            
         }
         
         if segue.identifier == "editFormSegue" {
@@ -1049,7 +1045,6 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                     controller!.formController = "Customer"
                     controller!.status = "New"
                     controller!.custNo = self.custNo
-                    controller!.frm31 = self.leadNo
                     controller!.frm11 = self.tbl13 //first
                     controller!.frm12 = self.name
                     controller!.frm13 = nil
@@ -1070,9 +1065,8 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
                     controller!.frm28 = self.comments
                     controller!.frm29 = self.photo
                     controller!.frm30 = self.active
-                    //controller!.saleNoDetail = self.tbl22 //salesNo
-                    //controller!.jobNoDetail = self.tbl23 //jobNo
-                    
+                    controller!.frm31 = nil //start
+                    controller!.frm32 = nil //completion
                 }
                 
             } else if (formController == "Customer") {

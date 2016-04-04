@@ -43,12 +43,6 @@ class BlogNewController: UIViewController, UITextFieldDelegate, UITextViewDelega
     
     var formStatus : NSString?
     var activeImage : UIImageView? //star
-    
-    /*
-    lazy var tapRecognizer: UITapGestureRecognizer = {
-        var recognizer = UITapGestureRecognizer(target:self, action: #selector(self.dismissKeyboard))
-        return recognizer
-    }() */
 
   
     override func viewDidLoad() {
@@ -64,32 +58,14 @@ class BlogNewController: UIViewController, UITextFieldDelegate, UITextViewDelega
         
         navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .Plain, target: nil, action: nil)
         
+        parseData() //load image
         subject?.delegate = self
         self.tableView!.backgroundColor =  UIColor(white:0.90, alpha:1.0)
-
-        /*
-        if let split = self.splitViewController {
-        let controllers = split.viewControllers
-        self.detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
-        } */
         
         if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
             self.subject!.font = ipadsubject
         } else {
             self.subject!.font = Font.Blog.cellsubject
-        }
-        
-        let query:PFQuery = PFUser.query()!
-        query.whereKey("username",  equalTo:self.textcontentpostby!)
-        query.cachePolicy = PFCachePolicy.CacheThenNetwork
-        query.getFirstObjectInBackgroundWithBlock {(object: PFObject?, error: NSError?) -> Void in
-            if error == nil {
-                if let imageFile = object!.objectForKey("imageFile") as? PFFile {
-                    imageFile.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError?) -> Void in
-                        self.imageBlog?.image = UIImage(data: imageData!)
-                    }
-                }
-            }
         }
         
         self.imageBlog!.clipsToBounds = true
@@ -135,15 +111,6 @@ class BlogNewController: UIViewController, UITextFieldDelegate, UITextViewDelega
             self.subject!.text = self.textcontentsubject as? String
             self.subject!.becomeFirstResponder()
             self.subject!.userInteractionEnabled = true
-            
-            /*
-            //not working below
-            NSString *text = [self.subject.text stringByAppendingString:@" "];//add space end of string
-            NSString *a = @"@"
-            NSString *searchby = [a stringByAppendingString:self.textcontentpostby];
-            NSMutableAttributedString * str = [[NSMutableAttributedString alloc] initWithString:text];
-            [str addAttribute: NSForegroundColorAttributeName value:BLUECOLOR range:[text rangeOfString:searchby]];
-            self.subject.attributedText = str; */
         }
         
         let likeimage : UIImage? = UIImage(named:"Thumb Up.png")!.imageWithRenderingMode(.AlwaysTemplate)
@@ -155,6 +122,15 @@ class BlogNewController: UIViewController, UITextFieldDelegate, UITextViewDelega
         
         self.characterCountLabel!.text = ""
         self.characterCountLabel!.textColor = UIColor.grayColor()
+        
+        /*
+         //not working below
+         NSString *text = [self.subject.text stringByAppendingString:@" "];//add space end of string
+         NSString *a = @"@"
+         NSString *searchby = [a stringByAppendingString:self.textcontentpostby];
+         NSMutableAttributedString * str = [[NSMutableAttributedString alloc] initWithString:text];
+         [str addAttribute: NSForegroundColorAttributeName value:BLUECOLOR range:[text rangeOfString:searchby]];
+         self.subject.attributedText = str; */
         
     }
     
@@ -254,13 +230,6 @@ class BlogNewController: UIViewController, UITextFieldDelegate, UITextViewDelega
         self.msgDate = strDate
     }
     
-    /*
-    // MARK: Keyboard dismissal
-    
-    func dismissKeyboard() {
-        subject!.resignFirstResponder()
-    } */
-    
     
     // MARK: - textView delegate
     
@@ -278,6 +247,7 @@ class BlogNewController: UIViewController, UITextFieldDelegate, UITextViewDelega
          placeholderlabel?.hidden = false
         }
     }
+    
     
     // MARK: Characters Limit
     
@@ -308,6 +278,26 @@ class BlogNewController: UIViewController, UITextFieldDelegate, UITextViewDelega
     }
     
     
+    // MARK: - Parse
+    
+    func parseData() {
+       
+        let query:PFQuery = PFUser.query()!
+        query.whereKey("username",  equalTo:self.textcontentpostby!)
+        query.cachePolicy = PFCachePolicy.CacheThenNetwork
+        query.getFirstObjectInBackgroundWithBlock {(object: PFObject?, error: NSError?) -> Void in
+            if error == nil {
+                if let imageFile = object!.objectForKey("imageFile") as? PFFile {
+                    imageFile.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError?) -> Void in
+                        self.imageBlog?.image = UIImage(data: imageData!)
+                    }
+                }
+            }
+        }
+
+    }
+    
+    
     // MARK: - Navigation
     
     @IBAction func updateData(sender: UIButton) {
@@ -331,10 +321,8 @@ class BlogNewController: UIViewController, UITextFieldDelegate, UITextViewDelega
             } else {
                 
                 self.simpleAlert("Upload Failure", message: "Failure updated the data")
-
             }
         }
-        //self.navigationController?.popViewControllerAnimated(true)
     }
     
     @IBAction func saveData(sender: UIButton) {

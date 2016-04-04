@@ -134,6 +134,7 @@ class BlogEditController: UIViewController, UITableViewDelegate, UITableViewData
     // MARK: - Table View
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        
         return 1
     }
     
@@ -194,45 +195,6 @@ class BlogEditController: UIViewController, UITableViewDelegate, UITableViewData
             cell.titleLabel!.text = self.postby as? String
             cell.subtitleLabel!.text = self.subject as? String
             cell.msgDateLabel.text = dateFormatter.stringFromDate((date) as NSDate)
-            
-            /*
-            if (self.rating == "5" ) {
-                //self.activeImage!.image = UIImage(named:"iosStar.png")
-                self.Like!.setTitle("unLike", forState: UIControlState.Normal)
-                self.Like!.tintColor = UIColor.redColor()
-            } else {
-                //self.activeImage!.image = UIImage(named:"iosStarNA.png")
-                self.Like!.setTitle("Like", forState: UIControlState.Normal)
-                self.Like!.tintColor = UIColor.lightGrayColor()
-            } */
-            
-            /*
-            let htmlString = "<font color=\"red\">This is  </font> <font color=\"blue\"> some text!</font>"
-            let encodedData = htmlString.dataUsingEncoding(NSUTF8StringEncoding)!
-            let attributedOptions = [NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType]
-            do {
-                let attributedString = try NSAttributedString(data: encodedData, options: attributedOptions, documentAttributes: nil)
-                cell.subtitleLabel.attributedText = attributedString
-            } catch _ {
-                print("Cannot create attributed String")
-            } */
-
-            // FIXME:
-            
-            /*
-            let myString = cell.subtitleLabel.text! as String
-            let aString = "@"
-            let searchby = aString.stringByAppendingString(self.postby as! String)
-            
-            let myMutableString = NSMutableAttributedString()
-            /*
-            myMutableString = NSMutableAttributedString(string: myString!, attributes: [NSFontAttributeName:UIFont(name: "Georgia",size: 18.0)!]) */
-            /*
-            myMutableString.addAttribute(NSForegroundColorAttributeName, value: UIColor.redColor(), range: NSRange(location:0, length:4)) */
-            
-            myMutableString.addAttribute(NSForegroundColorAttributeName, value: UIColor.blueColor(), range:(myString as NSString).rangeOfString(searchby))
-            
-            cell.subtitleLabel.attributedText = myMutableString */
             
             return cell
         }

@@ -8,7 +8,7 @@
 
 import Foundation
 
-    struct Config {
+    enum Config {
         static let NewsLead = "Customer News: Company to expand to a new web advertising directive this week."
         static let NewsCust = "Customer News: Check out or new line of fabulous windows and siding."
         static let NewsVend = "Business News: Peter Balsamo Appointed to United's Board of Directors."
@@ -16,45 +16,46 @@ import Foundation
         static let BaseUrl = "http://lotpb.github.io/UnitedWebPage/index.html"
     }
 
-    struct Color {
+    enum Color {
         static let BlueColor = UIColor(red:0.0, green:122.0/255.0, blue:1.0, alpha: 1.0)
         static let DGrayColor = UIColor(white:0.45, alpha:1.0)
         static let MGrayColor = UIColor(white:0.25, alpha:1.0)
         
-        struct Blog {
+        enum Blog {
             static let navColor = UIColor.redColor()
             static let borderbtnColor = UIColor.lightGrayColor().CGColor
             static let buttonColor = UIColor.redColor()
         }
-        struct Lead {
-            static let navColor = UIColor(red: 0.01, green: 0.48, blue: 1.0, alpha: 1.0)
+        enum Lead {
+            static let navColor = UIColor.blackColor() //UIColor(red: 0.01, green: 0.48, blue: 1.0, alpha: 1.0)
             static let labelColor = DGrayColor
-            static let labelColor1 = DGrayColor
+            static let labelColor1 = UIColor.redColor() //DGrayColor
+            static let buttonColor = UIColor.redColor()
         }
         
-        struct Cust {
-            static let navColor = UIColor(red: 0.21, green: 0.60, blue: 0.86, alpha: 1.0)
-            static let labelColor = UIColor(red: 0.20, green: 0.29, blue: 0.37, alpha: 1.0)
-            static let labelColor1 = UIColor(red: 0.20, green: 0.29, blue: 0.37, alpha: 1.0)
+        enum Cust {
+            static let navColor = UIColor.blackColor() //UIColor(red: 0.21, green: 0.60, blue: 0.86, alpha: 1.0)
+            static let labelColor = DGrayColor //UIColor(red: 0.20, green: 0.29, blue: 0.37, alpha: 1.0)
+            static let labelColor1 = BlueColor //UIColor(red: 0.20, green: 0.29, blue: 0.37, alpha: 1.0)
             static let buttonColor = BlueColor
         }
         
-        struct Vend {
+        enum Vend {
             static let navColor = UIColor(red: 0.56, green: 0.45, blue: 0.62, alpha: 1.0)
             static let labelColor = UIColor(red: 0.10, green: 0.03, blue: 0.21, alpha: 1.0)
         }
         
-        struct News {
+        enum News {
             static let navColor = DGrayColor
             static let buttonColor = BlueColor
         }
         
-        struct Stat {
+        enum Stat {
             static let navColor = UIColor.brownColor()
             //static let buttonColor = BlueColor
         }
         
-        struct Table {
+        enum Table {
             static let navColor = UIColor(red: 0.28, green: 0.50, blue: 0.49, alpha: 1.0)
             static let labelColor = UIColor(red: 0.65, green: 0.49, blue: 0.35, alpha: 1.0)
         }
