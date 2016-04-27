@@ -79,7 +79,7 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.hidesBarsOnSwipe = true
+        //navigationController?.hidesBarsOnSwipe = true
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.barTintColor = Color.Lead.navColor
         
@@ -88,7 +88,7 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        navigationController?.hidesBarsOnSwipe = false
+        //navigationController?.hidesBarsOnSwipe = false
     }
     
     
@@ -187,10 +187,16 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
         if (tableView == self.tableView) {
             
             cell.leadtitleLabel!.text = _feedItems[indexPath.row] .valueForKey("LastName") as? String
-            cell.leadsubtitleLabel!.text = _feedItems[indexPath.row] .valueForKey("City") as? String
+            
             myLabel1.text = _feedItems[indexPath.row] .valueForKey("Date") as? String
             myLabel2.text = _feedItems[indexPath.row] .valueForKey("CallBack") as? String
             
+            if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Phone {
+                cell.leadsubtitleLabel!.text = _feedItems[indexPath.row] .valueForKey("City") as? String
+            } else {
+                cell.leadsubtitleLabel!.text = ""
+            }
+        
         } else {
 
             cell.leadtitleLabel!.text = filteredString[indexPath.row] .valueForKey("LastName") as? String
@@ -272,7 +278,7 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
         vw.addSubview(myLabel1)
         
         let separatorLineView1 = UIView(frame: CGRectMake(10, 75, 50, 2.5))
-        separatorLineView1.backgroundColor = UIColor.whiteColor()
+        separatorLineView1.backgroundColor = Color.Lead.buttonColor
         vw.addSubview(separatorLineView1)
         
         let myLabel2:UILabel = UILabel(frame: CGRectMake(80, 15, 50, 50))
@@ -288,7 +294,7 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
         vw.addSubview(myLabel2)
         
         let separatorLineView2 = UIView(frame: CGRectMake(80, 75, 50, 2.5))
-        separatorLineView2.backgroundColor = UIColor.whiteColor()
+        separatorLineView2.backgroundColor = Color.Lead.buttonColor
         vw.addSubview(separatorLineView2)
         
         let myLabel3:UILabel = UILabel(frame: CGRectMake(150, 15, 50, 50))
@@ -304,7 +310,7 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
         vw.addSubview(myLabel3)
         
         let separatorLineView3 = UIView(frame: CGRectMake(150, 75, 50, 2.5))
-        separatorLineView3.backgroundColor = UIColor.whiteColor()
+        separatorLineView3.backgroundColor = Color.Lead.buttonColor
         vw.addSubview(separatorLineView3)
         
         return vw
@@ -471,7 +477,6 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
         let query1 = PFQuery(className:"Leads")
         query1.whereKey("Active", equalTo:1)
         query1.cachePolicy = PFCachePolicy.CacheThenNetwork
-        //query1.orderByDescending("createdAt")
         query1.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, error: NSError?) -> Void in
             if error == nil {
                 let temp: NSArray = objects! as NSArray
@@ -503,33 +508,6 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
         
         self.presentViewController(alertController, animated: true, completion: nil)
     }
-    
-    // MARK: - Animate Table
-    
-    /*
-    func animateTable() {
-        
-        self.tableView!.reloadData()
-        
-        let cells = tableView!.visibleCells
-        let tableHeight: CGFloat = tableView!.bounds.size.height
-        
-        for i in cells {
-            let cell: UITableViewCell = i as UITableViewCell
-            cell.transform = CGAffineTransformMakeTranslation(0, tableHeight)
-        }
-        
-        var index = 0
-        
-        for a in cells {
-            let cell: UITableViewCell = a as UITableViewCell
-            UIView.animateWithDuration(1.0, delay: 0.05 * Double(index), usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: [], animations: {
-                cell.transform = CGAffineTransformMakeTranslation(0, 0);
-                }, completion: nil)
-            
-            index += 1
-        }
-    } */
 
     
     // MARK: - Segues

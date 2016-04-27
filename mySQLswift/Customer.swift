@@ -81,14 +81,14 @@ class Customer: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.hidesBarsOnSwipe = true
+        //navigationController?.hidesBarsOnSwipe = true
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.barTintColor = Color.Cust.navColor
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        navigationController?.hidesBarsOnSwipe = false
+        //navigationController?.hidesBarsOnSwipe = false
     }
     
     override func didReceiveMemoryWarning() {
@@ -181,7 +181,6 @@ class Customer: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         if (tableView == self.tableView) {
             
             cell.custtitleLabel!.text = _feedItems[indexPath.row] .valueForKey("LastName") as? String
-            cell.custsubtitleLabel!.text = _feedItems[indexPath.row] .valueForKey("City") as? String
             cell.custlikeLabel!.text = _feedItems[indexPath.row] .valueForKey("Rate") as? String
             myLabel1.text = _feedItems[indexPath.row] .valueForKey("Date") as? String
             
@@ -191,7 +190,13 @@ class Customer: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
             if Amount == nil {
                 Amount = 0
             }
-            myLabel2.text =  formatter.stringFromNumber(Amount!) //"\(Amount!)"
+            myLabel2.text =  formatter.stringFromNumber(Amount!)
+            
+            if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Phone {
+                cell.custsubtitleLabel!.text = _feedItems[indexPath.row] .valueForKey("City") as? String
+            } else {
+                cell.custsubtitleLabel!.text = ""
+            }
            
         } else {
             
@@ -280,7 +285,7 @@ class Customer: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         vw.addSubview(myLabel1)
         
         let separatorLineView1 = UIView(frame: CGRectMake(10, 75, 50, 2.5))
-        separatorLineView1.backgroundColor = UIColor.whiteColor()
+        separatorLineView1.backgroundColor = Color.Cust.buttonColor
         vw.addSubview(separatorLineView1)
         
         let myLabel2:UILabel = UILabel(frame: CGRectMake(80, 15, 50, 50))
@@ -298,7 +303,7 @@ class Customer: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         vw.addSubview(myLabel2)
         
         let separatorLineView2 = UIView(frame: CGRectMake(80, 75, 50, 2.5))
-        separatorLineView2.backgroundColor = UIColor.whiteColor()
+        separatorLineView2.backgroundColor = Color.Cust.buttonColor
         vw.addSubview(separatorLineView2)
         
         let myLabel3:UILabel = UILabel(frame: CGRectMake(150, 15, 50, 50))
@@ -316,7 +321,7 @@ class Customer: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         vw.addSubview(myLabel3)
         
         let separatorLineView3 = UIView(frame: CGRectMake(150, 75, 50, 2.5))
-        separatorLineView3.backgroundColor = UIColor.whiteColor()
+        separatorLineView3.backgroundColor = Color.Cust.buttonColor
         vw.addSubview(separatorLineView3)
         
         return vw
@@ -425,7 +430,6 @@ class Customer: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         let query1 = PFQuery(className:"Customer")
         query1.whereKey("Active", equalTo:1)
         query1.cachePolicy = PFCachePolicy.CacheThenNetwork
-        //query1.orderByDescending("createdAt")
         query1.findObjectsInBackgroundWithBlock { (objects: [PFObject]?, error: NSError?) -> Void in
             if error == nil {
                 let temp: NSArray = objects! as NSArray

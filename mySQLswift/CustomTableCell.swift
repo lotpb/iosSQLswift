@@ -57,6 +57,24 @@ class CustomTableCell: UITableViewCell {
     @IBOutlet weak var custlikeButton: UIButton!
     @IBOutlet weak var custreplyLabel: UILabel!
     @IBOutlet weak var custlikeLabel: UILabel!
+    
+    // Vendor Controller
+    @IBOutlet weak var vendtitleLabel: UILabel!
+    @IBOutlet weak var vendsubtitleLabel: UILabel!
+    @IBOutlet weak var vendImageView: UIImageView!
+    @IBOutlet weak var vendreplyButton: UIButton!
+    @IBOutlet weak var vendlikeButton: UIButton!
+    @IBOutlet weak var vendreplyLabel: UILabel!
+    @IBOutlet weak var vendlikeLabel: UILabel!
+    
+    // Employee Controller
+    @IBOutlet weak var employtitleLabel: UILabel!
+    @IBOutlet weak var employsubtitleLabel: UILabel!
+    @IBOutlet weak var employImageView: UIImageView!
+    @IBOutlet weak var employreplyButton: UIButton!
+    @IBOutlet weak var employlikeButton: UIButton!
+    @IBOutlet weak var employreplyLabel: UILabel!
+    @IBOutlet weak var employlikeLabel: UILabel!
 
     
     // BlogEditView

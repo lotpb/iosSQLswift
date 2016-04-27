@@ -20,6 +20,7 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
     let celltitle = UIFont.systemFontOfSize(18, weight: UIFontWeightRegular)
     
     @IBOutlet weak var mapView: MKMapView?
+    @IBOutlet weak var mainView: UIView!
     
     @IBOutlet weak var forgotPassword: UIButton?
     @IBOutlet weak var registerBtn: UIButton?
@@ -39,7 +40,12 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
     var userimage : UIImage?
     
     //Facebook
-    let fbButton = FBSDKLoginButton()
+    //let fbButton = FBSDKLoginButton()
+    let fbButton: FBSDKLoginButton = {
+    let button = FBSDKLoginButton()
+        button.readPermissions = ["public_profile", "email", "user_friends", "user_birthday", "user_location"]//["public_profile","email","user_friends"]
+        return button
+    }()
     
     let userImageView: UIImageView = {
         let imageView = UIImageView()
@@ -100,9 +106,9 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
         
         fbButton.frame = CGRectMake(10, 490, 100, 25)
         fbButton.delegate = self
-        self.view.addSubview(fbButton)
+        self.mainView.addSubview(fbButton)
         
-        getFacebookUserInfo()
+        //getFacebookUserInfo()
         
 
     }
@@ -220,19 +226,27 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
     
     // MARK: - Facebook
 
-    func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!)
-    {
-        print("didCompleteWithResult")
-        self.performSegueWithIdentifier("loginSegue", sender: nil)
-        //getFacebookUserInfo()
+    func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
+        
+        getFacebookUserInfo()
+        redirectToHome()
     }
     
     func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
         
         print("loginButtonDidLogOut")
-        //imageView.image = UIImage(named: "fb-art.jpg")
-        //label.text = "Not Logged In"
+
     }
+    
+    func redirectToHome() {
+        
+        let storyboard:UIStoryboard = UIStoryboard(name:"Main", bundle: nil)
+
+        let initialViewController: UIViewController = storyboard.instantiateViewControllerWithIdentifier("MasterViewController") as UIViewController
+        
+        self.presentViewController(initialViewController, animated: true, completion: nil)
+    }
+    
     
     func getFacebookUserInfo() {
         
@@ -255,7 +269,8 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
                 let url = NSURL(string: "https://graph.facebook.com/\(FBid!)/picture?type=large&return_ssl_resources=1")
                 self.userImageView.image = UIImage(data: NSData(contentsOfURL: url!)!)
                 
-                //self.performSegueWithIdentifier("loginSegue", sender: nil)
+                self.refreshLocation()
+
             })
         }
     }

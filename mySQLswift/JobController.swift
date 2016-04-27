@@ -190,7 +190,7 @@ class JobController: UIViewController, UITableViewDelegate, UITableViewDataSourc
         vw.addSubview(myLabel1)
         
         let separatorLineView1 = UIView(frame: CGRectMake(10, 75, 50, 2.5))
-        separatorLineView1.backgroundColor = UIColor.whiteColor()
+        separatorLineView1.backgroundColor = Color.Table.labelColor
         vw.addSubview(separatorLineView1)
         
         let myLabel2:UILabel = UILabel(frame: CGRectMake(80, 15, 50, 50))
@@ -206,7 +206,7 @@ class JobController: UIViewController, UITableViewDelegate, UITableViewDataSourc
         vw.addSubview(myLabel2)
         
         let separatorLineView2 = UIView(frame: CGRectMake(80, 75, 50, 2.5))
-        separatorLineView2.backgroundColor = UIColor.whiteColor()
+        separatorLineView2.backgroundColor = Color.Table.labelColor
         vw.addSubview(separatorLineView2)
         
         let myLabel3:UILabel = UILabel(frame: CGRectMake(150, 15, 50, 50))
@@ -222,7 +222,7 @@ class JobController: UIViewController, UITableViewDelegate, UITableViewDataSourc
         vw.addSubview(myLabel3)
         
         let separatorLineView3 = UIView(frame: CGRectMake(150, 75, 50, 2.5))
-        separatorLineView3.backgroundColor = UIColor.whiteColor()
+        separatorLineView3.backgroundColor = Color.Table.labelColor
         vw.addSubview(separatorLineView3)
         
         return vw

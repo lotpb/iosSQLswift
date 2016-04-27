@@ -42,9 +42,9 @@ class Vendor: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
         
         self.tableView!.delegate = self
         self.tableView!.dataSource = self
-        self.tableView!.rowHeight = 65
-        //self.tableView!.estimatedRowHeight = 110
-        //self.tableView!.rowHeight = UITableViewAutomaticDimension
+        //self.tableView!.rowHeight = 65
+        self.tableView!.estimatedRowHeight = 110
+        self.tableView!.rowHeight = UITableViewAutomaticDimension
         self.tableView!.backgroundColor = UIColor(white:0.90, alpha:1.0)
         self.automaticallyAdjustsScrollViewInsets = false
         
@@ -79,14 +79,14 @@ class Vendor: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.hidesBarsOnSwipe = true
+        //navigationController?.hidesBarsOnSwipe = true
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.barTintColor = Color.Vend.navColor
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
-        navigationController?.hidesBarsOnSwipe = false
+        //navigationController?.hidesBarsOnSwipe = false
     }
     
     override func didReceiveMemoryWarning() {
@@ -137,35 +137,61 @@ class Vendor: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
         let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier) as! CustomTableCell
         cell.selectionStyle = UITableViewCellSelectionStyle.None
         
-        cell.leadsubtitleLabel!.textColor = UIColor.grayColor()
+        cell.vendsubtitleLabel!.textColor = UIColor.grayColor()
         
         if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
-            cell.leadtitleLabel!.font = Font.celltitle
-            cell.leadsubtitleLabel!.font = Font.cellsubtitle
+            cell.vendtitleLabel!.font = Font.celltitle
+            cell.vendsubtitleLabel!.font = Font.cellsubtitle
+            cell.vendlikeLabel.font = Font.celltitle
 
         } else {
-            cell.leadtitleLabel!.font = Font.celltitle
-            cell.leadsubtitleLabel!.font = Font.cellsubtitle
+            cell.vendtitleLabel!.font = Font.celltitle
+            cell.vendsubtitleLabel!.font = Font.cellsubtitle
+            cell.vendlikeLabel.font = Font.News.newslabel2
         }
         
         if (tableView == self.tableView) {
             
-            cell.leadtitleLabel!.text = _feedItems[indexPath.row] .valueForKey("Vendor") as? String
-            var numNo:Int? = _feedItems[indexPath.row] .valueForKey("VendorNo")as? Int
-            if numNo == nil {
-                numNo = 0
+            cell.vendtitleLabel!.text = _feedItems[indexPath.row] .valueForKey("Vendor") as? String
+            
+            if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Phone {
+                cell.vendsubtitleLabel!.text = _feedItems[indexPath.row] .valueForKey("Profession") as? String
+            } else {
+                cell.vendsubtitleLabel!.text = ""
             }
-            cell.leadsubtitleLabel.text = "\(numNo!)"
  
         } else {
             
-            cell.leadtitleLabel!.text = filteredString[indexPath.row] .valueForKey("Vendor") as? String
-            var numNo:Int? = filteredString[indexPath.row] .valueForKey("VendorNo")as? Int
-            if numNo == nil {
-                numNo = 0
-            }
-            cell.leadsubtitleLabel.text = "\(numNo!)"
-
+            cell.vendtitleLabel!.text = filteredString[indexPath.row] .valueForKey("Vendor") as? String
+    
+            cell.vendsubtitleLabel.text = _feedItems[indexPath.row] .valueForKey("Profession") as? String
+        }
+        
+        cell.vendreplyButton.tintColor = UIColor.lightGrayColor()
+        let replyimage : UIImage? = UIImage(named:"Commentfilled.png")!.imageWithRenderingMode(.AlwaysTemplate)
+        cell.vendreplyButton .setImage(replyimage, forState: .Normal)
+        cell.vendreplyButton .addTarget(self, action: Selector(), forControlEvents: UIControlEvents.TouchUpInside)
+        
+        cell.vendlikeButton.tintColor = UIColor.lightGrayColor()
+        let likeimage : UIImage? = UIImage(named:"Thumb Up.png")!.imageWithRenderingMode(.AlwaysTemplate)
+        cell.vendlikeButton .setImage(likeimage, forState: .Normal)
+        cell.vendlikeButton .addTarget(self, action: Selector(), forControlEvents: UIControlEvents.TouchUpInside)
+        
+        cell.vendreplyLabel.text! = ""
+        
+        if (_feedItems[indexPath.row] .valueForKey("Comments") as? String == nil) || (_feedItems[indexPath.row] .valueForKey("Comments") as? String == "") {
+            cell.vendreplyButton!.tintColor = UIColor.lightGrayColor()
+        } else {
+            cell.vendreplyButton!.tintColor = Color.Vend.buttonColor
+        }
+        
+        if (_feedItems[indexPath.row] .valueForKey("Active") as? Int == 1 ) {
+            cell.vendlikeButton!.tintColor = Color.Vend.buttonColor
+            cell.vendlikeLabel.text! = "Active"
+            cell.vendlikeLabel.adjustsFontSizeToFitWidth = true
+        } else {
+            cell.vendlikeButton!.tintColor = UIColor.lightGrayColor()
+            cell.vendlikeLabel.text! = ""
         }
         
         let myLabel:UILabel = UILabel(frame: CGRectMake(10, 10, 50, 50))
@@ -195,7 +221,7 @@ class Vendor: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
         
         let vw = UIView()
         vw.backgroundColor = Color.Vend.navColor
-        tableView.tableHeaderView = vw
+        //tableView.tableHeaderView = vw
         
         let myLabel1:UILabel = UILabel(frame: CGRectMake(10, 15, 50, 50))
         myLabel1.numberOfLines = 0
@@ -210,7 +236,7 @@ class Vendor: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
         vw.addSubview(myLabel1)
         
         let separatorLineView1 = UIView(frame: CGRectMake(10, 75, 50, 2.5))
-        separatorLineView1.backgroundColor = UIColor.whiteColor()
+        separatorLineView1.backgroundColor = Color.Vend.buttonColor
         vw.addSubview(separatorLineView1)
         
         let myLabel2:UILabel = UILabel(frame: CGRectMake(80, 15, 50, 50))
@@ -226,7 +252,7 @@ class Vendor: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
         vw.addSubview(myLabel2)
         
         let separatorLineView2 = UIView(frame: CGRectMake(80, 75, 50, 2.5))
-        separatorLineView2.backgroundColor = UIColor.whiteColor()
+        separatorLineView2.backgroundColor = Color.Vend.buttonColor
         vw.addSubview(separatorLineView2)
         
         let myLabel3:UILabel = UILabel(frame: CGRectMake(150, 15, 50, 50))
@@ -242,7 +268,7 @@ class Vendor: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
         vw.addSubview(myLabel3)
         
         let separatorLineView3 = UIView(frame: CGRectMake(150, 75, 50, 2.5))
-        separatorLineView3.backgroundColor = UIColor.whiteColor()
+        separatorLineView3.backgroundColor = Color.Vend.buttonColor
         vw.addSubview(separatorLineView3)
         
         return vw
@@ -434,6 +460,12 @@ class Vendor: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
             }
             controller?.leadNo =  formatter.stringFromNumber(LeadNo!)
             
+            var Active:Int? = _feedItems[indexPath] .valueForKey("Active")as? Int
+            if Active == nil {
+                Active = 0
+            }
+            controller?.active = formatter.stringFromNumber(Active!)
+            
             controller?.date = _feedItems[indexPath] .valueForKey("WebPage") as? String
             controller?.name = _feedItems[indexPath] .valueForKey("Vendor") as? String
             controller?.address = _feedItems[indexPath] .valueForKey("Address") as? String
@@ -459,7 +491,6 @@ class Vendor: UIViewController, UITableViewDelegate, UITableViewDataSource, UISe
             
             controller?.tbl26 = _feedItems[indexPath] .valueForKey("WebPage") as? String
             controller?.comments = _feedItems[indexPath] .valueForKey("Comments") as? String
-            controller?.active = _feedItems[indexPath] .valueForKey("Active") as? String
             controller?.l11 = "Phone"; controller?.l12 = "Phone1"
             controller?.l13 = "Phone2"; controller?.l14 = "Phone3"
             controller?.l15 = "Assistant"; controller?.l21 = "Email"

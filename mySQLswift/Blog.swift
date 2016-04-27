@@ -46,7 +46,7 @@ class Blog: UIViewController, UITableViewDelegate, UITableViewDataSource {
         self.tableView!.estimatedRowHeight = 110
         self.tableView!.rowHeight = UITableViewAutomaticDimension
         self.tableView!.backgroundColor =  UIColor(white:0.90, alpha:1.0)
-        self.tableView!.contentInset = UIEdgeInsetsMake(64.0, 0.0, 0.0, 0.0)
+        //self.tableView!.contentInset = UIEdgeInsetsMake(64.0, 0.0, 0.0, 0.0)
 
         //self.navigationItem.leftBarButtonItem = self.editButtonItem()
         
@@ -240,7 +240,8 @@ class Blog: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        if !searchController.active {
+        
+        if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Phone {
             return 90.0
         } else {
             return 0.0

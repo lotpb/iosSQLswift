@@ -145,7 +145,7 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         super.viewDidLoad()
         
         let titleButton: UIButton = UIButton(frame: CGRectMake(0, 0, 100, 32))
-        titleButton.setTitle("myDetails", forState: UIControlState.Normal)
+        titleButton.setTitle(String(format: "%@ %@", self.formController!, "Form"), forState: UIControlState.Normal)
         titleButton.titleLabel?.font = Font.navlabel
         titleButton.titleLabel?.textAlignment = NSTextAlignment.Center
         titleButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
@@ -672,11 +672,12 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         let phoneNo : NSString?
         if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Phone {
             
-            if (formController == "Vendors" || formController == "Employee") {
+            if (formController == "Vendors") || (formController == "Employee") {
                 phoneNo = t11!
             } else {
                 phoneNo = t12!
             }
+            
             if let phoneCallURL:NSURL = NSURL(string:"telprompt:\(phoneNo!)") {
                 
                 let application:UIApplication = UIApplication.sharedApplication()

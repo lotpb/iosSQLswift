@@ -17,6 +17,7 @@ import Foundation
     }
 
     enum Color {
+        //static let BlackColor = UIColor.blackColor()
         static let BlueColor = UIColor(red:0.0, green:122.0/255.0, blue:1.0, alpha: 1.0)
         static let DGrayColor = UIColor(white:0.45, alpha:1.0)
         static let MGrayColor = UIColor(white:0.25, alpha:1.0)
@@ -41,8 +42,17 @@ import Foundation
         }
         
         enum Vend {
-            static let navColor = UIColor(red: 0.56, green: 0.45, blue: 0.62, alpha: 1.0)
-            static let labelColor = UIColor(red: 0.10, green: 0.03, blue: 0.21, alpha: 1.0)
+            static let navColor = UIColor.blackColor()
+            static let labelColor = UIColor(red: 0.56, green: 0.45, blue: 0.62, alpha: 1.0)
+            //static let labelColor1 = UIColor(red: 0.10, green: 0.03, blue: 0.21, alpha: 1.0)
+            static let buttonColor = UIColor(red: 0.56, green: 0.45, blue: 0.62, alpha: 1.0)
+        }
+        
+        enum Employ {
+            static let navColor = UIColor.blackColor()
+            static let labelColor = UIColor(red: 0.64, green: 0.54, blue: 0.50, alpha: 1.0)
+            //static let labelColor1 = UIColor(red: 0.31, green: 0.23, blue: 0.17, alpha: 1.0)
+            static let buttonColor = UIColor(red: 0.64, green: 0.54, blue: 0.50, alpha: 1.0)
         }
         
         enum News {
@@ -56,8 +66,9 @@ import Foundation
         }
         
         enum Table {
-            static let navColor = UIColor(red: 0.28, green: 0.50, blue: 0.49, alpha: 1.0)
-            static let labelColor = UIColor(red: 0.65, green: 0.49, blue: 0.35, alpha: 1.0)
+            static let navColor = UIColor.blackColor()
+            static let labelColor = UIColor(red: 0.28, green: 0.50, blue: 0.49, alpha: 1.0)
+            //static let labelColor = UIColor(red: 0.65, green: 0.49, blue: 0.35, alpha: 1.0)
         }
     }
 
