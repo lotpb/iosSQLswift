@@ -100,12 +100,14 @@ class MapView: UIViewController, MKMapViewDelegate,  CLLocationManagerDelegate {
     
     // MARK: - CLLocationManager
     
-    override func viewDidAppear(animated: Bool)
-    {
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
         
         locationManager = CLLocationManager()
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        
         locationManager.delegate = self
+        locationManager.distanceFilter = kCLLocationAccuracyNearestTenMeters
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
         
         let status = CLLocationManager.authorizationStatus()
         if status == .NotDetermined || status == .Denied || status == .AuthorizedWhenInUse {
@@ -116,8 +118,8 @@ class MapView: UIViewController, MKMapViewDelegate,  CLLocationManagerDelegate {
         locationManager.startUpdatingHeading()
         
         self.mapView.delegate = self
-        self.mapView.setUserTrackingMode(MKUserTrackingMode.FollowWithHeading, animated: true)
         self.mapView.showsUserLocation = true
+        self.mapView.userTrackingMode = .FollowWithHeading
         self.mapView.zoomEnabled = true
         self.mapView.scrollEnabled = true
         self.mapView.rotateEnabled = true
@@ -230,6 +232,7 @@ class MapView: UIViewController, MKMapViewDelegate,  CLLocationManagerDelegate {
     // MARK: - Map Overlay
     
     func mapView(mapView: MKMapView, rendererForOverlay overlay: MKOverlay) -> MKOverlayRenderer {
+        
         let renderer = MKPolylineRenderer(polyline: overlay as! MKPolyline)
         
         if mapView.overlays.count == 1 {
@@ -242,8 +245,6 @@ class MapView: UIViewController, MKMapViewDelegate,  CLLocationManagerDelegate {
             renderer.strokeColor =
                 UIColor.redColor().colorWithAlphaComponent(0.75)
         }
-  
-        //renderer.strokeColor = UIColor.blueColor()
         renderer.lineWidth = 3
         return renderer
     }

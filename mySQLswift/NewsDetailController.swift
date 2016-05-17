@@ -8,10 +8,11 @@
 
 import UIKit
 import Parse
-//import CoreLocation
-import MobileCoreServices //kUTTypeImage
+import AVKit
+import AVFoundation
+//import MobileCoreServices //kUTTypeImage
 
-class NewsDetailController: UIViewController {
+class NewsDetailController: UIViewController, UITextViewDelegate {
     
     let ipadtitle = UIFont.systemFontOfSize(26, weight: UIFontWeightRegular)
     let ipadsubtitle = UIFont.systemFontOfSize(18, weight: UIFontWeightRegular)
@@ -30,9 +31,9 @@ class NewsDetailController: UIViewController {
     var newsStory: NSString?
     var newsDate: NSString?
     
-    //var videoController: MPMoviePlayerController!
-    var videoURL: NSURL?
+    var playerViewController = AVPlayerViewController()
     var imageDetailurl: NSString?
+    var videoURL: NSURL?
     
 
     override func viewDidLoad() {
@@ -69,6 +70,7 @@ class NewsDetailController: UIViewController {
             self.newsTextview.editable = false //bug fix
         }
         
+        self.newsImageview.userInteractionEnabled = true
         self.newsImageview.image = self.image
         self.newsImageview.contentMode = UIViewContentMode.ScaleToFill
         
@@ -81,12 +83,18 @@ class NewsDetailController: UIViewController {
         self.detailLabel.sizeToFit()
         
         self.newsTextview.text = self.newsStory as? String
+        self.newsTextview.delegate = self
+        //self.newsTextview.autocorrectionType = UITextAutocorrectionType.Yes
         
-        //let value = imageDetailurl
-        //let result1 = value!.containsString("movie.mp4")
-        //if s!.rangeOfString("movie.mp4") != nil {
-        //if (result1 == true) {
-        if (self.imageDetailurl == "movie.mp4") {
+        
+        // Make web links clickable
+        self.newsTextview.selectable = true
+        self.newsTextview.editable = false
+        self.newsTextview.dataDetectorTypes = UIDataDetectorTypes.Link
+        
+        let value = self.imageDetailurl
+        let result1 = value!.containsString("movie.mp4")
+        if (result1 == true) {
             
             let playButton = UIButton(type: UIButtonType.Custom) as UIButton
             playButton.frame = CGRectMake(self.newsImageview.frame.size.width/2-130, self.newsImageview.frame.origin.y+100, 50, 50)
@@ -110,6 +118,20 @@ class NewsDetailController: UIViewController {
     
     func viewForZoomingInScrollView(scrollView: UIScrollView) -> UIView? {
         return self.newsImageview
+    }
+    
+    // MARK: - Video
+    
+    func playVideo(sender: UITapGestureRecognizer) {
+        
+        let url = NSURL(string: "https://files.parsetfss.com/6ab2bd45-dd6b-4dda-afde-ee839ccbdc32/tfss-3156404a-0f9d-427a-a915-175e44bbe03c-movie.mp4")
+        let player = AVPlayer(URL: url!)
+        playerViewController.videoGravity = AVLayerVideoGravityResizeAspect
+        playerViewController.showsPlaybackControls = true
+        playerViewController.player = player
+        self.presentViewController(playerViewController, animated: true) {
+            self.playerViewController.player?.play()
+        }
     }
     
     // MARK: - Button

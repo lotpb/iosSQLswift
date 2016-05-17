@@ -384,18 +384,34 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             cell.leadtitleDetail.text = self.lnewsTitle as? String
             cell.leadtitleDetail.numberOfLines = 0
             cell.leadtitleDetail.textColor = UIColor.blackColor()
-       
-            /*
-            let dateStr = self.date
-            let dateFormatter = NSDateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-            let date1:NSDate = dateFormatter.dateFromString(dateStr!)! as NSDate
-            let date2:NSDate = NSDate()
-            let diffDateComponents = NSCalendar.currentCalendar().components([NSCalendarUnit.Day], fromDate: date1, toDate: date2, options: NSCalendarOptions.init(rawValue: 0))
-            cell.leadsubtitleDetail.text = String(format: "%d%@", diffDateComponents.day," United News" )
-            */
             
-            cell.leadsubtitleDetail.text = "United News"
+            //--------------------------------------------------------------
+            
+            let cal = NSCalendar.currentCalendar()
+            let currentDate = NSDate()
+            
+            let startDate = currentDate.dateByAddingTimeInterval(-7 * 24 * 60 * 60) // 7 days ago
+            //print(startDate)
+            let endDate = startDate.dateByAddingTimeInterval(10 * 24 * 60 * 60) // 10 days after start date (3 days from now)
+            
+            if endDate.compare(currentDate) == .OrderedDescending {
+                // end date is in the future
+                let components = cal.components(.Day, fromDate: startDate, toDate: currentDate, options: [])
+                let daysCount = components.day
+                cell.leadsubtitleDetail.text = "United News, \(daysCount) days ago."
+            }
+            
+            /*
+             let date1 = self.date
+             let formatter = NSDateFormatter();
+             formatter.dateFormat = "yyyy-MM-dd HH:mm:ss ZZZ"
+             let dateFromStr = formatter.dateFromString(date1!)!
+             let date2 = NSDate()
+             let diffDateComponents = NSCalendar.currentCalendar().components([NSCalendarUnit.Day], fromDate: dateFromStr, toDate: date2, options: NSCalendarOptions.init(rawValue: 0))
+            print("\(diffDateComponents)")
+            cell.leadsubtitleDetail.text = "United News, \(diffDateComponents) days ago." */
+            
+            //--------------------------------------------------------------
             cell.leadsubtitleDetail.textColor = UIColor.grayColor()
             
             cell.leadreadDetail.text = "Read more"
@@ -403,7 +419,7 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             
             cell.leadnewsDetail.text = self.comments as? String
             cell.leadnewsDetail.numberOfLines = 0
-            //cell.leadnewsDetail.textColor = UIColor.darkGrayColor()
+          //cell.leadnewsDetail.textColor = UIColor.darkGrayColor()
 
             return cell
             
@@ -696,29 +712,30 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     
     func openurl() {
         
-        if ((self.tbl26 != NSNull()) && ( self.tbl26 != 0 )) {
+        if (self.tbl26 != NSNull() && self.tbl26 != 0) {
             
-            if let url = NSURL(string: "\(self.tbl26!)") {
-                UIApplication.sharedApplication().openURL(url)
+            let Hooks = "http://\(self.tbl26!)"
+            let Url = NSURL(string: Hooks)
+            
+            if UIApplication.sharedApplication().canOpenURL(Url!)
+            {
+                UIApplication.sharedApplication().openURL(Url!)
+                
+            } else {
+                
+                self.simpleAlert("Invalid URL", message: "Your field doesn't have valid URL.")
             }
-                /*
-                let stringWithPossibleURL: String = "\(self.tbl26!)"// Or another source of text
-                print(stringWithPossibleURL)
-                
-                if let validURL: NSURL = NSURL(string: stringWithPossibleURL) {
-                // Successfully constructed an NSURL; open it
-                UIApplication.sharedApplication().openURL(validURL)
-                } */
-                
+            
         } else {
             
             self.simpleAlert("Invalid URL", message: "Your field doesn't have valid URL.")
-            }
+            
         }
+    }
     
     func sendEmail() {
         if (formController == "Leads") || (formController == "Customer") {
-            if ((self.tbl15 != NSNull()) && ( self.tbl15 != 0 )) {
+            if ((self.tbl15 != NSNull()) && (self.tbl15 != 0)) {
                 self.getEmail(t15!)
                 
             } else {
@@ -727,7 +744,7 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             }
         }
         if (formController == "Vendor") || (formController == "Employee") {
-            if ((self.tbl21 != NSNull()) && ( self.tbl21 != 0 )) {
+            if ((self.tbl21 != NSNull()) && (self.tbl21 != 0 )) {
                 self.getEmail(t21!)
                 
             } else {

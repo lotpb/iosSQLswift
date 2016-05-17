@@ -84,7 +84,7 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
         super.viewWillAppear(animated)
         //navigationController?.hidesBarsOnSwipe = true
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
-        self.navigationController?.navigationBar.barTintColor = UIColor.brownColor()
+        self.navigationController?.navigationBar.barTintColor = Color.Table.labelColor
     }
     
     override func viewWillDisappear(animated: Bool) {

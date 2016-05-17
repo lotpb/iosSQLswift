@@ -123,15 +123,6 @@ class BlogNewController: UIViewController, UITextFieldDelegate, UITextViewDelega
         self.characterCountLabel!.text = ""
         self.characterCountLabel!.textColor = UIColor.grayColor()
         
-        /*
-         //not working below
-         NSString *text = [self.subject.text stringByAppendingString:@" "];//add space end of string
-         NSString *a = @"@"
-         NSString *searchby = [a stringByAppendingString:self.textcontentpostby];
-         NSMutableAttributedString * str = [[NSMutableAttributedString alloc] initWithString:text];
-         [str addAttribute: NSForegroundColorAttributeName value:BLUECOLOR range:[text rangeOfString:searchby]];
-         self.subject.attributedText = str; */
-        
     }
     
     override func viewDidAppear(animated: Bool) {

@@ -13,7 +13,7 @@ import AVKit
 import AVFoundation
 
 class UploadController: UIViewController, UINavigationControllerDelegate,
-UIImagePickerControllerDelegate {
+UIImagePickerControllerDelegate, UITextViewDelegate {
     
     let ipadtitle = UIFont.systemFontOfSize(18, weight: UIFontWeightRegular)
     
@@ -107,6 +107,10 @@ UIImagePickerControllerDelegate {
         self.selectPic.layer.cornerRadius = 12.0
         self.selectPic.layer.borderColor = UIColor(white:0.45, alpha:1.0).CGColor
         self.selectPic.layer.borderWidth = 2.0
+        
+        self.commentDetail.delegate = self
+        self.commentDetail.autocorrectionType = UITextAutocorrectionType.Yes
+        self.commentDetail.dataDetectorTypes = UIDataDetectorTypes.All
         
     }
     

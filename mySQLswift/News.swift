@@ -28,15 +28,13 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
     var foundUsers = [String]()
     
     var playerViewController = AVPlayerViewController()
-    var player = AVPlayer()
     var imageDetailurl : NSString?
-    var videoURL: NSURL?
+    //var videoURL: NSURL?
+    //var urlLabel : UILabel?
     
     var refreshControl: UIRefreshControl!
-    
-    var urlLabel : UILabel?
 
- 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -145,6 +143,7 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
             cell.imageView?.image = UIImage(data: imageData!)
         }
         
+        cell.imageView.userInteractionEnabled = true
         cell.imageView!.backgroundColor = UIColor.blackColor()
         cell.imageView!.layer.borderColor = UIColor.lightGrayColor().CGColor
         cell.imageView!.layer.borderWidth = 0.5
@@ -186,10 +185,7 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
         }
         
         let value = self.imageFile.url
-        //print("\(value!)")
         let result1 = value!.containsString("movie.mp4")
-        //if s!.rangeOfString("movie.mp4") != nil {
-        //print(result1)
         if (result1 == true) {
             
             playButton.alpha = 0.3
@@ -198,15 +194,13 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
             playButton.tintColor = UIColor.whiteColor()
             let playimage : UIImage? = UIImage(named:"play_button.png")!.imageWithRenderingMode(.AlwaysTemplate)
             playButton .setImage(playimage, forState: .Normal)
-            //playButton .setTitle(urlLabel!.text, forState: UIControlState.Normal)
-            let tap = UITapGestureRecognizer(target: self, action: #selector(News.playVideo(_:)))
+            let tap = UITapGestureRecognizer(target: self, action: #selector(playVideo))
             playButton.addGestureRecognizer(tap)
             cell.imageView.addSubview(playButton)
             
         }
         
         return cell
-        
     }
     
     
@@ -256,28 +250,14 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
     
     func playVideo(sender: UITapGestureRecognizer) {
         
-        //let path = NSBundle.mainBundle().pathForResource("emoji zone", ofType: "mp4")
-        let path = self.imageFile.url!
-        player = AVPlayer(URL: NSURL(fileURLWithPath: path))
+        let url = NSURL(string: "https://files.parsetfss.com/6ab2bd45-dd6b-4dda-afde-ee839ccbdc32/tfss-3156404a-0f9d-427a-a915-175e44bbe03c-movie.mp4")
+        let player = AVPlayer(URL: url!)
+        playerViewController.videoGravity = AVLayerVideoGravityResizeAspect
+        playerViewController.showsPlaybackControls = true
         playerViewController.player = player
         self.presentViewController(playerViewController, animated: true) {
             self.playerViewController.player?.play()
         }
-        /*
-        let url = NSURL.fileURLWithPath(self.imageFile.url!)
-        //let url = NSURL.fileURLWithPath(self.imageDetailurl as! String)
-        let player = AVPlayer(URL: url)
-        let playerViewController = AVPlayerViewController()
-        playerViewController.player = player
-        
-        playerViewController.view.frame = self.view.bounds
-        playerViewController.videoGravity = AVLayerVideoGravityResizeAspect
-        playerViewController.showsPlaybackControls = true
-        //self.imgToUpload.addSubview(playerViewController.view)
-        self.view.addSubview(playerViewController.view)
-        self.addChildViewController(playerViewController)
-        
-        player.play() */
     }
     
     func finishedPlaying(myNotification:NSNotification) {
