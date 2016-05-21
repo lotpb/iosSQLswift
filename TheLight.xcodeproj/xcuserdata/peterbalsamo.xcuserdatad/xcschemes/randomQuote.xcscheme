@@ -15,20 +15,6 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "AFAEAE3F1C775CE700DF86B1"
-               BuildableName = "randomQuote.appex"
-               BlueprintName = "randomQuote"
-               ReferencedContainer = "container:TheLight.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
-            buildForAnalyzing = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
                BlueprintIdentifier = "AF0369A01C173DDC00137D7E"
                BuildableName = "TheLight.app"
                BlueprintName = "TheLight"
@@ -47,9 +33,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "AFAEAE3F1C775CE700DF86B1"
-            BuildableName = "randomQuote.appex"
-            BlueprintName = "randomQuote"
+            BlueprintIdentifier = "AF0369A01C173DDC00137D7E"
+            BuildableName = "TheLight.app"
+            BlueprintName = "TheLight"
             ReferencedContainer = "container:TheLight.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

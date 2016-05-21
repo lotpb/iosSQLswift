@@ -28,9 +28,7 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
     var foundUsers = [String]()
     
     var playerViewController = AVPlayerViewController()
-    var imageDetailurl : NSString?
-    //var videoURL: NSURL?
-    //var urlLabel : UILabel?
+    var videoURL: String?
     
     var refreshControl: UIRefreshControl!
 
@@ -102,14 +100,12 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
     
     // MARK: - collectionView
     
-    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int
-    {
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self._feedItems.count
     }
     
     
-    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell
-    {
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) as! CollectionViewCell
         
@@ -184,23 +180,60 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
             cell.numLabel.text! = ""
         }
         
-        let value = self.imageFile.url
-        let result1 = value!.containsString("movie.mp4")
-        if (result1 == true) {
+        if self.imageFile.url!.rangeOfString("movie.mp4") != nil {
+            
+          /*
+           // var err: NSError? = nil
+            do {
+               let url = NSURL(string: self.videoURL!)
+                let asset = AVURLAsset(URL: url!)
+                let imgGenerator = AVAssetImageGenerator(asset: asset)
+                let cgImage = try imgGenerator.copyCGImageAtTime(CMTimeMake(0, 1), actualTime: nil)
+                let uiImage = UIImage(CGImage: cgImage)
+                cell.imageView = UIImageView(image: uiImage)
+                // lay out this image view, or if it already exists, set its image property to uiImage
+            } catch let error as NSError {
+                print("Error generating thumbnail: \(error)")
+            } */
+            
+        //if (self.imageFile.url!.containsString("movie.mp4")) {
+        /*
+        let imageDetailurl = self.imageFile.url
+        let result1 = imageDetailurl!.containsString("movie.mp4")
+        if (result1 == true) { */
             
             playButton.alpha = 0.3
             playButton.userInteractionEnabled = true
             //playButton.center = cell.imageView.center
             playButton.tintColor = UIColor.whiteColor()
             let playimage : UIImage? = UIImage(named:"play_button.png")!.imageWithRenderingMode(.AlwaysTemplate)
-            playButton .setImage(playimage, forState: .Normal)
+            playButton.setImage(playimage, forState: .Normal)
+            playButton.setTitle(self.imageFile.url, forState: UIControlState.Normal)
             let tap = UITapGestureRecognizer(target: self, action: #selector(playVideo))
             playButton.addGestureRecognizer(tap)
             cell.imageView.addSubview(playButton)
-            
         }
         
         return cell
+    }
+    
+    
+    // MARK: - fix dont know how to use
+    func thumbnailImageForVideo(url:NSURL) -> UIImage? {
+        let asset = AVAsset(URL: url)
+        let imageGenerator = AVAssetImageGenerator(asset: asset)
+        imageGenerator.appliesPreferredTrackTransform = true
+        var time = asset.duration
+        //If possible - take not the first frame (it could be completely black or white on camara's videos)
+        time.value = min(time.value, 2)
+        do {
+            let imageRef = try imageGenerator.copyCGImageAtTime(time, actualTime: nil)
+            return UIImage(CGImage: imageRef) }
+        catch
+            let error as NSError {
+                print("Image generation failed with error \(error)")
+                return nil
+        }
     }
     
     
@@ -250,7 +283,9 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
     
     func playVideo(sender: UITapGestureRecognizer) {
         
-        let url = NSURL(string: "https://files.parsetfss.com/6ab2bd45-dd6b-4dda-afde-ee839ccbdc32/tfss-3156404a-0f9d-427a-a915-175e44bbe03c-movie.mp4")
+        let button = sender.view as? UIButton
+        self.videoURL = button!.titleLabel!.text
+        let url = NSURL(string: self.videoURL!)
         let player = AVPlayer(URL: url!)
         playerViewController.videoGravity = AVLayerVideoGravityResizeAspect
         playerViewController.showsPlaybackControls = true
@@ -340,10 +375,9 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
             vc!.newsDate = String(self._feedItems[indexPath.row] .valueForKey("createAt") as? NSDate)
             vc!.newsStory = self._feedItems[indexPath.row] .valueForKey("storyText") as? String
             vc!.image = self.selectedImage
-            vc!.imageDetailurl = self.imageDetailurl
+            vc!.videoURL = self.videoURL
         }
     }
-    
     
 }
 //-----------------------end------------------------------

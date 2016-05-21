@@ -6,10 +6,18 @@
 	<string>328078072867-gglkpr0l2t5ljvl0rimsdf49sehv3qrp.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
 	<string>com.googleusercontent.apps.328078072867-gglkpr0l2t5ljvl0rimsdf49sehv3qrp</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBzVG-qAzHDewBMuno1KsmMOfTvO7SfvFc</string>
+	<key>GCM_SENDER_ID</key>
+	<string>328078072867</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>com.PeterBalsamo.TheLight</string>
+	<key>PROJECT_ID</key>
+	<string>thelight-da74</string>
+	<key>STORAGE_BUCKET</key>
+	<string>thelight-da74.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false/>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -17,12 +25,12 @@
 	<key>IS_APPINVITE_ENABLED</key>
 	<false/>
 	<key>IS_GCM_ENABLED</key>
-	<false/>
+	<true/>
 	<key>IS_SIGNIN_ENABLED</key>
 	<true/>
 	<key>GOOGLE_APP_ID</key>
 	<string>1:328078072867:ios:09b8d13e96ea9313</string>
-	<key>PROJECT_ID</key>
-	<string>thelight-da74</string>
+	<key>DATABASE_URL</key>
+	<string>https://thelight-da74.firebaseio.com</string>
 </dict>
 </plist>

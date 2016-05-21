@@ -27,8 +27,8 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
     var selectedCreate : NSString!
     var selectedEmail : NSString!
     var selectedPhone : NSString!
-    var imageDetailurl : NSString!
     var resultDateDiff : NSString!
+    var imageDetailurl : String?
     
     var selectedState : NSString!
     var selectedZip : NSString!
@@ -489,11 +489,9 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
                         cell.snaptitleLabel?.text = formatter.stringFromDate(dueDate)
                     }
                 }
-                
                 return cell
             }
         }
-        
         return cell
     }
     
@@ -572,7 +570,6 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
             cell.addSubview(myLabel1)
             
             return cell
-            
         } else if (collectionView.tag == 1) {
             
             let imageObject = _feedItems2.objectAtIndex(indexPath.row) as! PFObject
@@ -592,9 +589,7 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
             myLabel1.text = _feedItems2[indexPath.row] .valueForKey("imageGroup") as? String
             cell.addSubview(myLabel1)
             
-            
             return cell
-            
         } else if (collectionView.tag == 2) {
             
             let imageObject = _feedItems3.objectAtIndex(indexPath.row) as! PFObject
@@ -614,9 +609,7 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
             myLabel1.text = _feedItems3[indexPath.row] .valueForKey("username") as? String
             cell.addSubview(myLabel1)
             
-            
             return cell
-            
         } else if (collectionView.tag == 3) {
             
             let imageObject = _feedItems4.objectAtIndex(indexPath.row) as! PFObject
@@ -872,7 +865,7 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
             VC!.newsDate = self.selectedCreate
             VC!.newsStory = self.selectedPhone
             VC!.image = self.selectedImage
-            VC!.imageDetailurl = self.imageDetailurl
+            VC!.videoURL = self.imageDetailurl
             
         } else if segue.identifier == "userdetailSegue" {
             
@@ -894,7 +887,7 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
             VC!.name = self.selectedName as String
             VC!.custNo = self.selectedTitle as String
             VC!.address = self.selectedEmail as String
-            VC!.city = self.imageDetailurl as String
+            VC!.city = self.imageDetailurl! as String
             VC!.state = self.selectedState as String
             VC!.zip = self.selectedZip as String
             VC!.amount = self.selectedAmount as String
@@ -925,8 +918,6 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
         }
         
     }
-    
-    
 }
 //-----------------------end------------------------------
 

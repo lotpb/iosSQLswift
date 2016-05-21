@@ -32,8 +32,7 @@ class NewsDetailController: UIViewController, UITextViewDelegate {
     var newsDate: NSString?
     
     var playerViewController = AVPlayerViewController()
-    var imageDetailurl: NSString?
-    var videoURL: NSURL?
+    var videoURL: String?
     
 
     override func viewDidLoad() {
@@ -54,6 +53,8 @@ class NewsDetailController: UIViewController, UITextViewDelegate {
         let editItem = UIBarButtonItem(barButtonSystemItem: .Edit, target: self, action: #selector(NewsDetailController.editData(_:)))
         let buttons:NSArray = [editItem]
         self.navigationItem.rightBarButtonItems = buttons as? [UIBarButtonItem]
+        
+        let playButton = UIButton(type: UIButtonType.Custom) as UIButton
 
         if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
             
@@ -62,12 +63,14 @@ class NewsDetailController: UIViewController, UITextViewDelegate {
             self.newsTextview.editable = true //bug fix
             self.newsTextview.font = ipadtextview
             self.newsTextview.editable = false //bug fix
+            playButton.frame = CGRectMake(self.newsImageview.frame.size.width/2-130, self.newsImageview.frame.origin.y+100, 50, 50)
         } else {
             self.titleLabel.font = Font.News.newstitle
             self.detailLabel.font = Font.celllabel1
             self.newsTextview.editable = true//bug fix
             self.newsTextview.font = Font.News.newssource
             self.newsTextview.editable = false //bug fix
+            playButton.frame = CGRectMake(self.newsImageview.frame.size.width/2-13, self.newsImageview.frame.origin.y+100, 50, 50)
         }
         
         self.newsImageview.userInteractionEnabled = true
@@ -86,28 +89,25 @@ class NewsDetailController: UIViewController, UITextViewDelegate {
         self.newsTextview.delegate = self
         //self.newsTextview.autocorrectionType = UITextAutocorrectionType.Yes
         
-        
         // Make web links clickable
         self.newsTextview.selectable = true
         self.newsTextview.editable = false
         self.newsTextview.dataDetectorTypes = UIDataDetectorTypes.Link
         
-        let value = self.imageDetailurl
-        let result1 = value!.containsString("movie.mp4")
+        //let value = videoURL
+        //print(self.videoURL)
+        let result1 = self.videoURL?.containsString("movie.mp4")
         if (result1 == true) {
             
-            let playButton = UIButton(type: UIButtonType.Custom) as UIButton
-            playButton.frame = CGRectMake(self.newsImageview.frame.size.width/2-130, self.newsImageview.frame.origin.y+100, 50, 50)
+            //playButton.center = self.newsImageview.center
             playButton.alpha = 0.3
-            playButton.tintColor = UIColor.whiteColor()
-            let playbutton : UIImage? = UIImage(named:"play_button.png")!.imageWithRenderingMode(.AlwaysTemplate)
-            playButton .setImage(playbutton, forState: .Normal)
             playButton.userInteractionEnabled = true
-            let tap = UITapGestureRecognizer(target: self, action: Selector())
+            playButton.tintColor = UIColor.whiteColor()
+            let playimage : UIImage? = UIImage(named:"play_button.png")!.imageWithRenderingMode(.AlwaysTemplate)
+            playButton.setImage(playimage, forState: .Normal)
+            let tap = UITapGestureRecognizer(target: self, action: #selector(playVideo))
             playButton.addGestureRecognizer(tap)
             self.newsImageview.addSubview(playButton)
-            
-            videoURL = NSURL(string: self.imageDetailurl as! String)!
         }
     }
 
@@ -124,7 +124,7 @@ class NewsDetailController: UIViewController, UITextViewDelegate {
     
     func playVideo(sender: UITapGestureRecognizer) {
         
-        let url = NSURL(string: "https://files.parsetfss.com/6ab2bd45-dd6b-4dda-afde-ee839ccbdc32/tfss-3156404a-0f9d-427a-a915-175e44bbe03c-movie.mp4")
+        let url = NSURL(string: self.videoURL!)
         let player = AVPlayer(URL: url!)
         playerViewController.videoGravity = AVLayerVideoGravityResizeAspect
         playerViewController.showsPlaybackControls = true
@@ -155,7 +155,7 @@ class NewsDetailController: UIViewController, UITextViewDelegate {
             photo!.newstitle = self.titleLabel.text
             photo!.newsdetail = self.newsDetail as? String
             photo!.newsStory = self.newsStory as? String
-            photo!.imageDetailurl = self.imageDetailurl as? String
+            photo!.imageDetailurl = self.videoURL //as String
         }
     }
 

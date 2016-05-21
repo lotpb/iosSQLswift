@@ -32,6 +32,8 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
     let defaults = NSUserDefaults.standardUserDefaults()
     
     var resultsWeatherYQL:NSDictionary? = nil
+    
+    var weather: WeatherGetter!
 
     //var tempYQL : String!
      //var store = EKEventStore()
@@ -39,6 +41,8 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
      
+        //weather = WeatherGetter(delegate: self)
+        
         let titleButton: UIButton = UIButton(frame: CGRectMake(0, 0, 100, 32))
         titleButton.setTitle("Main Menu", forState: UIControlState.Normal)
         titleButton.titleLabel?.font = Font.navlabel
@@ -112,6 +116,7 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         
         //self.updateYahoo()
         self.versionCheck()
+        
     }
 
     override func viewWillAppear(animated: Bool) {

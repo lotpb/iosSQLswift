@@ -44,6 +44,7 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
     let fbButton: FBSDKLoginButton = {
     let button = FBSDKLoginButton()
         button.readPermissions = ["public_profile", "email", "user_friends", "user_birthday", "user_location"]//["public_profile","email","user_friends"]
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     
@@ -103,6 +104,10 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
         self.passwordField!.text = ""
         
         //Facebook
+        
+        if let _ = FBSDKAccessToken.currentAccessToken() {
+            fetchProfile()
+        }
         
         fbButton.frame = CGRectMake(10, 490, 100, 25)
         fbButton.delegate = self
@@ -225,77 +230,15 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
 
     func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
 
-        
         getFacebookUserInfo()
         redirectToHome()
-    }
-    
-    func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
         
-        print("loginButtonDidLogOut")
-
-    }
-    
-    func redirectToHome() {
-        
-        let storyboard:UIStoryboard = UIStoryboard(name:"Main", bundle: nil)
-
-        let initialViewController: UIViewController = storyboard.instantiateViewControllerWithIdentifier("MasterViewController") as UIViewController
-        
-        self.presentViewController(initialViewController, animated: true, completion: nil)
+        fetchProfile()
     }
     
     
-    func getFacebookUserInfo() {
-        
-        if(FBSDKAccessToken.currentAccessToken() != nil)
-        {
-
-            let parameters = ["fields": "email, first_name, last_name, picture.type(large)"]
-            FBSDKGraphRequest(graphPath: "me", parameters: parameters).startWithCompletionHandler({ (connection, user, requestError) -> Void in
-
-                if requestError != nil {
-                    print(requestError)
-                    return
-                }
-                
-                
-                let firstName = user.valueForKey("first_name") as? String
-                let lastName = user.valueForKey("last_name") as? String
-
-                self.usernameField!.text = "\(firstName!) \(lastName!)"
-                self.emailField!.text = user.valueForKey("email") as? String
-                
-                /*
-                var pictureUrl = ""
-                
-                if let picture = user["picture"] as? NSDictionary, data = picture["data"] as? NSDictionary, url = data["url"] as? String {
-                    pictureUrl = url
-                }
-                
-                let url = NSURL(string: pictureUrl)
-                NSURLSession.sharedSession().dataTaskWithURL(url!, completionHandler: { (data, response, error) -> Void in
-                    if error != nil {
-                        print(error)
-                        return
-                    }
-                    
-                    let image = UIImage(data: data!)
-                    dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        self.userImageView.image = image
-                    })*/
-                    
-              //  }).resume()
-
-            })
-            
-            self.refreshLocation()
-        }
-    }
-    
-    /*
     func fetchProfile() {
-        
+        /*
         let parameters = ["fields": "email, first_name, last_name, picture.type(large)"]
         FBSDKGraphRequest(graphPath: "me", parameters: parameters).startWithCompletionHandler({ (connection, user, requestError) -> Void in
             
@@ -338,9 +281,77 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
         
         self.performSegueWithIdentifier("loginSegue", sender: nil)
         //self.refreshLocation()
+ */
+        
+    }
     
-    } */
     
+    
+    func getFacebookUserInfo() {
+        
+        if(FBSDKAccessToken.currentAccessToken() != nil)
+        {
+            
+            let parameters = ["fields": "email, first_name, last_name, picture.type(large)"]
+            FBSDKGraphRequest(graphPath: "me", parameters: parameters).startWithCompletionHandler({ (connection, user, requestError) -> Void in
+                
+                if requestError != nil {
+                    print(requestError)
+                    return
+                }
+                
+                let firstName = user.valueForKey("first_name") as? String
+                let lastName = user.valueForKey("last_name") as? String
+                
+                self.usernameField!.text = "\(firstName!) \(lastName!)"
+                self.emailField!.text = user.valueForKey("email") as? String
+                
+                /*
+                 var pictureUrl = ""
+                 
+                 if let picture = user["picture"] as? NSDictionary, data = picture["data"] as? NSDictionary, url = data["url"] as? String {
+                 pictureUrl = url
+                 }
+                 
+                 let url = NSURL(string: pictureUrl)
+                 NSURLSession.sharedSession().dataTaskWithURL(url!, completionHandler: { (data, response, error) -> Void in
+                 if error != nil {
+                 print(error)
+                 return
+                 }
+                 
+                 let image = UIImage(data: data!)
+                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
+                 self.userImageView.image = image
+                 })*/
+                
+                //  }).resume()
+                
+            })
+            
+            self.refreshLocation()
+        }
+    }
+    
+    
+    func redirectToHome() {
+        
+        let storyboard:UIStoryboard = UIStoryboard(name:"Main", bundle: nil)
+        
+        let initialViewController: UIViewController = storyboard.instantiateViewControllerWithIdentifier("MasterViewController") as UIViewController
+        
+        self.presentViewController(initialViewController, animated: true, completion: nil)
+    }
+    
+    
+    
+    func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
+        
+        print("loginButtonDidLogOut")
+
+    }
+    
+
     /*
     func showFriends() {
         let parameters = ["fields": "name,picture.type(normal),gender"]

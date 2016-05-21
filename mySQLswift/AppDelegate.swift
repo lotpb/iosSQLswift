@@ -9,6 +9,7 @@
 import UIKit
 import Parse
 import FBSDKCoreKit
+import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
@@ -37,6 +38,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
             "emailtitleKey": "TheLight Support",
             "emailmessageKey": "<h3>Programming in Swift</h3>"
             ])
+        
+        // MARK: - Firebase
+        
+         FIRApp.configure()
         
         // MARK: - Parse
         
