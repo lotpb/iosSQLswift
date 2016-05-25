@@ -257,18 +257,6 @@ class BlogNewController: UIViewController, UITextFieldDelegate, UITextViewDelega
     }
     
     
-    // MARK: - AlertController
-    
-    func simpleAlert (title:String, message:String) {
-        
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        
-        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: nil))
-        
-        self.presentViewController(alertController, animated: true, completion: nil)
-    }
-    
-    
     // MARK: - Parse
     
     func parseData() {

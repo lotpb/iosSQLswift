@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="H1p-Uh-vWS">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="H1p-Uh-vWS">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -3377,7 +3377,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="z40-Ry-qp1">
-                                <rect key="frame" x="0.0" y="44" width="600" height="554"/>
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Cell" rowHeight="88" id="pmf-fX-hWS" customClass="CustomTableCell" customModule="TheLight" customModuleProvider="target">
@@ -3505,8 +3505,8 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="z40-Ry-qp1" firstAttribute="leading" secondItem="VfX-7V-y81" secondAttribute="leading" id="G9T-bn-tWa"/>
-                            <constraint firstItem="z40-Ry-qp1" firstAttribute="top" secondItem="V0y-Sw-kXZ" secondAttribute="bottom" constant="24" id="cHw-jn-ob9"/>
-                            <constraint firstAttribute="bottomMargin" secondItem="z40-Ry-qp1" secondAttribute="bottom" constant="2" id="nd1-VT-j8o"/>
+                            <constraint firstItem="z40-Ry-qp1" firstAttribute="bottom" secondItem="sR8-c9-BbT" secondAttribute="top" id="Z52-9q-DXz"/>
+                            <constraint firstItem="z40-Ry-qp1" firstAttribute="top" secondItem="VfX-7V-y81" secondAttribute="top" id="nTz-eP-cs7"/>
                             <constraint firstAttribute="trailing" secondItem="z40-Ry-qp1" secondAttribute="trailing" id="xdk-MV-d6Z"/>
                         </constraints>
                     </view>
@@ -5135,16 +5135,16 @@
         <image name="profile-rabbit-toy.png" width="300" height="300"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="K9X-H5-ULE"/>
         <segue reference="3cH-G6-11A"/>
         <segue reference="8pp-z3-NBJ"/>
         <segue reference="hB9-3O-AVy"/>
-        <segue reference="44k-b4-h7F"/>
         <segue reference="nhd-UC-dO1"/>
         <segue reference="VDX-fG-ZvN"/>
         <segue reference="T0a-J2-ljk"/>
         <segue reference="pJK-KM-WG6"/>
-        <segue reference="K9X-H5-ULE"/>
-        <segue reference="CFI-Wk-DHq"/>
         <segue reference="d0x-gt-xcU"/>
+        <segue reference="ldc-8w-WDy"/>
+        <segue reference="CFI-Wk-DHq"/>
     </inferredMetricsTieBreakers>
 </document>

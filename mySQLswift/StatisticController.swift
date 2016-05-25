@@ -16,7 +16,7 @@ class StatisticController: UIViewController, UITableViewDelegate, UITableViewDat
     var photoImage: UIImageView!
     var label1 : UILabel!
     var label2 : UILabel!
-    var myLabel2 : UILabel!
+    var myLabel3 : UILabel!
     var segmentedControl : UISegmentedControl!
     
     var _feedItems : NSMutableArray = NSMutableArray()
@@ -91,7 +91,7 @@ class StatisticController: UIViewController, UITableViewDelegate, UITableViewDat
         refreshControl.tintColor = UIColor.whiteColor()
         let attributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
         self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh", attributes: attributes)
-        self.refreshControl.addTarget(self, action: #selector(StatisticController.refreshData(_:)), forControlEvents: UIControlEvents.ValueChanged)
+        self.refreshControl.addTarget(self, action: #selector(StatisticController.refreshData), forControlEvents: UIControlEvents.ValueChanged)
         self.tableView!.addSubview(refreshControl)
         
     }
@@ -587,17 +587,17 @@ class StatisticController: UIViewController, UITableViewDelegate, UITableViewDat
             segmentedControl.backgroundColor = UIColor.brownColor()
             segmentedControl.tintColor = UIColor.whiteColor()
             segmentedControl.selectedSegmentIndex = 1
-            segmentedControl.addTarget(self, action: #selector(StatisticController.segmentedControlAction(_:)), forControlEvents: .ValueChanged)
+            segmentedControl.addTarget(self, action: #selector(StatisticController.segmentedControlAction), forControlEvents: .ValueChanged)
             vw.addSubview(segmentedControl)
             
-            let myLabel1:UILabel = UILabel(frame: CGRectMake(tableView.frame.size.width/2-45, 3, 90, 45))
+            let myLabel1 = UILabel(frame: CGRectMake(tableView.frame.size.width/2-45, 3, 90, 45))
             myLabel1.textColor = UIColor.whiteColor()
             myLabel1.textAlignment = NSTextAlignment.Center
             myLabel1.text = "Statistics"
             myLabel1.font = UIFont (name: "Avenir-Book", size: 21)
             vw.addSubview(myLabel1)
             
-            myLabel2 = UILabel(frame: CGRectMake(tableView.frame.size.width/2-25, 75, 50, 45))
+            let myLabel2 = UILabel(frame: CGRectMake(tableView.frame.size.width/2-25, 75, 50, 45))
             myLabel2.textColor = UIColor.greenColor()
             myLabel2.textAlignment = NSTextAlignment.Center
             myLabel2.text = "SALES"
@@ -608,7 +608,7 @@ class StatisticController: UIViewController, UITableViewDelegate, UITableViewDat
             separatorLineView1.backgroundColor = UIColor.whiteColor()
             vw.addSubview(separatorLineView1)
             
-            let myLabel3:UILabel = UILabel(frame: CGRectMake(tableView.frame.size.width/2-70, 115, 140, 45))
+            myLabel3 = UILabel(frame: CGRectMake(tableView.frame.size.width/2-70, 115, 140, 45))
             myLabel3.textColor = UIColor.whiteColor()
             myLabel3.textAlignment = NSTextAlignment.Center
             myLabel3.text = "$200,000"
@@ -626,15 +626,15 @@ class StatisticController: UIViewController, UITableViewDelegate, UITableViewDat
         
         if(segmentedControl.selectedSegmentIndex == 0)
         {
-            myLabel2.text = "$100,000"
+            myLabel3.text = "$100,000"
         }
         else if(segmentedControl.selectedSegmentIndex == 1)
         {
-            myLabel2.text = "$200,000"
+            myLabel3.text = "$200,000"
         }
         else if(segmentedControl.selectedSegmentIndex == 2)
         {
-            myLabel2.text = "$300,000"
+            myLabel3.text = "$300,000"
         }
     }
     

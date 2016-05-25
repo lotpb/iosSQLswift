@@ -71,7 +71,7 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
         refreshControl.backgroundColor = UIColor.clearColor()
         refreshControl.tintColor = UIColor.blackColor()
         self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
-        self.refreshControl.addTarget(self, action: #selector(NewEditData.refreshData(_:)), forControlEvents: UIControlEvents.ValueChanged)
+        self.refreshControl.addTarget(self, action: #selector(NewEditData.refreshData), forControlEvents: UIControlEvents.ValueChanged)
         self.tableView!.addSubview(refreshControl)
         
         if formStatus == "New" {
@@ -156,7 +156,7 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
         if (indexPath.row == 0) {
             
             let theSwitch = UISwitch(frame:CGRectZero)
-            theSwitch.addTarget(self, action: #selector(NewEditData.changeSwitch(_:)), forControlEvents: .ValueChanged)
+            theSwitch.addTarget(self, action: #selector(NewEditData.changeSwitch), forControlEvents: .ValueChanged)
             theSwitch.onTintColor = UIColor(red:0.0, green:122.0/255.0, blue:1.0, alpha: 1.0)
             theSwitch.tintColor = UIColor.lightGrayColor()
             
@@ -367,18 +367,6 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
         }
         self.tableView!.reloadData()
         
-    }
-    
-    
-    // MARK: - AlertController
-    
-    func simpleAlert (title:String, message:String) {
-        
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        
-        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: nil))
-        
-        self.presentViewController(alertController, animated: true, completion: nil)
     }
     
     

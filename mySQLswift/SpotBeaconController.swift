@@ -102,15 +102,6 @@ class SpotBeaconController: UIViewController, CLLocationManagerDelegate {
         simpleAlert("Good Bye", message: "Have a nice day") //added
     }
     
-    func simpleAlert (title:String, message:String) {
-        
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        
-        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: nil))
-        
-        self.presentViewController(alertController, animated: true, completion: nil)
-    }
-    
     
     func locationManager(manager: CLLocationManager, didRangeBeacons beacons: [CLBeacon], inRegion region: CLBeaconRegion) {
         

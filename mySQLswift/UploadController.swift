@@ -115,7 +115,7 @@ UIImagePickerControllerDelegate, UITextViewDelegate {
     }
     
     override func viewWillAppear(animated: Bool) {
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UploadController.finishedPlaying(_:)), name: AVPlayerItemDidPlayToEndTimeNotification, object: self.playerViewController)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(UploadController.finishedPlaying), name: AVPlayerItemDidPlayToEndTimeNotification, object: self.playerViewController)
     }
     
     override func viewWillDisappear(animated: Bool) {
@@ -203,21 +203,9 @@ UIImagePickerControllerDelegate, UITextViewDelegate {
         let stopedPlayerItem: AVPlayerItem = myNotification.object as! AVPlayerItem
         stopedPlayerItem.seekToTime(kCMTimeZero)
     }
-    
-    
-    // MARK: - AlertController
-    
-    func simpleAlert (title:String, message:String) {
-        
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        
-        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: nil))
-        
-        self.presentViewController(alertController, animated: true, completion: nil)
-    }
+
     
     // MARK: - Update Data
-    
     
     @IBAction func uploadImage(sender: AnyObject) {
         

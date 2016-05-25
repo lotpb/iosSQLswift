@@ -44,7 +44,7 @@ class NotificationDetailController: UIViewController, UITableViewDelegate, UITab
         self.tableView!.backgroundColor = UIColor(white:0.90, alpha:1.0)
         //self.tableView!.tableFooterView = UIView(frame: .zero)
         
-        let trashButton = UIBarButtonItem(barButtonSystemItem: .Trash, target: self, action: #selector(NotificationDetailController.deleteButton(_:)))
+        let trashButton = UIBarButtonItem(barButtonSystemItem: .Trash, target: self, action: #selector(NotificationDetailController.deleteButton))
         let buttons:NSArray = [trashButton]
         self.navigationItem.rightBarButtonItems = buttons as? [UIBarButtonItem]
         
@@ -53,7 +53,7 @@ class NotificationDetailController: UIViewController, UITableViewDelegate, UITab
         refreshControl.tintColor = UIColor.whiteColor()
         let attributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
         self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh", attributes: attributes)
-        self.refreshControl.addTarget(self, action: #selector(NotificationDetailController.refreshData(_:)), forControlEvents: UIControlEvents.ValueChanged)
+        self.refreshControl.addTarget(self, action: #selector(NotificationDetailController.refreshData), forControlEvents: UIControlEvents.ValueChanged)
         self.tableView!.addSubview(refreshControl)
         
     }

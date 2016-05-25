@@ -184,6 +184,7 @@ class UserDetailController: UIViewController, UINavigationControllerDelegate, UI
         }
     }
     
+    
     @IBAction func selectImage(sender: AnyObject) {
         
         imagePicker = UIImagePickerController()
@@ -244,16 +245,17 @@ class UserDetailController: UIViewController, UINavigationControllerDelegate, UI
     // MARK: - Send Email
     
     @IBAction func sendEmail(sender: AnyObject) {
-       
-            if ((self.emailField != NSNull()) && ( self.emailField != 0 )) {
-                
-                self.getEmail((emailField?.text)!)
-                
-            } else {
-                
-                self.simpleAlert("Alert", message: "Your field doesn't have valid email.")
-            }
+        
+        if ((self.emailField != NSNull()) && ( self.emailField != 0 )) {
+            
+            self.getEmail((emailField?.text)!)
+            
+        } else {
+            
+            self.simpleAlert("Alert", message: "Your field doesn't have valid email.")
         }
+    }
+    
     
     func getEmail(emailfield: NSString) {
         
@@ -266,20 +268,9 @@ class UserDetailController: UIViewController, UINavigationControllerDelegate, UI
         self.presentViewController(email, animated: true, completion: nil)
     }
     
+    
     func mailComposeController(controller: MFMailComposeViewController, didFinishWithResult result: MFMailComposeResult, error: NSError?) {
         dismissViewControllerAnimated(true, completion: nil)
-    }
-    
-    
-    // MARK: - AlertController
-    
-    func simpleAlert (title:String, message:String) {
-        
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        
-        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: nil))
-        
-        self.presentViewController(alertController, animated: true, completion: nil)
     }
     
     

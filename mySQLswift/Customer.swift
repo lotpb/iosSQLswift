@@ -58,7 +58,7 @@ class Customer: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         resultsController.tableView.delegate = self
         
         let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(Customer.newData))
-        let searchButton = UIBarButtonItem(barButtonSystemItem: .Search, target: self, action: #selector(Customer.searchButton(_:)))
+        let searchButton = UIBarButtonItem(barButtonSystemItem: .Search, target: self, action: #selector(Customer.searchButton))
         let buttons:NSArray = [addButton,searchButton]
         self.navigationItem.rightBarButtonItems = buttons as? [UIBarButtonItem]
 
@@ -67,7 +67,7 @@ class Customer: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         refreshControl.tintColor = UIColor.whiteColor()
         let attributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
         self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh", attributes: attributes)
-        self.refreshControl.addTarget(self, action: #selector(Customer.refreshData(_:)), forControlEvents: UIControlEvents.ValueChanged)
+        self.refreshControl.addTarget(self, action: #selector(Customer.refreshData), forControlEvents: UIControlEvents.ValueChanged)
         self.tableView!.addSubview(refreshControl)
         
         parseData()
@@ -249,7 +249,7 @@ class Customer: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         myLabel.tag = indexPath.row
         cell.addSubview(myLabel)
         
-        let tap = UITapGestureRecognizer(target: self, action: #selector(Customer.imgLoadSegue(_:)))
+        let tap = UITapGestureRecognizer(target: self, action: #selector(Customer.imgLoadSegue))
         myLabel.addGestureRecognizer(tap)
         
         return cell

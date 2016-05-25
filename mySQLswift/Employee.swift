@@ -59,7 +59,7 @@ class Employee: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         resultsController.tableView.delegate = self
         
         let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(Employee.newData))
-        let searchButton = UIBarButtonItem(barButtonSystemItem: .Search, target: self, action: #selector(Employee.searchButton(_:)))
+        let searchButton = UIBarButtonItem(barButtonSystemItem: .Search, target: self, action: #selector(Employee.searchButton))
         let buttons:NSArray = [addButton,searchButton]
         self.navigationItem.rightBarButtonItems = buttons as? [UIBarButtonItem]
         
@@ -70,7 +70,7 @@ class Employee: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         refreshControl.tintColor = UIColor.whiteColor()
         let attributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
         self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh", attributes: attributes)
-        self.refreshControl.addTarget(self, action: #selector(Employee.refreshData(_:)), forControlEvents: UIControlEvents.ValueChanged)
+        self.refreshControl.addTarget(self, action: #selector(Employee.refreshData), forControlEvents: UIControlEvents.ValueChanged)
         self.tableView!.addSubview(refreshControl)
         
     }

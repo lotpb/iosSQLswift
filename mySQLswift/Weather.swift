@@ -64,7 +64,10 @@ struct Weather {
     longitude = coordDict["lon"] as! Double
     latitude = coordDict["lat"] as! Double
     
-    let weatherDict = weatherData["weather"]![0] as! [String: AnyObject]
+    //let weatherDict = weatherData["weather"]![0] as! [String: AnyObject]
+    //weatherID = weatherDict["id"] as! Int
+    
+    let weatherDict = (weatherData["weather"] as! [NSDictionary])[0] as! [String: AnyObject]
     weatherID = weatherDict["id"] as! Int
     mainWeather = weatherDict["main"] as! String
     weatherDescription = weatherDict["description"] as! String

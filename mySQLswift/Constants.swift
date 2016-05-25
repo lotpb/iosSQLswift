@@ -61,7 +61,7 @@ import Foundation
         }
         
         enum Stat {
-            static let navColor = UIColor.brownColor()
+            static let navColor = UIColor.redColor()
             //static let buttonColor = BlueColor
         }
         
@@ -111,4 +111,27 @@ import Foundation
             static let celltitle = UIFont.systemFontOfSize(20, weight: UIFontWeightMedium)
         }
     }
+
+
+// MARK: - RemoveWhiteSpace
+
+public extension String {
+    
+    func removeWhiteSpace() -> String {
+        return self.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
+    }
+}
+
+// MARK: - AlertController
+
+public extension UIViewController {
+    
+    func simpleAlert (title:String, message:String) {
+        
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
+        alertController.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
+        self.presentViewController(alertController, animated: true, completion: nil)
+    }
+    
+}
 

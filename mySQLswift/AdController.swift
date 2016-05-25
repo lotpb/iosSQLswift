@@ -54,7 +54,7 @@ class AdController: UIViewController, UITableViewDelegate, UITableViewDataSource
         //self.navigationItem.leftBarButtonItem = self.editButtonItem()
         
         let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(AdController.newData))
-        let searchButton = UIBarButtonItem(barButtonSystemItem: .Search, target: self, action: #selector(AdController.searchButton(_:)))
+        let searchButton = UIBarButtonItem(barButtonSystemItem: .Search, target: self, action: #selector(AdController.searchButton))
         let buttons:NSArray = [addButton,searchButton]
         self.navigationItem.rightBarButtonItems = buttons as? [UIBarButtonItem]
         
@@ -65,7 +65,7 @@ class AdController: UIViewController, UITableViewDelegate, UITableViewDataSource
         refreshControl.tintColor = UIColor.whiteColor()
         let attributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
         self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh", attributes: attributes)
-        self.refreshControl.addTarget(self, action: #selector(AdController.refreshData(_:)), forControlEvents: UIControlEvents.ValueChanged)
+        self.refreshControl.addTarget(self, action: #selector(AdController.refreshData), forControlEvents: UIControlEvents.ValueChanged)
         self.tableView!.addSubview(refreshControl)
         
     }

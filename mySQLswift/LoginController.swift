@@ -9,7 +9,6 @@
 import UIKit
 import Parse
 import FBSDKLoginKit
-//import FBSDKShareKit
 import MapKit
 import LocalAuthentication
 
@@ -40,13 +39,8 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
     var userimage : UIImage?
     
     //Facebook
-    //let fbButton = FBSDKLoginButton()
-    let fbButton: FBSDKLoginButton = {
-    let button = FBSDKLoginButton()
-        button.readPermissions = ["public_profile", "email", "user_friends", "user_birthday", "user_location"]//["public_profile","email","user_friends"]
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
+    var fbButton : FBSDKLoginButton = FBSDKLoginButton()
+    var dict : NSDictionary!
     
     let userImageView: UIImageView = {
         let imageView = UIImageView()
@@ -104,14 +98,17 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
         self.passwordField!.text = ""
         
         //Facebook
+        fbButton.frame = CGRectMake(10, 490, 125, 40)
         
-        if let _ = FBSDKAccessToken.currentAccessToken() {
-            fetchProfile()
+        if (FBSDKAccessToken.currentAccessToken() != nil) {
+            print("User is already logged in")
+        } else {
+            fbButton.readPermissions = ["public_profile", "email", "user_friends","user_birthday"]
         }
-        
-        fbButton.frame = CGRectMake(10, 490, 100, 25)
         fbButton.delegate = self
         self.mainView.addSubview(fbButton)
+        let loginManager: FBSDKLoginManager = FBSDKLoginManager()
+        loginManager.logOut()
 
     }
     
@@ -226,111 +223,46 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
         }
     }
     
+    
     // MARK: - Facebook
 
     func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
-
-        getFacebookUserInfo()
-        redirectToHome()
         
-        fetchProfile()
+        if ((error) != nil) {
+            print(error.localizedDescription)
+            return
+        } else {
+            fetchProfileFB()
+            redirectToHome()
+        }
     }
     
     
-    func fetchProfile() {
-        /*
-        let parameters = ["fields": "email, first_name, last_name, picture.type(large)"]
-        FBSDKGraphRequest(graphPath: "me", parameters: parameters).startWithCompletionHandler({ (connection, user, requestError) -> Void in
+    func fetchProfileFB() {
+        
+        let graphRequest : FBSDKGraphRequest = FBSDKGraphRequest(graphPath: "me", parameters: ["fields": "email, name, first_name, last_name, picture.type(large)"])
+        graphRequest.startWithCompletionHandler({ (connection, result, error) -> Void in
             
-            if requestError != nil {
-                print(requestError)
-                return
-            }
-            
-            let emailFB = user["email"] as? String
-            let firstName = user["first_name"] as? String
-            let lastName = user["last_name"] as? String
-            
-            self.usernameField!.text = "\(firstName!) \(lastName!)"
-            self.emailField!.text = emailFB
-            
-            self.defaults.setObject(self.usernameField!.text, forKey: "usernameKey")
-            self.defaults.setObject(self.emailField!.text, forKey: "emailKey")
-            
-            var pictureUrl = ""
-            
-            if let picture = user["picture"] as? NSDictionary, data = picture["data"] as? NSDictionary, url = data["url"] as? String {
-                pictureUrl = url
-            }
-            
-            let url = NSURL(string: pictureUrl)
-            NSURLSession.sharedSession().dataTaskWithURL(url!, completionHandler: { (data, response, error) -> Void in
-                if error != nil {
-                    print(error)
-                    return
-                }
+            if ((error) != nil) {
+                print("Error: \(error)")
                 
-                let image = UIImage(data: data!)
+            } else {
+                
+                let firstName = result.valueForKey("first_name") as? String
+                let lastName = result.valueForKey("last_name") as? String
+                
+                self.usernameField!.text = "\(firstName!) \(lastName!)"
+                self.emailField!.text = result.valueForKey("email") as? String
+                self.passwordField!.text = "3911" //result.valueForKey("id") as? String
+                
+                let strPictureURL: String = (result.objectForKey("picture")?.objectForKey("data")?.objectForKey("url") as? String)!
+                
+                let image = UIImage(data: NSData(contentsOfURL: NSURL(string: strPictureURL)!)!)
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     self.userImageView.image = image
                 })
-                
-            }).resume()
-            
+            }
         })
-        
-        self.performSegueWithIdentifier("loginSegue", sender: nil)
-        //self.refreshLocation()
- */
-        
-    }
-    
-    
-    
-    func getFacebookUserInfo() {
-        
-        if(FBSDKAccessToken.currentAccessToken() != nil)
-        {
-            
-            let parameters = ["fields": "email, first_name, last_name, picture.type(large)"]
-            FBSDKGraphRequest(graphPath: "me", parameters: parameters).startWithCompletionHandler({ (connection, user, requestError) -> Void in
-                
-                if requestError != nil {
-                    print(requestError)
-                    return
-                }
-                
-                let firstName = user.valueForKey("first_name") as? String
-                let lastName = user.valueForKey("last_name") as? String
-                
-                self.usernameField!.text = "\(firstName!) \(lastName!)"
-                self.emailField!.text = user.valueForKey("email") as? String
-                
-                /*
-                 var pictureUrl = ""
-                 
-                 if let picture = user["picture"] as? NSDictionary, data = picture["data"] as? NSDictionary, url = data["url"] as? String {
-                 pictureUrl = url
-                 }
-                 
-                 let url = NSURL(string: pictureUrl)
-                 NSURLSession.sharedSession().dataTaskWithURL(url!, completionHandler: { (data, response, error) -> Void in
-                 if error != nil {
-                 print(error)
-                 return
-                 }
-                 
-                 let image = UIImage(data: data!)
-                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                 self.userImageView.image = image
-                 })*/
-                
-                //  }).resume()
-                
-            })
-            
-            self.refreshLocation()
-        }
     }
     
     
@@ -343,17 +275,9 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
         self.presentViewController(initialViewController, animated: true, completion: nil)
     }
     
-    
-    
-    func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
-        
-        print("loginButtonDidLogOut")
-
-    }
-    
 
     /*
-    func showFriends() {
+    func showFriendFB() {
         let parameters = ["fields": "name,picture.type(normal),gender"]
         FBSDKGraphRequest(graphPath: "me/taggable_friends", parameters: parameters).startWithCompletionHandler({ (connection, user, requestError) -> Void in
             if requestError != nil {
@@ -376,6 +300,14 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
             self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         })
     } */
+    
+    
+    func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
+        
+        print("loginButtonDidLogOut")
+        //let loginManager: FBSDKLoginManager = FBSDKLoginManager()
+        //loginManager.logOut()
+    }
 
     
     // MARK: - Password
@@ -511,18 +443,6 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
             textField.secureTextEntry = true
             
         }
-        self.presentViewController(alertController, animated: true, completion: nil)
-    }
-    
-    
-    // MARK: - AlertController
-    
-    func simpleAlert (title:String, message:String) {
-        
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        
-        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: nil))
-        
         self.presentViewController(alertController, animated: true, completion: nil)
     }
     

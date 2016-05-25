@@ -50,7 +50,7 @@ class NewsDetailController: UIViewController, UITextViewDelegate {
         self.scrollView.maximumZoomScale = 6.0
         self.newsImageview.backgroundColor = UIColor.blackColor()
         
-        let editItem = UIBarButtonItem(barButtonSystemItem: .Edit, target: self, action: #selector(NewsDetailController.editData(_:)))
+        let editItem = UIBarButtonItem(barButtonSystemItem: .Edit, target: self, action: #selector(NewsDetailController.editData))
         let buttons:NSArray = [editItem]
         self.navigationItem.rightBarButtonItems = buttons as? [UIBarButtonItem]
         

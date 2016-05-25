@@ -39,9 +39,8 @@ class LeadUserController: UIViewController, UITableViewDelegate, UITableViewData
     var comments : NSString?
     
     var formController : NSString?
-    //var getpostby : NSString?
-    //var getdate : NSString?
-    var selectedImage : UIImage?
+    
+    //var selectedImage : UIImage?
     
     
     override func viewDidLoad() {
@@ -65,7 +64,7 @@ class LeadUserController: UIViewController, UITableViewDelegate, UITableViewData
         
         self.parseData()
         
-        self.selectedImage = UIImage(named:"profile-rabbit-toy.png")
+        //self.selectedImage = UIImage(named:"profile-rabbit-toy.png")
         if (self.formController == "Blog") {
         self.comments = "90 percent of my picks made $$$. The stock whisper has traded over 1000 traders worldwide"
         }
@@ -78,7 +77,7 @@ class LeadUserController: UIViewController, UITableViewDelegate, UITableViewData
         refreshControl.backgroundColor = UIColor.clearColor()
         refreshControl.tintColor = UIColor.blackColor()
         self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
-        self.refreshControl.addTarget(self, action: #selector(LeadUserController.refreshData(_:)), forControlEvents: UIControlEvents.ValueChanged)
+        self.refreshControl.addTarget(self, action: #selector(LeadUserController.refreshData), forControlEvents: UIControlEvents.ValueChanged)
         self.tableView!.addSubview(refreshControl)
         
         emptyLabel = UILabel(frame: self.view.bounds)
@@ -520,12 +519,13 @@ class LeadUserController: UIViewController, UITableViewDelegate, UITableViewData
                     let createAtString = dateFormatter.stringFromDate(dateStr)as String!
                     self.leadDate = createAtString */
 
+                    /*
                     if let imageFile = object!.objectForKey("imageFile") as? PFFile {
                         imageFile.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError?) -> Void in
                             self.selectedImage = UIImage(data: imageData!)
                             self.tableView!.reloadData()
                         }
-                    }
+                    } */
                 }
             }
             
@@ -536,18 +536,9 @@ class LeadUserController: UIViewController, UITableViewDelegate, UITableViewData
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
-        //self.performSegueWithIdentifier("showDetail2", sender: self)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
-        if segue.identifier == "showDetail2" {
-            let controller = (segue.destinationViewController as! UINavigationController).topViewController as! LeadDetail
-            controller.navigationItem.leftBarButtonItem = self.splitViewController?.displayModeButtonItem()
-            controller.navigationItem.leftItemsSupplementBackButton = true
-            controller.view.backgroundColor = UIColor.purpleColor()
-            
-        }
         
     }
     

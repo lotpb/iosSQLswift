@@ -165,7 +165,7 @@ class MusicController: UIViewController {
             let playerViewController = AVPlayerViewController()
             playerViewController.player = videoPlayer
             
-            NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MusicController.finishedPlaying(_:)), name: AVPlayerItemDidPlayToEndTimeNotification, object: videoPlayer!.currentItem)
+            NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(MusicController.finishedPlaying), name: AVPlayerItemDidPlayToEndTimeNotification, object: videoPlayer!.currentItem)
             
             self.presentViewController(playerViewController, animated: true)
                 {

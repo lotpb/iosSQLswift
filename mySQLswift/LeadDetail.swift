@@ -218,7 +218,7 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         btnLayer3.cornerRadius = 9.0
         
         let editButton = UIBarButtonItem(barButtonSystemItem: .Edit, target: self, action: #selector(LeadDetail.editButton))
-        let actionButton = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: #selector(LeadDetail.actionButton(_:)))
+        let actionButton = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: #selector(LeadDetail.actionButton))
         let buttons:NSArray = [editButton,actionButton]
         self.navigationItem.rightBarButtonItems = buttons as? [UIBarButtonItem]
         
@@ -734,6 +734,7 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     }
     
     func sendEmail() {
+        
         if (formController == "Leads") || (formController == "Customer") {
             if ((self.tbl15 != NSNull()) && (self.tbl15 != 0)) {
                 self.getEmail(t15!)
@@ -769,7 +770,9 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
         dismissViewControllerAnimated(true, completion: nil)
     }
     
+    
     func addEvent() {
+        
         let eventStore = EKEventStore()
         
         let itemText = defaults.stringForKey("eventtitleKey")!
@@ -997,18 +1000,6 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     }
     
     
-    // MARK: - AlertController
-    
-    func simpleAlert (title:String, message:String) {
-        
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        
-        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: nil))
-        
-        self.presentViewController(alertController, animated: true, completion: nil)
-    }
-    
-    
     // MARK: - Segue
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -1177,7 +1168,6 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             }
         }
     }
-    
     
 }
 

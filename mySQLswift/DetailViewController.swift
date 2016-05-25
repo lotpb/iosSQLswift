@@ -103,7 +103,7 @@ class DetailViewController: UIViewController, RPPreviewViewControllerDelegate, A
         myLabel.font = headtitle
         myLabel.layer.cornerRadius = 30.0
         myLabel.userInteractionEnabled = true
-        let tap = UITapGestureRecognizer(target: self, action:#selector(DetailViewController.speak(_:)))
+        let tap = UITapGestureRecognizer(target: self, action: #selector(DetailViewController.speak))
         myLabel.addGestureRecognizer(tap)
         self.view.addSubview(myLabel)
         

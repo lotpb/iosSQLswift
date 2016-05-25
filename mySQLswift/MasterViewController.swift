@@ -13,7 +13,7 @@ import AVFoundation
 //import iAd
 //import EventKitUI
 
-class MasterViewController: UITableViewController, UISplitViewControllerDelegate, UISearchResultsUpdating {
+class MasterViewController: UITableViewController, UISplitViewControllerDelegate, UISearchResultsUpdating, WeatherGetterDelegate {
 
   //var detailViewController: DetailViewController? = nil
     
@@ -34,14 +34,17 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
     var resultsWeatherYQL:NSDictionary? = nil
     
     var weather: WeatherGetter!
+    var tempweather: String!
+    var tempDescript: String!
+    
+    //@IBOutlet weak var cityTextField: UITextField!
+    
 
     //var tempYQL : String!
      //var store = EKEventStore()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-     
-        //weather = WeatherGetter(delegate: self)
         
         let titleButton: UIButton = UIButton(frame: CGRectMake(0, 0, 100, 32))
         titleButton.setTitle("Main Menu", forState: UIControlState.Normal)
@@ -59,8 +62,8 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         resultsController.tableView.dataSource = self
         resultsController.tableView.delegate = self
         
-        let searchButton = UIBarButtonItem(barButtonSystemItem: .Search, target: self, action: #selector(MasterViewController.searchButton(_:)))
-        let addButton = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: #selector(MasterViewController.actionButton(_:)))
+        let searchButton = UIBarButtonItem(barButtonSystemItem: .Search, target: self, action: #selector(MasterViewController.searchButton))
+        let addButton = UIBarButtonItem(barButtonSystemItem: .Action, target: self, action: #selector(MasterViewController.actionButton))
         let buttons:NSArray = [addButton, searchButton]
         self.navigationItem.rightBarButtonItems = buttons as? [UIBarButtonItem]
         
@@ -117,6 +120,13 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         //self.updateYahoo()
         self.versionCheck()
         
+        // MARK: - Weather
+        
+        weather = WeatherGetter(delegate: self)
+        let cityTextField = "Massapequa"
+        weather.getWeather(cityTextField)
+    
+        
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -145,6 +155,38 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
     func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController: UIViewController, ontoPrimaryViewController primaryViewController: UIViewController) -> Bool { //added
         
         return true
+    }
+    
+    
+    func didGetWeather(weather: Weather) {
+        
+        dispatch_async(dispatch_get_main_queue()) {
+            
+            self.tempweather = "\(Int(round(weather.tempFahrenheit)))" //weather.city
+            print(self.tempweather)
+            self.tempDescript = weather.weatherDescription
+            print(self.tempDescript)
+            //self.temperatureLabel.text = "\(Int(round(weather.tempFahrenheit)))°"
+            /*self.cloudCoverLabel.text = "\(weather.cloudCover)%"
+             self.windLabel.text = "\(weather.windSpeed) m/s"
+             
+             if let rain = weather.rainfallInLast3Hours {
+             self.rainLabel.text = "\(rain) mm"
+             }
+             else {
+             self.rainLabel.text = "None"
+             }
+             
+             self.humidityLabel.text = "\(weather.humidity)%" */
+        }
+    }
+    
+    func didNotGetWeather(error: NSError) {
+        
+         dispatch_async(dispatch_get_main_queue()) {
+         self.simpleAlert("Can't get the weather", message: "The weather service isn't responding.")
+         }
+         print("didNotGetWeather error: \(error)")
     }
 
     
@@ -319,9 +361,9 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         separatorLineView3.backgroundColor = UIColor.redColor()
         vw.addSubview(separatorLineView3)
         
-        let myLabel4:UILabel = UILabel(frame: CGRectMake(10, 100, 140, 20))
+        let myLabel4:UILabel = UILabel(frame: CGRectMake(10, 100, 280, 20))
         myLabel4.textColor = UIColor.greenColor()
-        myLabel4.text = "Today's Weather"
+        myLabel4.text = String(format: "%@ %d", "Today's Weather:", "\(self.tempDescript)°")
         myLabel4.font = Font.headtitle
         vw.addSubview(myLabel4)
         
@@ -409,7 +451,9 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
             let versionId = object?.objectForKey("VersionId") as! String?
             if (versionId != self.defaults.stringForKey("versionKey")) {
                 
+                dispatch_async(dispatch_get_main_queue()) {
                 self.simpleAlert("New Version!!", message: "A new version of app is available to download")
+                }
             }
         }
     }
@@ -436,18 +480,6 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         let stockresults = YQL.query("select * from yahoo.finance.quote where symbol in (\"^IXIC\",\"SPY\")")
         print(stockresults) */
         
-    }
-    
-    
-    // MARK: - AlertController
-    
-    func simpleAlert (title:String, message:String) {
-        
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        
-        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: nil))
-        
-        self.presentViewController(alertController, animated: true, completion: nil)
     }
 
     

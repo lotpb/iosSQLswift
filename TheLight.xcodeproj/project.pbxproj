@@ -35,7 +35,6 @@
 		AF46FA841C2313EE00C27445 /* UserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF46FA831C2313EE00C27445 /* UserViewController.swift */; };
 		AF4C1A261CEFF84600F8B038 /* WeatherGetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4C1A251CEFF84600F8B038 /* WeatherGetter.swift */; };
 		AF4C1A281CEFF85300F8B038 /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF4C1A271CEFF85300F8B038 /* Weather.swift */; };
-		AF4C1A2B1CF0810F00F8B038 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AF4C1A2A1CF0810F00F8B038 /* GoogleService-Info.plist */; };
 		AF4F52731C72B4A400DC7376 /* Icon-167.png in Resources */ = {isa = PBXBuildFile; fileRef = AF4F52721C72B4A400DC7376 /* Icon-167.png */; };
 		AF56DFC31C28947400CD7EB9 /* SnapshotController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF56DFC21C28947400CD7EB9 /* SnapshotController.swift */; };
 		AF5794B31C53EC6B006C456B /* KeychainWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF5794B21C53EC6B006C456B /* KeychainWrapper.swift */; };
@@ -47,10 +46,6 @@
 		AF6C691B1C455BAE00CD6A36 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = AF6C691A1C455BAE00CD6A36 /* Settings.bundle */; };
 		AF6E27041C3AC52300612C25 /* EditData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6E27031C3AC52200612C25 /* EditData.swift */; };
 		AF7383EB1C302DD00049407C /* NotificationDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF7383EA1C302DD00049407C /* NotificationDetailController.swift */; };
-		AF85E8161C77F4D7004B7EAF /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFAEAE421C775CE700DF86B1 /* NotificationCenter.framework */; };
-		AF85E8191C77F4D7004B7EAF /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF85E8181C77F4D7004B7EAF /* TodayViewController.swift */; };
-		AF85E81C1C77F4D7004B7EAF /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF85E81A1C77F4D7004B7EAF /* MainInterface.storyboard */; };
-		AF85E8201C77F4D7004B7EAF /* TodayViewController.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = AF85E8151C77F4D7004B7EAF /* TodayViewController.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		AF88129F1C61B14C007826AD /* MobyDick.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AF88129E1C61B14C007826AD /* MobyDick.mp3 */; };
 		AF8CC3A71C4153AF004147F3 /* NewEditData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8CC3A61C4153AF004147F3 /* NewEditData.swift */; };
 		AF8CC3AB1C42B9FB004147F3 /* StatisticController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8CC3AA1C42B9FB004147F3 /* StatisticController.swift */; };
@@ -62,13 +57,9 @@
 		AF9A87841C18645C0091B0E3 /* Web.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9A87831C18645C0091B0E3 /* Web.swift */; };
 		AF9EE4C71C2771D70057B7DB /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF9EE4C61C2771D70057B7DB /* NotificationController.swift */; };
 		AFAE40391C72125300F73183 /* Assets in Resources */ = {isa = PBXBuildFile; fileRef = AFAE40381C72125300F73183 /* Assets */; };
-		AFAEAE431C775CE700DF86B1 /* NotificationCenter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFAEAE421C775CE700DF86B1 /* NotificationCenter.framework */; };
-		AFAEAE461C775CE700DF86B1 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFAEAE451C775CE700DF86B1 /* TodayViewController.swift */; };
-		AFAEAE491C775CE700DF86B1 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AFAEAE471C775CE700DF86B1 /* MainInterface.storyboard */; };
-		AFAEAE4D1C775CE700DF86B1 /* randomQuote.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = AFAEAE401C775CE700DF86B1 /* randomQuote.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		AFAEAE521C775FC200DF86B1 /* QuoteService.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFAEAE511C775FC200DF86B1 /* QuoteService.swift */; };
 		AFB5A71E1C2C499200F8BC56 /* Vendor.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB5A71D1C2C499200F8BC56 /* Vendor.swift */; };
 		AFB5A7201C2C4C7700F8BC56 /* Employee.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFB5A71F1C2C4C7700F8BC56 /* Employee.swift */; };
+		AFB656DE1CF51C0700B8D0AC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = AFB656DD1CF51C0700B8D0AC /* GoogleService-Info.plist */; };
 		AFC4002C1C60250E0095333E /* YTPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = AFC4002B1C60250E0095333E /* YTPlayerView.m */; };
 		AFC4002E1C6025700095333E /* PlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFC4002D1C6025700095333E /* PlayerViewController.swift */; };
 		AFCAACE81C40961E00A52073 /* AdController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFCAACE71C40961E00A52073 /* AdController.swift */; };
@@ -141,9 +132,6 @@
 		AFF3C8EF1C4E8A0100D9B7BD /* TransmitBeaconController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF3C8EE1C4E8A0100D9B7BD /* TransmitBeaconController.swift */; };
 		AFF3C8F21C4F38D500D9B7BD /* NewsDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF3C8F11C4F38D500D9B7BD /* NewsDetailController.swift */; };
 		AFF7BCE51C3230EA0051DDCB /* CodeGenController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF7BCE41C3230EA0051DDCB /* CodeGenController.swift */; };
-		AFF84B131C7756E000D10470 /* blockerList.json in Resources */ = {isa = PBXBuildFile; fileRef = AFF84B121C7756E000D10470 /* blockerList.json */; };
-		AFF84B151C7756E000D10470 /* ActionRequestHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF84B141C7756E000D10470 /* ActionRequestHandler.swift */; };
-		AFF84B191C7756E000D10470 /* SuperEvil.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = AFF84B101C7756E000D10470 /* SuperEvil.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -161,27 +149,6 @@
 			remoteGlobalIDString = AF0369A01C173DDC00137D7E;
 			remoteInfo = mySQLswift;
 		};
-		AF85E81E1C77F4D7004B7EAF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = AF0369991C173DDC00137D7E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = AF85E8141C77F4D7004B7EAF;
-			remoteInfo = TodayViewController;
-		};
-		AFAEAE4B1C775CE700DF86B1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = AF0369991C173DDC00137D7E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = AFAEAE3F1C775CE700DF86B1;
-			remoteInfo = randomQuote;
-		};
-		AFF84B171C7756E000D10470 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = AF0369991C173DDC00137D7E /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = AFF84B0F1C7756E000D10470;
-			remoteInfo = SuperEvil;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -191,9 +158,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				AFAEAE4D1C775CE700DF86B1 /* randomQuote.appex in Embed App Extensions */,
-				AFF84B191C7756E000D10470 /* SuperEvil.appex in Embed App Extensions */,
-				AF85E8201C77F4D7004B7EAF /* TodayViewController.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -237,7 +201,6 @@
 		AF46FA831C2313EE00C27445 /* UserViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserViewController.swift; sourceTree = "<group>"; };
 		AF4C1A251CEFF84600F8B038 /* WeatherGetter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherGetter.swift; sourceTree = "<group>"; };
 		AF4C1A271CEFF85300F8B038 /* Weather.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
-		AF4C1A2A1CF0810F00F8B038 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AF4F52721C72B4A400DC7376 /* Icon-167.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon-167.png"; sourceTree = "<group>"; };
 		AF56DFC21C28947400CD7EB9 /* SnapshotController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SnapshotController.swift; sourceTree = "<group>"; };
 		AF5794B21C53EC6B006C456B /* KeychainWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = KeychainWrapper.swift; sourceTree = "<group>"; };
@@ -249,7 +212,6 @@
 		AF6C691A1C455BAE00CD6A36 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		AF6E27031C3AC52200612C25 /* EditData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditData.swift; sourceTree = "<group>"; };
 		AF7383EA1C302DD00049407C /* NotificationDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationDetailController.swift; sourceTree = "<group>"; };
-		AF85E8151C77F4D7004B7EAF /* TodayViewController.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TodayViewController.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF85E8181C77F4D7004B7EAF /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
 		AF85E81B1C77F4D7004B7EAF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		AF85E81D1C77F4D7004B7EAF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -264,7 +226,6 @@
 		AF9A87831C18645C0091B0E3 /* Web.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Web.swift; sourceTree = "<group>"; };
 		AF9EE4C61C2771D70057B7DB /* NotificationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
 		AFAE40381C72125300F73183 /* Assets */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Assets; sourceTree = "<group>"; };
-		AFAEAE401C775CE700DF86B1 /* randomQuote.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = randomQuote.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFAEAE421C775CE700DF86B1 /* NotificationCenter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NotificationCenter.framework; path = System/Library/Frameworks/NotificationCenter.framework; sourceTree = SDKROOT; };
 		AFAEAE451C775CE700DF86B1 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
 		AFAEAE481C775CE700DF86B1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
@@ -275,6 +236,7 @@
 		AFB619911C78AA7500F1BAE8 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
 		AFB619941C78AA7600F1BAE8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		AFB619961C78AA7600F1BAE8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AFB656DD1CF51C0700B8D0AC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		AFC400291C60250E0095333E /* mySQLswift-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "mySQLswift-Bridging-Header.h"; sourceTree = "<group>"; };
 		AFC4002A1C60250E0095333E /* YTPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YTPlayerView.h; sourceTree = "<group>"; };
 		AFC4002B1C60250E0095333E /* YTPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YTPlayerView.m; sourceTree = "<group>"; };
@@ -349,7 +311,6 @@
 		AFF3C8EE1C4E8A0100D9B7BD /* TransmitBeaconController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransmitBeaconController.swift; sourceTree = "<group>"; };
 		AFF3C8F11C4F38D500D9B7BD /* NewsDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewsDetailController.swift; sourceTree = "<group>"; };
 		AFF7BCE41C3230EA0051DDCB /* CodeGenController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CodeGenController.swift; sourceTree = "<group>"; };
-		AFF84B101C7756E000D10470 /* SuperEvil.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SuperEvil.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		AFF84B121C7756E000D10470 /* blockerList.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = blockerList.json; sourceTree = "<group>"; };
 		AFF84B141C7756E000D10470 /* ActionRequestHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionRequestHandler.swift; sourceTree = "<group>"; };
 		AFF84B161C7756E000D10470 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -399,29 +360,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		AF85E8121C77F4D7004B7EAF /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				AF85E8161C77F4D7004B7EAF /* NotificationCenter.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		AFAEAE3D1C775CE700DF86B1 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				AFAEAE431C775CE700DF86B1 /* NotificationCenter.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		AFF84B0D1C7756E000D10470 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -447,9 +385,6 @@
 				AF0369A11C173DDC00137D7E /* TheLight.app */,
 				AF0369B71C173DDC00137D7E /* TheLight.xctest */,
 				AF0369C21C173DDC00137D7E /* TheLight.xctest */,
-				AFF84B101C7756E000D10470 /* SuperEvil.appex */,
-				AFAEAE401C775CE700DF86B1 /* randomQuote.appex */,
-				AF85E8151C77F4D7004B7EAF /* TodayViewController.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -457,7 +392,6 @@
 		AF0369A31C173DDC00137D7E /* mySQLswift */ = {
 			isa = PBXGroup;
 			children = (
-				AF4C1A291CEFF85D00F8B038 /* Weather */,
 				AFE6936E1C6A4D7E000BEDCE /* Constants.swift */,
 				AF0369A41C173DDC00137D7E /* AppDelegate.swift */,
 				AF0369A61C173DDC00137D7E /* MasterViewController.swift */,
@@ -467,6 +401,7 @@
 				AF8CC3A81C41B317004147F3 /* Tables */,
 				AF0DACA21C1F45D400B23CE5 /* Blog */,
 				AFA156391C514203000C3EB7 /* News */,
+				AF4C1A291CEFF85D00F8B038 /* Weather */,
 				AFD1A3101C1E367B00580F10 /* Accessory Tables */,
 				AF5CF02A1C1A43FE00347E6F /* Supporting Files */,
 				AFE2639C1C1741B4007BBB90 /* Framework */,
@@ -546,13 +481,13 @@
 				AFE263E11C17DBE9007BBB90 /* images */,
 				AF98E41D1C1E3DD200ED8DC5 /* Settings */,
 				AF206E021C1B1F6A00EA60D6 /* Sounds */,
-				AF4C1A2A1CF0810F00F8B038 /* GoogleService-Info.plist */,
 				AF1E6D551C1920FC0009230E /* CustomTableCell.swift */,
 				AF0C77A21C2245BA0055DDE4 /* CollectionViewCell.swift */,
 				AF0D6B301C4AC5E900334D03 /* YQL.swift */,
 				AF5794B21C53EC6B006C456B /* KeychainWrapper.swift */,
 				AF0369AD1C173DDC00137D7E /* Assets.xcassets */,
 				AF0369AF1C173DDC00137D7E /* LaunchScreen.storyboard */,
+				AFB656DD1CF51C0700B8D0AC /* GoogleService-Info.plist */,
 				AF0369B21C173DDC00137D7E /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -805,9 +740,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				AFF84B181C7756E000D10470 /* PBXTargetDependency */,
-				AFAEAE4C1C775CE700DF86B1 /* PBXTargetDependency */,
-				AF85E81F1C77F4D7004B7EAF /* PBXTargetDependency */,
 			);
 			name = TheLight;
 			productName = mySQLswift;
@@ -850,57 +782,6 @@
 			productReference = AF0369C21C173DDC00137D7E /* TheLight.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
-		AF85E8141C77F4D7004B7EAF /* TodayViewController */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = AF85E8231C77F4D7004B7EAF /* Build configuration list for PBXNativeTarget "TodayViewController" */;
-			buildPhases = (
-				AF85E8111C77F4D7004B7EAF /* Sources */,
-				AF85E8121C77F4D7004B7EAF /* Frameworks */,
-				AF85E8131C77F4D7004B7EAF /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = TodayViewController;
-			productName = TodayViewController;
-			productReference = AF85E8151C77F4D7004B7EAF /* TodayViewController.appex */;
-			productType = "com.apple.product-type.app-extension";
-		};
-		AFAEAE3F1C775CE700DF86B1 /* randomQuote */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = AFAEAE501C775CE700DF86B1 /* Build configuration list for PBXNativeTarget "randomQuote" */;
-			buildPhases = (
-				AFAEAE3C1C775CE700DF86B1 /* Sources */,
-				AFAEAE3D1C775CE700DF86B1 /* Frameworks */,
-				AFAEAE3E1C775CE700DF86B1 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = randomQuote;
-			productName = randomQuote;
-			productReference = AFAEAE401C775CE700DF86B1 /* randomQuote.appex */;
-			productType = "com.apple.product-type.app-extension";
-		};
-		AFF84B0F1C7756E000D10470 /* SuperEvil */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = AFF84B1C1C7756E000D10470 /* Build configuration list for PBXNativeTarget "SuperEvil" */;
-			buildPhases = (
-				AFF84B0C1C7756E000D10470 /* Sources */,
-				AFF84B0D1C7756E000D10470 /* Frameworks */,
-				AFF84B0E1C7756E000D10470 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = SuperEvil;
-			productName = SuperEvil;
-			productReference = AFF84B101C7756E000D10470 /* SuperEvil.appex */;
-			productType = "com.apple.product-type.app-extension";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -930,18 +811,6 @@
 						DevelopmentTeam = YX8KSFWQDW;
 						TestTargetID = AF0369A01C173DDC00137D7E;
 					};
-					AF85E8141C77F4D7004B7EAF = {
-						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = YX8KSFWQDW;
-					};
-					AFAEAE3F1C775CE700DF86B1 = {
-						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = YX8KSFWQDW;
-					};
-					AFF84B0F1C7756E000D10470 = {
-						CreatedOnToolsVersion = 7.2.1;
-						DevelopmentTeam = YX8KSFWQDW;
-					};
 				};
 			};
 			buildConfigurationList = AF03699C1C173DDC00137D7E /* Build configuration list for PBXProject "TheLight" */;
@@ -960,9 +829,6 @@
 				AF0369A01C173DDC00137D7E /* TheLight */,
 				AF0369B61C173DDC00137D7E /* TheLightTests */,
 				AF0369C11C173DDC00137D7E /* TheLightUITests */,
-				AFF84B0F1C7756E000D10470 /* SuperEvil */,
-				AFAEAE3F1C775CE700DF86B1 /* randomQuote */,
-				AF85E8141C77F4D7004B7EAF /* TodayViewController */,
 			);
 		};
 /* End PBXProject section */
@@ -1001,7 +867,7 @@
 				AFE2642B1C17DC11007BBB90 /* mySQLBLOG.png in Resources */,
 				AF6C691B1C455BAE00CD6A36 /* Settings.bundle in Resources */,
 				AFE2642A1C17DC11007BBB90 /* menu@2x.png in Resources */,
-				AF4C1A2B1CF0810F00F8B038 /* GoogleService-Info.plist in Resources */,
+				AFB656DE1CF51C0700B8D0AC /* GoogleService-Info.plist in Resources */,
 				AFE2640D1C17DC11007BBB90 /* bookmark.png in Resources */,
 				AFE2640F1C17DC11007BBB90 /* comments.png in Resources */,
 				AFE264131C17DC11007BBB90 /* news.png in Resources */,
@@ -1037,30 +903,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		AF85E8131C77F4D7004B7EAF /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				AF85E81C1C77F4D7004B7EAF /* MainInterface.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		AFAEAE3E1C775CE700DF86B1 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				AFAEAE491C775CE700DF86B1 /* MainInterface.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		AFF84B0E1C7756E000D10470 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				AFF84B131C7756E000D10470 /* blockerList.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1188,31 +1030,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		AF85E8111C77F4D7004B7EAF /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				AF85E8191C77F4D7004B7EAF /* TodayViewController.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		AFAEAE3C1C775CE700DF86B1 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				AFAEAE521C775FC200DF86B1 /* QuoteService.swift in Sources */,
-				AFAEAE461C775CE700DF86B1 /* TodayViewController.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		AFF84B0C1C7756E000D10470 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				AFF84B151C7756E000D10470 /* ActionRequestHandler.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -1225,21 +1042,6 @@
 			isa = PBXTargetDependency;
 			target = AF0369A01C173DDC00137D7E /* TheLight */;
 			targetProxy = AF0369C31C173DDC00137D7E /* PBXContainerItemProxy */;
-		};
-		AF85E81F1C77F4D7004B7EAF /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = AF85E8141C77F4D7004B7EAF /* TodayViewController */;
-			targetProxy = AF85E81E1C77F4D7004B7EAF /* PBXContainerItemProxy */;
-		};
-		AFAEAE4C1C775CE700DF86B1 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = AFAEAE3F1C775CE700DF86B1 /* randomQuote */;
-			targetProxy = AFAEAE4B1C775CE700DF86B1 /* PBXContainerItemProxy */;
-		};
-		AFF84B181C7756E000D10470 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = AFF84B0F1C7756E000D10470 /* SuperEvil */;
-			targetProxy = AFF84B171C7756E000D10470 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -1467,78 +1269,6 @@
 			};
 			name = Release;
 		};
-		AF85E8211C77F4D7004B7EAF /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = TodayViewController/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.PeterBalsamo.TheLight.TodayViewController;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		AF85E8221C77F4D7004B7EAF /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = TodayViewController/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.PeterBalsamo.TheLight.TodayViewController;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		AFAEAE4E1C775CE700DF86B1 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = randomQuote/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.PeterBalsamo.TheLight.randomQuote;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		AFAEAE4F1C775CE700DF86B1 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = randomQuote/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.PeterBalsamo.TheLight.randomQuote;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		AFF84B1A1C7756E000D10470 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = SuperEvil/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.PeterBalsamo.TheLight.Evil;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		AFF84B1B1C7756E000D10470 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = SuperEvil/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.PeterBalsamo.TheLight.Evil;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1574,33 +1304,6 @@
 			buildConfigurations = (
 				AF0369D21C173DDC00137D7E /* Debug */,
 				AF0369D31C173DDC00137D7E /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		AF85E8231C77F4D7004B7EAF /* Build configuration list for PBXNativeTarget "TodayViewController" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				AF85E8211C77F4D7004B7EAF /* Debug */,
-				AF85E8221C77F4D7004B7EAF /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		AFAEAE501C775CE700DF86B1 /* Build configuration list for PBXNativeTarget "randomQuote" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				AFAEAE4E1C775CE700DF86B1 /* Debug */,
-				AFAEAE4F1C775CE700DF86B1 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		AFF84B1C1C7756E000D10470 /* Build configuration list for PBXNativeTarget "SuperEvil" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				AFF84B1A1C7756E000D10470 /* Debug */,
-				AFF84B1B1C7756E000D10470 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

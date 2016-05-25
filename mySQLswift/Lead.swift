@@ -56,7 +56,7 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
         resultsController.tableView.delegate = self
         
         let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action: #selector(Lead.newData))
-        let searchButton = UIBarButtonItem(barButtonSystemItem: .Search, target: self, action: #selector(Lead.searchButton(_:)))
+        let searchButton = UIBarButtonItem(barButtonSystemItem: .Search, target: self, action: #selector(Lead.searchButton))
         let buttons:NSArray = [addButton,searchButton]
         self.navigationItem.rightBarButtonItems = buttons as? [UIBarButtonItem]
 
@@ -65,7 +65,7 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
         refreshControl.tintColor = UIColor.whiteColor()
         let attributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
         self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh", attributes: attributes)
-        self.refreshControl.addTarget(self, action: #selector(Lead.refreshData(_:)), forControlEvents: UIControlEvents.ValueChanged)
+        self.refreshControl.addTarget(self, action: #selector(Lead.refreshData), forControlEvents: UIControlEvents.ValueChanged)
         self.tableView!.addSubview(refreshControl)
         
         parseData()
@@ -244,7 +244,7 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
         myLabel.tag = indexPath.row
         cell.addSubview(myLabel)
         
-        let tap = UITapGestureRecognizer(target: self, action: #selector(Lead.imgLoadSegue(_:)))
+        let tap = UITapGestureRecognizer(target: self, action: #selector(Lead.imgLoadSegue))
         myLabel.addGestureRecognizer(tap)
         
         return cell
@@ -495,18 +495,6 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
         dateLabel = (_feedItems.objectAtIndex((sender.view!.tag)) .valueForKey("Date") as? String)!
         titleLabel = (_feedItems.objectAtIndex((sender.view!.tag)) .valueForKey("LastName") as? String)!
         self.performSegueWithIdentifier("leaduserSegue", sender: self)
-    }
-    
-    
-    // MARK: - AlertController
-    
-    func simpleAlert (title:String, message:String) {
-        
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.Alert)
-        
-        alertController.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.Default,handler: nil))
-        
-        self.presentViewController(alertController, animated: true, completion: nil)
     }
 
     
