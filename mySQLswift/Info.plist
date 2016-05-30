@@ -39,7 +39,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.tag.Google-Signin-Demo</string>
+				<string>com.PeterBalsamo.TheLight</string>
 			</array>
 		</dict>
 	</array>

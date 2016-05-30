@@ -182,6 +182,13 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
         
         if self.imageFile.url!.rangeOfString("movie.mp4") != nil {
             
+            //if (self.imageFile.url!.containsString("movie.mp4")) {
+            /*
+             let imageDetailurl = self.imageFile.url
+             let result1 = imageDetailurl!.containsString("movie.mp4")
+             if (result1 == true) { */
+            
+            
           /*
            // var err: NSError? = nil
             do {
@@ -196,12 +203,7 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
                 print("Error generating thumbnail: \(error)")
             } */
             
-        //if (self.imageFile.url!.containsString("movie.mp4")) {
-        /*
-        let imageDetailurl = self.imageFile.url
-        let result1 = imageDetailurl!.containsString("movie.mp4")
-        if (result1 == true) { */
-            
+
             playButton.alpha = 0.3
             playButton.userInteractionEnabled = true
             //playButton.center = cell.imageView.center

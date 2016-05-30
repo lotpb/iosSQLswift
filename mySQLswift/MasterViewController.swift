@@ -9,6 +9,7 @@
 import UIKit
 import Parse
 import AVFoundation
+import FirebaseAnalytics
 //import SwiftKeychainWrapper
 //import iAd
 //import EventKitUI
@@ -135,6 +136,13 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.barTintColor = UIColor.blackColor()
         
+        let name = "Pattern~\(title!)",
+        text = "I'd love you to hear about\(name)"
+        // [START custom_event_swift]
+        FIRAnalytics.logEventWithName("share_image", parameters: [
+            "name": name,
+            "full_text": text
+            ])
     }
     
     override class func initialize() {

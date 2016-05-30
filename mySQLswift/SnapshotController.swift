@@ -105,15 +105,14 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
         let buttons:NSArray = [searchButton]
         self.navigationItem.rightBarButtonItems = buttons as? [UIBarButtonItem]
         
-        
-        parseData()
-        
         self.refreshControl = UIRefreshControl()
         refreshControl.backgroundColor = UIColor.clearColor()
         refreshControl.tintColor = UIColor.blackColor()
         self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh")
         self.refreshControl.addTarget(self, action: #selector(SnapshotController.refreshData), forControlEvents: UIControlEvents.ValueChanged)
         self.tableView!.addSubview(refreshControl)
+        
+        parseData()
         
     }
     

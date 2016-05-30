@@ -774,9 +774,7 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     func addEvent() {
         
         let eventStore = EKEventStore()
-        
         let itemText = defaults.stringForKey("eventtitleKey")!
-        
         let startDate = NSDate().dateByAddingTimeInterval(60 * 60)
         let endDate = startDate.dateByAddingTimeInterval(60 * 60) // One hour
         
@@ -791,14 +789,15 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
     }
     
     func createEvent(eventStore: EKEventStore, title: String, startDate: NSDate, endDate: NSDate) {
-        let event = EKEvent(eventStore: eventStore)
         
+        let event = EKEvent(eventStore: eventStore)
         event.title = title
         event.startDate = startDate
         event.endDate = endDate
         event.location = String(format: "%@ %@ %@ %@", self.address!,self.city!,self.state!,self.zip!)
         event.notes = self.comments as? String
         event.calendar = eventStore.defaultCalendarForNewEvents
+        //event.addAlarm(EKAlarm.init(relativeOffset: 60.0))
         do {
             try eventStore.saveEvent(event, span: .ThisEvent)
             savedEventId = event.eventIdentifier
@@ -806,7 +805,7 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
             self.simpleAlert("Event", message: "Event successfully saved.")
             
         } catch {
-            print("Bad things happened")
+            print("An error occurred")
         }
     }
     

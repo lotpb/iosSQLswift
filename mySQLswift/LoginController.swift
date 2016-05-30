@@ -8,12 +8,14 @@
 
 import UIKit
 import Parse
-import FBSDKLoginKit
+//import Firebase
 import MapKit
 import LocalAuthentication
+import FBSDKLoginKit
+import GoogleSignIn
 
 
-class LoginController: UIViewController, FBSDKLoginButtonDelegate {
+class LoginController: UIViewController, FBSDKLoginButtonDelegate, GIDSignInUIDelegate, GIDSignInDelegate {
     
     let ipadtitle = UIFont.systemFontOfSize(20, weight: UIFontWeightRegular)
     let celltitle = UIFont.systemFontOfSize(18, weight: UIFontWeightRegular)
@@ -21,10 +23,10 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
     @IBOutlet weak var mapView: MKMapView?
     @IBOutlet weak var mainView: UIView!
     
-    @IBOutlet weak var forgotPassword: UIButton?
     @IBOutlet weak var registerBtn: UIButton?
     @IBOutlet weak var loginBtn: UIButton?
     @IBOutlet weak var backloginBtn: UIButton?
+    @IBOutlet weak var forgotPassword: UIButton?
     @IBOutlet weak var authentButton: UIButton!
     
     @IBOutlet weak var usernameField: UITextField?
@@ -41,6 +43,8 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
     //Facebook
     var fbButton : FBSDKLoginButton = FBSDKLoginButton()
     var dict : NSDictionary!
+    
+    var signInButton : GIDSignInButton = GIDSignInButton()
     
     let userImageView: UIImageView = {
         let imageView = UIImageView()
@@ -98,8 +102,7 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
         self.passwordField!.text = ""
         
         //Facebook
-        fbButton.frame = CGRectMake(10, 490, 125, 40)
-        
+        fbButton.frame = CGRectMake(10, 325, 126, 38)
         if (FBSDKAccessToken.currentAccessToken() != nil) {
             print("User is already logged in")
         } else {
@@ -109,6 +112,12 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
         self.mainView.addSubview(fbButton)
         let loginManager: FBSDKLoginManager = FBSDKLoginManager()
         loginManager.logOut()
+        
+        //Google
+        signInButton.frame = CGRectMake(self.mainView.frame.size.width/2-60, 320, 126, 40)
+        GIDSignIn.sharedInstance().uiDelegate = self
+        GIDSignIn.sharedInstance().delegate = self
+        self.mainView.addSubview(signInButton)
 
     }
     
@@ -165,6 +174,7 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
         self.emailField!.hidden = true //
         self.phoneField!.hidden = true //
         self.fbButton.hidden = false
+        self.signInButton.hidden = false
         
     }
     
@@ -184,6 +194,7 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
             self.emailField!.hidden = false
             self.phoneField!.hidden = false
             self.fbButton.hidden = true
+            self.signInButton.hidden = true
             
         } else {
             //check if all text fields are completed
@@ -224,6 +235,29 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
     }
     
     
+    // MARK: - Google
+    
+    func signIn(signIn: GIDSignIn!, didSignInForUser user: GIDGoogleUser!, withError error: NSError!) {
+        
+        if error != nil {
+            print(error)
+            return
+        }
+        self.usernameField!.text = user.profile.name
+        self.emailField!.text = user.profile.email
+        self.passwordField!.text = "3911"
+        print(user.profile.email)
+        print(user.profile.imageURLWithDimension(400))
+        redirectToHome()
+    }
+    
+    func signIn(signIn: GIDSignIn!, didDisconnectWithUser user:GIDGoogleUser!,
+                withError error: NSError!) {
+        // Perform any operations when the user disconnects from app here.
+        // ...
+    }
+    
+    
     // MARK: - Facebook
 
     func loginButton(loginButton: FBSDKLoginButton!, didCompleteWithResult result: FBSDKLoginManagerLoginResult!, error: NSError!) {
@@ -233,7 +267,6 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
             return
         } else {
             fetchProfileFB()
-            redirectToHome()
         }
     }
     
@@ -261,6 +294,8 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
                 dispatch_async(dispatch_get_main_queue(), { () -> Void in
                     self.userImageView.image = image
                 })
+                
+                self.redirectToHome()
             }
         })
     }
@@ -305,8 +340,7 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate {
     func loginButtonDidLogOut(loginButton: FBSDKLoginButton!) {
         
         print("loginButtonDidLogOut")
-        //let loginManager: FBSDKLoginManager = FBSDKLoginManager()
-        //loginManager.logOut()
+
     }
 
     

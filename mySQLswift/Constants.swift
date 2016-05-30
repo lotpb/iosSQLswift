@@ -120,14 +120,15 @@ public extension String {
     func removeWhiteSpace() -> String {
         return self.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
     }
+    
 }
+
 
 // MARK: - AlertController
 
 public extension UIViewController {
     
     func simpleAlert (title:String, message:String) {
-        
         let alertController = UIAlertController(title: title, message: message, preferredStyle: .Alert)
         alertController.addAction(UIAlertAction(title: "OK", style: .Default, handler: nil))
         self.presentViewController(alertController, animated: true, completion: nil)

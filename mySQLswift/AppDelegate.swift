@@ -8,8 +8,10 @@
 
 import UIKit
 import Parse
-import FBSDKCoreKit
 import Firebase
+import FBSDKCoreKit
+import GoogleSignIn
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDelegate {
@@ -62,8 +64,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
 
         // MARK: - RegisterUserNotification
         
-        let mySettings = UIUserNotificationSettings(forTypes: [.Badge, .Sound, .Alert], categories: nil)
-        UIApplication.sharedApplication().registerUserNotificationSettings( mySettings)
+        let mySettings = UIUserNotificationSettings(forTypes:[.Badge, .Sound, .Alert], categories: nil)
+        UIApplication.sharedApplication().registerUserNotificationSettings(mySettings)
         
         application.applicationIconBadgeNumber = 0
         
@@ -101,16 +103,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         splitViewController.delegate = self */
 
         
-        // MARK: - Facebook sign-in
+        // MARK: - Facebook Sign-in
         
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
-        
-        // Goog sign-in
-        /*
-        var configureError: NSError?
-        GGLContext.sharedInstance().configureWithError(&configureError)
-        assert(configureError == nil, "Error configuring Google services: \(configureError)")
-        GIDSignIn.sharedInstance().delegate = self */
         
         customizeAppearance()
         
@@ -123,9 +118,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
         
     }
     
-    // MARK: - Facebook
+    // MARK: - Google/Facebook
+    @available(iOS 9.0, *)
+    func application(application: UIApplication, openURL url: NSURL, options: [String : AnyObject])
+        -> Bool {
+            return self.application(application, openURL: url, sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey] as! String?, annotation: [:])
+    }
     
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject) -> Bool {
+        if GIDSignIn.sharedInstance().handleURL(url, sourceApplication: sourceApplication,annotation: annotation) {
+            return true
+        }
         return FBSDKApplicationDelegate.sharedInstance().application(application, openURL: url, sourceApplication: sourceApplication, annotation: annotation)
     }
 
@@ -154,13 +157,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     }
     
     // MARK:
-
-    // MARK: - Facebook
     
     func applicationWillResignActive(application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
-        FBSDKAppEvents.activateApp()
     }
 
     func applicationDidEnterBackground(application: UIApplication) {
@@ -177,7 +177,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UISplitViewControllerDele
     func applicationDidBecomeActive(application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         
-        //FBSDKAppEvents.activateApp()
+        FBSDKAppEvents.activateApp()
     }
     
     // MARK:
