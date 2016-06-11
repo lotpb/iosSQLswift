@@ -548,6 +548,8 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
         myLabel1.clipsToBounds = true
         myLabel1.font = Font.headtitle
         //myLabel1.adjustsFontSizeToFitWidth = true
+        let playButton = UIButton(type: UIButtonType.Custom) as UIButton
+        playButton.frame = CGRectMake(cell.user2ImageView!.frame.size.width/2-25, cell.user2ImageView!.frame.origin.y, 50, 50)
         
         if (collectionView.tag == 0) {
             
@@ -567,6 +569,19 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
             
             myLabel1.text = _feedItems[indexPath.row] .valueForKey("newsTitle") as? String
             cell.addSubview(myLabel1)
+            
+            /*
+            if self.imageFile.url!.rangeOfString("movie.mp4") != nil {
+                playButton.alpha = 0.3
+                playButton.userInteractionEnabled = true
+                playButton.tintColor = UIColor.whiteColor()
+                let playimage : UIImage? = UIImage(named:"play_button.png")!.imageWithRenderingMode(.AlwaysTemplate)
+                playButton.setImage(playimage, forState: .Normal)
+                playButton.setTitle(self.imageFile.url, forState: UIControlState.Normal)
+                //let tap = UITapGestureRecognizer(target: self, action: #selector(playVideo))
+                //playButton.addGestureRecognizer(tap)
+                cell.imageView.addSubview(playButton)
+            } */
             
             return cell
         } else if (collectionView.tag == 1) {

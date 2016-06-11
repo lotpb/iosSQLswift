@@ -14,7 +14,7 @@ import FirebaseAnalytics
 //import iAd
 //import EventKitUI
 
-class MasterViewController: UITableViewController, UISplitViewControllerDelegate, UISearchResultsUpdating, WeatherGetterDelegate {
+class MasterViewController: UITableViewController, UISplitViewControllerDelegate, UISearchResultsUpdating {
 
   //var detailViewController: DetailViewController? = nil
     
@@ -31,18 +31,13 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
     var foundUsers = [String]()
     
     let defaults = NSUserDefaults.standardUserDefaults()
-    
-    var resultsWeatherYQL:NSDictionary? = nil
-    
-    var weather: WeatherGetter!
-    var tempweather: String!
-    var tempDescript: String!
-    
-    //@IBOutlet weak var cityTextField: UITextField!
-    
 
-    //var tempYQL : String!
-     //var store = EKEventStore()
+    var tempYQL: String!
+    var textYQL: String!
+    var tradeYQL: String!
+    var trade1YQL: String!
+    var changeYQL: String!
+    var change1YQL: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -115,19 +110,12 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         PFUser.logInWithUsernameInBackground(userId, password:userpassword) { (user, error) -> Void in
         }
         
-        
         // MARK: - YQL
         
-        //self.updateYahoo()
+        self.updateYahoo()
+        
         self.versionCheck()
-        
-        // MARK: - Weather
-        
-        weather = WeatherGetter(delegate: self)
-        let cityTextField = "Massapequa"
-        weather.getWeather(cityTextField)
     
-        
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -163,38 +151,6 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
     func splitViewController(splitViewController: UISplitViewController, collapseSecondaryViewController secondaryViewController: UIViewController, ontoPrimaryViewController primaryViewController: UIViewController) -> Bool { //added
         
         return true
-    }
-    
-    
-    func didGetWeather(weather: Weather) {
-        
-        dispatch_async(dispatch_get_main_queue()) {
-            
-            self.tempweather = "\(Int(round(weather.tempFahrenheit)))" //weather.city
-            print(self.tempweather)
-            self.tempDescript = weather.weatherDescription
-            print(self.tempDescript)
-            //self.temperatureLabel.text = "\(Int(round(weather.tempFahrenheit)))°"
-            /*self.cloudCoverLabel.text = "\(weather.cloudCover)%"
-             self.windLabel.text = "\(weather.windSpeed) m/s"
-             
-             if let rain = weather.rainfallInLast3Hours {
-             self.rainLabel.text = "\(rain) mm"
-             }
-             else {
-             self.rainLabel.text = "None"
-             }
-             
-             self.humidityLabel.text = "\(weather.humidity)%" */
-        }
-    }
-    
-    func didNotGetWeather(error: NSError) {
-        
-         dispatch_async(dispatch_get_main_queue()) {
-         self.simpleAlert("Can't get the weather", message: "The weather service isn't responding.")
-         }
-         print("didNotGetWeather error: \(error)")
     }
 
     
@@ -342,14 +298,18 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         myLabel2.textColor = UIColor.blackColor()
         myLabel2.textAlignment = NSTextAlignment.Center
         myLabel2.layer.masksToBounds = true
-        myLabel2.text = String(format: "%@%d", "NASDAQ\n", menuItems.count)
+        myLabel2.text = "NASDAQ \n \(tradeYQL) \n \(changeYQL)"
         myLabel2.font = Font.headtitle
         myLabel2.layer.cornerRadius = 30.0
         myLabel2.userInteractionEnabled = true
         vw.addSubview(myLabel2)
         
         let separatorLineView2 = UIView(frame: CGRectMake(85, 85, 60, 3.5))
-        separatorLineView2.backgroundColor = UIColor.redColor()
+        if (changeYQL.containsString("-") || changeYQL == nil ) {
+            separatorLineView2.backgroundColor = UIColor.redColor()
+        } else {
+            separatorLineView2.backgroundColor = UIColor.greenColor()
+        }
         vw.addSubview(separatorLineView2)
         
         let myLabel3:UILabel = UILabel(frame: CGRectMake(160, 15, 60, 60))
@@ -358,7 +318,7 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         myLabel3.textColor = UIColor.blackColor()
         myLabel3.textAlignment = NSTextAlignment.Center
         myLabel3.layer.masksToBounds = true
-        myLabel3.text = String(format: "%@%d", "S&P 500\n", menuItems.count)
+        myLabel3.text = "S&P 500 \n \(trade1YQL) \n \(change1YQL)"
 
         myLabel3.font = Font.headtitle
         myLabel3.layer.cornerRadius = 30.0
@@ -366,13 +326,21 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         vw.addSubview(myLabel3)
         
         let separatorLineView3 = UIView(frame: CGRectMake(160, 85, 60, 3.5))
-        separatorLineView3.backgroundColor = UIColor.redColor()
+        if (changeYQL.containsString("-") || changeYQL == nil ) {
+            separatorLineView3.backgroundColor = UIColor.redColor()
+        } else {
+            separatorLineView3.backgroundColor = UIColor.greenColor()
+        }
         vw.addSubview(separatorLineView3)
         
         let myLabel4:UILabel = UILabel(frame: CGRectMake(10, 100, 280, 20))
-        myLabel4.textColor = UIColor.greenColor()
-        myLabel4.text = String(format: "%@ %d", "Today's Weather:", "\(self.tempDescript)°")
+        myLabel4.text = String(format: "%@ %@ %@", "Today's Weather:", "\(tempYQL)°", "\(textYQL)")
         myLabel4.font = Font.headtitle
+        if (textYQL.containsString("Rain") || textYQL.containsString("Snow") ) {
+            myLabel4.textColor = UIColor.redColor()
+        } else {
+            myLabel4.textColor = UIColor.greenColor()
+        }
         vw.addSubview(myLabel4)
         
         let statButton:UIButton = UIButton(frame: CGRectMake(tableView.frame.size.width-100, 95, 90, 30))
@@ -469,25 +437,25 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
 
     func updateYahoo() {
         
-        resultsWeatherYQL = YQL.query("select * from weather.forecast where woeid=2446726")
-        //print(resultsYQL)
+        let results = YQL.query("select * from weather.forecast where woeid=2446726")
+        let queryResults = results?.valueForKeyPath("query.results.channel.item") as! NSDictionary?
+        if queryResults != nil {
+            
+            let weatherInfo = queryResults!["condition"] as! NSDictionary
+            tempYQL = weatherInfo.objectForKey("temp") as? String
+            textYQL = weatherInfo.objectForKey("text") as? String
+        }
         
-        /*
-        let YQLresults = resultsWeatherYQL!
-            .objectForKey("query")!
-            .objectForKey("results")!
-            .objectForKey("channel")!
-            .objectForKey("item")!
-            .objectForKey("condition")!
-        let YQLtext = YQLresults.objectForKey("text") as! String
-        let YQLtemp = YQLresults.objectForKey("temp")as! String
-        
-        print("Todays Weather: \(YQLtext) \(YQLtemp)") */
-        
-        /*
         let stockresults = YQL.query("select * from yahoo.finance.quote where symbol in (\"^IXIC\",\"SPY\")")
-        print(stockresults) */
-        
+        let querystockResults = stockresults?.valueForKeyPath("query.results") as! NSDictionary?
+        if querystockResults != nil {
+            
+            let arr = querystockResults!.objectForKey("quote") as! NSArray
+            tradeYQL = arr[0] .valueForKey("LastTradePriceOnly") as? String
+            trade1YQL = arr[1] .valueForKey("LastTradePriceOnly") as? String
+            changeYQL = arr[0] .valueForKey("Change") as? String
+            change1YQL = arr[1] .valueForKey("Change") as? String
+        }
     }
 
     

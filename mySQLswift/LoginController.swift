@@ -43,7 +43,7 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate, GIDSignInUIDe
     //Facebook
     var fbButton : FBSDKLoginButton = FBSDKLoginButton()
     var dict : NSDictionary!
-    
+    //Google
     var signInButton : GIDSignInButton = GIDSignInButton()
     
     let userImageView: UIImageView = {
@@ -110,14 +110,18 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate, GIDSignInUIDe
         }
         fbButton.delegate = self
         self.mainView.addSubview(fbButton)
-        let loginManager: FBSDKLoginManager = FBSDKLoginManager()
-        loginManager.logOut()
+       
         
         //Google
         signInButton.frame = CGRectMake(self.mainView.frame.size.width/2-60, 320, 126, 40)
         GIDSignIn.sharedInstance().uiDelegate = self
         GIDSignIn.sharedInstance().delegate = self
         self.mainView.addSubview(signInButton)
+        
+        //Facebook/Google LogOut
+        let loginManager: FBSDKLoginManager = FBSDKLoginManager()
+        loginManager.logOut()
+        GIDSignIn.sharedInstance().disconnect()
 
     }
     
@@ -251,10 +255,13 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate, GIDSignInUIDe
         redirectToHome()
     }
     
-    func signIn(signIn: GIDSignIn!, didDisconnectWithUser user:GIDGoogleUser!,
-                withError error: NSError!) {
-        // Perform any operations when the user disconnects from app here.
-        // ...
+    func signIn(signIn: GIDSignIn!, didDisconnectWithUser user:GIDGoogleUser!, withError error: NSError!) {
+        
+        if error != nil {
+            print(error)
+            return
+        }
+        //LoginController.dismissViewControllerAnimated(true, completion: nil)
     }
     
     

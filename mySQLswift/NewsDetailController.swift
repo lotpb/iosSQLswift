@@ -70,7 +70,7 @@ class NewsDetailController: UIViewController, UITextViewDelegate {
             self.newsTextview.editable = true//bug fix
             self.newsTextview.font = Font.News.newssource
             self.newsTextview.editable = false //bug fix
-            playButton.frame = CGRectMake(self.newsImageview.frame.size.width/2-13, self.newsImageview.frame.origin.y+100, 50, 50)
+            playButton.frame = CGRectMake(self.newsImageview.frame.size.width/2-25, self.newsImageview.frame.origin.y+100, 50, 50)
         }
         
         self.newsImageview.userInteractionEnabled = true

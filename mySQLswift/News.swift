@@ -181,8 +181,8 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
         }
         
         if self.imageFile.url!.rangeOfString("movie.mp4") != nil {
+      //if (self.imageFile.url!.containsString("movie.mp4")) {
             
-            //if (self.imageFile.url!.containsString("movie.mp4")) {
             /*
              let imageDetailurl = self.imageFile.url
              let result1 = imageDetailurl!.containsString("movie.mp4")

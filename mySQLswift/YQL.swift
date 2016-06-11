@@ -9,48 +9,42 @@
 import Foundation
 
 struct YQL {
-
+    
+    // Yahoo finance query string
     private static let prefix:NSString = "http://query.yahooapis.com/v1/public/yql?&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&callback=&q="
     
     static func query(statement:String) -> NSDictionary? {
         
+        // update query to contain symbol of stock to search on
         let escapedStatement = statement.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet())
         let query = "\(prefix)\(escapedStatement!)"
         
-        let results:NSDictionary? = nil
+        var results:NSDictionary? = nil
+        var jsonError:NSError? = nil
+        var jsonDataError:NSError? = nil
         
-        if let jsonData = try? NSData(contentsOfURL: NSURL(string: query)!, options:NSDataReadingOptions.DataReadingMappedIfSafe) {
+        let jsonData: NSData?
+        do {
+            jsonData = try NSData(contentsOfURL: NSURL(string: query)!, options: NSDataReadingOptions.DataReadingMappedIfSafe)
+        } catch let error as NSError {
+            jsonError = error
+            jsonData = nil
+        }
+        
+        if jsonData != nil {
             
-            if let jsonResult: AnyObject = try? NSJSONSerialization.JSONObjectWithData(jsonData, options:NSJSONReadingOptions.AllowFragments) {
-                
-                if let results = jsonResult as? NSDictionary {
-                    //print("myDict:\(results)")
-                    
-                    let YQLresults = results
-                        .objectForKey("query")!
-                        .objectForKey("results")!
-                        .objectForKey("channel")!
-                        .objectForKey("item")!
-                        .objectForKey("condition")!
-                    let YQLtext = YQLresults.objectForKey("text") as! String
-                    let YQLtemp = YQLresults.objectForKey("temp")as! String
-                    
-                    print("Todays Weather: \(YQLtext) \(YQLtemp)")
-                    /*
-                    let YQLprice = results
-                        .objectForKey("query")!
-                        .objectForKey("results")!
-                        .objectForKey("quote")!
-                    let YQLlast = YQLprice.objectForKey("LastTradePriceOnly") as! String
-                    let YQLchange = YQLprice.objectForKey("Change") as! String
-                    
-                    print("Todays stocks: \(YQLlast) \(YQLchange)") */
-                    
-                }
+            do {
+                results = try NSJSONSerialization.JSONObjectWithData(jsonData!, options: NSJSONReadingOptions.AllowFragments) as? NSDictionary
             }
-        } else {
-            print("JSON Error")
+            catch let error as NSError {
+                results = nil
+                jsonDataError = error
+            }
+        }
+        if jsonError != nil || jsonDataError != nil{
+            NSLog( "ERROR while fetching/deserializing YQL data. Message \(jsonError!)" )
         }
         return results
     }
+    
 }
