@@ -17,10 +17,10 @@ import Foundation
     }
 
     enum Color {
-        //static let BlackColor = UIColor.blackColor()
         static let BlueColor = UIColor(red:0.0, green:122.0/255.0, blue:1.0, alpha: 1.0)
         static let DGrayColor = UIColor(white:0.45, alpha:1.0)
         static let MGrayColor = UIColor(white:0.25, alpha:1.0)
+        static let DGreenColor = UIColor(red:0.16, green:0.54, blue:0.13, alpha: 1.0)
         
         enum Blog {
             static let navColor = UIColor.redColor()

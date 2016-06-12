@@ -13,7 +13,7 @@ class StatisticController: UIViewController, UITableViewDelegate, UITableViewDat
     
     @IBOutlet weak var scrollWall: UIScrollView!
     @IBOutlet weak var tableView: UITableView!
-    var photoImage: UIImageView!
+    //var photoImage: UIImageView!
     var label1 : UILabel!
     var label2 : UILabel!
     var myLabel3 : UILabel!
@@ -40,20 +40,28 @@ class StatisticController: UIViewController, UITableViewDelegate, UITableViewDat
     var _feedCustYear : NSMutableArray = NSMutableArray()
     var _feedTESTItems : NSMutableArray = NSMutableArray()
     
-    var symYQL : NSMutableArray = NSMutableArray()
-    var fieldYQL : NSMutableArray = NSMutableArray()
-    var changeYQL : NSMutableArray = NSMutableArray()
-    var dayYQL : NSMutableArray = NSMutableArray()
-    var textYQL : NSMutableArray = NSMutableArray()
-    var humidityYQL : NSMutableArray = NSMutableArray()
-
-    var dict = NSDictionary()
-    var w1results = NSDictionary()
-    var resultsYQL = NSDictionary()
-    var amount = String()
-    var refreshControl: UIRefreshControl!
-    var myTimer: NSTimer!
+    //var dict = NSDictionary()
+    //var w1results = NSDictionary()
+    //var resultsYQL = NSDictionary()
+    //var amount = String()
     
+    //var timer: NSTimer = NSTimer()
+    
+    var symYQL: NSArray!
+    var tradeYQL: NSArray!
+    var changeYQL: NSArray!
+    
+    var tempYQL: String!
+    var weathYQL: String!
+    var riseYQL: String!
+    var setYQL: String!
+    var humYQL: String!
+    var cityYQL: String!
+    
+    var dayYQL: NSArray!
+    var textYQL: NSArray!
+    
+    var refreshControl: UIRefreshControl!
     var searchController: UISearchController!
     var resultsController: UITableViewController!
     var foundUsers = [String]()
@@ -94,6 +102,8 @@ class StatisticController: UIViewController, UITableViewDelegate, UITableViewDat
         self.refreshControl.addTarget(self, action: #selector(StatisticController.refreshData), forControlEvents: UIControlEvents.ValueChanged)
         self.tableView!.addSubview(refreshControl)
         
+        self.YahooFinanceLoad()
+        
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -101,11 +111,15 @@ class StatisticController: UIViewController, UITableViewDelegate, UITableViewDat
         //navigationController?.hidesBarsOnSwipe = true
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.barTintColor = Color.Stat.navColor
+        
+        //timer = NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: nil, userInfo: nil, repeats: true)
+      
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         //navigationController?.hidesBarsOnSwipe = false
+        //timer.invalidate()
     }
     
     override func didReceiveMemoryWarning() {
@@ -116,6 +130,7 @@ class StatisticController: UIViewController, UITableViewDelegate, UITableViewDat
     // MARK: - Refresh
     
     func refreshData(sender:AnyObject) {
+        self.YahooFinanceLoad()
         self.tableView!.reloadData()
         self.refreshControl?.endRefreshing()
     }
@@ -163,188 +178,189 @@ class StatisticController: UIViewController, UITableViewDelegate, UITableViewDat
         cell.selectionStyle = UITableViewCellSelectionStyle.None
         cell.accessoryType = UITableViewCellAccessoryType.None
         
-        label1 = UILabel(frame: CGRectMake(tableView.frame.size.width-155, 8, 77, 17))
-        //label1.backgroundColor = UIColor.whiteColor()
+        label1 = UILabel(frame: CGRectMake(tableView.frame.size.width-155, 8, 77, 27))
         label1.textColor = UIColor.blackColor()
         label1.textAlignment = NSTextAlignment.Right
         
-        label2 = UILabel(frame: CGRectMake(tableView.frame.size.width-70, 8, 55, 17))
-        //label2.backgroundColor = UIColor.whiteColor()
-        label2.textColor = UIColor.blackColor()
+        label2 = UILabel(frame: CGRectMake(tableView.frame.size.width-70, 8, 55, 27))
+        label2.textColor = UIColor.whiteColor()
         label2.textAlignment = NSTextAlignment.Right
         
         if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
-            
-            label1.font = Font.headtitle
-            label2.font = Font.headtitle
+            cell.textLabel!.font = Font.Edittitle
+            cell.detailTextLabel!.font = Font.celllabel1
+            label1.font = Font.celllabel1
+            label2.font = Font.celllike
         } else {
-            
-            label1.font = Font.headtitle
-            label2.font = Font.headtitle
+            cell.textLabel!.font = Font.Edittitle
+            cell.detailTextLabel!.font = Font.celllabel1
+            label1.font = Font.celllabel1
+            label2.font = Font.celllike
         }
+        
+        cell.textLabel!.textColor = UIColor.blackColor()
+        cell.detailTextLabel!.textColor = UIColor.blackColor()
+
         
         if (indexPath.section == 0) {
             
             if (indexPath.row == 0) {
-                /*
-                if ((changeYQL.objectAtIndex(0) containsString("-")) || (changeYQL.objectAtIndex(0) == nil )) {
+                
+                if (changeYQL[0].containsString("-")) {
                     label2.backgroundColor = UIColor.redColor()
                 } else {
-                    label2.backgroundColor = UIColor.greenColor()
+                    label2.backgroundColor = Color.DGreenColor
                 }
+                cell.textLabel!.text = "\(symYQL[0])"
+                label2.text = changeYQL[0] as? String
+                label1.text = tradeYQL[0] as? String
                 
-                cell.textLabel!.text = symYQL.objectAtIndex(0)
-                label2.text = changeYQL.objectAtIndex(0)
-                label1.text = fieldYQL.objectAtIndex(0) */
                 cell.contentView.addSubview(label1)
                 cell.contentView.addSubview(label2)
                 
                 return cell
                 
             } else if (indexPath.row == 1) {
-                /*
-                if ((changeYQL.objectAtIndex(0) containsString("-")) || (changeYQL.objectAtIndex(0) == nil )) {
-                label2.backgroundColor = UIColor.redColor()
-                } else {
-                label2.backgroundColor = UIColor.greenColor()
-                }
                 
-                cell.textLabel!.text = symYQL.objectAtIndex(0)
-                label2.text = changeYQL.objectAtIndex(0)
-                label1.text = fieldYQL.objectAtIndex(0) */
+                if (changeYQL[1].containsString("-")) {
+                    label2.backgroundColor = UIColor.redColor()
+                } else {
+                    label2.backgroundColor = Color.DGreenColor
+                }
+                cell.textLabel!.text = "\(symYQL[1])"
+                label2.text = changeYQL[1] as? String
+                label1.text = tradeYQL[1] as? String
+                
                 cell.contentView.addSubview(label1)
                 cell.contentView.addSubview(label2)
-                
                 
                 return cell
                 
             } else if (indexPath.row == 2) {
-                /*
-                if ((changeYQL.objectAtIndex(0) containsString("-")) || (changeYQL.objectAtIndex(0) == nil )) {
-                label2.backgroundColor = UIColor.redColor()
-                } else {
-                label2.backgroundColor = UIColor.greenColor()
-                }
                 
-                cell.textLabel!.text = symYQL.objectAtIndex(0)
-                label2.text = changeYQL.objectAtIndex(0)
-                label1.text = fieldYQL.objectAtIndex(0) */
+                if (changeYQL[2].containsString("-")) {
+                    label2.backgroundColor = UIColor.redColor()
+                } else {
+                    label2.backgroundColor = Color.DGreenColor
+                }
+                cell.textLabel!.text = "\(symYQL[2])"
+                label2.text = changeYQL[2] as? String
+                label1.text = tradeYQL[2] as? String
+                
                 cell.contentView.addSubview(label1)
                 cell.contentView.addSubview(label2)
-                
                 
                 return cell
                 
             } else if (indexPath.row == 3) {
-                /*
-                if ((changeYQL.objectAtIndex(0) containsString("-")) || (changeYQL.objectAtIndex(0) == nil )) {
-                label2.backgroundColor = UIColor.redColor()
-                } else {
-                label2.backgroundColor = UIColor.greenColor()
-                }
                 
-                cell.textLabel!.text = symYQL.objectAtIndex(0)
-                label2.text = changeYQL.objectAtIndex(0)
-                label1.text = fieldYQL.objectAtIndex(0) */
+                if (changeYQL[3].containsString("-")) {
+                    label2.backgroundColor = UIColor.redColor()
+                } else {
+                    label2.backgroundColor = Color.DGreenColor
+                }
+                cell.textLabel!.text = "\(symYQL[3])"
+                label2.text = changeYQL[3] as? String
+                label1.text = tradeYQL[3] as? String
+                
                 cell.contentView.addSubview(label1)
                 cell.contentView.addSubview(label2)
                 
-                
                 return cell
+                
             } else if (indexPath.row == 4) {
-                /*
-                if ((changeYQL.objectAtIndex(0) containsString("-")) || (changeYQL.objectAtIndex(0) == nil )) {
-                label2.backgroundColor = UIColor.redColor()
-                } else {
-                label2.backgroundColor = UIColor.greenColor()
-                }
                 
-                cell.textLabel!.text = symYQL.objectAtIndex(0)
-                label2.text = changeYQL.objectAtIndex(0)
-                label1.text = fieldYQL.objectAtIndex(0) */
+                if (changeYQL[4].containsString("-")) {
+                    label2.backgroundColor = UIColor.redColor()
+                } else {
+                    label2.backgroundColor = Color.DGreenColor
+                }
+                cell.textLabel!.text = "\(symYQL[4])"
+                label2.text = changeYQL[4] as? String
+                label1.text = tradeYQL[4] as? String
+                
                 cell.contentView.addSubview(label1)
                 cell.contentView.addSubview(label2)
                 
-                
                 return cell
+                
             } else if (indexPath.row == 5) {
-                /*
-                if ((changeYQL.objectAtIndex(0) containsString("-")) || (changeYQL.objectAtIndex(0) == nil )) {
-                label2.backgroundColor = UIColor.redColor()
-                } else {
-                label2.backgroundColor = UIColor.greenColor()
-                }
                 
-                cell.textLabel!.text = symYQL.objectAtIndex(0)
-                label2.text = changeYQL.objectAtIndex(0)
-                label1.text = fieldYQL.objectAtIndex(0) */
+                if (changeYQL[5].containsString("-")) {
+                    label2.backgroundColor = UIColor.redColor()
+                } else {
+                    label2.backgroundColor = Color.DGreenColor
+                }
+                cell.textLabel!.text = "\(symYQL[5])"
+                label2.text = changeYQL[5] as? String
+                label1.text = tradeYQL[5] as? String
+                
                 cell.contentView.addSubview(label1)
                 cell.contentView.addSubview(label2)
                 
-                
                 return cell
+                
             } else if (indexPath.row == 6) {
-                /*
-                if ((changeYQL.objectAtIndex(0) containsString("-")) || (changeYQL.objectAtIndex(0) == nil )) {
-                label2.backgroundColor = UIColor.redColor()
-                } else {
-                label2.backgroundColor = UIColor.greenColor()
-                }
                 
-                cell.textLabel!.text = symYQL.objectAtIndex(0)
-                label2.text = changeYQL.objectAtIndex(0)
-                label1.text = fieldYQL.objectAtIndex(0) */
+                if (changeYQL[6].containsString("-")) {
+                    label2.backgroundColor = UIColor.redColor()
+                } else {
+                    label2.backgroundColor = Color.DGreenColor
+                }
+                cell.textLabel!.text = "\(symYQL[6])"
+                label2.text = changeYQL[6] as? String
+                label1.text = tradeYQL[6] as? String
+                
                 cell.contentView.addSubview(label1)
                 cell.contentView.addSubview(label2)
                 
-                
                 return cell
+                
             } else if (indexPath.row == 7) {
-                /*
-                if ((changeYQL.objectAtIndex(0) containsString("-")) || (changeYQL.objectAtIndex(0) == nil )) {
-                label2.backgroundColor = UIColor.redColor()
-                } else {
-                label2.backgroundColor = UIColor.greenColor()
-                }
                 
-                cell.textLabel!.text = symYQL.objectAtIndex(0)
-                label2.text = changeYQL.objectAtIndex(0)
-                label1.text = fieldYQL.objectAtIndex(0) */
+                if (changeYQL[7].containsString("-")) {
+                    label2.backgroundColor = UIColor.redColor()
+                } else {
+                    label2.backgroundColor = Color.DGreenColor
+                }
+                cell.textLabel!.text = "\(symYQL[7])"
+                label2.text = changeYQL[7] as? String
+                label1.text = tradeYQL[7] as? String
+                
                 cell.contentView.addSubview(label1)
                 cell.contentView.addSubview(label2)
                 
-                
                 return cell
+                
             } else if (indexPath.row == 8) {
-                /*
-                if ((changeYQL.objectAtIndex(0) containsString("-")) || (changeYQL.objectAtIndex(0) == nil )) {
-                label2.backgroundColor = UIColor.redColor()
-                } else {
-                label2.backgroundColor = UIColor.greenColor()
-                }
                 
-                cell.textLabel!.text = symYQL.objectAtIndex(0)
-                label2.text = changeYQL.objectAtIndex(0)
-                label1.text = fieldYQL.objectAtIndex(0) */
+                if (changeYQL[8].containsString("-")) {
+                    label2.backgroundColor = UIColor.redColor()
+                } else {
+                    label2.backgroundColor = Color.DGreenColor
+                }
+                cell.textLabel!.text = "\(symYQL[8])"
+                label2.text = changeYQL[8] as? String
+                label1.text = tradeYQL[8] as? String
+                
                 cell.contentView.addSubview(label1)
                 cell.contentView.addSubview(label2)
-                
                 
                 return cell
-            } else if (indexPath.row == 9) {
-                /*
-                if ((changeYQL.objectAtIndex(0) containsString("-")) || (changeYQL.objectAtIndex(0) == nil )) {
-                label2.backgroundColor = UIColor.redColor()
-                } else {
-                label2.backgroundColor = UIColor.greenColor()
-                }
                 
-                cell.textLabel!.text = symYQL.objectAtIndex(0)
-                label2.text = changeYQL.objectAtIndex(0)
-                label1.text = fieldYQL.objectAtIndex(0) */
+            } else if (indexPath.row == 9) {
+                
+                if (changeYQL[9].containsString("-")) {
+                    label2.backgroundColor = UIColor.redColor()
+                } else {
+                    label2.backgroundColor = Color.DGreenColor
+                }
+                cell.textLabel!.text = "\(symYQL[9])"
+                label2.text = changeYQL[9] as? String
+                label1.text = tradeYQL[9] as? String
+                
                 cell.contentView.addSubview(label1)
                 cell.contentView.addSubview(label2)
-                
                 
                 return cell
             }
@@ -353,40 +369,40 @@ class StatisticController: UIViewController, UITableViewDelegate, UITableViewDat
             if (indexPath.row == 0) {
                 
                 cell.textLabel!.text = "Todays Temperature"
-              //cell.detailTextLabel!.text = w1results valueForKeyPath:"query.results.channel.item.condition"] objectForKey:"temp"
+                cell.detailTextLabel!.text = "\(tempYQL)" //w1results valueForKeyPath:"query.results.channel.item.condition"] objectForKey:"temp"
                 
                 return cell
                 
             } else if (indexPath.row == 1) {
                 
                 cell.textLabel!.text = "Todays Weather"
-                //cell.detailTextLabel!.text = w1results valueForKeyPath:"query.results.channel.item.condition"] objectForKey:"temp"
+                cell.detailTextLabel!.text = "\(weathYQL)" //w1results valueForKeyPath:"query.results.channel.item.condition"] objectForKey:"temp"
                 
                 return cell
                 
             } else if (indexPath.row == 2) {
                 
                 cell.textLabel!.text = "Sunrise"
-                //cell.detailTextLabel!.text = w1results valueForKeyPath:"query.results.channel.item.condition"] objectForKey:"temp"
+                cell.detailTextLabel!.text = "\(riseYQL)" //w1results valueForKeyPath:"query.results.channel.item.condition"] objectForKey:"temp"
                 
                 return cell
                 
             } else if (indexPath.row == 3) {
                 
                 cell.textLabel!.text = "Sunset"
-                //cell.detailTextLabel!.text = w1results valueForKeyPath:"query.results.channel.item.condition"] objectForKey:"temp"
+                cell.detailTextLabel!.text = "\(setYQL)" //w1results valueForKeyPath:"query.results.channel.item.condition"] objectForKey:"temp"
                 
                 return cell
             } else if (indexPath.row == 4) {
                 
                 cell.textLabel!.text = "Humidity"
-                //cell.detailTextLabel!.text = w1results valueForKeyPath:"query.results.channel.item.condition"] objectForKey:"temp"
+                cell.detailTextLabel!.text = "\(humYQL)" //w1results valueForKeyPath:"query.results.channel.item.condition"] objectForKey:"temp"
                 
                 return cell
             } else if (indexPath.row == 5) {
                 
                 cell.textLabel!.text = "City"
-                //cell.detailTextLabel!.text = w1results valueForKeyPath:"query.results.channel.item.condition"] objectForKey:"temp"
+                cell.detailTextLabel!.text = "\(cityYQL)" //w1results valueForKeyPath:"query.results.channel.item.condition"] objectForKey:"temp"
                 
                 return cell
             }
@@ -395,41 +411,41 @@ class StatisticController: UIViewController, UITableViewDelegate, UITableViewDat
             
             if (indexPath.row == 0) {
                 
-              //cell.textLabel!.text = dayYQL.objectAtIndex(0)
-              //cell.detailTextLabel!.text = w1results valueForKeyPath:"query.results.channel.item.condition"] objectForKey:"temp"
+                cell.textLabel!.text = "\(dayYQL[0])"
+                cell.detailTextLabel!.text = "\(textYQL[0])"
                 
                 return cell
                 
             } else if (indexPath.row == 1) {
                 
-                //cell.textLabel!.text = dayYQL.objectAtIndex(0)
-                //cell.detailTextLabel!.text = w1results valueForKeyPath:"query.results.channel.item.condition"] objectForKey:"temp"
+                cell.textLabel!.text = "\(dayYQL[1])"
+                cell.detailTextLabel!.text = "\(textYQL[1])"
                 
                 return cell
                 
             } else if (indexPath.row == 2) {
                 
-                //cell.textLabel!.text = dayYQL.objectAtIndex(0)
-                //cell.detailTextLabel!.text = w1results valueForKeyPath:"query.results.channel.item.condition"] objectForKey:"temp"
+                cell.textLabel!.text = "\(dayYQL[2])"
+                cell.detailTextLabel!.text = "\(textYQL[2])"
                 
                 return cell
                 
             } else if (indexPath.row == 3) {
                 
-                //cell.textLabel!.text = dayYQL.objectAtIndex(0)
-                //cell.detailTextLabel!.text = w1results valueForKeyPath:"query.results.channel.item.condition"] objectForKey:"temp"
+                cell.textLabel!.text = "\(dayYQL[3])"
+                cell.detailTextLabel!.text = "\(textYQL[3])"
                 
                 return cell
             } else if (indexPath.row == 4) {
                 
-                //cell.textLabel!.text = dayYQL.objectAtIndex(0)
-                //cell.detailTextLabel!.text = w1results valueForKeyPath:"query.results.channel.item.condition"] objectForKey:"temp"
+                cell.textLabel!.text = "\(dayYQL[4])"
+                cell.detailTextLabel!.text = "\(textYQL[4])"
                 
                 return cell
             } else if (indexPath.row == 5) {
                 
-                cell.textLabel!.text = "Last Update"
-                //cell.detailTextLabel!.text = w1results valueForKeyPath:"query.results.channel.item.condition"] objectForKey:"temp"
+                cell.textLabel!.text = "\(dayYQL[5])"
+                cell.detailTextLabel!.text = "\(textYQL[5])"
                 
                 return cell
             }
@@ -548,7 +564,7 @@ class StatisticController: UIViewController, UITableViewDelegate, UITableViewDat
         return cell
     }
     
-     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         
         if (section == 0) {
             return 175
@@ -572,19 +588,19 @@ class StatisticController: UIViewController, UITableViewDelegate, UITableViewDat
             vw.backgroundColor = Color.Stat.navColor
             //tableView.tableHeaderView = vw
             /*
-            photoImage = UIImageView(frame:CGRectMake(0, 0, vw.frame.size.width, 175))
-            photoImage!.image = UIImage(named:"IMG_1133New.jpg")
-            photoImage!.clipsToBounds = true
-            photoImage!.contentMode = UIViewContentMode.ScaleAspectFill
-            vw.addSubview(photoImage!)
-            
-            let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Dark))
-            visualEffectView.frame = photoImage.bounds
-            photoImage.addSubview(visualEffectView) */
+             photoImage = UIImageView(frame:CGRectMake(0, 0, vw.frame.size.width, 175))
+             photoImage!.image = UIImage(named:"IMG_1133New.jpg")
+             photoImage!.clipsToBounds = true
+             photoImage!.contentMode = UIViewContentMode.ScaleAspectFill
+             vw.addSubview(photoImage!)
+             
+             let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Dark))
+             visualEffectView.frame = photoImage.bounds
+             photoImage.addSubview(visualEffectView) */
             
             segmentedControl = UISegmentedControl (items: ["WEEKLY", "MONTHLY", "YEARLY"])
             segmentedControl.frame = CGRectMake(tableView.frame.size.width/2-125, 45, 250, 30)
-            segmentedControl.backgroundColor = UIColor.brownColor()
+            segmentedControl.backgroundColor = UIColor.redColor()
             segmentedControl.tintColor = UIColor.whiteColor()
             segmentedControl.selectedSegmentIndex = 1
             segmentedControl.addTarget(self, action: #selector(StatisticController.segmentedControlAction), forControlEvents: .ValueChanged)
@@ -663,12 +679,47 @@ class StatisticController: UIViewController, UITableViewDelegate, UITableViewDat
     
     func updateSearchResultsForSearchController(searchController: UISearchController) {
         /*
-        self.foundUsers.removeAll(keepCapacity: false)
-        let searchPredicate = NSPredicate(format: "SELF CONTAINS[c] %@", searchController.searchBar.text!)
-        let array = (self._feedItems as NSArray).filteredArrayUsingPredicate(searchPredicate)
-        self.foundUsers = array as! [String]
-        self.resultsController.tableView.reloadData() */
+         self.foundUsers.removeAll(keepCapacity: false)
+         let searchPredicate = NSPredicate(format: "SELF CONTAINS[c] %@", searchController.searchBar.text!)
+         let array = (self._feedItems as NSArray).filteredArrayUsingPredicate(searchPredicate)
+         self.foundUsers = array as! [String]
+         self.resultsController.tableView.reloadData() */
     }
-
+    
+    
+    // MARK: - YahooFinance
+    
+    func YahooFinanceLoad() {
+        
+        let results = YQL.query("select * from weather.forecast where woeid=2446726")
+        let queryResults = results?.valueForKeyPath("query.results.channel") as! NSDictionary?
+        if queryResults != nil {
+            
+            let arr = queryResults!.valueForKeyPath("item.condition") as? NSDictionary
+            tempYQL = arr!.valueForKey("temp") as? String
+            weathYQL = arr!.valueForKey("text") as? String
+            let arr1 = queryResults!.valueForKeyPath("astronomy") as? NSDictionary
+            riseYQL = arr1!.valueForKey("sunrise") as? String
+            setYQL = arr1!.valueForKey("sunset") as? String
+            let arr2 = queryResults!.valueForKeyPath("atmosphere") as? NSDictionary
+            humYQL = arr2!.valueForKey("humidity") as? String
+            let arr3 = queryResults!.valueForKeyPath("location") as? NSDictionary
+            cityYQL = arr3!.valueForKey("city") as? String
+            
+            //5 day Forcast
+            dayYQL = queryResults!.valueForKeyPath("item.forecast.day") as? NSArray
+            textYQL = queryResults!.valueForKeyPath("item.forecast.text") as? NSArray
+        }
+        
+        let stockresults = YQL.query("select * from yahoo.finance.quote where symbol in (\"^IXIC\",\"SPY\",\"UUP\",\"VCSY\",\"GPRO\",\"VXX\",\"UPLMQ\",\"UGAZ\",\"XLE\",\"^XOI\")")
+        let querystockResults = stockresults?.valueForKeyPath("query.results") as! NSDictionary?
+        if querystockResults != nil {
+            
+            symYQL = querystockResults!.valueForKeyPath("quote.symbol") as? NSArray
+            tradeYQL = querystockResults!.valueForKeyPath("quote.LastTradePriceOnly") as? NSArray
+            changeYQL = querystockResults!.valueForKeyPath("quote.Change") as? NSArray
+        }
+    }
+    
     
 }

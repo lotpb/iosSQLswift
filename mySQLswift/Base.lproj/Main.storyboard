@@ -4169,7 +4169,7 @@
                                                     <constraint firstAttribute="height" constant="1350" id="Dqx-Bz-faE"/>
                                                 </constraints>
                                                 <prototypes>
-                                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Cell" textLabel="aSx-3l-ITf" detailTextLabel="4T2-Mb-VQc" style="IBUITableViewCellStyleValue1" id="sCf-q7-s5J">
+                                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Cell" textLabel="aSx-3l-ITf" detailTextLabel="6dh-TB-nzD" style="IBUITableViewCellStyleValue1" id="sCf-q7-s5J">
                                                         <rect key="frame" x="0.0" y="22" width="600" height="44"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sCf-q7-s5J" id="Z3g-Fm-JgR">
@@ -4180,17 +4180,17 @@
                                                                     <rect key="frame" x="15" y="12" width="32" height="20"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                                     <nil key="highlightedColor"/>
                                                                     <variation key="widthClass=compact">
                                                                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                                                     </variation>
                                                                 </label>
-                                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4T2-Mb-VQc">
+                                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6dh-TB-nzD">
                                                                     <rect key="frame" x="523" y="12" width="42" height="20"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                                    <color key="textColor" red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <color key="textColor" red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                             </subviews>
@@ -5141,16 +5141,16 @@
         <image name="profile-rabbit-toy.png" width="300" height="300"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="K9X-H5-ULE"/>
         <segue reference="3cH-G6-11A"/>
         <segue reference="8pp-z3-NBJ"/>
+        <segue reference="44k-b4-h7F"/>
         <segue reference="hB9-3O-AVy"/>
         <segue reference="nhd-UC-dO1"/>
-        <segue reference="VDX-fG-ZvN"/>
         <segue reference="T0a-J2-ljk"/>
         <segue reference="pJK-KM-WG6"/>
         <segue reference="d0x-gt-xcU"/>
-        <segue reference="ldc-8w-WDy"/>
         <segue reference="CFI-Wk-DHq"/>
+        <segue reference="K9X-H5-ULE"/>
+        <segue reference="VDX-fG-ZvN"/>
     </inferredMetricsTieBreakers>
 </document>

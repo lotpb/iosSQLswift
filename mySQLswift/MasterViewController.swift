@@ -336,7 +336,7 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         let myLabel4:UILabel = UILabel(frame: CGRectMake(10, 100, 280, 20))
         myLabel4.text = String(format: "%@ %@ %@", "Today's Weather:", "\(tempYQL)°", "\(textYQL)")
         myLabel4.font = Font.headtitle
-        if (textYQL.containsString("Rain") || textYQL.containsString("Snow") ) {
+        if (textYQL.containsString("Rain") || textYQL.containsString("Snow") || textYQL.containsString("Showers")) {
             myLabel4.textColor = UIColor.redColor()
         } else {
             myLabel4.textColor = UIColor.greenColor()
