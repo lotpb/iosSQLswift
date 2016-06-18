@@ -18,7 +18,7 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
 
   //var detailViewController: DetailViewController? = nil
     
-    var menuItems:NSMutableArray = ["Snapshot","Leads","Customers","Vendors","Employee","Advertising","Product","Job","Salesman","Show Detail","Music","YouTube","Spot Beacon","Transmit Beacon","Contacts"]
+    var menuItems:NSMutableArray = ["Snapshot","Statistics","Leads","Customers","Vendors","Employee","Advertising","Product","Job","Salesman","Show Detail","Music","YouTube","Spot Beacon","Transmit Beacon","Contacts"]
     var currentItem = "Snapshot"
     
     var player : AVAudioPlayer! = nil
@@ -26,18 +26,17 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
     var objects = [AnyObject]()
     
     var searchController: UISearchController!
-
     var resultsController: UITableViewController!
     var foundUsers = [String]()
     
     let defaults = NSUserDefaults.standardUserDefaults()
+    
+    var symYQL: NSArray!
+    var tradeYQL: NSArray!
+    var changeYQL: NSArray!
 
     var tempYQL: String!
     var textYQL: String!
-    var tradeYQL: String!
-    var trade1YQL: String!
-    var changeYQL: String!
-    var change1YQL: String!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,7 +64,6 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         
         
         // MARK: - SplitView
-        
         /*
         if let split = self.splitViewController {
             let controllers = split.viewControllers
@@ -104,45 +102,56 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
             print("Keychain failed")
         }
         
-        
         //Parse
         
         PFUser.logInWithUsernameInBackground(userId, password:userpassword) { (user, error) -> Void in
         }
         
-        // MARK: - YQL
-        
-        self.updateYahoo()
-        
-        self.versionCheck()
-    
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl!.backgroundColor = Color.Lead.navColor
+        self.refreshControl!.tintColor = UIColor.whiteColor()
+        let attributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
+        self.refreshControl!.attributedTitle = NSAttributedString(string: "Pull to refresh", attributes: attributes)
+        self.refreshControl?.addTarget(self, action: #selector(MasterViewController.refreshData), forControlEvents: UIControlEvents.ValueChanged)
+        self.tableView!.addSubview(refreshControl!)
+
     }
 
     override func viewWillAppear(animated: Bool) {
-        //self.clearsSelectionOnViewWillAppear = self.splitViewController!.collapsed
+      //self.clearsSelectionOnViewWillAppear = self.splitViewController!.collapsed
         super.viewWillAppear(animated)
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.barTintColor = UIColor.blackColor()
+        // refreshYQL
+        self.refreshData()
         
+        //Firebase Crap
+        /*
         let name = "Pattern~\(title!)",
         text = "I'd love you to hear about\(name)"
         // [START custom_event_swift]
         FIRAnalytics.logEventWithName("share_image", parameters: [
             "name": name,
             "full_text": text
-            ])
+            ]) */
     }
     
     override class func initialize() {
-        var onceToken: dispatch_once_t = 0
-        dispatch_once(&onceToken) {
-            //versionCheck()
+        var token: dispatch_once_t = 0
+        dispatch_once(&token) { () -> Void in
+            //self.versionCheck()
         }
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func refreshData() {
+        self.updateYahoo()
+        self.tableView!.reloadData()
+        self.refreshControl?.endRefreshing()
     }
     
     
@@ -263,7 +272,6 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
     override func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         
         let vw = UIView()
-        //vw.backgroundColor = UIColor(red: 0.02, green: 0.36, blue: 0.53, alpha: 1.0)
         tableView.tableHeaderView = vw
         
         photoImage = UIImageView(frame:CGRectMake(0, 0, tableView.tableHeaderView!.frame.size.width, 135))
@@ -288,7 +296,7 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         myLabel1.userInteractionEnabled = true
         vw.addSubview(myLabel1)
         
-        let separatorLineView1 = UIView(frame: CGRectMake(10, 85, 60, 3.5))
+        let separatorLineView1 = UIView(frame: CGRectMake(10, 95, 60, 3.5))
         separatorLineView1.backgroundColor = UIColor.greenColor()
         vw.addSubview(separatorLineView1)
         
@@ -298,17 +306,27 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         myLabel2.textColor = UIColor.blackColor()
         myLabel2.textAlignment = NSTextAlignment.Center
         myLabel2.layer.masksToBounds = true
-        myLabel2.text = "NASDAQ \n \(tradeYQL) \n \(changeYQL)"
+        myLabel2.text = "NASDAQ \n \(tradeYQL[0])"
         myLabel2.font = Font.headtitle
         myLabel2.layer.cornerRadius = 30.0
         myLabel2.userInteractionEnabled = true
         vw.addSubview(myLabel2)
         
-        let separatorLineView2 = UIView(frame: CGRectMake(85, 85, 60, 3.5))
-        if (changeYQL.containsString("-") || changeYQL == nil ) {
+        let myLabel25:UILabel = UILabel(frame: CGRectMake(85, 75, 60, 20))
+        myLabel25.numberOfLines = 1
+        myLabel25.textAlignment = NSTextAlignment.Center
+        //myLabel25.text = String(format: "%d", " \(changeYQL)")
+        myLabel25.text = " \(changeYQL[0])"
+        myLabel25.font = Font.headtitle
+        vw.addSubview(myLabel25)
+        
+        let separatorLineView2 = UIView(frame: CGRectMake(85, 95, 60, 3.5))
+        if (changeYQL[0].containsString("-")) {
             separatorLineView2.backgroundColor = UIColor.redColor()
+            myLabel25.textColor = UIColor.redColor()
         } else {
             separatorLineView2.backgroundColor = UIColor.greenColor()
+            myLabel25.textColor = UIColor.greenColor()
         }
         vw.addSubview(separatorLineView2)
         
@@ -318,24 +336,33 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         myLabel3.textColor = UIColor.blackColor()
         myLabel3.textAlignment = NSTextAlignment.Center
         myLabel3.layer.masksToBounds = true
-        myLabel3.text = "S&P 500 \n \(trade1YQL) \n \(change1YQL)"
-
+        myLabel3.text = "S&P 500 \n \(tradeYQL[1])"
         myLabel3.font = Font.headtitle
         myLabel3.layer.cornerRadius = 30.0
         myLabel3.userInteractionEnabled = true
         vw.addSubview(myLabel3)
         
-        let separatorLineView3 = UIView(frame: CGRectMake(160, 85, 60, 3.5))
-        if (changeYQL.containsString("-") || changeYQL == nil ) {
+        let myLabel35:UILabel = UILabel(frame: CGRectMake(160, 75, 60, 20))
+        myLabel35.numberOfLines = 1
+        myLabel35.textAlignment = NSTextAlignment.Center
+        //myLabel35.text = String(format: "%.02f", "\(change1YQL)")
+        myLabel35.text = " \(changeYQL[1])"
+        myLabel35.font = Font.headtitle
+        vw.addSubview(myLabel35)
+        
+        let separatorLineView3 = UIView(frame: CGRectMake(160, 95, 60, 3.5))
+        if (changeYQL[1].containsString("-")) {
             separatorLineView3.backgroundColor = UIColor.redColor()
+            myLabel35.textColor = UIColor.redColor()
         } else {
             separatorLineView3.backgroundColor = UIColor.greenColor()
+            myLabel35.textColor = UIColor.greenColor()
         }
         vw.addSubview(separatorLineView3)
         
-        let myLabel4:UILabel = UILabel(frame: CGRectMake(10, 100, 280, 20))
-        myLabel4.text = String(format: "%@ %@ %@", "Today's Weather:", "\(tempYQL)°", "\(textYQL)")
-        myLabel4.font = Font.headtitle
+        let myLabel4:UILabel = UILabel(frame: CGRectMake(10, 105, 280, 20))
+        myLabel4.text = String(format: "%@ %@ %@", "Weather:", "\(tempYQL)°", "\(textYQL)")
+        myLabel4.font = Font.Weathertitle
         if (textYQL.containsString("Rain") || textYQL.containsString("Snow") || textYQL.containsString("Showers")) {
             myLabel4.textColor = UIColor.redColor()
         } else {
@@ -434,7 +461,9 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         }
     }
     
-
+    
+    // MARK: - updateYahoo
+    
     func updateYahoo() {
         
         let results = YQL.query("select * from weather.forecast where woeid=2446726")
@@ -450,11 +479,9 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         let querystockResults = stockresults?.valueForKeyPath("query.results") as! NSDictionary?
         if querystockResults != nil {
             
-            let arr = querystockResults!.objectForKey("quote") as! NSArray
-            tradeYQL = arr[0] .valueForKey("LastTradePriceOnly") as? String
-            trade1YQL = arr[1] .valueForKey("LastTradePriceOnly") as? String
-            changeYQL = arr[0] .valueForKey("Change") as? String
-            change1YQL = arr[1] .valueForKey("Change") as? String
+            symYQL = querystockResults!.valueForKeyPath("quote.symbol") as? NSArray
+            tradeYQL = querystockResults!.valueForKeyPath("quote.LastTradePriceOnly") as? NSArray
+            changeYQL = querystockResults!.valueForKeyPath("quote.Change") as? NSArray
         }
     }
 
@@ -474,6 +501,8 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
             
             if (currentItem == "Snapshot") {
                 self.performSegueWithIdentifier("snapshotSegue", sender: self)
+            } else if (currentItem == "Statistics") {
+                self.performSegueWithIdentifier("statisticSegue", sender: self)
             } else if (currentItem == "Leads") {
                 self.performSegueWithIdentifier("showleadSegue", sender: self)
             } else if (currentItem == "Customers") {

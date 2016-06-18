@@ -13,39 +13,17 @@ class StatisticController: UIViewController, UITableViewDelegate, UITableViewDat
     
     @IBOutlet weak var scrollWall: UIScrollView!
     @IBOutlet weak var tableView: UITableView!
-    //var photoImage: UIImageView!
+    
+    var refreshControl: UIRefreshControl!
+    var searchController: UISearchController!
+    var resultsController: UITableViewController!
+    var foundUsers = [String]()
+
     var label1 : UILabel!
     var label2 : UILabel!
     var myLabel3 : UILabel!
     var segmentedControl : UISegmentedControl!
-    
-    var _feedItems : NSMutableArray = NSMutableArray()
-    var _feedheadItems : NSMutableArray = NSMutableArray()
-    var filteredString : NSMutableArray = NSMutableArray()
-    
-    var _statHeaderItems : NSMutableArray = NSMutableArray()
-    var _feedCustItems : NSMutableArray = NSMutableArray()
-    var _feedLeadItems : NSMutableArray = NSMutableArray()
-    
-    var _feedLeadsToday : NSMutableArray = NSMutableArray()
-    var _feedAppToday : NSMutableArray = NSMutableArray()
-    var _feedAppTomorrow : NSMutableArray = NSMutableArray()
-    var _feedLeadActive : NSMutableArray = NSMutableArray()
-    var _feedLeadYear : NSMutableArray = NSMutableArray()
-    
-    var _feedCustToday : NSMutableArray = NSMutableArray()
-    var _feedCustYesterday : NSMutableArray = NSMutableArray()
-    var _feedCustActive : NSMutableArray = NSMutableArray()
-    var _feedWinSold : NSMutableArray = NSMutableArray()
-    var _feedCustYear : NSMutableArray = NSMutableArray()
-    var _feedTESTItems : NSMutableArray = NSMutableArray()
-    
-    //var dict = NSDictionary()
-    //var w1results = NSDictionary()
-    //var resultsYQL = NSDictionary()
-    //var amount = String()
-    
-    //var timer: NSTimer = NSTimer()
+    var mytimer: NSTimer = NSTimer()
     
     var symYQL: NSArray!
     var tradeYQL: NSArray!
@@ -57,14 +35,36 @@ class StatisticController: UIViewController, UITableViewDelegate, UITableViewDat
     var setYQL: String!
     var humYQL: String!
     var cityYQL: String!
+    var updateYQL: String!
     
     var dayYQL: NSArray!
     var textYQL: NSArray!
     
-    var refreshControl: UIRefreshControl!
-    var searchController: UISearchController!
-    var resultsController: UITableViewController!
-    var foundUsers = [String]()
+    var _feedCustItems : NSMutableArray = NSMutableArray()
+    var _feedLeadItems : NSMutableArray = NSMutableArray()
+    //var _statHeaderItems : NSMutableArray = NSMutableArray()
+    
+    //var _feedItems : NSMutableArray = NSMutableArray()
+    //var _feedheadItems : NSMutableArray = NSMutableArray()
+    //var filteredString : NSMutableArray = NSMutableArray()
+    
+    //var _feedLeadsToday : NSMutableArray = NSMutableArray()
+    //var _feedAppToday : NSMutableArray = NSMutableArray()
+    //var _feedAppTomorrow : NSMutableArray = NSMutableArray()
+    //var _feedLeadActive : NSMutableArray = NSMutableArray()
+    //var _feedLeadYear : NSMutableArray = NSMutableArray()
+    
+    //var _feedCustToday : NSMutableArray = NSMutableArray()
+    //var _feedCustYesterday : NSMutableArray = NSMutableArray()
+    //var _feedCustActive : NSMutableArray = NSMutableArray()
+    //var _feedWinSold : NSMutableArray = NSMutableArray()
+    //var _feedCustYear : NSMutableArray = NSMutableArray()
+    //var _feedTESTItems : NSMutableArray = NSMutableArray()
+    
+    //var dict = NSDictionary()
+    //var w1results = NSDictionary()
+    //var resultsYQL = NSDictionary()
+    //var amount = String()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,31 +79,31 @@ class StatisticController: UIViewController, UITableViewDelegate, UITableViewDat
         
         self.tableView!.delegate = self
         self.tableView!.dataSource = self
-        self.tableView!.estimatedRowHeight = 110
+        self.tableView!.estimatedRowHeight = 44
         self.tableView!.rowHeight = UITableViewAutomaticDimension
         self.tableView!.backgroundColor = UIColor(white:0.90, alpha:1.0)
-        self.automaticallyAdjustsScrollViewInsets = false
+        //self.automaticallyAdjustsScrollViewInsets = false
         
-        foundUsers = []
-        resultsController = UITableViewController(style: .Plain)
-        resultsController.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "UserFoundCell")
-        resultsController.tableView.dataSource = self
-        resultsController.tableView.delegate = self
-        
-        let searchButton = UIBarButtonItem(barButtonSystemItem: .Search, target: self, action: Selector())
+        let searchButton = UIBarButtonItem(barButtonSystemItem: .Search, target: self, action: #selector(StatisticController.searchButton))
         let buttons:NSArray = [searchButton]
         self.navigationItem.rightBarButtonItems = buttons as? [UIBarButtonItem]
         
         self.refreshControl = UIRefreshControl()
-        refreshControl.backgroundColor = Color.Stat.navColor
-        refreshControl.tintColor = UIColor.whiteColor()
+        self.refreshControl.backgroundColor = Color.Stat.navColor
+        self.refreshControl.tintColor = UIColor.whiteColor()
         let attributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
         self.refreshControl.attributedTitle = NSAttributedString(string: "Pull to refresh", attributes: attributes)
         self.refreshControl.addTarget(self, action: #selector(StatisticController.refreshData), forControlEvents: UIControlEvents.ValueChanged)
         self.tableView!.addSubview(refreshControl)
         
-        self.YahooFinanceLoad()
+        //self.refreshData()
         
+        /*
+         foundUsers = []
+         resultsController = UITableViewController(style: .Plain)
+         resultsController.tableView.registerClass(UITableViewCell.self, forCellReuseIdentifier: "UserFoundCell")
+         resultsController.tableView.dataSource = self
+         resultsController.tableView.delegate = self */
     }
     
     override func viewWillAppear(animated: Bool) {
@@ -112,14 +112,16 @@ class StatisticController: UIViewController, UITableViewDelegate, UITableViewDat
         self.navigationController?.navigationBar.tintColor = UIColor.whiteColor()
         self.navigationController?.navigationBar.barTintColor = Color.Stat.navColor
         
-        //timer = NSTimer.scheduledTimerWithTimeInterval(0.01, target: self, selector: nil, userInfo: nil, repeats: true)
+        self.refreshData()
+        
+        //self.mytimer = NSTimer.scheduledTimerWithTimeInterval(5, target: self, selector: #selector(refreshData), userInfo: nil, repeats: true)
       
     }
     
     override func viewWillDisappear(animated: Bool) {
         super.viewWillDisappear(animated)
         //navigationController?.hidesBarsOnSwipe = false
-        //timer.invalidate()
+        //self.mytimer.invalidate()
     }
     
     override func didReceiveMemoryWarning() {
@@ -127,9 +129,10 @@ class StatisticController: UIViewController, UITableViewDelegate, UITableViewDat
         // Dispose of any resources that can be recreated.
     }
     
+    
     // MARK: - Refresh
     
-    func refreshData(sender:AnyObject) {
+    func refreshData() {
         self.YahooFinanceLoad()
         self.tableView!.reloadData()
         self.refreshControl?.endRefreshing()
@@ -152,9 +155,9 @@ class StatisticController: UIViewController, UITableViewDelegate, UITableViewDat
         if (section == 0) {
             return 10
         } else if (section == 1) {
-            return 6
+            return 7
         } else if (section == 2) {
-            return 6
+            return 5
         } else if (section == 3) {
             return 8
         } else if (section == 4) {
@@ -175,14 +178,11 @@ class StatisticController: UIViewController, UITableViewDelegate, UITableViewDat
         
         let cell = tableView.dequeueReusableCellWithIdentifier(CellIdentifier)! as UITableViewCell
         
-        cell.selectionStyle = UITableViewCellSelectionStyle.None
-        cell.accessoryType = UITableViewCellAccessoryType.None
-        
-        label1 = UILabel(frame: CGRectMake(tableView.frame.size.width-155, 8, 77, 27))
+        label1 = UILabel(frame: CGRectMake(tableView.frame.size.width-155, 5, 77, 25))
         label1.textColor = UIColor.blackColor()
         label1.textAlignment = NSTextAlignment.Right
         
-        label2 = UILabel(frame: CGRectMake(tableView.frame.size.width-70, 8, 55, 27))
+        label2 = UILabel(frame: CGRectMake(tableView.frame.size.width-70, 5, 60, 25))
         label2.textColor = UIColor.whiteColor()
         label2.textAlignment = NSTextAlignment.Right
         
@@ -192,7 +192,7 @@ class StatisticController: UIViewController, UITableViewDelegate, UITableViewDat
             label1.font = Font.celllabel1
             label2.font = Font.celllike
         } else {
-            cell.textLabel!.font = Font.Edittitle
+            cell.textLabel!.font = Font.celllabel1
             cell.detailTextLabel!.font = Font.celllabel1
             label1.font = Font.celllabel1
             label2.font = Font.celllike
@@ -200,12 +200,13 @@ class StatisticController: UIViewController, UITableViewDelegate, UITableViewDat
         
         cell.textLabel!.textColor = UIColor.blackColor()
         cell.detailTextLabel!.textColor = UIColor.blackColor()
+        cell.selectionStyle = UITableViewCellSelectionStyle.None
+        cell.accessoryType = UITableViewCellAccessoryType.None
 
-        
         if (indexPath.section == 0) {
             
             if (indexPath.row == 0) {
-                
+                //if (changeYQL[0].containsString("-") || changeYQL[0] == nil ) {
                 if (changeYQL[0].containsString("-")) {
                     label2.backgroundColor = UIColor.redColor()
                 } else {
@@ -405,6 +406,12 @@ class StatisticController: UIViewController, UITableViewDelegate, UITableViewDat
                 cell.detailTextLabel!.text = "\(cityYQL)" //w1results valueForKeyPath:"query.results.channel.item.condition"] objectForKey:"temp"
                 
                 return cell
+            } else if (indexPath.row == 6) {
+                
+                cell.textLabel!.text = "Last Update"
+                cell.detailTextLabel!.text = "\(updateYQL)"
+                
+                return cell
             }
             
         } else if (indexPath.section == 2) {
@@ -442,14 +449,7 @@ class StatisticController: UIViewController, UITableViewDelegate, UITableViewDat
                 cell.detailTextLabel!.text = "\(textYQL[4])"
                 
                 return cell
-            } else if (indexPath.row == 5) {
-                
-                cell.textLabel!.text = "\(dayYQL[5])"
-                cell.detailTextLabel!.text = "\(textYQL[5])"
-                
-                return cell
             }
-            
             
         } else if (indexPath.section == 3) {
             
@@ -668,10 +668,10 @@ class StatisticController: UIViewController, UITableViewDelegate, UITableViewDat
         definesPresentationContext = true
         searchController.dimsBackgroundDuringPresentation = true
         searchController.hidesNavigationBarDuringPresentation = true
-        searchController.searchBar.scopeButtonTitles = ["name", "city", "phone", "date", "active"]
+        //searchController.searchBar.scopeButtonTitles = ["name", "city", "phone", "date", "active"]
         //tableView!.tableHeaderView = searchController.searchBar
         tableView.tableFooterView = UIView(frame: .zero)
-        UISearchBar.appearance().barTintColor = UIColor.brownColor()
+        UISearchBar.appearance().barTintColor = Color.Stat.navColor
         
         self.presentViewController(searchController, animated: true, completion: nil)
     }
@@ -705,6 +705,7 @@ class StatisticController: UIViewController, UITableViewDelegate, UITableViewDat
             humYQL = arr2!.valueForKey("humidity") as? String
             let arr3 = queryResults!.valueForKeyPath("location") as? NSDictionary
             cityYQL = arr3!.valueForKey("city") as? String
+            updateYQL = queryResults!.valueForKey("lastBuildDate") as? String
             
             //5 day Forcast
             dayYQL = queryResults!.valueForKeyPath("item.forecast.day") as? NSArray

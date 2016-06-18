@@ -6,7 +6,8 @@
 //  Copyright © 2016 Peter Balsamo. All rights reserved.
 //
 
-import Foundation
+//import Foundation
+import UIKit
 
     enum Config {
         static let NewsLead = "Customer News: Company to expand to a new web advertising directive this week."
@@ -82,9 +83,9 @@ import Foundation
         static let navlabel = UIFont.systemFontOfSize(25, weight: UIFontWeightThin)
         static let headtitle = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
         static let Edittitle = UIFont.systemFontOfSize(20, weight: UIFontWeightLight)
+        static let Weathertitle = UIFont.systemFontOfSize(14, weight: UIFontWeightLight)
         //buttonFontSize,  labelFontSize, systemFontSize
         
-      //static let celltitle = UIFont.systemFontOfSize(20, weight: UIFontWeightRegular)
         static let celltitle = UIFont.preferredFontForTextStyle(UIFontTextStyleSubheadline)
         static let cellsubtitle = UIFont.systemFontOfSize(17, weight: UIFontWeightRegular)
         static let celllabel1 = UIFont.systemFontOfSize(16, weight: UIFontWeightRegular)
@@ -101,7 +102,7 @@ import Foundation
         }
         
         struct News {
-            static let newstitle = UIFont.systemFontOfSize(20, weight: UIFontWeightMedium)
+            static let newstitle = UIFont.systemFontOfSize(20, weight: UIFontWeightRegular)
             static let newssource = UIFont.systemFontOfSize(16, weight: UIFontWeightLight)
             static let newslabel1 = UIFont.systemFontOfSize(16, weight: UIFontWeightBold)
             static let newslabel2 = UIFont.systemFontOfSize(12, weight: UIFontWeightLight)

@@ -44,7 +44,7 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
         titleButton.addTarget(self, action: Selector(), forControlEvents: UIControlEvents.TouchUpInside)
         self.navigationItem.titleView = titleButton
         
-        self.collectionView!.backgroundColor = UIColor(white:0.90, alpha:1.0)
+        self.collectionView!.backgroundColor = UIColor.whiteColor()//UIColor(white:0.90, alpha:1.0)
         
         let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action:#selector(News.newButton))
         let searchButton = UIBarButtonItem(barButtonSystemItem: .Search, target: self, action:#selector(News.searchButton))
@@ -120,7 +120,7 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
             cell.sourceLabel!.font = Font.News.newssource
             cell.numLabel!.font = Font.News.newslabel1
             cell.uploadbyLabel!.font = Font.News.newslabel2
-            playButton.frame = CGRectMake(cell.imageView.frame.size.width/2-25, cell.imageView.frame.origin.y, 50, 50)
+            playButton.frame = CGRectMake(cell.imageView.frame.size.width/2-25, cell.imageView.frame.height/2-25, 50, 50)
             
         } else {
             
@@ -128,7 +128,7 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
             cell.sourceLabel!.font = Font.News.newssource
             cell.numLabel!.font = Font.News.newslabel1
             cell.uploadbyLabel!.font = Font.News.newslabel2
-            playButton.frame = CGRectMake(cell.imageView.frame.size.width/2-25, cell.imageView.frame.origin.y, 50, 50)
+            playButton.frame = CGRectMake(cell.imageView.frame.size.width/2-25, cell.imageView.frame.height/2-25, 50, 50)
             
         }
         
@@ -139,10 +139,33 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
             cell.imageView?.image = UIImage(data: imageData!)
         }
         
+        
         cell.imageView.userInteractionEnabled = true
         cell.imageView!.backgroundColor = UIColor.blackColor()
         cell.imageView!.layer.borderColor = UIColor.lightGrayColor().CGColor
         cell.imageView!.layer.borderWidth = 0.5
+        
+        
+        let query:PFQuery = PFUser.query()!
+        query.whereKey("username",  equalTo:self._feedItems[indexPath.row] .valueForKey("username") as! String)
+        query.cachePolicy = PFCachePolicy.CacheThenNetwork
+        query.getFirstObjectInBackgroundWithBlock {(object: PFObject?, error: NSError?) -> Void in
+            if error == nil {
+                if let imageFile = object!.objectForKey("imageFile") as? PFFile {
+                    imageFile.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError?) -> Void in
+                        cell.profileView?.image = UIImage(data: imageData!)
+                    }
+                }
+            }
+        }
+        
+        cell.profileView?.contentMode = UIViewContentMode.ScaleToFill
+        cell.profileView?.clipsToBounds = true
+        cell.profileView?.layer.cornerRadius = (cell.profileView?.frame.size.width)! / 2
+        cell.profileView?.layer.borderColor = UIColor.lightGrayColor().CGColor
+        cell.profileView?.layer.borderWidth = 0.5
+        cell.profileView?.userInteractionEnabled = true
+        cell.profileView?.tag = indexPath.row
         
         cell.titleLabel?.text = self._feedItems[indexPath.row] .valueForKey("newsTitle") as? String
         
@@ -155,8 +178,9 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
         let dateFormatter = NSDateFormatter()
         dateFormatter.dateFormat = "MMM dd, yyyy"
         let createString = dateFormatter.stringFromDate(updated)
-        let username = self._feedItems[indexPath.row] .valueForKey("username") as? String
-        cell.uploadbyLabel.text = String(format: "%@%@ %@", "Uploaded by:", username!, createString)
+        cell.uploadbyLabel.text = String(format: "%@ %@", "Uploaded", createString)
+        //let username = self._feedItems[indexPath.row] .valueForKey("username") as? String
+        //cell.uploadbyLabel.text = String(format: "%@%@ %@", "Uploaded by:", username!, createString)
         
         cell.actionBtn.tintColor = UIColor.lightGrayColor()
         let imagebutton : UIImage? = UIImage(named:"Upload50.png")!.imageWithRenderingMode(.AlwaysTemplate)
@@ -216,6 +240,14 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
             cell.imageView.addSubview(playButton)
         }
         
+        let width = CGFloat(2.0)
+        let topBorder = CALayer()
+        topBorder.borderColor = UIColor.lightGrayColor().CGColor
+        topBorder.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 0.5)
+        topBorder.borderWidth = width
+        cell.layer.addSublayer(topBorder)
+        cell.layer.masksToBounds = true
+        
         return cell
     }
     
@@ -268,6 +300,16 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
         let indexPath = collectionView!.indexPathForItemAtPoint(point)
         let socialText = self._feedItems[indexPath!.row] .valueForKey("newsTitle") as? String
         
+        let activityViewController = UIActivityViewController (
+            activityItems: [socialText!],
+            applicationActivities: nil)
+        
+        self.presentViewController(activityViewController, animated: true, completion: nil)
+        /*
+        let point : CGPoint = sender.convertPoint(CGPointZero, toView:collectionView)
+        let indexPath = collectionView!.indexPathForItemAtPoint(point)
+        let socialText = self._feedItems[indexPath!.row] .valueForKey("newsTitle") as? String
+        
         imageObject = _feedItems.objectAtIndex(indexPath!.row) as! PFObject
         imageFile = imageObject.objectForKey("imageFile") as? PFFile
         imageFile!.getDataInBackgroundWithBlock { (imageData: NSData?, error: NSError?) -> Void in
@@ -278,7 +320,7 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
                 applicationActivities: nil)
             
             self.presentViewController(activityViewController, animated: true, completion: nil)
-        }
+        } */
     }
     
     // MARK: - Video
