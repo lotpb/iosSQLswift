@@ -1,9 +1,6 @@
 # iosSQLswift
 
 
-http://lotpb.github.io/UnitedWebPage/index.html
-
-
 https://github.com/lotpb/iosSQLswift/blob/master/IMG_0072.jpg
 https://github.com/lotpb/iosSQLswift/blob/master/IMG_0073.jpg
 https://github.com/lotpb/iosSQLswift/blob/master/IMG_0074.jpg
