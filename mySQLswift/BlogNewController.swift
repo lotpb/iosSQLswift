@@ -68,9 +68,9 @@ class BlogNewController: UIViewController, UITextFieldDelegate, UITextViewDelega
             self.subject!.font = Font.Blog.cellsubject
         }
         
-        self.imageBlog!.clipsToBounds = true
+        self.imageBlog!.layer.masksToBounds = true
         self.imageBlog!.layer.cornerRadius = 5
-        self.imageBlog!.contentMode = UIViewContentMode.ScaleToFill
+        self.imageBlog!.contentMode = .ScaleAspectFill
         
         if ((self.formStatus == "New") || (self.formStatus == "Reply")) {
             
@@ -168,7 +168,7 @@ class BlogNewController: UIViewController, UITextFieldDelegate, UITextViewDelega
         if (indexPath.row == 0) {
 
             self.activeImage = UIImageView(frame:CGRectMake(tableView.frame.size.width-35, 10, 18, 22))
-            self.activeImage!.contentMode = .ScaleAspectFit
+            self.activeImage!.contentMode = .ScaleAspectFill
             
             if (self.rating == "5" ) {
                 self.activeImage!.image = UIImage(named:"iosStar.png")

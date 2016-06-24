@@ -48,7 +48,7 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate, GIDSignInUIDe
     
     let userImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = .ScaleAspectFit
+        imageView.contentMode = .ScaleAspectFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.masksToBounds = true
         return imageView
@@ -167,16 +167,16 @@ class LoginController: UIViewController, FBSDKLoginButtonDelegate, GIDSignInUIDe
     @IBAction func returnLogin(sender:AnyObject) {
         
         self.registerBtn!.setTitle("Create an Account", forState: UIControlState.Normal)
-        self.usernameField!.text = defaults.stringForKey("soundKey")
-        self.passwordField!.hidden = false //
-        self.loginBtn!.hidden = false //
-        self.registerBtn!.hidden = false //
-        self.forgotPassword!.hidden = false //
-        self.authentButton!.hidden = false //
-        self.backloginBtn!.hidden = true //
-        self.reEnterPasswordField!.hidden = true //
-        self.emailField!.hidden = true //
-        self.phoneField!.hidden = true //
+        self.usernameField!.text = defaults.stringForKey("usernameKey")
+        self.passwordField!.hidden = false 
+        self.loginBtn!.hidden = false
+        self.registerBtn!.hidden = false
+        self.forgotPassword!.hidden = false
+        self.authentButton!.hidden = false
+        self.backloginBtn!.hidden = true
+        self.reEnterPasswordField!.hidden = true
+        self.emailField!.hidden = true
+        self.phoneField!.hidden = true
         self.fbButton.hidden = false
         self.signInButton.hidden = false
         

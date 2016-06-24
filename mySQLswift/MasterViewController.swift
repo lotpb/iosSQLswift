@@ -276,8 +276,8 @@ class MasterViewController: UITableViewController, UISplitViewControllerDelegate
         
         photoImage = UIImageView(frame:CGRectMake(0, 0, tableView.tableHeaderView!.frame.size.width, 135))
         photoImage!.image = UIImage(named:"IMG_1133New.jpg")
-        photoImage!.clipsToBounds = true
-        photoImage!.contentMode = UIViewContentMode.ScaleAspectFill
+        photoImage!.layer.masksToBounds = true
+        photoImage!.contentMode = .ScaleAspectFill
         vw.addSubview(photoImage!)
         
         let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Dark))

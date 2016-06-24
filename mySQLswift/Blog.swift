@@ -46,9 +46,12 @@ class Blog: UIViewController, UITableViewDelegate, UITableViewDataSource {
         self.tableView!.estimatedRowHeight = 110
         self.tableView!.rowHeight = UITableViewAutomaticDimension
         self.tableView!.backgroundColor =  UIColor(white:0.90, alpha:1.0)
-        //self.tableView!.contentInset = UIEdgeInsetsMake(64.0, 0.0, 0.0, 0.0)
 
         //self.navigationItem.leftBarButtonItem = self.editButtonItem()
+        
+        // get rid of black bar underneath navbar
+        UINavigationBar.appearance().shadowImage = UIImage()
+        UINavigationBar.appearance().setBackgroundImage(UIImage(), forBarMetrics: .Default)
         
         let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action:#selector(Blog.newButton))
         let searchButton = UIBarButtonItem(barButtonSystemItem: .Search, target: self, action:#selector(Blog.searchButton))
@@ -157,12 +160,12 @@ class Blog: UIViewController, UITableViewDelegate, UITableViewDataSource {
             }
         } 
         
-        cell.blogImageView?.contentMode = UIViewContentMode.ScaleToFill
-        cell.blogImageView?.clipsToBounds = true
         cell.blogImageView?.layer.cornerRadius = (cell.blogImageView?.frame.size.width)! / 2
         cell.blogImageView?.layer.borderColor = UIColor.lightGrayColor().CGColor
         cell.blogImageView?.layer.borderWidth = 0.5
+        cell.blogImageView?.layer.masksToBounds = true
         cell.blogImageView?.userInteractionEnabled = true
+        cell.blogImageView?.contentMode = .ScaleAspectFill
         cell.blogImageView?.tag = indexPath.row
         
         let tap = UITapGestureRecognizer(target: self, action:#selector(Blog.imgLoadSegue))
@@ -214,7 +217,7 @@ class Blog: UIViewController, UITableViewDelegate, UITableViewDataSource {
         cell.flagButton .addTarget(self, action: #selector(Blog.flagButton), forControlEvents: UIControlEvents.TouchUpInside)
   
         cell.actionBtn.tintColor = UIColor.lightGrayColor()
-        let actionimage : UIImage? = UIImage(named:"Upload50.png")!.imageWithRenderingMode(.AlwaysTemplate)
+        let actionimage : UIImage? = UIImage(named:"nav_more_icon.png")!.imageWithRenderingMode(.AlwaysTemplate)
         cell.actionBtn .setImage(actionimage, forState: .Normal)
         cell.actionBtn .addTarget(self, action: #selector(Blog.showShare), forControlEvents: UIControlEvents.TouchUpInside)
         

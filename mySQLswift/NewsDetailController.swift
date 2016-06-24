@@ -63,52 +63,58 @@ class NewsDetailController: UIViewController, UITextViewDelegate {
             self.newsTextview.editable = true //bug fix
             self.newsTextview.font = ipadtextview
             self.newsTextview.editable = false //bug fix
-            playButton.frame = CGRectMake(self.newsImageview.frame.size.width/2-130, self.newsImageview.frame.origin.y+100, 50, 50)
+            playButton.frame = CGRectMake(self.newsImageview.frame.size.width/2-140, self.newsImageview.frame.origin.y+100, 50, 50)
         } else {
             self.titleLabel.font = Font.News.newstitle
             self.detailLabel.font = Font.celllabel1
             self.newsTextview.editable = true//bug fix
             self.newsTextview.font = Font.News.newssource
             self.newsTextview.editable = false //bug fix
-            playButton.frame = CGRectMake(self.newsImageview.frame.size.width/2-25, self.newsImageview.frame.origin.y+100, 50, 50)
+            playButton.frame = CGRectMake(self.newsImageview.frame.size.width/2-140, self.newsImageview.frame.height/2-25, 50, 50)
         }
         
-        self.newsImageview.userInteractionEnabled = true
-        self.newsImageview.image = self.image
-        self.newsImageview.contentMode = UIViewContentMode.ScaleToFill
-        
-        self.titleLabel.text = self.newsTitle as? String
-        self.titleLabel.numberOfLines = 2
-        
-        self.detailLabel.text = self.newsDetail as? String
-        //self.detailLabel!.text = String(format: "%@, %d", (self.newsDetail as? String)!, (self.newsDate as? String)!)
-        self.detailLabel.textColor = UIColor.lightGrayColor()
-        self.detailLabel.sizeToFit()
-        
-        self.newsTextview.text = self.newsStory as? String
-        self.newsTextview.delegate = self
-        //self.newsTextview.autocorrectionType = UITextAutocorrectionType.Yes
-        
-        // Make web links clickable
-        self.newsTextview.selectable = true
-        self.newsTextview.editable = false
-        self.newsTextview.dataDetectorTypes = UIDataDetectorTypes.Link
-        
-        //let value = videoURL
-        //print(self.videoURL)
         let result1 = self.videoURL?.containsString("movie.mp4")
         if (result1 == true) {
             
-            //playButton.center = self.newsImageview.center
             playButton.alpha = 0.3
             playButton.userInteractionEnabled = true
             playButton.tintColor = UIColor.whiteColor()
             let playimage : UIImage? = UIImage(named:"play_button.png")!.imageWithRenderingMode(.AlwaysTemplate)
             playButton.setImage(playimage, forState: .Normal)
+            //playButton.setTitle(self.imageFile.url, forState: UIControlState.Normal)
             let tap = UITapGestureRecognizer(target: self, action: #selector(playVideo))
             playButton.addGestureRecognizer(tap)
             self.newsImageview.addSubview(playButton)
         }
+        
+        self.newsImageview.userInteractionEnabled = true
+        self.newsImageview.image = self.image
+        self.newsImageview.contentMode = .ScaleToFill
+        
+        self.titleLabel.text = self.newsTitle as? String
+        self.titleLabel.numberOfLines = 2
+
+        self.detailLabel.text = String(format: "%@ %@ %@", (self.newsDetail as? String)!, "Uploaded", (self.newsDate as? String)!)
+        self.detailLabel.textColor = UIColor.lightGrayColor()
+        self.detailLabel.sizeToFit()
+        
+        self.newsTextview.text = self.newsStory as? String
+        self.newsTextview.delegate = self
+        self.newsTextview.textContainerInset = UIEdgeInsetsMake(0, -4, 0, 0)
+        // Make web links clickable
+        self.newsTextview.selectable = true
+        self.newsTextview.editable = false
+        self.newsTextview.dataDetectorTypes = UIDataDetectorTypes.Link
+        
+    }
+    
+    //fix TextView Scroll first line
+    override func viewWillAppear(animated: Bool) {
+        self.newsTextview.scrollEnabled = false
+    }
+    //fix TextView Scroll first line
+    override func viewDidAppear(animated: Bool) {
+        self.newsTextview.scrollEnabled = true
     }
 
     override func didReceiveMemoryWarning() {
@@ -158,7 +164,6 @@ class NewsDetailController: UIViewController, UITextViewDelegate {
             photo!.imageDetailurl = self.videoURL //as String
         }
     }
-
 
 
 }

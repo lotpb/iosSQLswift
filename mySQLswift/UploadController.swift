@@ -185,7 +185,7 @@ UIImagePickerControllerDelegate, UITextViewDelegate {
             let image = info[UIImagePickerControllerEditedImage] as! UIImage
             pickImage = true
             self.imgToUpload!.image = image
-            self.imgToUpload.contentMode = UIViewContentMode.ScaleToFill
+            self.imgToUpload.contentMode = .ScaleAspectFill
             self.imgToUpload.clipsToBounds = true
             
         }

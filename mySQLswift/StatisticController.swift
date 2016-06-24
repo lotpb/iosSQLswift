@@ -591,7 +591,7 @@ class StatisticController: UIViewController, UITableViewDelegate, UITableViewDat
              photoImage = UIImageView(frame:CGRectMake(0, 0, vw.frame.size.width, 175))
              photoImage!.image = UIImage(named:"IMG_1133New.jpg")
              photoImage!.clipsToBounds = true
-             photoImage!.contentMode = UIViewContentMode.ScaleAspectFill
+             photoImage!.contentMode = .ScaleAspectFill
              vw.addSubview(photoImage!)
              
              let visualEffectView = UIVisualEffectView(effect: UIBlurEffect(style: .Dark))

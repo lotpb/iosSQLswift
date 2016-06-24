@@ -105,7 +105,7 @@ import UIKit
             static let newstitle = UIFont.systemFontOfSize(20, weight: UIFontWeightRegular)
             static let newssource = UIFont.systemFontOfSize(16, weight: UIFontWeightLight)
             static let newslabel1 = UIFont.systemFontOfSize(16, weight: UIFontWeightBold)
-            static let newslabel2 = UIFont.systemFontOfSize(12, weight: UIFontWeightLight)
+            static let newslabel2 = UIFont.systemFontOfSize(14, weight: UIFontWeightLight)
         }
         
         struct Snapshot {

@@ -48,6 +48,7 @@
 		AF6C691B1C455BAE00CD6A36 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = AF6C691A1C455BAE00CD6A36 /* Settings.bundle */; };
 		AF6E27041C3AC52300612C25 /* EditData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF6E27031C3AC52200612C25 /* EditData.swift */; };
 		AF7383EB1C302DD00049407C /* NotificationDetailController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF7383EA1C302DD00049407C /* NotificationDetailController.swift */; };
+		AF74E4601D1BFF58004DE7D6 /* SettingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF74E45F1D1BFF58004DE7D6 /* SettingCell.swift */; };
 		AF88129F1C61B14C007826AD /* MobyDick.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = AF88129E1C61B14C007826AD /* MobyDick.mp3 */; };
 		AF8CC3A71C4153AF004147F3 /* NewEditData.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8CC3A61C4153AF004147F3 /* NewEditData.swift */; };
 		AF8CC3AB1C42B9FB004147F3 /* StatisticController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF8CC3AA1C42B9FB004147F3 /* StatisticController.swift */; };
@@ -127,6 +128,7 @@
 		AFE264311C17DC11007BBB90 /* Thumb Up.png in Resources */ = {isa = PBXBuildFile; fileRef = AFE264081C17DC11007BBB90 /* Thumb Up.png */; };
 		AFE264321C17DC11007BBB90 /* Upload50.png in Resources */ = {isa = PBXBuildFile; fileRef = AFE264091C17DC11007BBB90 /* Upload50.png */; };
 		AFE264331C17DC11007BBB90 /* user_male-128.png in Resources */ = {isa = PBXBuildFile; fileRef = AFE2640A1C17DC11007BBB90 /* user_male-128.png */; };
+		AFE419D41D19EDA200A6F590 /* SettingsLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE419D31D19EDA200A6F590 /* SettingsLauncher.swift */; };
 		AFE6936F1C6A4D7E000BEDCE /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFE6936E1C6A4D7E000BEDCE /* Extensions.swift */; };
 		AFF3C8ED1C4E86B000D9B7BD /* SpotBeaconController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF3C8EC1C4E86B000D9B7BD /* SpotBeaconController.swift */; };
 		AFF3C8EF1C4E8A0100D9B7BD /* TransmitBeaconController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFF3C8EE1C4E8A0100D9B7BD /* TransmitBeaconController.swift */; };
@@ -215,6 +217,7 @@
 		AF6C691A1C455BAE00CD6A36 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		AF6E27031C3AC52200612C25 /* EditData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditData.swift; sourceTree = "<group>"; };
 		AF7383EA1C302DD00049407C /* NotificationDetailController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationDetailController.swift; sourceTree = "<group>"; };
+		AF74E45F1D1BFF58004DE7D6 /* SettingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingCell.swift; sourceTree = "<group>"; };
 		AF85E8181C77F4D7004B7EAF /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
 		AF85E81B1C77F4D7004B7EAF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		AF85E81D1C77F4D7004B7EAF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -306,6 +309,7 @@
 		AFE264081C17DC11007BBB90 /* Thumb Up.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Thumb Up.png"; path = "images/Thumb Up.png"; sourceTree = "<group>"; };
 		AFE264091C17DC11007BBB90 /* Upload50.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Upload50.png; path = images/Upload50.png; sourceTree = "<group>"; };
 		AFE2640A1C17DC11007BBB90 /* user_male-128.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "user_male-128.png"; path = "images/user_male-128.png"; sourceTree = "<group>"; };
+		AFE419D31D19EDA200A6F590 /* SettingsLauncher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsLauncher.swift; sourceTree = "<group>"; };
 		AFE6936E1C6A4D7E000BEDCE /* Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		AFF3C8EC1C4E86B000D9B7BD /* SpotBeaconController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotBeaconController.swift; sourceTree = "<group>"; };
 		AFF3C8EE1C4E8A0100D9B7BD /* TransmitBeaconController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransmitBeaconController.swift; sourceTree = "<group>"; };
@@ -485,6 +489,8 @@
 				AF0C77A21C2245BA0055DDE4 /* CollectionViewCell.swift */,
 				AF0D6B301C4AC5E900334D03 /* YQL.swift */,
 				AF5794B21C53EC6B006C456B /* KeychainWrapper.swift */,
+				AFE419D31D19EDA200A6F590 /* SettingsLauncher.swift */,
+				AF74E45F1D1BFF58004DE7D6 /* SettingCell.swift */,
 				AF0369AD1C173DDC00137D7E /* Assets.xcassets */,
 				AF0369AF1C173DDC00137D7E /* LaunchScreen.storyboard */,
 				AFB656DD1CF51C0700B8D0AC /* GoogleService-Info.plist */,
@@ -999,6 +1005,7 @@
 				AF4C1A261CEFF84600F8B038 /* WeatherGetter.swift in Sources */,
 				AF2DB75E1C243EAA00AAE855 /* UserDetailController.swift in Sources */,
 				AF2817CB1C38794F00B2607A /* LeadUserController.swift in Sources */,
+				AFE419D41D19EDA200A6F590 /* SettingsLauncher.swift in Sources */,
 				AF5C01DE1C493199009BB817 /* MusicController.swift in Sources */,
 				AF011A721C40A798000EAF5D /* ProductController.swift in Sources */,
 				AFB5A71E1C2C499200F8BC56 /* Vendor.swift in Sources */,
@@ -1006,6 +1013,7 @@
 				AFD754F41C4FFEB200021F97 /* UploadController.swift in Sources */,
 				AF1E6D561C1920FC0009230E /* CustomTableCell.swift in Sources */,
 				AF46FA841C2313EE00C27445 /* UserViewController.swift in Sources */,
+				AF74E4601D1BFF58004DE7D6 /* SettingCell.swift in Sources */,
 				AF5C01E01C4931EE009BB817 /* TrackCell.swift in Sources */,
 				AF5794B31C53EC6B006C456B /* KeychainWrapper.swift in Sources */,
 				AF8CC3A71C4153AF004147F3 /* NewEditData.swift in Sources */,

@@ -133,7 +133,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         }
         
         profileImageView!.layer.cornerRadius = profileImageView!.frame.size.width/2
-        profileImageView!.clipsToBounds = true
+        profileImageView!.layer.masksToBounds = true
         
     }
     
@@ -253,7 +253,7 @@ class EditData: UIViewController, UITableViewDelegate, UITableViewDataSource, UI
         if (indexPath.row == 0) {
             
             let theSwitch = UISwitch(frame:CGRectZero)
-            self.activeImage?.contentMode = UIViewContentMode.ScaleAspectFill
+            self.activeImage?.contentMode = .ScaleAspectFill
             
             if self.frm30 == "1" {
                 theSwitch.on = true

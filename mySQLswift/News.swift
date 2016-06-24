@@ -43,7 +43,7 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
         titleButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
         titleButton.addTarget(self, action: Selector(), forControlEvents: UIControlEvents.TouchUpInside)
         self.navigationItem.titleView = titleButton
-        
+
         self.collectionView!.backgroundColor = UIColor.whiteColor()//UIColor(white:0.90, alpha:1.0)
         
         let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action:#selector(News.newButton))
@@ -139,13 +139,41 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
             cell.imageView?.image = UIImage(data: imageData!)
         }
         
+      //if (imageFile.url!.containsString("movie.mp4")) {
+        let imageDetailurl = self.imageFile.url
+        let result1 = imageDetailurl!.containsString("movie.mp4")
+        if (result1 == true) {
+            
+            playButton.alpha = 0.3
+            playButton.userInteractionEnabled = true
+            playButton.tintColor = UIColor.grayColor()
+            let playimage : UIImage? = UIImage(named:"play_button.png")!.imageWithRenderingMode(.AlwaysTemplate)
+            playButton.setImage(playimage, forState: .Normal)
+            playButton.setTitle(self.imageFile.url, forState: UIControlState.Normal)
+            let tap = UITapGestureRecognizer(target: self, action: #selector(playVideo))
+            playButton.addGestureRecognizer(tap)
+            cell.imageView.addSubview(playButton)
+        }
         
+        /*
+         // var err: NSError? = nil
+         do {
+         let url = NSURL(string: self.videoURL!)
+         let asset = AVURLAsset(URL: url!)
+         let imgGenerator = AVAssetImageGenerator(asset: asset)
+         let cgImage = try imgGenerator.copyCGImageAtTime(CMTimeMake(0, 1), actualTime: nil)
+         let uiImage = UIImage(CGImage: cgImage)
+         cell.imageView = UIImageView(image: uiImage)
+         // lay out this image view, or if it already exists, set its image property to uiImage
+         } catch let error as NSError {
+         print("Error generating thumbnail: \(error)")
+         } */
+
+        //profile Image
         cell.imageView.userInteractionEnabled = true
         cell.imageView!.backgroundColor = UIColor.blackColor()
         cell.imageView!.layer.borderColor = UIColor.lightGrayColor().CGColor
         cell.imageView!.layer.borderWidth = 0.5
-        
-        
         let query:PFQuery = PFUser.query()!
         query.whereKey("username",  equalTo:self._feedItems[indexPath.row] .valueForKey("username") as! String)
         query.cachePolicy = PFCachePolicy.CacheThenNetwork
@@ -158,16 +186,26 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
                 }
             }
         }
-        
-        cell.profileView?.contentMode = UIViewContentMode.ScaleToFill
-        cell.profileView?.clipsToBounds = true
         cell.profileView?.layer.cornerRadius = (cell.profileView?.frame.size.width)! / 2
         cell.profileView?.layer.borderColor = UIColor.lightGrayColor().CGColor
         cell.profileView?.layer.borderWidth = 0.5
+        cell.profileView?.layer.masksToBounds = true
         cell.profileView?.userInteractionEnabled = true
+        cell.profileView?.contentMode = .ScaleAspectFill
         cell.profileView?.tag = indexPath.row
         
-        cell.titleLabel?.text = self._feedItems[indexPath.row] .valueForKey("newsTitle") as? String
+        cell.titleLabel?.text = self._feedItems[indexPath.row].valueForKey("newsTitle") as? String
+        
+        cell.actionBtn.tintColor = UIColor.lightGrayColor()
+        let imagebutton : UIImage? = UIImage(named:"nav_more_icon.png")!.imageWithRenderingMode(.AlwaysTemplate)
+        cell.actionBtn .setImage(imagebutton, forState: .Normal)
+        cell.actionBtn .addTarget(self, action: #selector(handleMore), forControlEvents: UIControlEvents.TouchUpInside)
+        
+        cell.likeButton.tintColor = UIColor.lightGrayColor()
+        let likeimage : UIImage? = UIImage(named:"Thumb Up.png")!.imageWithRenderingMode(.AlwaysTemplate)
+        cell.likeButton .setImage(likeimage, forState: .Normal)
+        cell.likeButton .addTarget(self, action: #selector(News.likeButton), forControlEvents: UIControlEvents.TouchUpInside)
+        
         
         let date1 = (self._feedItems[indexPath.row] .valueForKey("createdAt") as? NSDate)!
         let date2 = NSDate()
@@ -182,16 +220,6 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
         //let username = self._feedItems[indexPath.row] .valueForKey("username") as? String
         //cell.uploadbyLabel.text = String(format: "%@%@ %@", "Uploaded by:", username!, createString)
         
-        cell.actionBtn.tintColor = UIColor.lightGrayColor()
-        let imagebutton : UIImage? = UIImage(named:"Upload50.png")!.imageWithRenderingMode(.AlwaysTemplate)
-        cell.actionBtn .setImage(imagebutton, forState: .Normal)
-        cell.actionBtn .addTarget(self, action: #selector(News.shareButton), forControlEvents: UIControlEvents.TouchUpInside)
-        
-        cell.likeButton.tintColor = UIColor.lightGrayColor()
-        let likeimage : UIImage? = UIImage(named:"Thumb Up.png")!.imageWithRenderingMode(.AlwaysTemplate)
-        cell.likeButton .setImage(likeimage, forState: .Normal)
-        cell.likeButton .addTarget(self, action: #selector(News.likeButton), forControlEvents: UIControlEvents.TouchUpInside)
-        
         var Liked:Int? = _feedItems[indexPath.row] .valueForKey("Liked")as? Int
         if Liked == nil {
             Liked = 0
@@ -202,42 +230,6 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
             cell.numLabel.textColor = Color.News.buttonColor
         } else {
             cell.numLabel.text! = ""
-        }
-        
-        if self.imageFile.url!.rangeOfString("movie.mp4") != nil {
-      //if (self.imageFile.url!.containsString("movie.mp4")) {
-            
-            /*
-             let imageDetailurl = self.imageFile.url
-             let result1 = imageDetailurl!.containsString("movie.mp4")
-             if (result1 == true) { */
-            
-            
-          /*
-           // var err: NSError? = nil
-            do {
-               let url = NSURL(string: self.videoURL!)
-                let asset = AVURLAsset(URL: url!)
-                let imgGenerator = AVAssetImageGenerator(asset: asset)
-                let cgImage = try imgGenerator.copyCGImageAtTime(CMTimeMake(0, 1), actualTime: nil)
-                let uiImage = UIImage(CGImage: cgImage)
-                cell.imageView = UIImageView(image: uiImage)
-                // lay out this image view, or if it already exists, set its image property to uiImage
-            } catch let error as NSError {
-                print("Error generating thumbnail: \(error)")
-            } */
-            
-
-            playButton.alpha = 0.3
-            playButton.userInteractionEnabled = true
-            //playButton.center = cell.imageView.center
-            playButton.tintColor = UIColor.whiteColor()
-            let playimage : UIImage? = UIImage(named:"play_button.png")!.imageWithRenderingMode(.AlwaysTemplate)
-            playButton.setImage(playimage, forState: .Normal)
-            playButton.setTitle(self.imageFile.url, forState: UIControlState.Normal)
-            let tap = UITapGestureRecognizer(target: self, action: #selector(playVideo))
-            playButton.addGestureRecognizer(tap)
-            cell.imageView.addSubview(playButton)
         }
         
         let width = CGFloat(2.0)
@@ -293,7 +285,9 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
             }
         }
     }
-    
+//-----------------------------------------------
+//Disconnected below - Not hooked up
+//-----------------------------------------------
     func shareButton(sender: UIButton) {
         
         let point : CGPoint = sender.convertPoint(CGPointZero, toView:collectionView)
@@ -322,6 +316,8 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
             self.presentViewController(activityViewController, animated: true, completion: nil)
         } */
     }
+
+    //-----------------------------------------------------
     
     // MARK: - Video
     
@@ -362,7 +358,16 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
             }
         }
     }
-
+    
+//-------------------------------------------------
+     // MARK: - youtube Action Menu
+    let settingsLauncher = SettingsLauncher()
+    
+    func handleMore() {
+        //show menu
+        settingsLauncher.showSettings()
+    }
+//-------------------------------------------------
     
     // MARK: - Search
     
@@ -419,7 +424,7 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
             vc!.newsDate = String(self._feedItems[indexPath.row] .valueForKey("createAt") as? NSDate)
             vc!.newsStory = self._feedItems[indexPath.row] .valueForKey("storyText") as? String
             vc!.image = self.selectedImage
-            vc!.videoURL = self.videoURL
+            vc!.videoURL = self.imageFile.url
         }
     }
     

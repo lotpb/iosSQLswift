@@ -204,7 +204,7 @@ class LeadDetail: UIViewController, UITableViewDelegate, UITableViewDataSource, 
 
         photoImage = UIImageView(frame:CGRectMake(self.view.frame.size.width/2+15, 60, self.view.frame.size.width/2-25, 110))
         photoImage!.image = UIImage(named:"IMG_1133.jpg")
-        photoImage!.clipsToBounds = true
+        photoImage!.layer.masksToBounds = true
         photoImage!.layer.borderColor = UIColor.lightGrayColor().CGColor
         photoImage!.layer.borderWidth = 1.0
         photoImage!.userInteractionEnabled = true

@@ -172,7 +172,7 @@ class NewEditData: UIViewController, UITableViewDelegate, UITableViewDataSource,
                 cell.textLabel!.text = "Inactive"
             }
             
-            self.activeImage?.contentMode = UIViewContentMode.ScaleAspectFill
+            self.activeImage?.contentMode = .ScaleAspectFill
             cell.addSubview(theSwitch)
             cell.accessoryView = theSwitch
             cell.contentView.addSubview(activeImage!)

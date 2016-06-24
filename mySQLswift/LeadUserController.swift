@@ -235,13 +235,6 @@ class LeadUserController: UIViewController, UITableViewDelegate, UITableViewData
         myLabel.userInteractionEnabled = true
         cell.addSubview(myLabel)
         
-        /*
-        cell.blog2ImageView?.image = self.selectedImage
-        cell.blog2ImageView!.userInteractionEnabled = true
-        //cell.blog2ImageView!.contentMode = UIViewContentModeScaleToFill
-        cell.blog2ImageView!.clipsToBounds = true
-        //cell.blog2ImageView!.contentMode = uiv */
-        
         return cell
     }
     
