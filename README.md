@@ -8,6 +8,9 @@
 <img src="https://github.com/lotpb/iosSQLswift/blob/master/IMG_0074.jpg" alt="Shopping Cart" width="320" height="568"/>
 <img src="https://github.com/lotpb/iosSQLswift/blob/master/IMG_0075.jpg" alt="Checkout" width="320" height="568"/>
 
+<img src="https://github.com/lotpb/iosSQLswift/blob/master/IMG_0074.jpg" alt="Shopping Cart" width="320" height="568"/>
+<img src="https://github.com/lotpb/iosSQLswift/blob/master/IMG_0075.jpg" alt="Checkout" width="320" height="568"/>
+
 ### Contributing
 
 Please take a quick look at the [contribution guidelines](.github/CONTRIBUTING.md) first. If you see a package or project here that is no longer maintained or is not a good fit, please submit a pull request to improve this file.
