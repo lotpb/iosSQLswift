@@ -1144,15 +1144,6 @@
                                             <rect key="frame" x="0.0" y="0.0" width="567" height="87"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="751" verticalHuggingPriority="751" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SQm-ps-Fyh" userLabel="Blogtitle Label">
-                                                    <rect key="frame" x="72" y="10" width="185" height="21"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="185" id="KFQ-hz-Ubw"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xQG-2o-uFv" userLabel="Blogmsg Date Label">
                                                     <rect key="frame" x="398" y="15" width="184" height="16"/>
                                                     <constraints>
@@ -1225,6 +1216,15 @@
                                                         <constraint firstAttribute="height" constant="50" id="Ngx-nk-yTx"/>
                                                     </constraints>
                                                 </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="751" verticalHuggingPriority="751" horizontalCompressionResistancePriority="751" verticalCompressionResistancePriority="751" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SQm-ps-Fyh" userLabel="Blogtitle Label">
+                                                    <rect key="frame" x="72" y="10" width="185" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="185" id="KFQ-hz-Ubw"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="otl-BC-ckb" firstAttribute="leading" secondItem="0Nm-r4-QZm" secondAttribute="trailing" constant="10" id="6KF-AD-0JK"/>
@@ -5302,16 +5302,16 @@
         <image name="profile-rabbit-toy.png" width="300" height="300"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="CFI-Wk-DHq"/>
         <segue reference="3cH-G6-11A"/>
         <segue reference="8pp-z3-NBJ"/>
         <segue reference="hB9-3O-AVy"/>
         <segue reference="44k-b4-h7F"/>
-        <segue reference="eo7-o3-O2c"/>
         <segue reference="ig8-5o-G8p"/>
         <segue reference="nhd-UC-dO1"/>
-        <segue reference="d0x-gt-xcU"/>
-        <segue reference="CFI-Wk-DHq"/>
-        <segue reference="K9X-H5-ULE"/>
         <segue reference="VDX-fG-ZvN"/>
+        <segue reference="LRB-pN-dPg"/>
+        <segue reference="Mih-40-jc2"/>
+        <segue reference="T0a-J2-ljk"/>
     </inferredMetricsTieBreakers>
 </document>

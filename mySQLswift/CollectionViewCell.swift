@@ -26,6 +26,7 @@ class CollectionViewCell: UICollectionViewCell {
     } */
 //---------------------------------
 
+
     // News
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var profileView: UIImageView!

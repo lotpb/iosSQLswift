@@ -45,6 +45,8 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
         self.navigationItem.titleView = titleButton
 
         self.collectionView!.backgroundColor = UIColor.whiteColor()//UIColor(white:0.90, alpha:1.0)
+        self.collectionView.dataSource = self
+        self.collectionView.delegate = self
         
         let addButton = UIBarButtonItem(barButtonSystemItem: .Add, target: self, action:#selector(News.newButton))
         let searchButton = UIBarButtonItem(barButtonSystemItem: .Search, target: self, action:#selector(News.searchButton))
@@ -128,7 +130,7 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
             cell.sourceLabel!.font = Font.News.newssource
             cell.numLabel!.font = Font.News.newslabel1
             cell.uploadbyLabel!.font = Font.News.newslabel2
-            playButton.frame = CGRectMake(cell.imageView.frame.size.width/2-25, cell.imageView.frame.height/2-25, 50, 50)
+            playButton.frame = CGRectMake(cell.imageView!.frame.size.width/2-25, cell.imageView!.frame.height/2-25, 50, 50)
             
         }
         
@@ -139,41 +141,42 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
             cell.imageView?.image = UIImage(data: imageData!)
         }
         
-      //if (imageFile.url!.containsString("movie.mp4")) {
-        let imageDetailurl = self.imageFile.url
-        let result1 = imageDetailurl!.containsString("movie.mp4")
-        if (result1 == true) {
-            
-            playButton.alpha = 0.3
-            playButton.userInteractionEnabled = true
-            playButton.tintColor = UIColor.grayColor()
-            let playimage : UIImage? = UIImage(named:"play_button.png")!.imageWithRenderingMode(.AlwaysTemplate)
-            playButton.setImage(playimage, forState: .Normal)
-            playButton.setTitle(self.imageFile.url, forState: UIControlState.Normal)
-            let tap = UITapGestureRecognizer(target: self, action: #selector(playVideo))
-            playButton.addGestureRecognizer(tap)
-            cell.imageView.addSubview(playButton)
-        }
-        
-        /*
-         // var err: NSError? = nil
-         do {
-         let url = NSURL(string: self.videoURL!)
-         let asset = AVURLAsset(URL: url!)
-         let imgGenerator = AVAssetImageGenerator(asset: asset)
-         let cgImage = try imgGenerator.copyCGImageAtTime(CMTimeMake(0, 1), actualTime: nil)
-         let uiImage = UIImage(CGImage: cgImage)
-         cell.imageView = UIImageView(image: uiImage)
-         // lay out this image view, or if it already exists, set its image property to uiImage
-         } catch let error as NSError {
-         print("Error generating thumbnail: \(error)")
-         } */
-
-        //profile Image
         cell.imageView.userInteractionEnabled = true
         cell.imageView!.backgroundColor = UIColor.blackColor()
         cell.imageView!.layer.borderColor = UIColor.lightGrayColor().CGColor
         cell.imageView!.layer.borderWidth = 0.5
+        
+        let imageDetailurl = self.imageFile.url
+        let result1 = imageDetailurl!.containsString("movie.mp4")
+        if (result1 == true) {
+            
+            playButton.userInteractionEnabled = true
+            playButton.tintColor = UIColor.whiteColor()
+            playButton.alpha = 0.3
+            let playimage : UIImage? = UIImage(named:"play_button.png")!.imageWithRenderingMode(.AlwaysTemplate)
+            playButton.setImage(playimage, forState: .Normal)
+            playButton.setTitle(self.imageFile.url, forState: UIControlState.Normal)
+            let tap = UITapGestureRecognizer(target: self, action: #selector(self.playVideo))
+            playButton.addGestureRecognizer(tap)
+            cell.imageView!.addSubview(playButton)
+            
+            /*
+            do {
+                
+                let url:NSURL = NSURL(string: imageDetailurl!)!
+                let asset:AVAsset = AVAsset(URL:url);
+                let imageGenerator:AVAssetImageGenerator = AVAssetImageGenerator(asset:asset);
+                let time:CMTime = CMTimeMake(1,1)
+                let imageRef:CGImageRef = try imageGenerator.copyCGImageAtTime(time, actualTime: nil)
+                cell.imageView.image = UIImage(CGImage:imageRef)
+
+            } catch let error as NSError {
+                print("Error generating thumbnail: \(error)")
+            } */
+            
+        }
+        
+        //profile Image
         let query:PFQuery = PFUser.query()!
         query.whereKey("username",  equalTo:self._feedItems[indexPath.row] .valueForKey("username") as! String)
         query.cachePolicy = PFCachePolicy.CacheThenNetwork
@@ -235,7 +238,7 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
         let width = CGFloat(2.0)
         let topBorder = CALayer()
         topBorder.borderColor = UIColor.lightGrayColor().CGColor
-        topBorder.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 0.5)
+        topBorder.frame = CGRect(x: 0, y: 0, width: self.view.frame.size.width, height: 0.8)
         topBorder.borderWidth = width
         cell.layer.addSublayer(topBorder)
         cell.layer.masksToBounds = true
@@ -243,24 +246,15 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
         return cell
     }
     
-    
-    // MARK: - fix dont know how to use
-    func thumbnailImageForVideo(url:NSURL) -> UIImage? {
-        let asset = AVAsset(URL: url)
-        let imageGenerator = AVAssetImageGenerator(asset: asset)
-        imageGenerator.appliesPreferredTrackTransform = true
-        var time = asset.duration
-        //If possible - take not the first frame (it could be completely black or white on camara's videos)
-        time.value = min(time.value, 2)
-        do {
-            let imageRef = try imageGenerator.copyCGImageAtTime(time, actualTime: nil)
-            return UIImage(CGImage: imageRef) }
-        catch
-            let error as NSError {
-                print("Image generation failed with error \(error)")
-                return nil
-        }
+    /*
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+        let height = (view.frame.width - 16 - 16) * 9 / 16
+        return CGSizeMake(view.frame.width, height + 16 + 90) //68
     }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
+        return 0
+    } */
     
     
     // MARK: - Button
