@@ -116,7 +116,7 @@ class Blog: UIViewController, UITableViewDelegate, UITableViewDataSource {
             return filteredString.count
         }
         else {
-            return _feedItems.count
+            return _feedItems.count ?? 0
         }
     }
     

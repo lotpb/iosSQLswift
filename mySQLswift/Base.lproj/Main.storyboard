@@ -5302,16 +5302,16 @@
         <image name="profile-rabbit-toy.png" width="300" height="300"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="CFI-Wk-DHq"/>
         <segue reference="3cH-G6-11A"/>
-        <segue reference="8pp-z3-NBJ"/>
-        <segue reference="hB9-3O-AVy"/>
-        <segue reference="44k-b4-h7F"/>
         <segue reference="ig8-5o-G8p"/>
+        <segue reference="eo7-o3-O2c"/>
+        <segue reference="8pp-z3-NBJ"/>
+        <segue reference="44k-b4-h7F"/>
+        <segue reference="hB9-3O-AVy"/>
         <segue reference="nhd-UC-dO1"/>
-        <segue reference="VDX-fG-ZvN"/>
-        <segue reference="LRB-pN-dPg"/>
         <segue reference="Mih-40-jc2"/>
-        <segue reference="T0a-J2-ljk"/>
+        <segue reference="LRB-pN-dPg"/>
+        <segue reference="VDX-fG-ZvN"/>
+        <segue reference="CFI-Wk-DHq"/>
     </inferredMetricsTieBreakers>
 </document>

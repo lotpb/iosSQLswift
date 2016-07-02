@@ -36,6 +36,8 @@ class SettingsLauncher: NSObject, UICollectionViewDataSource, UICollectionViewDe
         return [Setting(name: "Settings", imageName: "settings"), Setting(name: "Terms & privacy policy", imageName: "privacy"), Setting(name: "Send Feedback", imageName: "feedback"), Setting(name: "Help", imageName: "help"), Setting(name: "Switch Account", imageName: "switch_account"), Setting(name: "Cancel", imageName: "cancel")]
     }()
     
+    var newsController: News?
+    
     func showSettings() {
         //show menu
         

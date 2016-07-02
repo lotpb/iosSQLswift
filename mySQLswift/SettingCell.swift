@@ -44,6 +44,7 @@ class SettingCell: CollectionViewCell {
         imageView.contentMode = .ScaleAspectFill
         return imageView
     }()
+    
     /*
     override func setupViews() {
         super.setupViews()
@@ -51,17 +52,16 @@ class SettingCell: CollectionViewCell {
         addSubview(nameLabel)
         addSubview(iconImageView)
         
-       // addConstraintsWithFormat("H:|-8-[v0(30)]-8-[v1]|", views: iconImageView, nameLabel)
+        addConstraintsWithFormat("H:|-8-[v0(30)]-8-[v1]|", views: iconImageView, nameLabel)
         
-      //  addConstraintsWithFormat("V:|[v0]|", views: nameLabel)
+        addConstraintsWithFormat("V:|[v0]|", views: nameLabel)
         
-       // addConstraintsWithFormat("V:[v0(30)]", views: iconImageView)
+        addConstraintsWithFormat("V:[v0(30)]", views: iconImageView)
         
         addConstraint(NSLayoutConstraint(item: iconImageView, attribute: .CenterY, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1, constant: 0))
         
     } */
 }
-
 
 
 

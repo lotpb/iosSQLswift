@@ -523,15 +523,15 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section:Int)->Int
     {
         if (collectionView.tag == 0) {
-            return _feedItems.count
+            return _feedItems.count ?? 0
         } else if (collectionView.tag == 1) {
-            return _feedItems2.count
+            return _feedItems2.count ?? 0
         } else if (collectionView.tag == 2) {
-            return _feedItems3.count
+            return _feedItems3.count ?? 0
         } else if (collectionView.tag == 3) {
-            return _feedItems4.count
+            return _feedItems4.count ?? 0
         } else if (collectionView.tag == 4) {
-            return _feedItems5.count
+            return _feedItems5.count ?? 0
         }
         return 1
     }

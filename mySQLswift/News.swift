@@ -13,7 +13,7 @@ import AVKit
 import AVFoundation
 
 
-class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UISearchResultsUpdating {
+class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchResultsUpdating {
 
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -103,7 +103,7 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
     // MARK: - collectionView
     
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self._feedItems.count
+        return self._feedItems.count ?? 0
     }
     
     
@@ -254,7 +254,8 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
     
     func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAtIndex section: Int) -> CGFloat {
         return 0
-    } */
+    } 
+    */
     
     
     // MARK: - Button
@@ -355,7 +356,11 @@ class News: UIViewController, UICollectionViewDataSource, UICollectionViewDelega
     
 //-------------------------------------------------
      // MARK: - youtube Action Menu
-    let settingsLauncher = SettingsLauncher()
+    lazy var settingsLauncher: SettingsLauncher = {
+        let launcher = SettingsLauncher()
+        launcher.newsController = self
+        return launcher
+    }()
     
     func handleMore() {
         //show menu

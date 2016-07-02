@@ -489,8 +489,6 @@
 				AF0C77A21C2245BA0055DDE4 /* CollectionViewCell.swift */,
 				AF0D6B301C4AC5E900334D03 /* YQL.swift */,
 				AF5794B21C53EC6B006C456B /* KeychainWrapper.swift */,
-				AFE419D31D19EDA200A6F590 /* SettingsLauncher.swift */,
-				AF74E45F1D1BFF58004DE7D6 /* SettingCell.swift */,
 				AF0369AD1C173DDC00137D7E /* Assets.xcassets */,
 				AF0369AF1C173DDC00137D7E /* LaunchScreen.storyboard */,
 				AFB656DD1CF51C0700B8D0AC /* GoogleService-Info.plist */,
@@ -554,6 +552,8 @@
 				AF5BF9E81C18C3720072B997 /* News.swift */,
 				AFF3C8F11C4F38D500D9B7BD /* NewsDetailController.swift */,
 				AFD754F31C4FFEB200021F97 /* UploadController.swift */,
+				AFE419D31D19EDA200A6F590 /* SettingsLauncher.swift */,
+				AF74E45F1D1BFF58004DE7D6 /* SettingCell.swift */,
 			);
 			name = News;
 			sourceTree = "<group>";

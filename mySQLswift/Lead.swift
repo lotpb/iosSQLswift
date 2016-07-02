@@ -123,8 +123,8 @@ class Lead: UIViewController, UITableViewDelegate, UITableViewDataSource, UISear
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if tableView == self.tableView {
-
-            return _feedItems.count
+            
+            return _feedItems.count ?? 0
   
         } else {
             

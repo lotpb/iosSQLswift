@@ -10,8 +10,9 @@
 import UIKit
 
 class CollectionViewCell: UICollectionViewCell {
-  /*
+/*
 //-----------youtube---------
+   
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
@@ -23,7 +24,7 @@ class CollectionViewCell: UICollectionViewCell {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    } */
+    }  */
 //---------------------------------
 
 
@@ -49,12 +50,11 @@ class CollectionViewCell: UICollectionViewCell {
         self.layer.cornerRadius = 5.0
         self.clipsToBounds = true
     }
-    
-    //-----youtube action menu
-    
 
-    //-----------------------------------------------------
 
+}
+
+class VideoCell: CollectionViewCell {
 }
 
 
