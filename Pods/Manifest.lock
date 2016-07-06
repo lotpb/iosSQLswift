@@ -44,7 +44,7 @@ PODS:
   - SwiftyJSON (2.3.2)
 
 DEPENDENCIES:
-  - Alamofire (~> 3.0)
+  - Alamofire
   - Firebase
   - Firebase/Auth
   - Google/SignIn
@@ -75,6 +75,6 @@ SPEC CHECKSUMS:
   GoogleUtilities: 56c5ac05b7aa5dc417a1bb85221a9516e04d7032
   SwiftyJSON: 04ccea08915aa0109039157c7974cf0298da292a
 
-PODFILE CHECKSUM: 5cc6e02e8e0c248d7aad255cd62045495ac8aabe
+PODFILE CHECKSUM: 2dbeec7dd8d930268e9db8b4e778a49656d8fa03
 
 COCOAPODS: 1.0.0
