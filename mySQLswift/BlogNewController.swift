@@ -31,7 +31,7 @@ class BlogNewController: UIViewController, UITextFieldDelegate, UITextViewDelega
     var postby : NSString?
     var msgDate : NSString?
     var rating : NSString?
-    var liked : Int?
+    var liked : Int!
     var replyId : NSString?
     
     var textcontentobjectId : NSString?
@@ -97,8 +97,10 @@ class BlogNewController: UIViewController, UITextFieldDelegate, UITextViewDelega
             self.rating = self.textcontentrating
             if (self.liked == nil) {
                 self.Like!.tintColor = UIColor.whiteColor()
+                
             } else {
                 self.Like!.tintColor = Color.Blog.buttonColor
+                
             }
         }
         
@@ -170,13 +172,23 @@ class BlogNewController: UIViewController, UITextFieldDelegate, UITextViewDelega
             self.activeImage = UIImageView(frame:CGRectMake(tableView.frame.size.width-35, 10, 18, 22))
             self.activeImage!.contentMode = .ScaleAspectFill
             
+            if (self.liked == nil || self.liked == 0) {
+                self.Like!.tintColor = UIColor.whiteColor()
+                self.Like!.setTitle(" Like", forState: UIControlState.Normal)
+                self.activeImage!.image = UIImage(named:"iosStarNA.png")
+            } else {
+                self.Like!.tintColor = Color.Blog.buttonColor
+                self.Like!.setTitle(" Likes \(liked)", forState: UIControlState.Normal)
+                self.activeImage!.image = UIImage(named:"iosStar.png")
+            }
+            /*
             if (self.rating == "5" ) {
                 self.activeImage!.image = UIImage(named:"iosStar.png")
-                self.Like!.setTitle("unLike", forState: UIControlState.Normal)
+                self.Like!.setTitle(" unLike", forState: UIControlState.Normal)
             } else {
                 self.activeImage!.image = UIImage(named:"iosStarNA.png")
-                self.Like!.setTitle("Like", forState: UIControlState.Normal)
-            }
+                self.Like!.setTitle(" Like", forState: UIControlState.Normal)
+            } */
     
             cell.textLabel!.text = self.postby as? String
             cell.detailTextLabel!.text = ""
@@ -202,12 +214,14 @@ class BlogNewController: UIViewController, UITextFieldDelegate, UITextViewDelega
             sender.tintColor = UIColor.redColor()
             self.activeImage!.image = UIImage(named:"iosStar.png")
             self.rating = "5"
+            self.liked = 1
         } else {
             self.Like!.setTitle("Like", forState: UIControlState.Normal)
             self.Like!.highlighted = false
             sender.tintColor = UIColor.whiteColor()
             self.activeImage!.image = UIImage(named:"iosStarNA.png")
             self.rating = "4"
+            self.liked = 0
         }
         self.tableView!.reloadData()
     }
@@ -285,7 +299,6 @@ class BlogNewController: UIViewController, UITextFieldDelegate, UITextViewDelega
         query.whereKey("objectId", equalTo:self.objectId!)
         query.getFirstObjectInBackgroundWithBlock {(updateblog: PFObject?, error: NSError?) -> Void in
             if error == nil {
-              //updateblog!.setObject(self.msgNo as Int, forKey:"MsgNo")
                 updateblog!.setObject(self.msgDate!, forKey:"MsgDate")
                 updateblog!.setObject(self.postby!, forKey:"PostBy")
                 updateblog!.setObject(self.rating!, forKey:"Rating")
@@ -313,6 +326,7 @@ class BlogNewController: UIViewController, UITextFieldDelegate, UITextViewDelega
         saveblog.setObject(self.subject!.text, forKey:"Subject")
         saveblog.setObject(self.msgNo ?? NSNumber(integer:-1), forKey:"MsgNo")
         saveblog.setObject(self.replyId ?? NSNull(), forKey:"ReplyId")
+        saveblog.setObject(self.liked ?? NSNumber(integer:0), forKey:"Liked")
         
         if self.formStatus == "Reply" {
             let query = PFQuery(className:"Blog")

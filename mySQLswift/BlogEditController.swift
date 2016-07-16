@@ -46,7 +46,7 @@ class BlogEditController: UIViewController, UITableViewDelegate, UITableViewData
     var msgDate : NSString?
     var rating : NSString?
     var replyId : NSString?
-    var liked : Int?
+    var liked : Int!
     var activityViewController:UIActivityViewController?
 
     override func viewDidLoad() {
@@ -94,12 +94,15 @@ class BlogEditController: UIViewController, UITableViewDelegate, UITableViewData
         
         if (self.liked == nil) {
             self.Like!.tintColor = UIColor.lightGrayColor()
+            self.Like!.setTitle("", forState: UIControlState.Normal)
         } else {
             self.Like!.tintColor = Color.Blog.buttonColor
+            self.Like!.setTitle(" Likes \(liked)", forState: UIControlState.Normal)
         }
-        let replyimage : UIImage? = UIImage(named:"Thumb Up.png")!.imageWithRenderingMode(.AlwaysTemplate)
-        self.Like!.setImage(replyimage, forState: .Normal)
+        let likeImage : UIImage? = UIImage(named:"Thumb Up.png")!.imageWithRenderingMode(.AlwaysTemplate)
+        self.Like!.setImage(likeImage, forState: .Normal)
         self.Like!.setTitleColor(UIColor.grayColor(), forState: UIControlState.Normal)
+        
         
         self.update!.setTitleColor(UIColor.grayColor(), forState: UIControlState.Normal)
         

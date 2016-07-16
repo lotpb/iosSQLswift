@@ -1,0 +1,37 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "F57CDA18CAC9B304787FD31A9C23206D85B6B83E",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "F57CDA18CAC9B304787FD31A9C23206D85B6B83E" : 0,
+    "041669095B4ED5252CA507726C21076BF644C5AF" : 0,
+    "2E559A5AE803068977A32585F5F44EA221616813" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "588F35ED-7ED6-4E55-ADA2-3F235DEF2532",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "F57CDA18CAC9B304787FD31A9C23206D85B6B83E" : "iosSQLswift\/",
+    "041669095B4ED5252CA507726C21076BF644C5AF" : "gameofchats\/",
+    "2E559A5AE803068977A32585F5F44EA221616813" : "..\/Downloads\/youtube-10"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "TheLight",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "TheLight.xcworkspace",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:purelyswift\/gameofchats.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "041669095B4ED5252CA507726C21076BF644C5AF"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:purelyswift\/youtube.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "2E559A5AE803068977A32585F5F44EA221616813"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/lotpb\/iosSQLswift.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "F57CDA18CAC9B304787FD31A9C23206D85B6B83E"
+    }
+  ]
+}

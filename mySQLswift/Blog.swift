@@ -7,6 +7,7 @@
 //
 
 import UIKit
+//import Firebase
 import Parse
 import Social
 
@@ -33,21 +34,18 @@ class Blog: UIViewController, UITableViewDelegate, UITableViewDataSource {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let titleButton: UIButton = UIButton(frame: CGRectMake(0, 0, 100, 32))
-        titleButton.setTitle("myBlog", forState: UIControlState.Normal)
-        titleButton.titleLabel?.font = Font.navlabel
-        titleButton.titleLabel?.textAlignment = NSTextAlignment.Center
-        titleButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
-        titleButton.addTarget(self, action: Selector(), forControlEvents: UIControlEvents.TouchUpInside)
-        self.navigationItem.titleView = titleButton
+        let titleLabel = UILabel(frame: CGRectMake(0, 0, 100, view.frame.height))
+        titleLabel.text = "myBlog"
+        titleLabel.textColor = UIColor.whiteColor()
+        titleLabel.font = Font.navlabel
+        titleLabel.textAlignment = NSTextAlignment.Center
+        navigationItem.titleView = titleLabel
         
         self.tableView!.delegate = self
         self.tableView!.dataSource = self
         self.tableView!.estimatedRowHeight = 110
         self.tableView!.rowHeight = UITableViewAutomaticDimension
         self.tableView!.backgroundColor =  UIColor(white:0.90, alpha:1.0)
-
-        //self.navigationItem.leftBarButtonItem = self.editButtonItem()
         
         // get rid of black bar underneath navbar
         UINavigationBar.appearance().shadowImage = UIImage()
@@ -104,6 +102,7 @@ class Blog: UIViewController, UITableViewDelegate, UITableViewDataSource {
         self.refreshControl?.endRefreshing()
     }
     
+    
     // MARK: - Table View
     
     func numberOfSectionsInTableView(tableView: UITableView) -> Int {
@@ -117,6 +116,7 @@ class Blog: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }
         else {
             return _feedItems.count ?? 0
+            //return messages.count
         }
     }
     
@@ -127,6 +127,8 @@ class Blog: UIViewController, UITableViewDelegate, UITableViewDataSource {
         if cell == nil {
             cell = CustomTableCell(style: UITableViewCellStyle.Default, reuseIdentifier: "Cell")
         }
+        
+        //let message = messages[indexPath.row]
         
         cell.selectionStyle = UITableViewCellSelectionStyle.None
         
@@ -416,16 +418,33 @@ class Blog: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     func filterContentForSearchText(searchText: String, scope: String = "All") {
-        /*filteredString = candies.filter({( candy : Candy) -> Bool in
-            let categoryMatch = (scope == "All") || (candy.category == scope)
-            return categoryMatch && candy.name.lowercaseString.containsString(searchText.lowercaseString)
-        })
-        tableView!.reloadData() */
+ 
     }
     
     // MARK: - Parse
     
+    //var messages = [Message]()
+    
     func parseData() {
+        /*
+        let ref = FIRDatabase.database().reference().child("iosBlog").child("results")
+        ref.observeEventType(.ChildAdded, withBlock: { (snapshot) in
+            
+            print(snapshot)
+            
+            if let dictionary = snapshot.value as? [String: AnyObject] {
+                let message = Message()
+                message.setValuesForKeysWithDictionary(dictionary)
+                self.messages.append(message)
+                
+                
+                //this will crash because of background thread, so lets call this on dispatch_async main thread
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.tableView!.reloadData()
+                })
+            }
+            
+            }, withCancelBlock: nil) */
         
         let query = PFQuery(className:"Blog")
         query.limit = 1000

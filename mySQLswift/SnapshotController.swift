@@ -67,21 +67,10 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
     //below has nothing
     var detailItem: AnyObject? { //dont delete for splitview
         didSet {
-            // Update the view.
-            //self.configureView()
+ 
         }
     }
     
-    
-    func configureView() {
-        /*
-        // Update the user interface for the detail item.
-        if let detail = self.detailItem {
-        if let label = self.detailDescriptionLabel {
-        label.text = detail.description
-        }
-        } */
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -94,17 +83,6 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
         titleButton.addTarget(self, action: Selector(), forControlEvents: UIControlEvents.TouchUpInside)
         self.navigationItem.titleView = titleButton
         
-        self.tableView!.delegate = self
-        self.tableView!.dataSource = self
-        self.tableView!.estimatedRowHeight = 100
-        self.tableView!.rowHeight = UITableViewAutomaticDimension
-        self.tableView!.backgroundColor = UIColor(white:0.90, alpha:1.0)
-        self.tableView!.tableFooterView = UIView(frame: .zero)
-        
-        let searchButton = UIBarButtonItem(barButtonSystemItem: .Search, target: self, action: Selector())
-        let buttons:NSArray = [searchButton]
-        self.navigationItem.rightBarButtonItems = buttons as? [UIBarButtonItem]
-        
         self.refreshControl = UIRefreshControl()
         refreshControl.backgroundColor = UIColor.clearColor()
         refreshControl.tintColor = UIColor.blackColor()
@@ -113,6 +91,8 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
         self.tableView!.addSubview(refreshControl)
         
         parseData()
+        setupTableView()
+        setupNavBarButtons()
         
     }
     
@@ -132,6 +112,21 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func setupTableView() {
+        self.tableView!.delegate = self
+        self.tableView!.dataSource = self
+        self.tableView!.estimatedRowHeight = 100
+        self.tableView!.rowHeight = UITableViewAutomaticDimension
+        self.tableView!.backgroundColor = UIColor(white:0.90, alpha:1.0)
+        self.tableView!.tableFooterView = UIView(frame: .zero)
+    }
+    
+    func setupNavBarButtons() {
+        let searchButton = UIBarButtonItem(barButtonSystemItem: .Search, target: self, action: Selector())
+        let buttons:NSArray = [searchButton]
+        self.navigationItem.rightBarButtonItems = buttons as? [UIBarButtonItem]
     }
     
     
@@ -539,7 +534,7 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
     
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath:NSIndexPath)->UICollectionViewCell
     {
-        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("Cell", forIndexPath: indexPath) as! CollectionViewCell
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("cellId", forIndexPath: indexPath) as! CollectionViewCell
         
         let myLabel1:UILabel = UILabel(frame: CGRectMake(0, 110, cell.bounds.size.width, 20))
         myLabel1.backgroundColor = UIColor.whiteColor()

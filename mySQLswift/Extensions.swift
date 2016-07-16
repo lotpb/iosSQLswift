@@ -57,7 +57,7 @@ import UIKit
         }
         
         enum News {
-            static let navColor = DGrayColor
+            static let navColor = UIColor.rgb(230, green: 32, blue: 31)
             static let buttonColor = BlueColor
         }
         
@@ -80,7 +80,7 @@ import UIKit
     */
 
     struct Font {
-        static let navlabel = UIFont.systemFontOfSize(25, weight: UIFontWeightThin)
+        static let navlabel = UIFont.systemFontOfSize(25, weight: UIFontWeightMedium)
         static let headtitle = UIFont.systemFontOfSize(UIFont.smallSystemFontSize())
         static let Edittitle = UIFont.systemFontOfSize(20, weight: UIFontWeightLight)
         static let Weathertitle = UIFont.systemFontOfSize(14, weight: UIFontWeightLight)
@@ -102,7 +102,7 @@ import UIKit
         }
         
         struct News {
-            static let newstitle = UIFont.systemFontOfSize(20, weight: UIFontWeightRegular)
+            static let newstitle = UIFont.systemFontOfSize(18, weight: UIFontWeightRegular)
             static let newssource = UIFont.systemFontOfSize(16, weight: UIFontWeightLight)
             static let newslabel1 = UIFont.systemFontOfSize(16, weight: UIFontWeightBold)
             static let newslabel2 = UIFont.systemFontOfSize(14, weight: UIFontWeightLight)
@@ -137,8 +137,13 @@ public extension UIViewController {
     
 }
 
-
 //-----------youtube---------
+
+extension UIColor {
+    static func rgb(red: CGFloat, green: CGFloat, blue: CGFloat) -> UIColor {
+        return UIColor(red: red/255, green: green/255, blue: blue/255, alpha: 1)
+    }
+}
 
 extension UIView {
     func addConstraintsWithFormat(format: String, views: UIView...) {
@@ -151,6 +156,48 @@ extension UIView {
         
         addConstraints(NSLayoutConstraint.constraintsWithVisualFormat(format, options: NSLayoutFormatOptions(), metrics: nil, views: viewsDictionary))
     }
+}
+
+let imageCache = NSCache()
+
+class CustomImageView: UIImageView {
+    
+    var imageUrlString: String?
+    
+    func loadImageUsingUrlString(urlString: String) {
+        
+        imageUrlString = urlString
+        
+        let url = NSURL(string: urlString)
+        
+        image = nil
+        
+        if let imageFromCache = imageCache.objectForKey(urlString) as? UIImage {
+            self.image = imageFromCache
+            return
+        }
+        
+        NSURLSession.sharedSession().dataTaskWithURL(url!, completionHandler: { (data, respones, error) in
+            
+            if error != nil {
+                print(error)
+                return
+            }
+            
+            dispatch_async(dispatch_get_main_queue(), {
+                
+                let imageToCache = UIImage(data: data!)
+                
+                if self.imageUrlString == urlString {
+                    self.image = imageToCache
+                }
+                
+                imageCache.setObject(imageToCache!, forKey: urlString)
+            })
+            
+        }).resume()
+    }
+    
 }
  
 //----------------------------

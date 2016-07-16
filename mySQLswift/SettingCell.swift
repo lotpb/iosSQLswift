@@ -22,7 +22,7 @@ class SettingCell: CollectionViewCell {
     
     var setting: Setting? {
         didSet {
-            nameLabel.text = setting?.name
+            nameLabel.text = setting?.name.rawValue
             
             if let imageName = setting?.imageName {
                 iconImageView.image = UIImage(named: imageName)?.imageWithRenderingMode(.AlwaysTemplate)
@@ -45,7 +45,7 @@ class SettingCell: CollectionViewCell {
         return imageView
     }()
     
-    /*
+    
     override func setupViews() {
         super.setupViews()
         
@@ -60,7 +60,7 @@ class SettingCell: CollectionViewCell {
         
         addConstraint(NSLayoutConstraint(item: iconImageView, attribute: .CenterY, relatedBy: .Equal, toItem: self, attribute: .CenterY, multiplier: 1, constant: 0))
         
-    } */
+    } 
 }
 
 
