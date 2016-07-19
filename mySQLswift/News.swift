@@ -23,18 +23,16 @@ class News: UIViewController, UICollectionViewDelegateFlowLayout, UISearchResult
     @IBOutlet weak var collectionView: UICollectionView!
     
     //var _feedItems : NSMutableArray = NSMutableArray()
-    
     //var imageObject :PFObject!
     //var imageFile :PFFile!
-    
     //var selectedImage : UIImage?
+    
     var searchController: UISearchController!
     var resultsController: UITableViewController!
     var foundUsers = [String]()
     
     var playerViewController = AVPlayerViewController()
     var videoURL: String?
-    
     var refreshControl: UIRefreshControl!
     
     

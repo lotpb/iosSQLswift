@@ -20,6 +20,11 @@ class Blog: UIViewController, UITableViewDelegate, UITableViewDataSource {
     var _feedItems : NSMutableArray = NSMutableArray()
     var _feedheadItems : NSMutableArray = NSMutableArray()
     var filteredString : NSMutableArray = NSMutableArray()
+    /*
+    var messages = [Message]()
+    var messagesDictionary = [String: Message]()
+    var users = [User]()
+    var usersDictionary = [String: User]() */
     
     var buttonView: UIView?
     var likeButton: UIButton?
@@ -62,7 +67,20 @@ class Blog: UIViewController, UITableViewDelegate, UITableViewDataSource {
            self.detailViewController = (controllers[controllers.count-1] as! UINavigationController).topViewController as? DetailViewController
         } */
         
+        /*
+        FIRAuth.auth()?.signInWithEmail("eunitedws@verizon.net", password: "united", completion: { (user, error) in
+            
+            if error != nil {
+                print(error)
+                return
+            }
+            self.observeMessages()
+            //self.observeUser()
+            //self.checkIfUserIsLoggedIn()
+        }) */
+        
         parseData()
+        
         
         self.refreshControl = UIRefreshControl()
         self.refreshControl.backgroundColor = Color.Blog.navColor
@@ -120,15 +138,118 @@ class Blog: UIViewController, UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    func handleCancel() {
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        var cell = tableView.dequeueReusableCellWithIdentifier("Cell") as! CustomTableCell!
+        let cell = tableView.dequeueReusableCellWithIdentifier("Cell") as! CustomTableCell!
+        /*
+        cell.selectionStyle = UITableViewCellSelectionStyle.None
+        
+        if UI_USER_INTERFACE_IDIOM() == UIUserInterfaceIdiom.Pad {
+            
+            cell.blogtitleLabel!.font =  Font.Blog.celltitle
+            cell.blogsubtitleLabel!.font =  Font.Blog.cellsubtitle
+            cell.blogmsgDateLabel.font = Font.Blog.celldate
+            cell.numLabel.font = Font.Blog.cellLabel
+            cell.commentLabel.font = Font.Blog.cellLabel
+            
+        } else {
+            
+            cell.blogtitleLabel!.font =  Font.Blog.celltitle
+            cell.blogsubtitleLabel!.font =  Font.Blog.cellsubtitle
+            cell.blogmsgDateLabel.font = Font.Blog.celldate
+            cell.numLabel.font = Font.Blog.cellLabel
+            cell.commentLabel.font = Font.Blog.cellLabel
+        }
         
         if cell == nil {
             cell = CustomTableCell(style: UITableViewCellStyle.Default, reuseIdentifier: "Cell")
         }
         
-        //let message = messages[indexPath.row]
+        let message = messages[indexPath.row]
+        //let user = users[0]
+        
+        /*
+        if let profileImageUrl = user.profileImageUrl {
+           cell.blogImageView?.loadImageUsingCacheWithUrlString(profileImageUrl)
+        } */
+        
+        cell.blogImageView?.layer.cornerRadius = (cell.blogImageView?.frame.size.width)! / 2
+        cell.blogImageView?.layer.borderColor = UIColor.lightGrayColor().CGColor
+        cell.blogImageView?.layer.borderWidth = 0.5
+        cell.blogImageView?.layer.masksToBounds = true
+        cell.blogImageView?.userInteractionEnabled = true
+        cell.blogImageView?.contentMode = .ScaleAspectFill
+        cell.blogImageView?.tag = indexPath.row
+        
+        let tap = UITapGestureRecognizer(target: self, action:#selector(Blog.imgLoadSegue))
+        cell.blogImageView.addGestureRecognizer(tap)
+        
+        cell.blogtitleLabel.text = message.PostBy
+        cell.blogsubtitleLabel!.text = message.Subject
+        
+        let dateStr = message.MsgDate
+        let dateFormatter = NSDateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let date:NSDate = dateFormatter.dateFromString(dateStr!)as NSDate!
+        dateFormatter.dateFormat = "MMM-dd"
+        cell.blogmsgDateLabel.text = dateFormatter.stringFromDate(date)as String!
+        
+        var Liked:Int? = message.Liked as? Int
+        if Liked == nil {
+            Liked = 0
+        }
+        cell.numLabel?.text = "\(Liked!)"
+ 
+        var CommentCount:Int? = message.CommentCount as? Int
+        if CommentCount == nil {
+            CommentCount = 0
+        }
+        cell.commentLabel?.text = "\(CommentCount!)"
+        
+        
+        cell.replyButton.tintColor = UIColor.lightGrayColor()
+        let replyimage : UIImage? = UIImage(named:"Commentfilled.png")!.imageWithRenderingMode(.AlwaysTemplate)
+        cell.replyButton .setImage(replyimage, forState: .Normal)
+        cell.replyButton .addTarget(self, action: #selector(Blog.replyButton), forControlEvents: UIControlEvents.TouchUpInside)
+        
+        cell.likeButton.tintColor = UIColor.lightGrayColor()
+        let likeimage : UIImage? = UIImage(named:"Thumb Up.png")!.imageWithRenderingMode(.AlwaysTemplate)
+        cell.likeButton .setImage(likeimage, forState: .Normal)
+        cell.likeButton .addTarget(self, action: #selector(Blog.likeButton), forControlEvents: UIControlEvents.TouchUpInside)
+        
+        cell.flagButton.tintColor = UIColor.lightGrayColor()
+        let reportimage : UIImage? = UIImage(named:"Flag.png")!.imageWithRenderingMode(.AlwaysTemplate)
+        cell.flagButton .setImage(reportimage, forState: .Normal)
+        cell.flagButton .addTarget(self, action: #selector(Blog.flagButton), forControlEvents: UIControlEvents.TouchUpInside)
+        
+        cell.actionBtn.tintColor = UIColor.lightGrayColor()
+        let actionimage : UIImage? = UIImage(named:"nav_more_icon.png")!.imageWithRenderingMode(.AlwaysTemplate)
+        cell.actionBtn .setImage(actionimage, forState: .Normal)
+        cell.actionBtn .addTarget(self, action: #selector(Blog.showShare), forControlEvents: UIControlEvents.TouchUpInside)
+        
+        if !(cell.numLabel.text! == "0") {
+            cell.numLabel.textColor = Color.Blog.buttonColor
+        } else {
+            cell.numLabel.text! = ""
+        }
+        
+        if !(cell.commentLabel.text! == "0") {
+            cell.commentLabel.textColor = UIColor.lightGrayColor()
+        } else {
+            cell.commentLabel.text! = ""
+        }
+        
+        if (cell.commentLabel.text! == "") {
+            cell.replyButton.tintColor = UIColor.lightGrayColor()
+        } else {
+            cell.replyButton.tintColor = Color.Blog.buttonColor
+        } */
+        
+        
         
         cell.selectionStyle = UITableViewCellSelectionStyle.None
         
@@ -240,6 +361,7 @@ class Blog: UIViewController, UITableViewDelegate, UITableViewDataSource {
         } else {
             cell.replyButton.tintColor = Color.Blog.buttonColor
         }
+ 
 
         return cell
     }
@@ -393,9 +515,90 @@ class Blog: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     func flagButton(sender:UIButton) {
-        
-
     }
+    
+    
+    // MARK: - Firebase
+//-----------------------------------------
+    /*
+    func observeUser() {
+        let ref = FIRDatabase.database().reference().child("Users")
+        ref.observeEventType(.ChildAdded, withBlock: { (snapshot) in
+            //print(snapshot.value)
+            if let dictionary = snapshot.value as? [String: AnyObject] {
+                let user = User()
+                user.setValuesForKeysWithDictionary(dictionary)
+                self.users.append(user)
+                
+                print(self.users)
+                
+                //this will crash because of background thread, so lets call this on dispatch_async main thread
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.tableView!.reloadData()
+                })
+            }
+            
+            }, withCancelBlock: nil)
+    }
+    
+    
+    func observeMessages() {
+        let ref = FIRDatabase.database().reference().child("Blog")
+        ref.observeEventType(.ChildAdded, withBlock: { (snapshot) in
+            //print(snapshot.value)
+            if let dictionary = snapshot.value as? [String: AnyObject] {
+                let message = Message()
+                message.setValuesForKeysWithDictionary(dictionary)
+                self.messages.append(message)
+                
+                if let toId = message.objectId {
+                    self.messagesDictionary[toId] = message
+                    
+                    self.messages = Array(self.messagesDictionary.values)
+                    self.messages.sortInPlace({ (message1, message2) -> Bool in
+                        
+                        return message1.MsgDate > message2.MsgDate
+                    })
+                }
+                
+                //this will crash because of background thread, so lets call this on dispatch_async main thread
+                dispatch_async(dispatch_get_main_queue(), {
+                    self.tableView!.reloadData()
+                })
+            }
+            
+            }, withCancelBlock: nil)
+    }
+    
+    func checkIfUserIsLoggedIn() {
+        if FIRAuth.auth()?.currentUser?.uid == nil {
+            print("Crap")
+            //performSelector(#selector(handleLogout), withObject: nil, afterDelay: 0)
+        } else {
+            fetchUserAndSetupNavBarTitle()
+        }
+    }
+    
+    func fetchUserAndSetupNavBarTitle() {
+        
+        guard let uid = FIRAuth.auth()?.currentUser?.uid else {
+            //for some reason uid = nil
+            return
+        }
+        FIRDatabase.database().reference().child("users").child(uid).observeSingleEventOfType(.Value, withBlock: { (snapshot) in
+            
+            if let dictionary = snapshot.value as? [String: AnyObject] {
+                //                self.navigationItem.title = dictionary["name"] as? String
+                
+                let user = User()
+                user.setValuesForKeysWithDictionary(dictionary)
+                //self.setupNavBarWithUser(user)
+            }
+            
+            }, withCancelBlock: nil)
+    } */
+ 
+//-----------------------------------------
     
     // MARK: - Search
     
@@ -422,29 +625,8 @@ class Blog: UIViewController, UITableViewDelegate, UITableViewDataSource {
     }
     
     // MARK: - Parse
-    
-    //var messages = [Message]()
-    
+
     func parseData() {
-        /*
-        let ref = FIRDatabase.database().reference().child("iosBlog").child("results")
-        ref.observeEventType(.ChildAdded, withBlock: { (snapshot) in
-            
-            print(snapshot)
-            
-            if let dictionary = snapshot.value as? [String: AnyObject] {
-                let message = Message()
-                message.setValuesForKeysWithDictionary(dictionary)
-                self.messages.append(message)
-                
-                
-                //this will crash because of background thread, so lets call this on dispatch_async main thread
-                dispatch_async(dispatch_get_main_queue(), {
-                    self.tableView!.reloadData()
-                })
-            }
-            
-            }, withCancelBlock: nil) */
         
         let query = PFQuery(className:"Blog")
         query.limit = 1000

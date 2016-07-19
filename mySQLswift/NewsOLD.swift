@@ -13,7 +13,7 @@ import AVKit
 import AVFoundation
 
 
-class NewsNEW: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchResultsUpdating {
+class NewsOLD: UIViewController, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UISearchResultsUpdating {
     
     let cellId = "cellId"
     let trendingCellId = "trendingCellId"

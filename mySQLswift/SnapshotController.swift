@@ -80,7 +80,7 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
         titleButton.titleLabel?.font = Font.navlabel
         titleButton.titleLabel?.textAlignment = NSTextAlignment.Center
         titleButton.setTitleColor(UIColor.whiteColor(), forState: UIControlState.Normal)
-        titleButton.addTarget(self, action: Selector(), forControlEvents: UIControlEvents.TouchUpInside)
+        //titleButton.addTarget(self, action: Selector(), forControlEvents: UIControlEvents.TouchUpInside)
         self.navigationItem.titleView = titleButton
         
         self.refreshControl = UIRefreshControl()
@@ -676,7 +676,6 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
             if error == nil {
                 let temp: NSArray = objects! as NSArray
                 self._feedItems = temp.mutableCopy() as! NSMutableArray
-                self.tableView!.reloadData()
             } else {
                 print("Error")
             }
@@ -689,7 +688,6 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
             if error == nil {
                 let temp: NSArray = objects! as NSArray
                 self._feedItems2 = temp.mutableCopy() as! NSMutableArray
-                self.tableView!.reloadData()
             } else {
                 print("Error")
             }
@@ -702,7 +700,6 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
             if error == nil {
                 let temp: NSArray = objects! as NSArray
                 self._feedItems3 = temp.mutableCopy() as! NSMutableArray
-                self.tableView!.reloadData()
             } else {
                 print("Error")
             }
@@ -715,7 +712,6 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
             if error == nil {
                 let temp: NSArray = objects! as NSArray
                 self._feedItems4 = temp.mutableCopy() as! NSMutableArray
-                self.tableView!.reloadData()
             } else {
                 print("Error")
             }
@@ -728,7 +724,6 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
             if error == nil {
                 let temp: NSArray = objects! as NSArray
                 self._feedItems5 = temp.mutableCopy() as! NSMutableArray
-                self.tableView!.reloadData()
             } else {
                 print("Error")
             }
@@ -742,12 +737,23 @@ class SnapshotController: UIViewController, UITableViewDelegate, UITableViewData
             if error == nil {
                 let temp: NSArray = objects! as NSArray
                 self._feedItems6 = temp.mutableCopy() as! NSMutableArray
-                self.tableView!.reloadData()
             } else {
                 print("Error")
             }
         }
-        //self.tableView!.reloadData()
+        
+        self.timer?.invalidate()
+        self.timer = NSTimer.scheduledTimerWithTimeInterval(0.1, target: self, selector: #selector(self.handleReloadTable), userInfo: nil, repeats: false)
+        //print("schedule a table reload in 0.1 sec")
+    }
+    
+    var timer: NSTimer?
+    
+    func handleReloadTable() {
+        
+        dispatch_async(dispatch_get_main_queue(), {
+            self.tableView.reloadData()
+        })
     }
     
     // MARK: - Segues

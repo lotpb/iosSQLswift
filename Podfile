@@ -9,8 +9,9 @@ target 'TheLight' do
     
 pod 'SwiftyJSON', :git => 'https://github.com/SwiftyJSON/SwiftyJSON.git'
 pod 'Firebase'
-pod 'Firebase/Auth'
 pod 'Firebase/Database'
+pod 'Firebase/Auth'
+pod 'Firebase/Storage'
 
 end
 

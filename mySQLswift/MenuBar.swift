@@ -62,10 +62,6 @@ class MenuBar: UIView, UICollectionViewDataSource, UICollectionViewDelegate, UIC
     
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         
-        /*
-        let x = CGFloat(indexPath.item) * frame.width / 4
-        horizontalBarLeftAnchorConstraint?.constant = x */
-        
         homeController?.scrollToMenuIndex(indexPath.item)
     }
     
